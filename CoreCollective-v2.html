@@ -1,0 +1,1202 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Core Collective Real Estate | Premium Properties</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ─── RESET & ROOT ──────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A192F;--navy-mid:#0D2244;--navy-lt:#16324F;
+  --gold:#C5A059;--gold-lt:#D4AF37;--gold-dim:#8B7040;
+  --white:#FFFFFF;--off-white:#F7F5F0;
+  --gray-100:#ECEAE5;--gray-300:#B0AEA8;--gray-500:#6B6963;
+  --text-dark:#0A192F;
+  --font-serif:'Cormorant Garamond',Georgia,serif;
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --header-h:80px;
+  --trans:cubic-bezier(0.4,0,0.2,1);
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--white);color:var(--text-dark);overflow-x:hidden;line-height:1.6}
+img{display:block;width:100%;object-fit:cover}
+a{text-decoration:none;color:inherit}
+button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
+
+/* PAGE VIEWS */
+.page{display:none}.page.active{display:block}
+
+/* ─── HEADER ─────────────────────────────────────────── */
+#site-header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  height:var(--header-h);
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:center;gap:16px;padding:0 32px;
+  background:transparent;
+  transition:background .4s var(--trans),box-shadow .4s var(--trans);
+}
+#site-header.scrolled{background:var(--navy);box-shadow:0 2px 32px rgba(0,0,0,.35)}
+#site-header.listing-header{background:var(--navy)}
+.logo{display:flex;flex-direction:column;gap:2px;cursor:pointer;flex-shrink:0}
+.logo-line1{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--white);letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap}
+.logo-line2{font-family:var(--font-sans);font-size:7px;font-weight:300;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
+
+/* NAV */
+.main-nav{display:flex;align-items:center;justify-content:center;gap:0;min-width:0;overflow:visible}
+.nav-item{position:relative}
+.nav-link{display:block;padding:10px 10px;font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);transition:color .2s;white-space:nowrap}
+.nav-link::after{content:'';display:block;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--trans);margin-top:3px}
+.nav-item:hover .nav-link{color:var(--gold)}
+.nav-item:hover .nav-link::after{transform:scaleX(1)}
+
+/* UPGRADE 1a: Wider breakpoint range — fires at 901–1400px (not just 1200px)
+   This catches the most common laptop sizes (1280px, 1366px, 1440px) at 100% zoom */
+@media(min-width:901px) and (max-width:1400px){
+  #site-header{padding:0 20px;gap:8px}
+  .nav-link{font-size:8.5px;padding:10px 7px;letter-spacing:.05em}
+  .logo-line1{font-size:14px;letter-spacing:.04em}
+  .logo-line2{font-size:6.5px;letter-spacing:.16em}
+  .header-cta{padding:8px 12px;font-size:8.5px;letter-spacing:.1em}
+}
+
+/* DROPDOWN */
+.dropdown{position:absolute;top:100%;left:0;min-width:200px;background:var(--navy);border-top:2px solid var(--gold);overflow:hidden;max-height:0;opacity:0;pointer-events:none;transition:max-height .38s var(--trans),opacity .28s var(--trans)}
+.nav-item:hover .dropdown{max-height:320px;opacity:1;pointer-events:all}
+.dropdown a{display:block;padding:14px 22px;font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);border-bottom:1px solid rgba(255,255,255,.07);transition:color .18s,background .18s,padding-left .22s}
+.dropdown a:last-child{border-bottom:none}
+.dropdown a:hover{color:var(--gold);background:rgba(197,160,89,.08);padding-left:30px}
+
+/* HEADER CTA */
+.header-cta{flex-shrink:0;padding:9px 16px;background:var(--gold);color:var(--navy);font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;transition:background .2s,transform .15s}
+.header-cta:hover{background:var(--gold-lt);transform:translateY(-1px)}
+.menu-toggle{display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer}
+.menu-toggle span{display:block;width:24px;height:1.5px;background:var(--white);transition:transform .3s,opacity .3s}
+
+/* ─── HERO ─────────────────────────────────────────── */
+#hero{position:relative;height:100vh;min-height:700px;overflow:hidden;display:flex;align-items:flex-end}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0A192F 0%,#16324F 40%,#1a3a5c 100%)}
+.hero-bg::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1800&q=80') center/cover no-repeat;opacity:.22}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,47,.98) 0%,rgba(10,25,47,.55) 50%,rgba(10,25,47,.2) 100%)}
+/* padding-top: var(--header-h) ensures the headline can never slide behind the fixed nav bar */
+.hero-content{position:relative;z-index:2;padding:var(--header-h) 80px 100px;max-width:900px;width:100%}
+.hero-eyebrow{font-size:10px;font-weight:500;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:16px}
+.hero-eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--gold)}
+.hero-h1{font-family:var(--font-display);font-size:clamp(52px,7vw,96px);font-weight:400;line-height:.95;color:var(--white);margin-bottom:28px;letter-spacing:-.01em}
+.hero-h1 em{font-style:italic;color:var(--gold)}
+.hero-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,.65);max-width:480px;line-height:1.7;margin-bottom:40px;letter-spacing:.02em}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;transition:background .2s,transform .15s,box-shadow .2s}
+.btn-primary:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 8px 24px rgba(197,160,89,.35)}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:1px solid rgba(255,255,255,.4);color:var(--white);font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .2s,color .2s,background .2s}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);background:rgba(197,160,89,.06)}
+.hero-stats{position:absolute;bottom:0;right:0;z-index:2;display:flex;border-top:1px solid rgba(197,160,89,.25);border-left:1px solid rgba(197,160,89,.25)}
+.stat-block{padding:28px 40px;text-align:center;background:rgba(10,25,47,.85);backdrop-filter:blur(10px);border-right:1px solid rgba(197,160,89,.15)}
+.stat-block:last-child{border-right:none}
+.stat-num{font-family:var(--font-display);font-size:32px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px}
+.stat-label{font-size:9px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.scroll-cue{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px}
+.scroll-cue span{font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
+
+/* ─── SECTIONS ─────────────────────────────────────── */
+section{padding:100px 80px}
+.section-eyebrow{font-size:10px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.section-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
+.section-title{font-family:var(--font-display);font-size:clamp(36px,4vw,58px);font-weight:400;line-height:1.1;color:var(--navy);margin-bottom:20px}
+.section-title em{font-style:italic}
+.section-sub{font-size:15px;font-weight:300;color:var(--gray-500);max-width:520px;line-height:1.75}
+
+/* ─── PROPERTIES ──────────────────────────────────── */
+#properties{background:var(--off-white)}
+.section-header{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;flex-wrap:wrap;gap:24px}
+.filter-tabs{display:flex;gap:4px;background:var(--white);padding:6px;border:1px solid var(--gray-100)}
+.filter-tab{padding:8px 20px;font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gray-500);cursor:pointer;transition:background .2s,color .2s}
+.filter-tab.active,.filter-tab:hover{background:var(--navy);color:var(--gold)}
+.property-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:2px}
+
+/* UPGRADE 1c: aspect-ratio prevents layout shift while images load */
+.prop-img-wrap{position:relative;aspect-ratio:16/10;overflow:hidden}
+.prop-img-wrap img{width:100%;height:100%;transition:transform .7s var(--trans)}
+
+.prop-card{background:var(--white);cursor:pointer;overflow:hidden;position:relative;border:1px solid var(--gray-100);transition:box-shadow .35s var(--trans),transform .35s var(--trans)}
+.prop-card:hover{box-shadow:0 20px 60px rgba(10,25,47,.18);transform:translateY(-4px);z-index:2}
+.prop-card:hover .prop-img-wrap img{transform:scale(1.08)}
+.status-tag{position:absolute;top:16px;left:16px;padding:5px 12px;font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;z-index:1}
+.status-active{background:var(--gold);color:var(--navy)}
+.status-pending{background:var(--navy);color:var(--gold);border:1px solid var(--gold)}
+.status-coming{background:rgba(10,25,47,.88);color:var(--white);backdrop-filter:blur(4px)}
+.status-sold{background:#222;color:var(--gray-300)}
+.prop-save{position:absolute;top:14px;right:14px;width:32px;height:32px;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;border-radius:50%;font-size:14px;transition:background .2s,transform .2s;z-index:1}
+.prop-save:hover{background:var(--gold);transform:scale(1.1)}
+.prop-save.saved::after{content:'♥';color:#c0392b}
+.prop-save:not(.saved)::after{content:'♡';color:var(--navy)}
+.prop-info{padding:24px}
+.prop-price{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--navy);margin-bottom:6px;letter-spacing:-.01em}
+.prop-address{font-size:12px;font-weight:400;color:var(--gray-500);letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px}
+.prop-divider{height:1px;background:var(--gray-100);margin-bottom:16px}
+.prop-metrics{display:flex;gap:0}
+.prop-metric{flex:1;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);border-right:1px solid var(--gray-100);padding-right:12px;margin-right:12px}
+.prop-metric:last-child{border-right:none;margin-right:0}
+.metric-icon{font-size:14px;color:var(--gold)}
+.prop-agent{display:flex;align-items:center;gap:10px;padding:14px 24px;background:var(--off-white);border-top:1px solid var(--gray-100)}
+.agent-avatar-sm{width:28px;height:28px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:600;color:var(--gold);letter-spacing:.05em}
+.agent-name-sm{font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-500)}
+
+/* NO RESULTS */
+.no-results{grid-column:1/-1;text-align:center;padding:80px 40px;border:1px solid var(--gray-100);background:var(--white)}
+.no-results-icon{font-size:40px;margin-bottom:20px;opacity:.3}
+.no-results-title{font-family:var(--font-display);font-size:28px;font-weight:400;color:var(--navy);margin-bottom:10px}
+.no-results-sub{font-size:14px;font-weight:300;color:var(--gray-500);margin-bottom:28px}
+.no-results-reset{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--navy);color:var(--gold);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .2s}
+.no-results-reset:hover{background:var(--gold);color:var(--navy)}
+.view-all{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);border-bottom:1px solid var(--navy);padding-bottom:2px;margin-top:48px;transition:color .2s,border-color .2s}
+.view-all:hover{color:var(--gold);border-color:var(--gold)}
+.view-all-arrow{transition:transform .2s}
+.view-all:hover .view-all-arrow{transform:translateX(5px)}
+
+/* ─── BUYERS ──────────────────────────────────────── */
+#buyers{background:var(--navy)}
+#buyers .section-title{color:var(--white)}
+#buyers .section-sub{color:rgba(255,255,255,.55)}
+#buyers .section-eyebrow{color:var(--gold)}
+.search-panel{background:var(--white);padding:40px;margin-top:48px}
+.search-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:0;border:1px solid var(--gray-100)}
+.search-field{padding:20px 24px;border-right:1px solid var(--gray-100);display:flex;flex-direction:column;gap:6px}
+.search-field:last-child{border-right:none}
+.search-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.search-input{border:none;outline:none;font-family:var(--font-sans);font-size:14px;font-weight:300;color:var(--navy);background:transparent;width:100%}
+.search-select{border:none;outline:none;font-family:var(--font-sans);font-size:14px;font-weight:300;color:var(--navy);background:transparent;width:100%;appearance:none;cursor:pointer}
+.search-btn{padding:20px 36px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transition:background .2s;white-space:nowrap}
+.search-btn:hover{background:var(--gold-lt)}
+.buyer-features{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px}
+.buyer-feature{border-top:2px solid rgba(197,160,89,.3);padding-top:28px}
+.buyer-feature-icon{font-size:28px;margin-bottom:16px;color:var(--gold)}
+.buyer-feature-title{font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--white);margin-bottom:10px}
+.buyer-feature-text{font-size:13px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.75}
+
+/* ─── SELLERS ─────────────────────────────────────── */
+#sellers{background:var(--off-white);display:grid;grid-template-columns:1fr 1fr;gap:0;padding:0}
+.sellers-img{position:relative;overflow:hidden;min-height:560px}
+.sellers-img img{height:100%;object-fit:cover}
+.sellers-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(10,25,47,.15),transparent)}
+.sellers-content{padding:100px 80px;display:flex;flex-direction:column;justify-content:center;background:var(--navy)}
+.sellers-content .section-title{color:var(--white)}
+.sellers-content .section-sub{color:rgba(255,255,255,.6);margin-bottom:40px}
+.worth-block{background:rgba(197,160,89,.1);border:1px solid rgba(197,160,89,.3);padding:32px;margin-top:8px}
+.worth-title{font-family:var(--font-display);font-size:28px;font-weight:400;color:var(--gold);margin-bottom:10px;line-height:1.2}
+.worth-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,.6);margin-bottom:24px}
+.worth-form{display:flex;gap:0}
+.worth-input{flex:1;padding:14px 18px;background:rgba(255,255,255,.08);border:1px solid rgba(197,160,89,.3);border-right:none;color:var(--white);font-family:var(--font-sans);font-size:13px;outline:none}
+.worth-input::placeholder{color:rgba(255,255,255,.35)}
+.worth-submit{padding:14px 24px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
+.worth-submit:hover{background:var(--gold-lt)}
+.sellers-stats{display:flex;gap:0;margin-top:40px;border-top:1px solid rgba(197,160,89,.2);padding-top:32px}
+.s-stat{flex:1;border-right:1px solid rgba(197,160,89,.15);padding-right:24px;margin-right:24px}
+.s-stat:last-child{border:none;margin:0}
+.s-stat-num{font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px}
+.s-stat-label{font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+/* ─── INVESTORS ───────────────────────────────────── */
+#investors{background:var(--white)}
+.investor-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;margin-top:56px;align-items:start}
+.investor-philosophy{font-family:var(--font-serif);font-size:22px;font-style:italic;color:var(--navy);line-height:1.6;border-left:3px solid var(--gold);padding-left:28px;margin-bottom:32px}
+.investor-text{font-size:14px;font-weight:300;color:var(--gray-500);line-height:1.8;margin-bottom:28px}
+.cap-rates{background:var(--off-white);border:1px solid var(--gray-100);padding:32px}
+.cap-rates-title{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid var(--gray-100)}
+.cap-rate-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1px solid var(--gray-100)}
+.cap-rate-row:last-child{border:none}
+.cap-type{font-size:12px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--navy)}
+.cap-range{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--gold)}
+.market-metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
+.metric-card{background:var(--navy);padding:24px}
+.metric-card-label{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px}
+.metric-card-val{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
+.metric-card-chg{font-size:11px;font-weight:400;color:#5cb85c}
+.metric-card-chg.down{color:#c0392b}
+
+/* ─── TEAM ─────────────────────────────────────────── */
+#team{background:var(--navy);padding-bottom:120px}
+#team .section-title{color:var(--white)}
+#team .section-sub{color:rgba(255,255,255,.5)}
+.agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:56px}
+.agent-card{position:relative;overflow:hidden;background:var(--navy-mid);cursor:pointer}
+.agent-img{height:320px;position:relative;overflow:hidden;background:var(--navy-lt);display:flex;align-items:center;justify-content:center}
+.agent-initials{font-family:var(--font-display);font-size:48px;font-weight:400;color:rgba(197,160,89,.4);letter-spacing:.05em}
+.agent-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,47,1) 0%,rgba(10,25,47,.3) 60%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;transition:background .35s}
+.agent-card:hover .agent-overlay{background:linear-gradient(to top,rgba(10,25,47,1) 20%,rgba(10,25,47,.5) 70%,rgba(197,160,89,.1) 100%)}
+.agent-name{font-family:var(--font-display);font-size:20px;font-weight:400;color:var(--white);margin-bottom:4px}
+.agent-role{font-size:9px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.agent-contact-links{display:flex;gap:10px;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s}
+.agent-card:hover .agent-contact-links{opacity:1;transform:translateY(0)}
+.agent-link{padding:6px 14px;border:1px solid rgba(197,160,89,.5);font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);transition:background .2s,color .2s}
+.agent-link:hover{background:var(--gold);color:var(--navy)}
+
+/* ─── TESTIMONIALS ────────────────────────────────── */
+#testimonials{background:var(--off-white)}
+.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
+.testimonial-card{background:var(--white);padding:40px;border-top:3px solid transparent;transition:border-color .3s,transform .3s}
+.testimonial-card:hover{border-color:var(--gold);transform:translateY(-4px)}
+.testimonial-stars{color:var(--gold);font-size:14px;margin-bottom:20px;letter-spacing:3px}
+.testimonial-text{font-family:var(--font-serif);font-size:17px;font-style:italic;font-weight:300;color:var(--navy);line-height:1.7;margin-bottom:28px}
+.testimonial-author{display:flex;align-items:center;gap:14px}
+.t-avatar{width:44px;height:44px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--gold)}
+.t-name{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin-bottom:3px}
+.t-detail{font-size:11px;color:var(--gray-500)}
+
+/* ─── CONTACT STRIP ───────────────────────────────── */
+#contact-strip{background:var(--navy);padding:80px;display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap}
+.contact-left{flex:1;min-width:280px}
+.contact-title{font-family:var(--font-display);font-size:clamp(32px,3.5vw,52px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:14px}
+.contact-title em{font-style:italic;color:var(--gold)}
+.contact-sub{font-size:14px;font-weight:300;color:rgba(255,255,255,.5)}
+.contact-actions{display:flex;gap:16px;flex-wrap:wrap}
+
+/* ─── FOOTER ─────────────────────────────────────── */
+footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.08)}
+.footer-logo-line1{font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--white);letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+.footer-logo-line2{font-size:9px;letter-spacing:.38em;color:var(--gold);text-transform:uppercase;margin-bottom:20px}
+.footer-tagline{font-size:12px;line-height:1.7;max-width:240px}
+.footer-col-title{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:20px}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:12px;color:rgba(255,255,255,.45);transition:color .2s}
+.footer-links a:hover{color:var(--gold)}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+.footer-copy{font-size:11px}
+.footer-legal{display:flex;gap:24px}
+.footer-legal a{font-size:11px;color:rgba(255,255,255,.35);transition:color .2s}
+.footer-legal a:hover{color:var(--gold)}
+
+/* ─── LISTING PAGE ─────────────────────────────────── */
+#listing-page{display:none}
+#listing-page.active{display:block}
+.listing-hero{position:relative;height:90vh;min-height:600px;overflow:hidden;margin-top:var(--header-h)}
+.listing-hero-bg{position:absolute;inset:0;background:center/cover no-repeat}
+.listing-hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,47,.9) 0%,rgba(10,25,47,.4) 50%,rgba(10,25,47,.15) 100%)}
+.listing-hero-content{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:0 80px 60px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px}
+.listing-tag{display:inline-block;padding:5px 14px;background:var(--gold);color:var(--navy);font-size:9px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;margin-bottom:16px}
+.listing-hero-address{font-family:var(--font-display);font-size:clamp(32px,4.5vw,62px);font-weight:400;color:var(--white);line-height:1.05;margin-bottom:8px}
+.listing-hero-city{font-size:14px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.listing-hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.listing-btn{padding:13px 28px;border:1px solid rgba(255,255,255,.5);color:var(--white);font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;transition:border-color .2s,background .2s,color .2s}
+.listing-btn:hover{border-color:var(--gold);color:var(--gold);background:rgba(197,160,89,.07)}
+.listing-btn.primary-btn{background:var(--gold);color:var(--navy);border-color:var(--gold)}
+.listing-btn.primary-btn:hover{background:var(--gold-lt)}
+.listing-body{display:grid;grid-template-columns:380px 1fr;gap:0;border-bottom:1px solid var(--gray-100)}
+.listing-sidebar{background:var(--navy);padding:56px 48px;position:sticky;top:var(--header-h);align-self:start}
+.listing-price{font-family:var(--font-display);font-size:42px;font-weight:700;color:var(--gold);margin-bottom:4px;letter-spacing:-.02em}
+.listing-addr-sm{font-size:12px;font-weight:300;color:rgba(255,255,255,.55);letter-spacing:.1em;margin-bottom:32px}
+.listing-specs{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid rgba(197,160,89,.2);margin-bottom:32px}
+.spec-item{padding:20px;border-bottom:1px solid rgba(197,160,89,.15);border-right:1px solid rgba(197,160,89,.15)}
+.spec-item:nth-child(even){border-right:none}
+.spec-item:nth-last-child(-n+2){border-bottom:none}
+.spec-label{font-size:9px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px}
+.spec-value{font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--white)}
+.spec-badge{display:inline-block;padding:4px 10px;background:var(--gold);color:var(--navy);font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.schedule-btn{width:100%;padding:18px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transition:background .2s;margin-bottom:16px}
+.schedule-btn:hover{background:var(--gold-lt)}
+.inquiry-btn{width:100%;padding:16px;border:1px solid rgba(197,160,89,.4);color:var(--gold);font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;transition:background .2s,color .2s}
+.inquiry-btn:hover{background:rgba(197,160,89,.1)}
+.agent-mini{margin-top:32px;padding-top:28px;border-top:1px solid rgba(197,160,89,.15);display:flex;align-items:center;gap:14px}
+.agent-mini-avatar{width:48px;height:48px;border-radius:50%;background:var(--navy-lt);border:2px solid rgba(197,160,89,.4);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--gold)}
+.agent-mini-name{font-size:13px;font-weight:400;color:var(--white);margin-bottom:2px}
+.agent-mini-role{font-size:10px;color:var(--gold);letter-spacing:.14em;text-transform:uppercase}
+.listing-description{padding:64px 72px}
+.listing-desc-label{font-size:10px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:14px}
+.listing-desc-label::after{content:'';flex:1;height:1px;background:var(--gray-100)}
+.listing-desc-title{font-family:var(--font-display);font-size:36px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:24px}
+.listing-desc-text{font-size:15px;font-weight:300;color:var(--gray-500);line-height:1.85;margin-bottom:20px}
+.listing-features{display:grid;grid-template-columns:1fr 1fr;gap:10px 32px;margin-top:36px;padding-top:36px;border-top:1px solid var(--gray-100)}
+.listing-feature{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);padding:8px 0;border-bottom:1px solid var(--gray-100)}
+.listing-feature::before{content:'';width:4px;height:4px;background:var(--gold);flex-shrink:0}
+
+/* MASONRY GALLERY */
+.listing-gallery{padding:0 80px 80px}
+.gallery-label{font-size:10px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:32px;display:flex;align-items:center;gap:14px}
+.gallery-label::after{content:'';flex:1;height:1px;background:var(--gray-100)}
+.masonry{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:120px;gap:4px}
+.gallery-item{overflow:hidden;cursor:pointer}
+.gallery-item img{height:100%;transition:transform .6s var(--trans)}
+.gallery-item:hover img{transform:scale(1.06)}
+.gi-1{grid-column:span 5;grid-row:span 3}
+.gi-2{grid-column:span 4;grid-row:span 2}
+.gi-3{grid-column:span 3;grid-row:span 2}
+.gi-4{grid-column:span 4;grid-row:span 2}
+.gi-5{grid-column:span 3;grid-row:span 1}
+.gi-6{grid-column:span 5;grid-row:span 2}
+.gi-7{grid-column:span 4;grid-row:span 1}
+.back-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:var(--navy);color:var(--gold);font-size:10px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;border:1px solid rgba(197,160,89,.3);cursor:pointer;transition:background .2s,border-color .2s;margin:24px 80px}
+.back-btn:hover{background:rgba(197,160,89,.08);border-color:var(--gold)}
+
+/* ─── MODAL ───────────────────────────────────────── */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(10,25,47,.88);z-index:2000;backdrop-filter:blur(4px);align-items:center;justify-content:center}
+.modal-overlay.open{display:flex}
+.modal-box{background:var(--white);width:100%;max-width:520px;padding:52px 48px;position:relative;max-height:92vh;overflow-y:auto}
+.modal-close{position:absolute;top:20px;right:24px;font-size:20px;cursor:pointer;color:var(--gray-300);transition:color .2s}
+.modal-close:hover{color:var(--navy)}
+.modal-eyebrow{font-size:9px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.modal-title{font-family:var(--font-display);font-size:30px;font-weight:400;color:var(--navy);margin-bottom:28px}
+.form-field{margin-bottom:18px}
+.form-label{display:block;font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--navy);margin-bottom:8px}
+.form-input,.form-select,.form-textarea{width:100%;padding:13px 16px;border:1px solid var(--gray-100);background:var(--off-white);font-family:var(--font-sans);font-size:13px;color:var(--navy);outline:none;transition:border-color .2s}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}
+.form-textarea{height:90px;resize:none}
+.form-submit{width:100%;padding:15px;background:var(--navy);color:var(--gold);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;transition:background .2s,color .2s}
+.form-submit:hover{background:var(--gold);color:var(--navy)}
+.form-submit:disabled{opacity:.6;cursor:not-allowed}
+.form-status{display:none;padding:14px 18px;margin-top:16px;font-size:12px;font-weight:500;letter-spacing:.06em;text-align:center}
+.form-status.success{background:rgba(92,184,92,.12);color:#2e7d2e;border:1px solid rgba(92,184,92,.3)}
+.form-status.error{background:rgba(192,57,43,.1);color:#922b21;border:1px solid rgba(192,57,43,.25)}
+.form-status.show{display:block}
+
+/* ─── RESPONSIVE ──────────────────────────────────── */
+@media(max-width:1100px){
+  section{padding:80px 48px}
+  .agents-grid{grid-template-columns:repeat(2,1fr)}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .investor-grid{grid-template-columns:1fr}
+  .listing-body{grid-template-columns:320px 1fr}
+}
+@media(max-width:900px){
+  #site-header{padding:0 28px}
+  .main-nav,.header-cta{display:none}
+  .menu-toggle{display:flex}
+  .hero-content{padding:var(--header-h) 28px 120px}
+  .hero-stats{position:relative;display:flex;flex-wrap:wrap}
+  section{padding:64px 28px}
+  #sellers{grid-template-columns:1fr}
+  .sellers-img{min-height:300px}
+  .sellers-content{padding:56px 32px}
+  .search-row{grid-template-columns:1fr}
+  .search-field{border-right:none;border-bottom:1px solid var(--gray-100)}
+  .buyer-features{grid-template-columns:1fr}
+  .agents-grid{grid-template-columns:1fr 1fr}
+  .testimonials-grid{grid-template-columns:1fr}
+  #contact-strip{padding:56px 28px;flex-direction:column}
+  footer{padding:48px 28px 32px}
+  .footer-top{grid-template-columns:1fr}
+  .listing-hero-content{padding:0 28px 40px}
+  .listing-body{grid-template-columns:1fr}
+  .listing-sidebar{position:static}
+  .listing-description{padding:48px 32px}
+  .listing-gallery{padding:0 28px 48px}
+  .back-btn{margin:20px 28px}
+  /* UPGRADE 1b: Mobile masonry — column flow, auto heights, correct aspect ratios */
+  .masonry{display:flex;flex-direction:column;gap:4px}
+  .gallery-item{width:100%;height:auto!important}
+  .gallery-item img{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover}
+  .gi-1,.gi-2,.gi-3,.gi-4,.gi-5,.gi-6,.gi-7{grid-column:unset;grid-row:unset}
+}
+@media(max-width:600px){
+  .property-grid{grid-template-columns:1fr}
+  .agents-grid{grid-template-columns:1fr}
+  .hero-h1{font-size:42px}
+  .hero-stats{display:none}
+  .listing-features{grid-template-columns:1fr}
+  .market-metrics{grid-template-columns:1fr}
+}
+.mobile-nav{display:none;position:fixed;top:var(--header-h);left:0;right:0;bottom:0;background:var(--navy);z-index:999;padding:32px 28px;overflow-y:auto}
+.mobile-nav.open{display:block}
+.mobile-nav a{display:block;padding:16px 0;font-size:14px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.07);transition:color .2s}
+.mobile-nav a:hover{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header id="site-header">
+  <div class="logo" onclick="showHome()">
+    <div class="logo-line1">Core Collective</div>
+    <div class="logo-line2">Real Estate · Premium Properties</div>
+  </div>
+  <nav class="main-nav" aria-label="Primary navigation">
+    <div class="nav-item">
+      <a href="#" class="nav-link" onclick="return false;">Residential</a>
+      <div class="dropdown">
+        <a href="#" onclick="navFilter('residential');return false;">All Residential</a>
+        <a href="#" onclick="navFilter('residential');return false;">Single Family Homes</a>
+        <a href="#" onclick="navFilter('residential');return false;">Luxury Estates</a>
+        <a href="#" onclick="navFilter('residential');return false;">Townhomes &amp; Condos</a>
+        <a href="#" onclick="navFilter('residential');return false;">New Construction</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#" class="nav-link" onclick="return false;">Commercial</a>
+      <div class="dropdown">
+        <a href="#" onclick="navFilter('commercial');return false;">All Commercial</a>
+        <a href="#" onclick="navFilter('commercial');return false;">Office Spaces</a>
+        <a href="#" onclick="navFilter('commercial');return false;">Retail Properties</a>
+        <a href="#" onclick="navFilter('commercial');return false;">Multi-Family</a>
+        <a href="#" onclick="navFilter('commercial');return false;">Industrial</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#" class="nav-link" onclick="scrollToSection('sellers',event)">Sellers</a>
+      <div class="dropdown">
+        <a href="#" onclick="scrollToSection('sellers',event)">Home Valuation</a>
+        <a href="#" onclick="scrollToSection('sellers',event)">Market Reports</a>
+        <a href="#" onclick="scrollToSection('sellers',event)">Listing Strategy</a>
+        <a href="#" onclick="scrollToSection('sellers',event)">Staging Concierge</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#" class="nav-link" onclick="scrollToSection('buyers',event)">Buyers</a>
+      <div class="dropdown">
+        <a href="#" onclick="navFilter('all');return false;">Property Search</a>
+        <a href="#" onclick="scrollToSection('buyers',event)">Buyer's Guide</a>
+        <a href="#" onclick="openModal();return false;">Mortgage Calculator</a>
+        <a href="#" onclick="openModal();return false;">Relocation Services</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#" class="nav-link" onclick="scrollToSection('investors',event)">Investors</a>
+      <div class="dropdown">
+        <a href="#" onclick="navFilter('investment');return false;">Investment Listings</a>
+        <a href="#" onclick="scrollToSection('investors',event)">Market Analytics</a>
+        <a href="#" onclick="openModal();return false;">Portfolio Strategy</a>
+        <a href="#" onclick="openModal();return false;">Cap Rate Reports</a>
+      </div>
+    </div>
+    <div class="nav-item">
+      <a href="#" class="nav-link" onclick="scrollToSection('team',event)">About Us</a>
+      <div class="dropdown">
+        <a href="#" onclick="scrollToSection('team',event)">Meet the Team</a>
+        <a href="#" onclick="scrollToSection('testimonials',event)">Client Reviews</a>
+        <a href="#" onclick="openModal();return false;">Awards &amp; Press</a>
+        <a href="#" onclick="openModal();return false;">Community</a>
+      </div>
+    </div>
+  </nav>
+  <button class="header-cta" onclick="openModal()">Contact Us</button>
+  <button class="menu-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation"><span></span><span></span><span></span></button>
+</header>
+
+<!-- UPGRADE 3b: Every link closes mobile nav before any action so forms never render under the overlay -->
+<div class="mobile-nav" id="mobile-nav">
+  <a href="#" onclick="navFilter('residential');closeMobileNav();return false;">Residential</a>
+  <a href="#" onclick="navFilter('commercial');closeMobileNav();return false;">Commercial</a>
+  <a href="#" onclick="scrollToSection('sellers');closeMobileNav();return false;">Sellers</a>
+  <a href="#" onclick="scrollToSection('buyers');closeMobileNav();return false;">Buyers</a>
+  <a href="#" onclick="scrollToSection('investors');closeMobileNav();return false;">Investors</a>
+  <a href="#" onclick="scrollToSection('team');closeMobileNav();return false;">About Us</a>
+  <a href="#" onclick="closeMobileNav();openModal();return false;">Contact Us</a>
+</div>
+
+<!-- HOME PAGE -->
+<div id="home-page" class="page active">
+
+  <section id="hero" aria-label="Hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Raleigh–Durham's Premier Team</div>
+      <h1 class="hero-h1">Where <em>Exceptional</em><br>Homes Find<br>Their People</h1>
+      <p class="hero-sub">Core Collective Real Estate delivers white-glove representation across the Triangle's most coveted addresses — from first-time buyers to seasoned portfolio investors.</p>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="scrollToSection('properties')">View Properties <span>→</span></button>
+        <button class="btn-outline" onclick="openModal()">Schedule a Consultation</button>
+      </div>
+    </div>
+    <div class="hero-stats" role="complementary">
+      <div class="stat-block"><div class="stat-num">$2.4B+</div><div class="stat-label">Volume Closed</div></div>
+      <div class="stat-block"><div class="stat-num">1,200+</div><div class="stat-label">Transactions</div></div>
+      <div class="stat-block"><div class="stat-num">98.7%</div><div class="stat-label">List-to-Sale Ratio</div></div>
+      <div class="stat-block"><div class="stat-num">14 Days</div><div class="stat-label">Avg. Days on Market</div></div>
+    </div>
+    <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><div class="scroll-line"></div></div>
+  </section>
+
+  <section id="properties" aria-labelledby="properties-title">
+    <div class="section-header">
+      <div>
+        <div class="section-eyebrow">Featured Listings</div>
+        <h2 class="section-title" id="properties-title">Curated <em>Properties</em></h2>
+        <p class="section-sub">Hand-selected listings across Raleigh, Durham, Chapel Hill, and Cary.</p>
+      </div>
+      <div class="filter-tabs" role="tablist">
+        <button class="filter-tab active" id="tab-all"         role="tab" onclick="filterProps(this,'all')">All</button>
+        <button class="filter-tab"        id="tab-residential" role="tab" onclick="filterProps(this,'residential')">Residential</button>
+        <button class="filter-tab"        id="tab-commercial"  role="tab" onclick="filterProps(this,'commercial')">Commercial</button>
+        <button class="filter-tab"        id="tab-investment"  role="tab" onclick="filterProps(this,'investment')">Investment</button>
+      </div>
+    </div>
+    <div class="property-grid" id="property-grid" role="list"></div>
+    <a href="#" class="view-all" onclick="return false;">View All Listings <span class="view-all-arrow">→</span></a>
+  </section>
+
+  <section id="buyers" aria-labelledby="buyers-title">
+    <div class="section-eyebrow">For Buyers</div>
+    <h2 class="section-title" id="buyers-title">Find Your <em>Dream Home</em></h2>
+    <p class="section-sub">Leverage our market intelligence and deep network to secure the right property — at the right price.</p>
+    <div class="search-panel" role="search">
+      <div class="search-row">
+        <div class="search-field">
+          <label class="search-label" for="search-location">Location</label>
+          <input class="search-input" id="search-location" type="text" placeholder="City, ZIP, or Neighborhood">
+        </div>
+        <div class="search-field">
+          <label class="search-label" for="search-type">Property Type</label>
+          <select class="search-select" id="search-type">
+            <option value="">Any Type</option>
+            <option value="residential">Single Family</option>
+            <option value="residential">Condo / Townhome</option>
+            <option value="commercial">Multi-Family</option>
+            <option value="investment">Investment</option>
+            <option value="commercial">Commercial</option>
+          </select>
+        </div>
+        <div class="search-field">
+          <label class="search-label" for="search-min">Min Price</label>
+          <select class="search-select" id="search-min">
+            <option value="0">No Min</option>
+            <option value="250000">$250K</option>
+            <option value="500000">$500K</option>
+            <option value="750000">$750K</option>
+            <option value="1000000">$1M</option>
+            <option value="2000000">$2M</option>
+          </select>
+        </div>
+        <div class="search-field">
+          <label class="search-label" for="search-max">Max Price</label>
+          <select class="search-select" id="search-max">
+            <option value="999999999">No Max</option>
+            <option value="500000">$500K</option>
+            <option value="750000">$750K</option>
+            <option value="1000000">$1M</option>
+            <option value="2000000">$2M</option>
+            <option value="5000000">$5M</option>
+          </select>
+        </div>
+        <button class="search-btn" onclick="runSearch()">Search</button>
+      </div>
+    </div>
+    <div class="buyer-features" role="list">
+      <div class="buyer-feature" role="listitem">
+        <div class="buyer-feature-icon" aria-hidden="true">◈</div>
+        <h3 class="buyer-feature-title">Exclusive Access</h3>
+        <p class="buyer-feature-text">Gain early entry to off-market properties and pocket listings before they hit the open market — a distinct advantage in competitive markets.</p>
+      </div>
+      <div class="buyer-feature" role="listitem">
+        <div class="buyer-feature-icon" aria-hidden="true">◉</div>
+        <h3 class="buyer-feature-title">Expert Negotiation</h3>
+        <p class="buyer-feature-text">Our agents have negotiated over 1,200 transactions, consistently securing favorable terms, inspections, and price reductions on behalf of buyers.</p>
+      </div>
+      <div class="buyer-feature" role="listitem">
+        <div class="buyer-feature-icon" aria-hidden="true">◎</div>
+        <h3 class="buyer-feature-title">Seamless Process</h3>
+        <p class="buyer-feature-text">From pre-approval to closing, we coordinate every detail — inspectors, attorneys, lenders — so you can focus on the excitement of your new home.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- UPGRADE 3a: worth-address input pre-populates the modal message -->
+  <section id="sellers" aria-labelledby="sellers-title" style="padding:0;">
+    <div class="sellers-img" aria-hidden="true">
+      <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=80" alt="Luxury home exterior" loading="lazy">
+    </div>
+    <div class="sellers-content">
+      <div class="section-eyebrow">For Sellers</div>
+      <h2 class="section-title" id="sellers-title">Sell with <em>Confidence</em></h2>
+      <p class="section-sub">Our proven listing strategy combines precision pricing, professional staging, and targeted digital marketing to sell your home faster and for more.</p>
+      <div class="worth-block" role="complementary">
+        <div class="worth-title">What's My Home Worth?</div>
+        <p class="worth-sub">Get an instant market analysis from a Core Collective agent.</p>
+        <div class="worth-form">
+          <input class="worth-input" id="worth-address" type="text" placeholder="Enter your property address">
+          <button class="worth-submit" onclick="openValuationModal()">Get Value →</button>
+        </div>
+      </div>
+      <div class="sellers-stats" role="list">
+        <div class="s-stat" role="listitem"><div class="s-stat-num">98.7%</div><div class="s-stat-label">List-to-Sale Ratio</div></div>
+        <div class="s-stat" role="listitem"><div class="s-stat-num">14 Days</div><div class="s-stat-label">Avg. DOM</div></div>
+        <div class="s-stat" role="listitem"><div class="s-stat-num">$2.4B</div><div class="s-stat-label">Total Volume</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="investors" aria-labelledby="investors-title">
+    <div class="section-eyebrow">For Investors</div>
+    <h2 class="section-title" id="investors-title">Intelligent <em>Capital</em><br>Deployment</h2>
+    <div class="investor-grid">
+      <div class="investor-main">
+        <p class="investor-philosophy">"Real estate investing isn't about buying property — it's about acquiring income streams that compound over time."</p>
+        <p class="investor-text">The Raleigh-Durham-Chapel Hill Triangle is one of the nation's most dynamic growth markets. With three major research universities, a booming tech corridor anchored by Research Triangle Park, and consistent in-migration from coastal metros, the fundamentals here are exceptional.</p>
+        <p class="investor-text">Core Collective's investor division provides full-service acquisition support — from identifying undervalued assets and analyzing cap rates to coordinating due diligence and building long-term portfolio strategy.</p>
+        <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;">
+          <button class="btn-primary" onclick="openModal()">Portfolio Consultation</button>
+          <button class="btn-outline" style="color:var(--navy);border-color:var(--navy);" onclick="openModal()">Market Report →</button>
+        </div>
+      </div>
+      <div class="investor-sidebar">
+        <div class="cap-rates" role="complementary">
+          <div class="cap-rates-title">Current Cap Rates · RDU Market</div>
+          <div class="cap-rate-row"><span class="cap-type">Class A Multi-Family</span><span class="cap-range">4.2–5.1%</span></div>
+          <div class="cap-rate-row"><span class="cap-type">Class B Multi-Family</span><span class="cap-range">5.5–6.8%</span></div>
+          <div class="cap-rate-row"><span class="cap-type">Office / Flex</span><span class="cap-range">6.2–7.5%</span></div>
+          <div class="cap-rate-row"><span class="cap-type">Retail Strip</span><span class="cap-range">6.8–8.2%</span></div>
+          <div class="cap-rate-row"><span class="cap-type">Industrial / Warehouse</span><span class="cap-range">5.4–6.3%</span></div>
+        </div>
+        <div class="market-metrics" role="list">
+          <div class="metric-card" role="listitem"><div class="metric-card-label">Median Home Price</div><div class="metric-card-val">$487K</div><div class="metric-card-chg">▲ 6.3% YoY</div></div>
+          <div class="metric-card" role="listitem"><div class="metric-card-label">Inventory (Mos.)</div><div class="metric-card-val">1.8</div><div class="metric-card-chg down">▼ 0.4 vs. Last Yr</div></div>
+          <div class="metric-card" role="listitem"><div class="metric-card-label">Population Growth</div><div class="metric-card-val">3.2%</div><div class="metric-card-chg">▲ Ranked #4 US</div></div>
+          <div class="metric-card" role="listitem"><div class="metric-card-label">Avg. Rent Growth</div><div class="metric-card-val">8.7%</div><div class="metric-card-chg">▲ 3-Year CAGR</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="team" aria-labelledby="team-title">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:56px;">
+      <div>
+        <div class="section-eyebrow">The Team</div>
+        <h2 class="section-title" id="team-title" style="color:var(--white);">Meet Our <em>Agents</em></h2>
+        <p class="section-sub" style="color:rgba(255,255,255,.5);">Four dedicated professionals with a single mission: your success.</p>
+      </div>
+    </div>
+    <div class="agents-grid" role="list">
+      <div class="agent-card" role="listitem"><div class="agent-img"><div class="agent-initials">MW</div><div class="agent-overlay"><div class="agent-name">Marsha Watson</div><div class="agent-role">Realtor &amp; Team Lead</div><div class="agent-contact-links"><button class="agent-link" onclick="openModal()">Contact</button><button class="agent-link" onclick="openModal()">Bio</button></div></div></div></div>
+      <div class="agent-card" role="listitem"><div class="agent-img"><div class="agent-initials">SM</div><div class="agent-overlay"><div class="agent-name">Sharon McDuffie</div><div class="agent-role">Realtor</div><div class="agent-contact-links"><button class="agent-link" onclick="openModal()">Contact</button><button class="agent-link" onclick="openModal()">Bio</button></div></div></div></div>
+      <div class="agent-card" role="listitem"><div class="agent-img"><div class="agent-initials">SW</div><div class="agent-overlay"><div class="agent-name">Sylvia T. Wheeler</div><div class="agent-role">Realtor</div><div class="agent-contact-links"><button class="agent-link" onclick="openModal()">Contact</button><button class="agent-link" onclick="openModal()">Bio</button></div></div></div></div>
+      <div class="agent-card" role="listitem"><div class="agent-img"><div class="agent-initials">DD</div><div class="agent-overlay"><div class="agent-name">Dexter Drayton</div><div class="agent-role">Realtor</div><div class="agent-contact-links"><button class="agent-link" onclick="openModal()">Contact</button><button class="agent-link" onclick="openModal()">Bio</button></div></div></div></div>
+    </div>
+  </section>
+
+  <section id="testimonials" aria-labelledby="testimonials-title">
+    <div class="section-eyebrow">Client Stories</div>
+    <h2 class="section-title" id="testimonials-title">What Our Clients <em>Say</em></h2>
+    <div class="testimonials-grid" role="list">
+      <article class="testimonial-card" role="listitem">
+        <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+        <blockquote class="testimonial-text">"Marsha and the Core Collective team made selling our North Raleigh home an absolute breeze. Listed on Thursday, had seven offers by Sunday, and closed $68K above asking."</blockquote>
+        <div class="testimonial-author"><div class="t-avatar">JT</div><div><div class="t-name">James &amp; Tanya Morrison</div><div class="t-detail">Sellers · North Raleigh, NC</div></div></div>
+      </article>
+      <article class="testimonial-card" role="listitem">
+        <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+        <blockquote class="testimonial-text">"As a first-time buyer navigating a brutal market, Sharon was invaluable. She knew every neighborhood, every listing before it went live, and fought hard for our family."</blockquote>
+        <div class="testimonial-author"><div class="t-avatar">AP</div><div><div class="t-name">Amara Patel</div><div class="t-detail">Buyer · Cary, NC</div></div></div>
+      </article>
+      <article class="testimonial-card" role="listitem">
+        <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
+        <blockquote class="testimonial-text">"Dexter helped me acquire three investment properties in 18 months. His market analysis is sharp, his network is exceptional, and his deal-making ability is second to none."</blockquote>
+        <div class="testimonial-author"><div class="t-avatar">RC</div><div><div class="t-name">Robert Chen</div><div class="t-detail">Investor · Durham, NC</div></div></div>
+      </article>
+    </div>
+  </section>
+
+  <div id="contact-strip" role="complementary">
+    <div class="contact-left">
+      <h2 class="contact-title">Ready to Make Your<br><em>Next Move?</em></h2>
+      <p class="contact-sub">Our team is available seven days a week. No pressure — just honest, expert guidance.</p>
+    </div>
+    <div class="contact-actions">
+      <button class="btn-primary" onclick="openModal()">Schedule a Call</button>
+      <button class="btn-outline" onclick="openModal()">Send a Message</button>
+    </div>
+  </div>
+
+  <footer role="contentinfo">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo-line1">Core Collective</div>
+        <div class="footer-logo-line2">Real Estate</div>
+        <p class="footer-tagline">Premium representation for buyers, sellers, and investors across the Raleigh-Durham Triangle.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Properties</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="navFilter('residential');return false;">Residential Listings</a></li>
+          <li><a href="#" onclick="navFilter('commercial');return false;">Commercial Properties</a></li>
+          <li><a href="#" onclick="navFilter('residential');return false;">Luxury Collection</a></li>
+          <li><a href="#" onclick="navFilter('residential');return false;">New Development</a></li>
+          <li><a href="#" onclick="navFilter('all');return false;">Off-Market Properties</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <ul class="footer-links">
+          <li><a href="#" onclick="scrollToSection('buyers');return false;">Buyer Representation</a></li>
+          <li><a href="#" onclick="scrollToSection('sellers');return false;">Seller Services</a></li>
+          <li><a href="#" onclick="scrollToSection('investors');return false;">Investment Advisory</a></li>
+          <li><a href="#" onclick="openModal();return false;">Property Management</a></li>
+          <li><a href="#" onclick="openModal();return false;">Relocation Services</a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <ul class="footer-links">
+          <li><a href="tel:+19195550100">(919) 555-0100</a></li>
+          <li><a href="mailto:hello@corecollectivere.com">hello@corecollectivere.com</a></li>
+          <li><a href="#">4321 Capital Blvd, Suite 200</a></li>
+          <li><a href="#">Raleigh, NC 27604</a></li>
+          <li style="margin-top:12px;"><a href="#">Instagram</a> · <a href="#">LinkedIn</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2026 Core Collective Real Estate. All rights reserved.</p>
+      <nav class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Fair Housing Notice</a><a href="#">DMCA</a></nav>
+    </div>
+  </footer>
+</div>
+
+<!-- LISTING PAGE -->
+<div id="listing-page" class="page">
+  <section class="listing-hero" aria-label="Property hero">
+    <div class="listing-hero-bg" id="listing-hero-bg"></div>
+    <div class="listing-hero-content">
+      <div class="listing-hero-left">
+        <span class="listing-tag" id="listing-status-tag">ACTIVE</span>
+        <h1 class="listing-hero-address" id="listing-address">2847 Wyndham Falls Drive</h1>
+        <p class="listing-hero-city" id="listing-city">Raleigh, North Carolina 27615</p>
+      </div>
+      <div class="listing-hero-actions">
+        <button class="listing-btn" onclick="openModal()">GALLERY +</button>
+        <button class="listing-btn" onclick="openModal()">VIRTUAL TOUR +</button>
+        <button class="listing-btn primary-btn" onclick="openModal()">SCHEDULE SHOWING +</button>
+      </div>
+    </div>
+  </section>
+  <div class="listing-body">
+    <aside class="listing-sidebar">
+      <div class="listing-price" id="listing-price">$1,395,000</div>
+      <div class="listing-addr-sm" id="listing-addr-sm">2847 Wyndham Falls Drive, Raleigh, NC 27615</div>
+      <div class="listing-specs" role="list">
+        <div class="spec-item"><div class="spec-label">Bedrooms</div><div class="spec-value" id="spec-beds">5</div></div>
+        <div class="spec-item"><div class="spec-label">Bathrooms</div><div class="spec-value" id="spec-baths">4.5</div></div>
+        <div class="spec-item"><div class="spec-label">Square Feet</div><div class="spec-value" id="spec-sqft">5,240</div></div>
+        <div class="spec-item"><div class="spec-label">Lot Size</div><div class="spec-value" id="spec-lot">0.72 AC</div></div>
+        <div class="spec-item"><div class="spec-label">Year Built</div><div class="spec-value" id="spec-year">2019</div></div>
+        <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value"><span class="spec-badge" id="spec-status">ACTIVE</span></div></div>
+      </div>
+      <button class="schedule-btn" onclick="openModal()">SCHEDULE A SHOWING +</button>
+      <button class="inquiry-btn" onclick="openModal()">REQUEST INFORMATION</button>
+      <div class="agent-mini">
+        <div class="agent-mini-avatar">MW</div>
+        <div><div class="agent-mini-name">Marsha Watson</div><div class="agent-mini-role">Team Lead · Listing Agent</div></div>
+      </div>
+    </aside>
+    <div class="listing-description">
+      <div class="listing-desc-label">Property Description</div>
+      <h2 class="listing-desc-title" id="listing-desc-title">A Masterwork of Modern Luxury Living</h2>
+      <p class="listing-desc-text" id="listing-desc-p1"></p>
+      <p class="listing-desc-text" id="listing-desc-p2"></p>
+      <p class="listing-desc-text" id="listing-desc-p3"></p>
+      <div class="listing-features" role="list">
+        <div class="listing-feature">Salt-Water Pool &amp; Spa</div>
+        <div class="listing-feature">3-Car Garage w/ EV Charging</div>
+        <div class="listing-feature">Thermador Professional Kitchen</div>
+        <div class="listing-feature">Home Theater</div>
+        <div class="listing-feature">Climate-Controlled Wine Cellar</div>
+        <div class="listing-feature">Smart Home Automation</div>
+        <div class="listing-feature">10-ft Coffered Ceilings</div>
+        <div class="listing-feature">Wide-Plank White Oak Floors</div>
+        <div class="listing-feature">Butler's Pantry</div>
+        <div class="listing-feature">Gated Community Access</div>
+        <div class="listing-feature">Primary Wing w/ Sitting Room</div>
+        <div class="listing-feature">Heated Marble Bathroom Floors</div>
+      </div>
+    </div>
+  </div>
+  <div class="listing-gallery">
+    <div class="gallery-label">Interior Gallery</div>
+    <div class="masonry" role="list">
+      <div class="gallery-item gi-1"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80" alt="Living room" loading="lazy"></div>
+      <div class="gallery-item gi-2"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80" alt="Kitchen" loading="lazy"></div>
+      <div class="gallery-item gi-3"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Bathroom" loading="lazy"></div>
+      <div class="gallery-item gi-4"><img src="https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=700&q=80" alt="Bedroom" loading="lazy"></div>
+      <div class="gallery-item gi-5"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=500&q=80" alt="Wine cellar" loading="lazy"></div>
+      <div class="gallery-item gi-6"><img src="https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?w=900&q=80" alt="Pool" loading="lazy"></div>
+      <div class="gallery-item gi-7"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Dining room" loading="lazy"></div>
+    </div>
+  </div>
+  <button class="back-btn" onclick="showHome()">← Back to Listings</button>
+</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" onclick="closeModalOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    <div class="modal-eyebrow">Core Collective Real Estate</div>
+    <h2 class="modal-title" id="modal-title">Let's Connect</h2>
+    <div class="form-field"><label class="form-label" for="f-name">Full Name</label><input class="form-input" id="f-name" type="text" placeholder="Your full name" autocomplete="name"></div>
+    <div class="form-field"><label class="form-label" for="f-email">Email Address</label><input class="form-input" id="f-email" type="email" placeholder="your@email.com" autocomplete="email"></div>
+    <div class="form-field"><label class="form-label" for="f-phone">Phone</label><input class="form-input" id="f-phone" type="tel" placeholder="(919) 000-0000" autocomplete="tel"></div>
+    <div class="form-field"><label class="form-label" for="f-interest">I Am A</label><select class="form-select" id="f-interest"><option value="">Select your interest</option><option>Buyer</option><option>Seller</option><option>Investor</option><option>Both Buyer &amp; Seller</option></select></div>
+    <div class="form-field"><label class="form-label" for="f-msg">Message</label><textarea class="form-textarea" id="f-msg" placeholder="Tell us how we can help…"></textarea></div>
+    <button class="form-submit" id="form-submit-btn" onclick="submitForm()">Submit Inquiry</button>
+    <div class="form-status" id="form-status"></div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   UPGRADE 4b — LOFTY CRM WEBHOOK URL
+   Paste your unique Lofty webhook URL between the quotes.
+   Example: "https://app.loftymls.com/api/webhook/YOUR_KEY"
+   Leave empty ("") while testing — a polished confirmation
+   message displays instead until the URL is configured.
+════════════════════════════════════════════════════════ */
+const LOFTY_WEBHOOK_URL = "";
+
+/* ════════════════════════════════════════════════════════
+   PROPERTY DATA ARRAY
+   ────────────────────────────────────────────────────────
+   UPGRADE 4b — MLS / IDX LIVE FEED SWAP POINT
+   ────────────────────────────────────────────────────────
+   Once your broker IDX compliance approval is granted,
+   a developer replaces the PROPERTIES array below with
+   a live fetch() call like this:
+
+     const raw = await fetch(
+       'https://api.idxbroker.com/clients/listings',
+       { headers: { 'accesskey': 'YOUR_IDX_KEY' } }
+     ).then(r => r.json());
+
+     const PROPERTIES = raw.map(m => ({
+       id:       m.listingID,
+       status:   m.propStatus.toLowerCase(),
+       type:     m.propType,       // map to: residential / commercial / investment
+       price:    '$' + Number(m.listPrice).toLocaleString(),
+       priceNum: Number(m.listPrice),
+       address:  m.address,
+       city:     m.cityName + ', ' + m.stateAbrv + ' ' + m.zipcode,
+       beds:     m.bedrooms,
+       baths:    m.bathsFull,
+       sqft:     Number(m.sqFt).toLocaleString(),
+       image:    m.image?.[0]?.uri || '',
+       agent:    { name: m.agentName, initials: m.agentName.split(' ').map(n=>n[0]).join('') },
+       heroImage: m.image?.[0]?.uri || '',
+       descTitle: m.remarksConcat?.split('.')?.[0] || m.address,
+       lot:      m.lotSizeAcres + ' AC',
+       year:     m.yearBuilt,
+       p1: m.remarksConcat || '', p2: '', p3: ''
+     }));
+
+   Until then the mock array below powers all search and UI.
+════════════════════════════════════════════════════════ */
+const PROPERTIES = [
+  {
+    id:'p001',status:'active',type:'residential',
+    price:'$1,395,000',priceNum:1395000,
+    address:'2847 Wyndham Falls Drive',city:'Raleigh, NC 27615',
+    beds:5,baths:4.5,sqft:'5,240',
+    image:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=75',
+    agent:{name:'Marsha Watson',initials:'MW'},
+    heroImage:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1800&q=80',
+    descTitle:'A Masterwork of Modern Luxury Living',lot:'0.72 AC',year:'2019',
+    p1:'Nestled within the prestigious gated enclave of Wyndham Falls, this extraordinary five-bedroom estate redefines sophisticated living in North Raleigh. Designed by award-winning architect James Holloway and built to exacting standards in 2019, every inch of this 5,240 square foot residence reflects an obsessive commitment to quality and craftsmanship.',
+    p2:'The grand two-story foyer opens to a breathtaking great room featuring ten-foot coffered ceilings, wide-plank white oak floors, and a wall of floor-to-ceiling glass overlooking the private rear terrace and salt-water pool. The chef\'s kitchen is anchored by a 12-foot quartzite island and appointed with Thermador Professional appliances.',
+    p3:'The primary suite occupies the entire east wing of the second floor, offering a private sitting room, dual dressing rooms, and a spa-inspired bathroom with heated marble floors. A climate-controlled wine cellar, home theater, and three-car garage with EV charging complete this unparalleled offering.'
+  },
+  {
+    id:'p002',status:'coming',type:'residential',
+    price:'$875,000',priceNum:875000,
+    address:'114 Overture Lane',city:'Chapel Hill, NC 27514',
+    beds:4,baths:3,sqft:'3,890',
+    image:'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=75',
+    agent:{name:'Sharon McDuffie',initials:'SM'},
+    heroImage:'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1800&q=80',
+    descTitle:'Chapel Hill Elegance in a Prime Location',lot:'0.38 AC',year:'2016',
+    p1:'Situated on a coveted corner lot in one of Chapel Hill\'s most established neighborhoods, this four-bedroom colonial offers timeless architecture with thoughtfully updated interiors.',
+    p2:'The open-concept main level features a renovated kitchen with quartz countertops, stainless appliances, and a generous island that flows into a sun-drenched living room with custom built-ins.',
+    p3:'The primary retreat provides a spa-like bathroom with dual vanities, a soaking tub, and a walk-in closet. Three additional bedrooms and a bonus room complete this exceptional offering.'
+  },
+  {
+    id:'p003',status:'active',type:'investment',
+    price:'$2,100,000',priceNum:2100000,
+    address:'800 Hillsborough Street',city:'Raleigh, NC 27603',
+    beds:12,baths:12,sqft:'8,400',
+    image:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=75',
+    agent:{name:'Dexter Drayton',initials:'DD'},
+    heroImage:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1800&q=80',
+    descTitle:'6-Unit Investment Property Near NCSU',lot:'0.21 AC',year:'2008',
+    p1:'A rare opportunity to acquire a fully-occupied six-unit apartment building in the heart of the NCSU corridor — one of Raleigh\'s most reliable rental submarkets with persistently low vacancy rates.',
+    p2:'All six units have been renovated within the last three years. In-place NOI of $128,400 delivers a cap rate of 6.1% with immediate value-add potential through below-market rents.',
+    p3:'Separately metered for utilities with ample parking. Ideally positioned for a long-term hold or 1031 exchange. Financials available upon execution of NDA.'
+  },
+  {
+    id:'p004',status:'pending',type:'residential',
+    price:'$629,000',priceNum:629000,
+    address:'519 Magnolia Ridge Court',city:'Durham, NC 27705',
+    beds:4,baths:3,sqft:'2,980',
+    image:'https://images.unsplash.com/photo-1598228723793-52759bba239c?w=800&q=75',
+    agent:{name:'Sylvia T. Wheeler',initials:'SW'},
+    heroImage:'https://images.unsplash.com/photo-1598228723793-52759bba239c?w=1800&q=80',
+    descTitle:'Contemporary Craftsman in Duke Forest',lot:'0.29 AC',year:'2014',
+    p1:'A beautifully maintained craftsman-style home in the sought-after Duke Forest corridor, offering the perfect blend of classic charm and modern amenities for the discerning buyer.',
+    p2:'The main level features an open floor plan with hardwood floors, a gourmet kitchen with gas range and granite counters, and a screened rear porch perfect for entertaining.',
+    p3:'The primary suite includes a walk-in closet and updated bath with tile shower. Three additional bedrooms, a bonus room, and a two-car garage complete this exceptional Durham offering.'
+  },
+  {
+    id:'p005',status:'active',type:'commercial',
+    price:'$3,450,000',priceNum:3450000,
+    address:'1201 Chatham Street',city:'Cary, NC 27511',
+    beds:null,baths:null,sqft:'12,600',
+    image:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=75',
+    agent:{name:'Marsha Watson',initials:'MW'},
+    heroImage:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1800&q=80',
+    descTitle:'Class A Office Building · Cary Town Center',lot:'1.1 AC',year:'2012',
+    p1:'A premier Class A office asset in Cary\'s thriving Town Center business district, offering 12,600 square feet of modern office space with excellent highway visibility and signage rights.',
+    p2:'Currently 94% occupied by professional tenants on staggered lease terms through 2028. Features upgraded lobby finishes, conference center, and generous surface parking.',
+    p3:'Strong in-place cash flow, cap rate of 6.4%, and significant lease-up upside in the vacant suite — an exceptional addition to any commercial portfolio.'
+  },
+  {
+    id:'p006',status:'active',type:'residential',
+    price:'$489,000',priceNum:489000,
+    address:'321 Birchwood Drive',city:'Apex, NC 27502',
+    beds:3,baths:2.5,sqft:'2,240',
+    image:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=75',
+    agent:{name:'Sharon McDuffie',initials:'SM'},
+    heroImage:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1800&q=80',
+    descTitle:'Charming Apex Craftsman — Move-In Ready',lot:'0.18 AC',year:'2011',
+    p1:'Nestled in a quiet Apex neighborhood with top-rated Wake County schools, this move-in-ready craftsman is the perfect starter luxury home for buyers seeking quality and value.',
+    p2:'Fresh paint, new LVP flooring, and a recently updated kitchen with quartz counters and stainless appliances make this home truly turnkey, complete with a cozy gas fireplace.',
+    p3:'Upstairs: primary suite with walk-in closet, two secondary bedrooms, and a full bath. Two-car garage, screened porch, and fenced backyard complete this well-priced Apex gem.'
+  }
+];
+
+/* ── RENDER GRID ─────────────────────────────────────── */
+function renderGrid(props){
+  const grid=document.getElementById('property-grid');
+  if(!props.length){
+    grid.innerHTML=`<div class="no-results">
+      <div class="no-results-icon">◎</div>
+      <div class="no-results-title">No Matching Properties Found</div>
+      <p class="no-results-sub">Try broadening your search or explore all available listings.</p>
+      <button class="no-results-reset" onclick="resetSearch()">Reset Search → View All</button>
+    </div>`;
+    return;
+  }
+  const sm={active:{cls:'status-active',label:'ACTIVE'},pending:{cls:'status-pending',label:'UNDER CONTRACT'},coming:{cls:'status-coming',label:'COMING SOON'},sold:{cls:'status-sold',label:'SOLD'}};
+  grid.innerHTML=props.map(p=>{
+    const st=sm[p.status]||sm.active;
+    const m=p.beds!==null
+      ?`<div class="prop-metric"><span class="metric-icon">🛏</span>${p.beds} Beds</div><div class="prop-metric"><span class="metric-icon">🛁</span>${p.baths} Baths</div><div class="prop-metric"><span class="metric-icon">◻</span>${p.sqft} SF</div>`
+      :`<div class="prop-metric"><span class="metric-icon">◻</span>${p.sqft} SF</div><div class="prop-metric"><span class="metric-icon">🏢</span>Commercial</div>`;
+    return`<article class="prop-card" onclick="showListing('${p.id}')" role="listitem" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showListing('${p.id}')" aria-label="${p.price} — ${p.address}">
+      <div class="prop-img-wrap"><img src="${p.image}" alt="${p.address}" loading="lazy"><span class="status-tag ${st.cls}">${st.label}</span><div class="prop-save" role="button" tabindex="0" onclick="toggleSave(event,this)"></div></div>
+      <div class="prop-info"><div class="prop-price">${p.price}</div><div class="prop-address">${p.address} · ${p.city}</div><div class="prop-divider"></div><div class="prop-metrics">${m}</div></div>
+      <div class="prop-agent"><div class="agent-avatar-sm">${p.agent.initials}</div><div class="agent-name-sm">${p.agent.name}</div></div>
+    </article>`;
+  }).join('');
+}
+
+function renderProperties(filter='all'){
+  renderGrid(filter==='all'?PROPERTIES:PROPERTIES.filter(p=>p.type===filter));
+}
+
+function filterProps(btn,filter){
+  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  renderProperties(filter);
+}
+
+/* ════════════════════════════════════════════════════════
+   UPGRADE 2a: REAL-TIME SEARCH
+   Reads all four search panel fields, filters the
+   PROPERTIES array on location, type, and price range,
+   then redraws the grid with matching results only.
+════════════════════════════════════════════════════════ */
+function runSearch(){
+  const loc  = document.getElementById('search-location').value.trim().toLowerCase();
+  const type = document.getElementById('search-type').value;
+  const minP = parseInt(document.getElementById('search-min').value,10)||0;
+  const maxP = parseInt(document.getElementById('search-max').value,10)||999999999;
+  const results=PROPERTIES.filter(p=>{
+    const locOk  = !loc  || p.address.toLowerCase().includes(loc) || p.city.toLowerCase().includes(loc);
+    const typeOk = !type || p.type===type;
+    const priceOk= p.priceNum>=minP && p.priceNum<=maxP;
+    return locOk&&typeOk&&priceOk;
+  });
+  scrollToSection('properties');
+  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('tab-all').classList.add('active');
+  renderGrid(results);
+}
+
+function resetSearch(){
+  document.getElementById('search-location').value='';
+  document.getElementById('search-type').value='';
+  document.getElementById('search-min').value='0';
+  document.getElementById('search-max').value='999999999';
+  document.getElementById('tab-all').classList.add('active');
+  renderProperties('all');
+}
+
+/* ════════════════════════════════════════════════════════
+   UPGRADE 2b: DROPDOWN NAV FILTER WIRING
+   Clicking any dropdown sub-link scrolls to the listings
+   section and instantly filters cards by property type.
+════════════════════════════════════════════════════════ */
+function navFilter(type){
+  if(document.getElementById('listing-page').classList.contains('active'))showHome();
+  scrollToSection('properties');
+  const map={all:'tab-all',residential:'tab-residential',commercial:'tab-commercial',investment:'tab-investment'};
+  const tab=document.getElementById(map[type]||'tab-all');
+  if(tab)filterProps(tab,type);
+}
+
+/* ── SAVE TOGGLE ─────────────────────────────────────── */
+function toggleSave(e,el){
+  e.stopPropagation();
+  el.classList.toggle('saved');
+  el.setAttribute('aria-label',el.classList.contains('saved')?'Remove from saved':'Save property');
+}
+
+/* ── SHOW LISTING PAGE ───────────────────────────────── */
+function showListing(id){
+  const p=PROPERTIES.find(x=>x.id===id);
+  if(!p)return;
+  const sl={active:'ACTIVE',pending:'UNDER CONTRACT',coming:'COMING SOON',sold:'SOLD'};
+  document.getElementById('listing-hero-bg').style.cssText=`background-image:url('${p.heroImage}');background-size:cover;background-position:center;`;
+  document.getElementById('listing-status-tag').textContent=sl[p.status]||'ACTIVE';
+  document.getElementById('listing-address').textContent=p.address;
+  document.getElementById('listing-city').textContent=p.city;
+  document.getElementById('listing-price').textContent=p.price;
+  document.getElementById('listing-addr-sm').textContent=`${p.address}, ${p.city}`;
+  document.getElementById('spec-beds').textContent=p.beds||'—';
+  document.getElementById('spec-baths').textContent=p.baths||'—';
+  document.getElementById('spec-sqft').textContent=p.sqft||'—';
+  document.getElementById('spec-lot').textContent=p.lot||'—';
+  document.getElementById('spec-year').textContent=p.year||'—';
+  document.getElementById('spec-status').textContent=sl[p.status]||'ACTIVE';
+  document.getElementById('listing-desc-title').textContent=p.descTitle;
+  document.getElementById('listing-desc-p1').textContent=p.p1;
+  document.getElementById('listing-desc-p2').textContent=p.p2;
+  document.getElementById('listing-desc-p3').textContent=p.p3;
+  document.getElementById('home-page').classList.remove('active');
+  document.getElementById('listing-page').classList.add('active');
+  document.getElementById('site-header').classList.add('listing-header');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ── SHOW HOME ───────────────────────────────────────── */
+function showHome(){
+  document.getElementById('listing-page').classList.remove('active');
+  document.getElementById('home-page').classList.add('active');
+  document.getElementById('site-header').classList.remove('listing-header');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ── STICKY HEADER ───────────────────────────────────── */
+window.addEventListener('scroll',()=>{
+  const h=document.getElementById('site-header');
+  if(!h.classList.contains('listing-header'))h.classList.toggle('scrolled',window.scrollY>80);
+},{passive:true});
+
+/* ── SMOOTH SCROLL ───────────────────────────────────── */
+function scrollToSection(id,e){
+  if(e)e.preventDefault();
+  const el=document.getElementById(id);
+  if(!el)return;
+  const hh=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||80;
+  window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-hh,behavior:'smooth'});
+}
+
+/* ── MODAL OPEN / CLOSE ──────────────────────────────── */
+function openModal(){
+  document.getElementById('modal').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('f-name').focus(),80);
+}
+function closeModal(){
+  document.getElementById('modal').classList.remove('open');
+  document.body.style.overflow='';
+  const s=document.getElementById('form-status');
+  s.className='form-status';s.textContent='';
+  document.getElementById('form-submit-btn').disabled=false;
+  document.getElementById('form-submit-btn').textContent='Submit Inquiry';
+}
+function closeModalOutside(e){if(e.target===e.currentTarget)closeModal();}
+
+/* ════════════════════════════════════════════════════════
+   UPGRADE 3a: HOME VALUATION → PRE-POPULATE MODAL
+   Reads the seller address input, opens the contact modal,
+   and writes the address into the message field so agents
+   immediately know what property is being valued.
+════════════════════════════════════════════════════════ */
+function openValuationModal(){
+  const addr=document.getElementById('worth-address').value.trim();
+  openModal();
+  if(addr){
+    document.getElementById('f-interest').value='Seller';
+    document.getElementById('f-msg').value=`I would like a premium market valuation for my property: ${addr}`;
+  }
+}
+
+/* ════════════════════════════════════════════════════════
+   UPGRADE 4a: FORM SUBMIT → LOFTY CRM WEBHOOK (Fetch API)
+   1. Validates name and email.
+   2. Builds a structured JSON payload.
+   3. POSTs to LOFTY_WEBHOOK_URL via fetch().
+   4. Shows a polished success or error status message.
+   (If LOFTY_WEBHOOK_URL is empty, shows confirmation only.)
+════════════════════════════════════════════════════════ */
+async function submitForm(){
+  const name    =document.getElementById('f-name').value.trim();
+  const email   =document.getElementById('f-email').value.trim();
+  const phone   =document.getElementById('f-phone').value.trim();
+  const interest=document.getElementById('f-interest').value;
+  const message =document.getElementById('f-msg').value.trim();
+  const btn     =document.getElementById('form-submit-btn');
+
+  if(!name){showFormStatus('error','Please enter your full name.');document.getElementById('f-name').focus();return;}
+  if(!email||!email.includes('@')){showFormStatus('error','Please enter a valid email address.');document.getElementById('f-email').focus();return;}
+
+  const payload={
+    source:'Core Collective Website',
+    timestamp:new Date().toISOString(),
+    lead:{fullName:name,email,phone,interest,message}
+  };
+
+  btn.disabled=true;btn.textContent='Sending…';
+
+  if(LOFTY_WEBHOOK_URL){
+    try{
+      const res=await fetch(LOFTY_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      showFormStatus('success',`Thank you, ${name}! We will be in touch at ${email} within 24 hours.`);
+      clearForm();
+    }catch(err){
+      showFormStatus('error','There was a problem submitting your request. Please call us at (919) 555-0100.');
+      btn.disabled=false;btn.textContent='Submit Inquiry';
+    }
+  }else{
+    /* No webhook configured yet — show polished confirmation.
+       Remove this else block once LOFTY_WEBHOOK_URL is set.  */
+    showFormStatus('success',`Thank you, ${name}! A Core Collective agent will reach out to ${email} within 24 hours.`);
+    clearForm();
+  }
+}
+
+function showFormStatus(type,msg){
+  const el=document.getElementById('form-status');
+  el.className=`form-status ${type} show`;
+  el.textContent=msg;
+  document.getElementById('form-submit-btn').textContent='Submit Inquiry';
+}
+function clearForm(){
+  ['f-name','f-email','f-phone','f-msg'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-interest').value='';
+  document.getElementById('form-submit-btn').disabled=false;
+}
+
+/* ── MOBILE NAV ──────────────────────────────────────── */
+function toggleMobileNav(){document.getElementById('mobile-nav').classList.toggle('open');}
+function closeMobileNav(){document.getElementById('mobile-nav').classList.remove('open');}
+
+/* ── ESC KEY CLOSES MODAL ────────────────────────────── */
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+/* ── INIT ────────────────────────────────────────────── */
+renderProperties('all');
+</script>
+</body>
+</html>
