@@ -21,12 +21,13 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Generate weekly events draft
+      - name: Generate weekly regional content drafts
         run: node scripts/fetch-events.js
         env:
           EVENTBRITE_TOKEN: ${{ secrets.EVENTBRITE_TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
 
-      - name: Commit and push blog draft
+      - name: Commit and push blog drafts
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -34,6 +35,6 @@ jobs:
           if git diff --staged --quiet; then
             echo "No blog.json changes to commit."
           else
-            git commit -m "chore: weekly community events draft for blog"
+            git commit -m "chore: weekly regional events and market briefing drafts"
             git push
           fi

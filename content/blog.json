@@ -1,15 +1,27 @@
 {
   "posts": [
     {
-      "title": "The Weekend Edit: Triangle Events — Week of July 20, 2026",
+      "title": "The Regional Edit: Events Across the Triangle, Sandhills & Coast",
       "date": "2026-07-20T04:00:00.000Z",
       "author": "Core Collective Editorial",
       "category": "Community Events",
-      "excerpt": "Weekly Triangle community events draft — review and publish after confirming local listings for Raleigh, Durham, Cary, and North Hills.",
+      "excerpt": "Weekly draft: 5–6 curated events across Central NC, military base communities, and coastal towns — plus an Eastern NC heritage spotlight.",
       "cover_image": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80",
-      "cover_alt": "Crowd enjoying an outdoor community festival in the Triangle",
-      "body": "## Introduction\n\nWelcome to your curated Triangle weekend guide for the week of **July 20, 2026**. From North Hills gatherings to Durham arts programming, here is what is happening across Raleigh, Durham, Cary, and surrounding communities.\n\n## Featured Events\n\n_No upcoming public events were retrieved automatically this week. Open Decap CMS, add local listings manually, then uncheck **Draft** to publish._\n\n## Considering a Move?\n\nExperiencing these neighborhoods firsthand is the best way to find your perfect fit. A Core Collective advisor can arrange private tours and community introductions tailored to your lifestyle.",
+      "cover_alt": "Community gathering along the North Carolina coast and piedmont",
+      "body": "## Introduction\n\nYour weekly **Regional Edit** for the week of **July 20, 2026** — curated happenings across the 130-mile Eastern NC arc from the Research Triangle through the Sandhills military communities to the Crystal Coast and Cape Fear.\n\n## Featured Events\n\n_Automated feeds returned limited listings this week. Review and enrich with local chamber, base MWR, and coastal tourism calendars before publishing._\n\n**Suggested coverage zones:**\n- **Central NC:** Raleigh-Durham metro festivals and markets\n- **Military communities:** Fort Liberty (Fayetteville), Seymour Johnson AFB (Goldsboro), Camp Lejeune (Jacksonville)\n- **Coastal towns:** Wilmington, New Bern, Morehead City, Emerald Isle\n\n## 📜 Eastern NC Heritage & Hidden Gem\n\n**Smithfield & Johnston County** — Smithfield flourished as a Johnston County rail and agricultural crossroads in the late 1800s, linking Raleigh markets to coastal supply chains along what is now US-70. The corridor's I-42 designation signals long-term commuter growth for buyers priced out of Wake County.\n\n## Considering a Move?\n\nFrom PCS relocations to coastal second homes, Core Collective advisors guide buyers across the Triangle, Sandhills, and coast. Connect for a personalized community tour.",
       "order": 0,
+      "draft": true
+    },
+    {
+      "title": "Eastern NC & Triangle Regional Market Briefing",
+      "date": "2026-07-20T04:00:00.000Z",
+      "author": "Core Collective Editorial",
+      "category": "Market Insights",
+      "excerpt": "Regional market draft: luxury trends, PCS relocation flows, coastal investment demand, and I-40/I-95/US-70 corridor growth across Eastern NC.",
+      "cover_image": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+      "cover_alt": "Eastern North Carolina regional skyline and growth corridors",
+      "body": "## Market Overview\n\nEastern North Carolina regional briefing for the week of **July 20, 2026** — covering luxury housing dynamics, PCS relocation flows, coastal investment demand, and commute-corridor growth across the 130-mile Raleigh radius.\n\n## Luxury Housing Trends\n\n- **Raleigh-Durham Metro** — Luxury inventory above $750K remains tight in North Hills, Cary, and Apex; staged listings continue to see competitive offers within the first 10 days.\n- **Sandhills & Military Markets** — Fayetteville, Goldsboro, and Jacksonville offer materially lower basis than Wake County with strong rental demand from PCS and contractor households.\n- **Coastal Premium** — Wilmington, New Bern, and Carteret County barrier-island markets show sustained second-home and retiree demand with supply constraints on water-adjacent parcels.\n\n## PCS Military Relocation Buyer Flows\n\nFort Liberty (Fayetteville), Seymour Johnson AFB (Goldsboro), and Camp Lejeune (Jacksonville) drive recurring turnover cycles that create predictable absorption in the $300K–$600K executive segment. Buyers extending tours or converting BAH to equity increasingly look 30–45 minutes off-base for newer construction and school access.\n\n## Coastal Investment Demand\n\nEmerald Isle, Morehead City, and Wilmington capture distinct investor profiles: vacation rental yield on Bogue Banks, maritime-industry rentals in Carteret County, and long-term appreciation along the Cape Fear corridor. Triangle equity migration via I-40 continues to support coastal basis growth.\n\n## Commute Corridor Growth (I-40 · I-95 · US-70 / I-42)\n\nJohnston County (Clayton, Smithfield), Wayne County (Goldsboro), and Wilson–Greenville connectors benefit from US-70 and I-42 narratives that shorten Raleigh access. Remote and hybrid RTP workers increasingly underwrite \"regional lifestyle\" searches across this arc rather than limiting to Wake County.\n\n## 📍 Submarket History & Defense Corridor Spotlight\n\n**I-40 / US-70 / I-95 Commute Corridors** — Johnston County (Smithfield, Clayton) and Wayne County (Goldsboro) benefit from I-42 and US-70 widening narratives that shorten effective Raleigh commutes. Defense-sector and RTP remote workers increasingly map \"90-minute lifestyle\" searches across this 130-mile arc rather than limiting to Wake County.\n\n*Connect with Core Collective for a personalized regional market briefing spanning the Triangle, Sandhills, and coast.*",
+      "order": 1,
       "draft": true
     },
     {

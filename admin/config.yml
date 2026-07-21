@@ -148,7 +148,7 @@ collections:
               - label: Category
                 name: category
                 widget: select
-                options: ["Market Analysis", "Community Events", "Relocation", "Luxury Lifestyle"]
+                options: ["Market Analysis", "Market Insights", "Community Events", "Relocation", "Luxury Lifestyle"]
               - { label: Excerpt, name: excerpt, widget: text }
               - { label: Cover Image, name: cover_image, widget: image }
               - { label: Cover Alt Text, name: cover_alt, widget: string, required: false }
