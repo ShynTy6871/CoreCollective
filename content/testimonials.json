@@ -1,0 +1,36 @@
+{
+  "testimonials": [
+    {
+      "quote": "Marsha and the Core Collective team made selling our North Raleigh home an absolute breeze. Listed on Thursday, had seven offers by Sunday, and closed $68K above asking.",
+      "client_name": "James & Tanya Morrison",
+      "location": "Sold in North Raleigh, NC",
+      "initials": "JT",
+      "stars": 5,
+      "order": 1
+    },
+    {
+      "quote": "As a first-time buyer navigating a brutal market, Sharon was invaluable. She knew every neighborhood, every listing before it went live, and fought hard for our family.",
+      "client_name": "Amara Patel",
+      "location": "Bought in Cary, NC",
+      "initials": "AP",
+      "stars": 5,
+      "order": 2
+    },
+    {
+      "quote": "Dexter helped me acquire three investment properties in 18 months. His market analysis is sharp, his network is exceptional, and his deal-making ability is second to none.",
+      "client_name": "Robert Chen",
+      "location": "Invested in Durham, NC",
+      "initials": "RC",
+      "stars": 5,
+      "order": 3
+    },
+    {
+      "quote": "Sylvia guided us through a complex relocation from Chicago with zero stress. Her knowledge of Chapel Hill neighborhoods and school districts was exactly what we needed.",
+      "client_name": "Karen & Luis Ortiz",
+      "location": "Bought in Chapel Hill, NC",
+      "initials": "KL",
+      "stars": 5,
+      "order": 4
+    }
+  ]
+}

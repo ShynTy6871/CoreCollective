@@ -1,0 +1,19 @@
+{
+  "hero_trust": [
+    { "value": "$50M+", "label": "Volume Sold" },
+    { "value": "100+", "label": "Happy Clients" },
+    { "value": "5.0★", "label": "Rating" },
+    { "value": "15+", "label": "Years Experience" }
+  ],
+  "hero_stats": [
+    { "value": "$2.4B+", "label": "Volume Closed" },
+    { "value": "1,200+", "label": "Transactions" },
+    { "value": "98.7%", "label": "List-to-Sale Ratio" },
+    { "value": "14 Days", "label": "Avg. Days on Market" }
+  ],
+  "seller_stats": [
+    { "value": "98.7%", "label": "List-to-Sale Ratio" },
+    { "value": "14 Days", "label": "Avg. DOM" },
+    { "value": "$2.4B", "label": "Total Volume" }
+  ]
+}

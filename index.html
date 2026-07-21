@@ -21,6 +21,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+<script>
+if(window.netlifyIdentity){
+  window.netlifyIdentity.on('init',user=>{
+    if(!user){
+      window.netlifyIdentity.on('login',()=>{document.location.href='/admin/';});
+    }
+  });
+}
+</script>
 <style>
 /* ─── RESET & ROOT ──────────────────────────────────── */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -415,6 +425,8 @@ section{padding:100px 80px}
 .agent-profile-photo{aspect-ratio:4/5;max-height:260px;background:linear-gradient(165deg,var(--navy-lt) 0%,var(--navy) 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:1px solid rgba(197,160,89,.2)}
 .agent-profile-photo::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(197,160,89,.12) 0%,transparent 65%)}
 .agent-profile-headshot{width:clamp(96px,18vw,120px);height:clamp(96px,18vw,120px);border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:clamp(32px,5vw,42px);font-weight:400;color:var(--gold);background:rgba(10,25,47,.55);position:relative;z-index:1;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.agent-profile-headshot.has-photo{padding:0;overflow:hidden}
+.agent-profile-headshot img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .agent-profile-body{padding:clamp(24px,3vw,28px);display:flex;flex-direction:column;flex:1}
 .agent-profile-name{font-family:var(--font-display);font-size:clamp(22px,2.5vw,26px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:6px}
 .agent-profile-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
@@ -736,7 +748,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
       <div class="hero-headline-wrap">
         <h1 class="hero-h1">Where <em>Exceptional</em><br>Homes Find<br>Their People</h1>
       </div>
-      <div class="hero-trust-bar" role="complementary" aria-label="Company credentials">
+      <div class="hero-trust-bar" id="cms-hero-trust" role="complementary" aria-label="Company credentials">
         <div class="hero-trust-item">
           <div class="hero-trust-num">$50M+</div>
           <div class="hero-trust-label">Volume Sold</div>
@@ -760,7 +772,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
         <button class="btn-outline" onclick="openModal()">Schedule a Consultation</button>
       </div>
     </div>
-    <div class="hero-stats" role="complementary">
+    <div class="hero-stats" id="cms-hero-stats" role="complementary">
       <div class="stat-block"><div class="stat-num">$2.4B+</div><div class="stat-label">Volume Closed</div></div>
       <div class="stat-block"><div class="stat-num">1,200+</div><div class="stat-label">Transactions</div></div>
       <div class="stat-block"><div class="stat-num">98.7%</div><div class="stat-label">List-to-Sale Ratio</div></div>
@@ -1020,7 +1032,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
           <div class="val-status" id="val-status" role="status" aria-live="polite"></div>
         </form>
       </div>
-      <div class="sellers-stats" role="list">
+      <div class="sellers-stats" id="cms-sellers-stats" role="list">
         <div class="s-stat" role="listitem"><div class="s-stat-num">98.7%</div><div class="s-stat-label">List-to-Sale Ratio</div></div>
         <div class="s-stat" role="listitem"><div class="s-stat-num">14 Days</div><div class="s-stat-label">Avg. DOM</div></div>
         <div class="s-stat" role="listitem"><div class="s-stat-num">$2.4B</div><div class="s-stat-label">Total Volume</div></div>
@@ -1077,7 +1089,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
     <div class="section-eyebrow">Local Expertise</div>
     <h2 class="section-title" id="triangle-title">Explore The <em>Triangle</em></h2>
     <p class="section-sub">Curated guides to the Triangle's most sought-after sub-markets — median pricing, lifestyle highlights, and insider access from Core Collective agents.</p>
-    <div class="neighborhood-grid" role="list">
+    <div class="neighborhood-grid" id="cms-neighborhoods" role="list">
       <article class="neighborhood-card" role="listitem">
         <div class="nhood-img-wrap">
           <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80" alt="Downtown Raleigh skyline" loading="lazy">
@@ -1255,7 +1267,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
     <div class="section-eyebrow">The Team</div>
     <h2 class="section-title" id="team-title">Meet Our <em>Agents</em></h2>
     <p class="section-sub">Four dedicated professionals with deep Triangle market expertise — each bringing a distinct specialty to your buying, selling, or investment journey.</p>
-    <div class="agent-profiles-grid" role="list">
+    <div class="agent-profiles-grid" id="cms-agents" role="list">
       <article class="agent-profile-card" role="listitem">
         <div class="agent-profile-photo" aria-hidden="true">
           <div class="agent-profile-headshot">MW</div>
@@ -1793,12 +1805,13 @@ function closeModal(){
 }
 function closeModalOutside(e){if(e.target===e.currentTarget)closeModal();}
 
-const AGENT_ROUTES={
+const AGENT_ROUTES_FALLBACK={
   'marsha-watson':{name:'Marsha Watson',role:'Realtor & Team Lead',interest:'Seller',expertise:'Luxury Listings · Seller Strategy · North Raleigh'},
   'sharon-mcduffie':{name:'Sharon McDuffie',role:'Realtor · Buyer Specialist',interest:'Buyer',expertise:'Buyer Representation · Off-Market Access · Cary & Apex'},
   'sylvia-wheeler':{name:'Sylvia T. Wheeler',role:'Realtor · Relocation Expert',interest:'Buyer',expertise:'Relocation · Chapel Hill · School Districts'},
   'dexter-drayton':{name:'Dexter Drayton',role:'Realtor · Investment Advisor',interest:'Investor',expertise:'Investment Properties · Cap Rate Analysis · Multi-Family'}
 };
+let AGENT_ROUTES={...AGENT_ROUTES_FALLBACK};
 
 function openAgentConsultation(agentId){
   const agent=AGENT_ROUTES[agentId];
@@ -2083,7 +2096,147 @@ function closeVideoLightboxOutside(e){
 
 /* ── INIT ────────────────────────────────────────────── */
 renderProperties('all');
-initTestimonialSlider();
+loadCMSContent().then(()=>initTestimonialSlider());
+
+/* ── DECAP CMS CONTENT LOADER ────────────────────────── */
+function escHtml(str){
+  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function sortByOrder(items){
+  return [...items].sort((a,b)=>(a.order||0)-(b.order||0));
+}
+
+async function loadCMSContent(){
+  try{
+    const[agentsRes,nhoodsRes,testiRes,metricsRes]=await Promise.all([
+      fetch('content/agents.json'),
+      fetch('content/neighborhoods.json'),
+      fetch('content/testimonials.json'),
+      fetch('content/market-metrics.json')
+    ]);
+    if(agentsRes.ok){
+      const data=await agentsRes.json();
+      renderAgents(data.agents||[]);
+    }
+    if(nhoodsRes.ok){
+      const data=await nhoodsRes.json();
+      renderNeighborhoods(data.neighborhoods||[]);
+    }
+    if(testiRes.ok){
+      const data=await testiRes.json();
+      renderTestimonials(data.testimonials||[]);
+    }
+    if(metricsRes.ok){
+      const data=await metricsRes.json();
+      renderMarketMetrics(data);
+    }
+  }catch(err){
+    console.warn('CMS content load skipped:',err);
+  }
+}
+
+function renderMarketMetrics(data){
+  const trustEl=document.getElementById('cms-hero-trust');
+  if(trustEl&&data.hero_trust?.length){
+    trustEl.innerHTML=data.hero_trust.map(s=>`
+      <div class="hero-trust-item">
+        <div class="hero-trust-num">${escHtml(s.value)}</div>
+        <div class="hero-trust-label">${escHtml(s.label)}</div>
+      </div>`).join('');
+  }
+  const heroStatsEl=document.getElementById('cms-hero-stats');
+  if(heroStatsEl&&data.hero_stats?.length){
+    heroStatsEl.innerHTML=data.hero_stats.map(s=>`
+      <div class="stat-block">
+        <div class="stat-num">${escHtml(s.value)}</div>
+        <div class="stat-label">${escHtml(s.label)}</div>
+      </div>`).join('');
+  }
+  const sellerEl=document.getElementById('cms-sellers-stats');
+  if(sellerEl&&data.seller_stats?.length){
+    sellerEl.innerHTML=data.seller_stats.map(s=>`
+      <div class="s-stat" role="listitem">
+        <div class="s-stat-num">${escHtml(s.value)}</div>
+        <div class="s-stat-label">${escHtml(s.label)}</div>
+      </div>`).join('');
+  }
+}
+
+function renderNeighborhoods(items){
+  const el=document.getElementById('cms-neighborhoods');
+  if(!el||!items.length)return;
+  el.innerHTML=sortByOrder(items).map(n=>{
+    const highlights=(n.highlights||[]).map(h=>{
+      const text=typeof h==='string'?h:h.highlight;
+      return `<li>${escHtml(text)}</li>`;
+    }).join('');
+    return `<article class="neighborhood-card" role="listitem">
+      <div class="nhood-img-wrap">
+        <img src="${escHtml(n.cover_photo)}" alt="${escHtml(n.cover_alt||n.name)}" loading="lazy">
+        <div class="nhood-median">
+          <div class="nhood-median-label">Median Price</div>
+          <div class="nhood-median-price">${escHtml(n.median_price)}</div>
+        </div>
+      </div>
+      <div class="nhood-body">
+        <h3 class="nhood-name">${escHtml(n.name)}</h3>
+        <p class="nhood-tagline">${escHtml(n.description)}</p>
+        <ul class="nhood-highlights">${highlights}</ul>
+        <button class="nhood-cta" onclick="requestCommunityGuide(${JSON.stringify(n.name)})">Request Community Guide</button>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+function renderTestimonials(items){
+  const el=document.getElementById('testimonials-grid');
+  if(!el||!items.length)return;
+  el.innerHTML=sortByOrder(items).map(t=>{
+    const stars=Math.min(5,Math.max(1,t.stars||5));
+    const starHtml=Array.from({length:stars},()=>'<span>★</span>').join('');
+    return `<article class="testimonial-card" role="listitem">
+      <div class="testimonial-stars" aria-label="${stars} stars">${starHtml}</div>
+      <blockquote class="testimonial-text">"${escHtml(t.quote)}"</blockquote>
+      <div class="testimonial-author">
+        <div class="t-avatar" aria-hidden="true">${escHtml(t.initials)}</div>
+        <div>
+          <div class="t-name">${escHtml(t.client_name)}</div>
+          <span class="t-neighborhood">${escHtml(t.location)}</span>
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+}
+
+function renderAgents(items){
+  const el=document.getElementById('cms-agents');
+  if(!el||!items.length)return;
+  const routes={};
+  el.innerHTML=sortByOrder(items).map(a=>{
+    const id=a.agent_id||a.name.toLowerCase().replace(/\s+/g,'-');
+    const tags=(a.focus_tags||[]).map(t=>{
+      const text=typeof t==='string'?t:t.tag;
+      return `<span class="agent-profile-tag">${escHtml(text)}</span>`;
+    }).join('');
+    const expertise=(a.focus_tags||[]).map(t=>typeof t==='string'?t:t.tag).join(' · ');
+    routes[id]={name:a.name,role:a.title,interest:a.interest||'Buyer',expertise,phone:a.phone,email:a.email};
+    const headshot=a.headshot
+      ? `<div class="agent-profile-headshot has-photo"><img src="${escHtml(a.headshot)}" alt="${escHtml(a.name)}"></div>`
+      : `<div class="agent-profile-headshot">${escHtml(a.initials)}</div>`;
+    return `<article class="agent-profile-card" role="listitem">
+      <div class="agent-profile-photo" aria-hidden="true">${headshot}</div>
+      <div class="agent-profile-body">
+        <h3 class="agent-profile-name">${escHtml(a.name)}</h3>
+        <p class="agent-profile-role">${escHtml(a.title)}</p>
+        <div class="agent-profile-expertise">${tags}</div>
+        <p class="agent-profile-bio">${escHtml(a.bio)}</p>
+        <button class="agent-profile-cta" onclick="openAgentConsultation(${JSON.stringify(id)})">Schedule Consultation</button>
+      </div>
+    </article>`;
+  }).join('');
+  AGENT_ROUTES={...AGENT_ROUTES,...routes};
+}
 
 function initTestimonialSlider(){
   const track=document.getElementById('testimonials-grid');

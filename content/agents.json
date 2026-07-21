@@ -1,0 +1,72 @@
+{
+  "agents": [
+    {
+      "agent_id": "marsha-watson",
+      "name": "Marsha Watson",
+      "initials": "MW",
+      "title": "Realtor & Team Lead",
+      "bio": "With over two decades in Triangle real estate, Marsha leads Core Collective with a precision listing strategy that consistently delivers above-asking results for luxury sellers.",
+      "focus_tags": [
+        { "tag": "Luxury Listings" },
+        { "tag": "Seller Strategy" },
+        { "tag": "North Raleigh" }
+      ],
+      "headshot": "",
+      "phone": "(919) 555-0100",
+      "email": "marsha@corecollectivere.com",
+      "interest": "Seller",
+      "order": 1
+    },
+    {
+      "agent_id": "sharon-mcduffie",
+      "name": "Sharon McDuffie",
+      "initials": "SM",
+      "title": "Realtor · Buyer Specialist",
+      "bio": "Sharon's insider network and relentless negotiation style give buyers a decisive edge — from first-time homeowners to families upgrading into premier neighborhoods.",
+      "focus_tags": [
+        { "tag": "Buyer Representation" },
+        { "tag": "Off-Market Access" },
+        { "tag": "Cary & Apex" }
+      ],
+      "headshot": "",
+      "phone": "(919) 555-0101",
+      "email": "sharon@corecollectivere.com",
+      "interest": "Buyer",
+      "order": 2
+    },
+    {
+      "agent_id": "sylvia-wheeler",
+      "name": "Sylvia T. Wheeler",
+      "initials": "SW",
+      "title": "Realtor · Relocation Expert",
+      "bio": "Sylvia guides relocating families through every detail — neighborhood matching, school research, and seamless closings across Chapel Hill, Durham, and beyond.",
+      "focus_tags": [
+        { "tag": "Relocation" },
+        { "tag": "Chapel Hill" },
+        { "tag": "School Districts" }
+      ],
+      "headshot": "",
+      "phone": "(919) 555-0102",
+      "email": "sylvia@corecollectivere.com",
+      "interest": "Buyer",
+      "order": 3
+    },
+    {
+      "agent_id": "dexter-drayton",
+      "name": "Dexter Drayton",
+      "initials": "DD",
+      "title": "Realtor · Investment Advisor",
+      "bio": "Dexter partners with investors to identify high-yield assets across the Triangle — combining sharp financial analysis with an unmatched off-market deal pipeline.",
+      "focus_tags": [
+        { "tag": "Investment Properties" },
+        { "tag": "Cap Rate Analysis" },
+        { "tag": "Multi-Family" }
+      ],
+      "headshot": "",
+      "phone": "(919) 555-0103",
+      "email": "dexter@corecollectivere.com",
+      "interest": "Investor",
+      "order": 4
+    }
+  ]
+}

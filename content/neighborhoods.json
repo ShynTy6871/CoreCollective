@@ -1,0 +1,56 @@
+{
+  "neighborhoods": [
+    {
+      "name": "Downtown Raleigh",
+      "median_price": "$625K",
+      "description": "Urban luxury living steps from award-winning dining, the Warehouse District, and Red Hat Amphitheater.",
+      "highlights": [
+        { "highlight": "Walk Score 88 · Vibrant nightlife & arts scene" },
+        { "highlight": "New luxury high-rise and loft conversions" },
+        { "highlight": "5-min access to Glenwood South & Moore Square" }
+      ],
+      "cover_photo": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80",
+      "cover_alt": "Downtown Raleigh skyline",
+      "order": 1
+    },
+    {
+      "name": "North Hills",
+      "median_price": "$875K",
+      "description": "Raleigh's premier mixed-use enclave — designer boutiques, fine dining, and estate-caliber residences.",
+      "highlights": [
+        { "highlight": "Midtown's walkable luxury retail corridor" },
+        { "highlight": "Top-rated schools & country club access" },
+        { "highlight": "Custom builds & gated estate communities" }
+      ],
+      "cover_photo": "https://images.unsplash.com/photo-1605276374101-de4c0a5a9622?w=800&q=80",
+      "cover_alt": "North Hills luxury shopping district",
+      "order": 2
+    },
+    {
+      "name": "Cary",
+      "median_price": "$725K",
+      "description": "Family-forward sophistication with master-planned communities, top schools, and RTP commuter convenience.",
+      "highlights": [
+        { "highlight": "Preston, Lochmere & MacGregor Downs estates" },
+        { "highlight": "A+ rated Wake County schools" },
+        { "highlight": "15-min commute to Research Triangle Park" }
+      ],
+      "cover_photo": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+      "cover_alt": "Cary luxury home",
+      "order": 3
+    },
+    {
+      "name": "Wake Forest",
+      "median_price": "$585K",
+      "description": "Expansive acreage, equestrian properties, and new-construction luxury in one of the Triangle's fastest-growing corridors.",
+      "highlights": [
+        { "highlight": "1+ acre estate lots & custom builders" },
+        { "highlight": "Historic downtown charm meets new growth" },
+        { "highlight": "Strong appreciation & inventory diversity" }
+      ],
+      "cover_photo": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
+      "cover_alt": "Wake Forest estate home",
+      "order": 4
+    }
+  ]
+}
