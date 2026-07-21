@@ -2308,10 +2308,6 @@ function escHtml(str){
   return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-function sortByOrder(items){
-  return [...items].sort((a,b)=>(a.order||0)-(b.order||0));
-}
-
 async function loadCMSContent(){
   try{
     const[agentsRes,nhoodsRes,testiRes,metricsRes,blogRes,faqsRes]=await Promise.all([
@@ -2381,7 +2377,7 @@ function renderMarketMetrics(data){
 function renderNeighborhoods(items){
   const el=document.getElementById('cms-neighborhoods');
   if(!el||!items.length)return;
-  el.innerHTML=sortByOrder(items).map(n=>{
+  el.innerHTML=items.map(n=>{
     const highlights=(n.highlights||[]).map(h=>{
       const text=typeof h==='string'?h:h.highlight;
       return `<li>${escHtml(text)}</li>`;
@@ -2407,7 +2403,7 @@ function renderNeighborhoods(items){
 function renderTestimonials(items){
   const el=document.getElementById('testimonials-grid');
   if(!el||!items.length)return;
-  el.innerHTML=sortByOrder(items).map(t=>{
+  el.innerHTML=items.map(t=>{
     const stars=Math.min(5,Math.max(1,t.stars||5));
     const starHtml=Array.from({length:stars},()=>'<span>★</span>').join('');
     return `<article class="testimonial-card" role="listitem">
@@ -2428,7 +2424,7 @@ function renderAgents(items){
   const el=document.getElementById('cms-agents');
   if(!el||!items.length)return;
   const routes={};
-  el.innerHTML=sortByOrder(items).map(a=>{
+  el.innerHTML=items.map(a=>{
     const id=a.agent_id||a.name.toLowerCase().replace(/\s+/g,'-');
     const tags=(a.focus_tags||[]).map(t=>{
       const text=typeof t==='string'?t:t.tag;
@@ -2493,7 +2489,7 @@ function mdToHtml(md){
 }
 
 function renderBlog(items){
-  BLOG_POSTS=sortByOrder((items||[]).filter(p=>!p.draft));
+  BLOG_POSTS=(items||[]).filter(p=>!p.draft);
   const activeTab=document.querySelector('#blog-filter-tabs .filter-tab.active');
   filterBlog(activeTab||document.getElementById('blog-tab-all'),'all');
 }
@@ -2536,7 +2532,7 @@ function filterBlog(btn,region){
 function renderFaqs(items){
   const el=document.getElementById('cms-faqs');
   if(!el||!items.length)return;
-  el.innerHTML=sortByOrder(items).map((f,i)=>`
+  el.innerHTML=items.map((f,i)=>`
     <article class="faq-item" role="listitem">
       <button type="button" class="faq-question" id="faq-q-${i}" aria-expanded="false" aria-controls="faq-a-${i}" onclick="toggleFaq(this)">
         <span>${escHtml(f.question)}</span>
