@@ -114,7 +114,7 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 .hero-trust-label{font-size:8px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--navy);line-height:1.4}
 .hero-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,.65);max-width:480px;line-height:1.7;margin-bottom:40px;letter-spacing:.02em}
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
-.btn-primary,.btn-outline,.header-cta,.prop-card,.testimonial-card,.metric-card,.buyer-feature,.val-btn-next,.search-btn,.form-submit,.schedule-btn,.no-results-reset,.filter-tab,.agent-link,.listing-btn,.val-btn-back,.neighborhood-card,.mortgage-preapprove,.nhood-cta,.exit-modal-submit,.exit-modal-close,.agent-profile-card,.agent-profile-cta{transition:var(--lift)}
+.btn-primary,.btn-outline,.header-cta,.prop-card,.testimonial-card,.metric-card,.buyer-feature,.val-btn-next,.search-btn,.form-submit,.schedule-btn,.no-results-reset,.filter-tab,.agent-link,.listing-btn,.val-btn-back,.neighborhood-card,.mortgage-preapprove,.nhood-cta,.exit-modal-submit,.exit-modal-close,.agent-profile-card,.agent-profile-cta,.video-showcase-card,.video-reel-card,.video-lightbox-close{transition:var(--lift)}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
 .btn-primary:hover{background:var(--gold-lt);transform:translateY(-4px);box-shadow:0 8px 24px rgba(197,160,89,.35)}
 .btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:1px solid rgba(255,255,255,.4);color:var(--white);font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase}
@@ -129,7 +129,53 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 .scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
 @keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
 
-/* ─── SECTIONS ─────────────────────────────────────── */
+/* ─── CINEMATIC VIDEO & MEDIA ─────────────────────── */
+#cinematic-media{background:var(--navy);padding:clamp(64px,8vw,100px) clamp(1.5rem,4vw,5rem);overflow:hidden}
+#cinematic-media .section-title{color:var(--white)}
+#cinematic-media .section-sub{color:rgba(255,255,255,.55);max-width:560px}
+.video-showcase-card{position:relative;margin-top:48px;border:1px solid rgba(197,160,89,.3);overflow:hidden;cursor:pointer;background:var(--navy-mid);transition:var(--lift)}
+.video-showcase-card:hover{transform:translateY(-4px);border-color:rgba(197,160,89,.6);box-shadow:0 24px 64px rgba(0,0,0,.4)}
+.video-showcase-card:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+.video-showcase-thumb{position:relative;aspect-ratio:21/9;overflow:hidden;background:var(--navy-lt)}
+.video-showcase-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--trans)}
+.video-showcase-card:hover .video-showcase-thumb img{transform:scale(1.04)}
+.video-showcase-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,47,.85) 0%,rgba(10,25,47,.25) 50%,rgba(10,25,47,.15) 100%)}
+.video-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(64px,10vw,88px);height:clamp(64px,10vw,88px);border-radius:50%;background:rgba(197,160,89,.92);border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;transition:var(--lift);box-shadow:0 8px 32px rgba(0,0,0,.35)}
+.video-play-btn::after{content:'';width:0;height:0;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent var(--navy);margin-left:5px}
+.video-showcase-card:hover .video-play-btn{background:var(--gold-lt);transform:translate(-50%,-50%) scale(1.08);box-shadow:0 12px 40px rgba(197,160,89,.45)}
+.video-showcase-meta{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:clamp(20px,3vw,32px);display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.video-showcase-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.video-showcase-title{font-family:var(--font-display);font-size:clamp(20px,3vw,28px);font-weight:400;color:var(--white);line-height:1.15}
+.video-showcase-duration{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5);padding:6px 12px;border:1px solid rgba(255,255,255,.2);white-space:nowrap}
+.video-reels-header{display:flex;justify-content:space-between;align-items:baseline;margin-top:clamp(40px,5vw,56px);margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.video-reels-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.video-reels-sub{font-size:12px;font-weight:300;color:rgba(255,255,255,.4);letter-spacing:.04em}
+.video-reels-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:16px}
+.video-reel-card{position:relative;border:1px solid rgba(197,160,89,.22);background:var(--navy-mid);overflow:hidden;cursor:pointer;text-align:left;transition:var(--lift)}
+.video-reel-card:hover{transform:translateY(-4px);border-color:rgba(197,160,89,.55);box-shadow:0 16px 48px rgba(0,0,0,.35)}
+.video-reel-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.video-reel-thumb{position:relative;aspect-ratio:16/10;overflow:hidden}
+.video-reel-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--trans)}
+.video-reel-card:hover .video-reel-thumb img{transform:scale(1.06)}
+.video-reel-thumb::after{content:'';position:absolute;inset:0;background:rgba(10,25,47,.35);transition:background .3s}
+.video-reel-card:hover .video-reel-thumb::after{background:rgba(10,25,47,.15)}
+.video-reel-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;width:44px;height:44px;border-radius:50%;background:rgba(197,160,89,.9);display:flex;align-items:center;justify-content:center;transition:var(--lift)}
+.video-reel-play::after{content:'';width:0;height:0;border-style:solid;border-width:7px 0 7px 12px;border-color:transparent transparent transparent var(--navy);margin-left:3px}
+.video-reel-card:hover .video-reel-play{background:var(--gold-lt);transform:translate(-50%,-50%) scale(1.1)}
+.video-reel-body{padding:16px 18px 20px}
+.video-reel-title{font-family:var(--font-display);font-size:clamp(16px,2vw,18px);font-weight:400;color:var(--white);margin-bottom:4px;line-height:1.2}
+.video-reel-tag{font-size:8px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.video-lightbox{display:none;position:fixed;inset:0;z-index:2200;background:rgba(6,15,29,.95);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:clamp(1rem,3vw,2rem);box-sizing:border-box}
+.video-lightbox.open{display:flex}
+.video-lightbox-inner{width:100%;max-width:1100px;position:relative}
+.video-lightbox-close{position:absolute;top:-48px;right:0;width:40px;height:40px;border:1px solid rgba(197,160,89,.35);color:rgba(255,255,255,.7);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--lift);z-index:1;background:rgba(10,25,47,.6)}
+.video-lightbox-close:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-4px)}
+.video-lightbox-player{position:relative;aspect-ratio:16/9;background:#000;border:1px solid rgba(197,160,89,.25);overflow:hidden}
+.video-lightbox-player video,.video-lightbox-player iframe{width:100%;height:100%;border:none;display:block}
+.video-lightbox-caption{margin-top:16px;text-align:center}
+.video-lightbox-caption-title{font-family:var(--font-display);font-size:clamp(18px,2.5vw,24px);color:var(--white);margin-bottom:4px}
+.video-lightbox-caption-sub{font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
 section{padding:100px 80px}
 .section-eyebrow{font-size:10px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:14px}
 .section-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
@@ -530,6 +576,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
   .valuation-step-label{font-size:7px}
   .mortgage-panel{grid-template-columns:1fr}
   .mortgage-breakdown{grid-template-columns:1fr}
+  .video-reels-row{grid-template-columns:1fr}
   .search-row{grid-template-columns:1fr}
   .search-field{border-right:none;border-bottom:1px solid var(--gray-100)}
   .buyer-features{grid-template-columns:1fr}
@@ -720,6 +767,63 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
       <div class="stat-block"><div class="stat-num">14 Days</div><div class="stat-label">Avg. Days on Market</div></div>
     </div>
     <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><div class="scroll-line"></div></div>
+  </section>
+
+  <section id="cinematic-media" aria-labelledby="cinematic-title">
+    <div class="section-eyebrow">Cinematic Media</div>
+    <h2 class="section-title" id="cinematic-title">Experience <em>Luxury</em> in Motion</h2>
+    <p class="section-sub">Tour premier properties and hear from our clients — cinematic walkthroughs and market insights from the Core Collective team.</p>
+
+    <button type="button" class="video-showcase-card" onclick="openVideoLightbox('brand-main')" aria-label="Play Core Collective brand film">
+      <div class="video-showcase-thumb">
+        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=75" alt="" loading="lazy" width="1400" height="600">
+        <div class="video-play-btn" aria-hidden="true"></div>
+        <div class="video-showcase-meta">
+          <div>
+            <div class="video-showcase-label">Featured Film</div>
+            <div class="video-showcase-title">Core Collective · Luxury Property Walkthrough</div>
+          </div>
+          <span class="video-showcase-duration">3:24</span>
+        </div>
+      </div>
+    </button>
+
+    <div class="video-reels-header">
+      <span class="video-reels-label">Video Reels</span>
+      <span class="video-reels-sub">Tap to watch · Streams on demand</span>
+    </div>
+    <div class="video-reels-row" role="list">
+      <button type="button" class="video-reel-card" role="listitem" onclick="openVideoLightbox('reel-client')" aria-label="Play Client Success Story">
+        <div class="video-reel-thumb">
+          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=75" alt="" loading="lazy" width="600" height="375">
+          <div class="video-reel-play" aria-hidden="true"></div>
+        </div>
+        <div class="video-reel-body">
+          <div class="video-reel-title">Client Success Story</div>
+          <div class="video-reel-tag">Seller · North Raleigh</div>
+        </div>
+      </button>
+      <button type="button" class="video-reel-card" role="listitem" onclick="openVideoLightbox('reel-market')" aria-label="Play Raleigh Market Insights">
+        <div class="video-reel-thumb">
+          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=75" alt="" loading="lazy" width="600" height="375">
+          <div class="video-reel-play" aria-hidden="true"></div>
+        </div>
+        <div class="video-reel-body">
+          <div class="video-reel-title">Raleigh Market Insights</div>
+          <div class="video-reel-tag">Q1 2026 · Market Report</div>
+        </div>
+      </button>
+      <button type="button" class="video-reel-card" role="listitem" onclick="openVideoLightbox('reel-neighborhood')" aria-label="Play Neighborhood Spotlight">
+        <div class="video-reel-thumb">
+          <img src="https://images.unsplash.com/photo-1605276374101-de4c0a5a9622?w=600&q=75" alt="" loading="lazy" width="600" height="375">
+          <div class="video-reel-play" aria-hidden="true"></div>
+        </div>
+        <div class="video-reel-body">
+          <div class="video-reel-title">North Hills Spotlight</div>
+          <div class="video-reel-tag">Neighborhood Guide</div>
+        </div>
+      </button>
+    </div>
   </section>
 
   <section id="properties" aria-labelledby="properties-title">
@@ -1353,6 +1457,18 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
   <button class="back-btn" onclick="showHome()">← Back to Listings</button>
 </div>
 
+<!-- VIDEO LIGHTBOX -->
+<div class="video-lightbox" id="video-lightbox" role="dialog" aria-modal="true" aria-labelledby="video-lightbox-title" onclick="closeVideoLightboxOutside(event)">
+  <div class="video-lightbox-inner">
+    <button class="video-lightbox-close" onclick="closeVideoLightbox()" aria-label="Close video">✕</button>
+    <div class="video-lightbox-player" id="video-lightbox-player"></div>
+    <div class="video-lightbox-caption">
+      <div class="video-lightbox-caption-title" id="video-lightbox-title"></div>
+      <div class="video-lightbox-caption-sub" id="video-lightbox-sub"></div>
+    </div>
+  </div>
+</div>
+
 <!-- EXIT-INTENT MODAL -->
 <div class="exit-modal-overlay" id="exit-modal" role="dialog" aria-modal="true" aria-labelledby="exit-modal-title" onclick="closeExitModalOutside(event)">
   <div class="exit-modal-box">
@@ -1882,10 +1998,88 @@ function closeMobileNav(){document.getElementById('mobile-nav').classList.remove
 /* ── ESC KEY CLOSES MODAL ────────────────────────────── */
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
-    if(document.getElementById('exit-modal').classList.contains('open'))closeExitModal();
+    if(document.getElementById('video-lightbox').classList.contains('open'))closeVideoLightbox();
+    else if(document.getElementById('exit-modal').classList.contains('open'))closeExitModal();
     else closeModal();
   }
 });
+
+/* ── VIDEO LIGHTBOX (lazy-loaded) ────────────────────── */
+const VIDEO_LIBRARY={
+  'brand-main':{
+    type:'html5',
+    src:'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-luxurious-house-with-a-pool-4032-large.mp4',
+    title:'Core Collective · Luxury Property Walkthrough',
+    sub:'Featured Brand Film',
+    poster:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=75'
+  },
+  'reel-client':{
+    type:'html5',
+    src:'https://assets.mixkit.co/videos/preview/mixkit-young-couple-talking-in-the-living-room-4024-large.mp4',
+    title:'Client Success Story',
+    sub:'Seller · North Raleigh',
+    poster:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=75'
+  },
+  'reel-market':{
+    type:'youtube',
+    src:'https://www.youtube-nocookie.com/embed/EEIk7hub6be?autoplay=1&rel=0&modestbranding=1',
+    title:'Raleigh Market Insights',
+    sub:'Q1 2026 · Market Report',
+    poster:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=75'
+  },
+  'reel-neighborhood':{
+    type:'html5',
+    src:'https://assets.mixkit.co/videos/preview/mixkit-view-of-the-city-at-night-from-a-balcony-4433-large.mp4',
+    title:'North Hills Spotlight',
+    sub:'Neighborhood Guide',
+    poster:'https://images.unsplash.com/photo-1605276374101-de4c0a5a9622?w=600&q=75'
+  }
+};
+
+function openVideoLightbox(videoId){
+  const video=VIDEO_LIBRARY[videoId];
+  if(!video)return;
+  const player=document.getElementById('video-lightbox-player');
+  const lightbox=document.getElementById('video-lightbox');
+  player.innerHTML='';
+  if(video.type==='youtube'){
+    const iframe=document.createElement('iframe');
+    iframe.src=video.src;
+    iframe.title=video.title;
+    iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen=true;
+    iframe.loading='lazy';
+    player.appendChild(iframe);
+  }else{
+    const vid=document.createElement('video');
+    vid.src=video.src;
+    vid.poster=video.poster;
+    vid.controls=true;
+    vid.preload='none';
+    vid.playsInline=true;
+    player.appendChild(vid);
+    vid.play().catch(()=>{});
+  }
+  document.getElementById('video-lightbox-title').textContent=video.title;
+  document.getElementById('video-lightbox-sub').textContent=video.sub;
+  lightbox.classList.add('open');
+  document.body.style.overflow='hidden';
+}
+
+function closeVideoLightbox(){
+  const player=document.getElementById('video-lightbox-player');
+  const vid=player.querySelector('video');
+  if(vid){vid.pause();vid.removeAttribute('src');vid.load()}
+  player.innerHTML='';
+  document.getElementById('video-lightbox').classList.remove('open');
+  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')){
+    document.body.style.overflow='';
+  }
+}
+
+function closeVideoLightboxOutside(e){
+  if(e.target===e.currentTarget)closeVideoLightbox();
+}
 
 /* ── INIT ────────────────────────────────────────────── */
 renderProperties('all');
