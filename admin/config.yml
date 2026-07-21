@@ -153,4 +153,9 @@ collections:
               - { label: Cover Image, name: cover_image, widget: image }
               - { label: Cover Alt Text, name: cover_alt, widget: string, required: false }
               - { label: Body, name: body, widget: markdown }
+              - label: Draft
+                name: draft
+                widget: boolean
+                default: false
+                hint: "Weekly auto-generated posts arrive as drafts. Uncheck to publish on the live site."
               - { label: Display Order, name: order, widget: number, value_type: int, default: 0 }

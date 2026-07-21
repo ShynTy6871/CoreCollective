@@ -2383,7 +2383,8 @@ function mdToHtml(md){
 }
 
 function renderBlog(items){
-  BLOG_POSTS=sortByOrder(items);
+  const published=sortByOrder((items||[]).filter(p=>!p.draft));
+  BLOG_POSTS=published;
   const el=document.getElementById('cms-blog');
   if(!el||!BLOG_POSTS.length)return;
   el.innerHTML=BLOG_POSTS.map((p,i)=>{
