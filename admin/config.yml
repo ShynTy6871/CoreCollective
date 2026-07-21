@@ -149,6 +149,11 @@ collections:
                 name: category
                 widget: select
                 options: ["Market Analysis", "Market Insights", "Community Events", "Relocation", "Luxury Lifestyle"]
+              - label: Region
+                name: region
+                widget: select
+                required: false
+                options: ["Core Triangle", "Military & Sandhills", "Coastal & Beaches"]
               - { label: Excerpt, name: excerpt, widget: text }
               - { label: Cover Image, name: cover_image, widget: image }
               - { label: Cover Alt Text, name: cover_alt, widget: string, required: false }
@@ -158,4 +163,22 @@ collections:
                 widget: boolean
                 default: false
                 hint: "Weekly auto-generated posts arrive as drafts. Uncheck to publish on the live site."
+              - { label: Display Order, name: order, widget: number, value_type: int, default: 0 }
+
+  - name: faqs
+    label: FAQs
+    files:
+      - label: Frequently Asked Questions
+        name: faqs
+        file: content/faqs.json
+        description: Edit homepage FAQ accordion items.
+        fields:
+          - label: FAQs
+            name: faqs
+            label_singular: FAQ
+            widget: list
+            summary: "{{fields.question}}"
+            fields:
+              - { label: Question, name: question, widget: string }
+              - { label: Answer, name: answer, widget: text }
               - { label: Display Order, name: order, widget: number, value_type: int, default: 0 }

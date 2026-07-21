@@ -1,0 +1,34 @@
+{
+  "faqs": [
+    {
+      "question": "What areas does Core Collective serve?",
+      "answer": "Core Collective specializes across the Research Triangle — Raleigh, Durham, Cary, Apex, and North Hills — as well as military relocation markets (Fayetteville, Goldsboro, Jacksonville) and coastal communities from Wilmington to Emerald Isle. Your agent will match you with the right sub-market for your lifestyle and timeline.",
+      "order": 1
+    },
+    {
+      "question": "How does the home valuation process work for sellers?",
+      "answer": "Start with our three-step valuation form in the Sellers section. A Core Collective advisor reviews your property details, recent comparable sales, and current Triangle inventory, then delivers a personalized pricing strategy — typically within one business day — with no obligation to list.",
+      "order": 2
+    },
+    {
+      "question": "Do you help buyers relocating to the Triangle from out of state?",
+      "answer": "Yes. Relocation is one of our core strengths. We coordinate virtual tours, neighborhood previews, school district research, and closing logistics so you can make confident offers before you arrive. Many clients secure homes within their first visit weekend.",
+      "order": 3
+    },
+    {
+      "question": "Can Core Collective assist with PCS military moves?",
+      "answer": "Absolutely. Our team understands BAH timelines, on-base proximity preferences, and the unique pace of military relocations. We guide families through Fort Liberty, Seymour Johnson AFB, and Camp Lejeune markets with agents who know base-adjacent neighborhoods and rental-to-own pathways.",
+      "order": 4
+    },
+    {
+      "question": "What makes Core Collective different from other Triangle brokerages?",
+      "answer": "We combine boutique-level service with $50M+ in closed volume, cinematic marketing for luxury listings, and deep hyper-local knowledge across Central NC, the Sandhills, and the coast. Every client works directly with a named agent — not a call center — from first inquiry through closing.",
+      "order": 5
+    },
+    {
+      "question": "How quickly will an agent respond after I submit a form?",
+      "answer": "We respond to website inquiries within 24 hours — often the same business day. For time-sensitive offers or listing opportunities, call us directly at (919) 555-0100 and you'll reach a Core Collective advisor, not voicemail.",
+      "order": 6
+    }
+  ]
+}
