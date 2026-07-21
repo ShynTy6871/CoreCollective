@@ -753,7 +753,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <div class="dropdown">
         <a href="#" onclick="navFilter('all');return false;">Property Search</a>
         <a href="#" onclick="scrollToSection('buyers',event)">Buyer's Guide</a>
-        <a href="#" onclick="openModal();return false;">Mortgage Calculator</a>
+        <a href="#" onclick="scrollToSection('mortgage-calculator',event);return false;">Mortgage Calculator</a>
         <a href="#" onclick="openModal();return false;">Relocation Services</a>
       </div>
     </div>
@@ -908,7 +908,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       </div>
     </div>
     <div class="property-grid" id="property-grid" role="tabpanel" aria-labelledby="tab-all"></div>
-    <a href="#" class="view-all" onclick="return false;">View All Listings <span class="view-all-arrow">→</span></a>
+    <a href="#" class="view-all" onclick="navFilter('all');return false;">View All Listings <span class="view-all-arrow">→</span></a>
   </section>
 
   <section id="buyers" aria-labelledby="buyers-title">
