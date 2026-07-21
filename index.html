@@ -114,7 +114,7 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 .hero-trust-label{font-size:8px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--navy);line-height:1.4}
 .hero-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,.65);max-width:480px;line-height:1.7;margin-bottom:40px;letter-spacing:.02em}
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
-.btn-primary,.btn-outline,.header-cta,.prop-card,.testimonial-card,.agent-card,.metric-card,.buyer-feature,.val-btn-next,.search-btn,.form-submit,.schedule-btn,.no-results-reset,.filter-tab,.agent-link,.listing-btn,.val-btn-back,.neighborhood-card,.mortgage-preapprove,.nhood-cta,.exit-modal-submit,.exit-modal-close{transition:var(--lift)}
+.btn-primary,.btn-outline,.header-cta,.prop-card,.testimonial-card,.metric-card,.buyer-feature,.val-btn-next,.search-btn,.form-submit,.schedule-btn,.no-results-reset,.filter-tab,.agent-link,.listing-btn,.val-btn-back,.neighborhood-card,.mortgage-preapprove,.nhood-cta,.exit-modal-submit,.exit-modal-close,.agent-profile-card,.agent-profile-cta{transition:var(--lift)}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
 .btn-primary:hover{background:var(--gold-lt);transform:translateY(-4px);box-shadow:0 8px 24px rgba(197,160,89,.35)}
 .btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:1px solid rgba(255,255,255,.4);color:var(--white);font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase}
@@ -358,23 +358,25 @@ section{padding:100px 80px}
 .metric-card-chg{font-size:11px;font-weight:400;color:#5cb85c}
 .metric-card-chg.down{color:#c0392b}
 
-/* ─── TEAM ─────────────────────────────────────────── */
-#team{background:var(--navy);padding-bottom:120px}
+/* ─── TEAM & AGENT PROFILES ───────────────────────── */
+#team{background:var(--navy);padding:clamp(64px,8vw,100px) clamp(1.5rem,4vw,5rem);border-top:1px solid rgba(197,160,89,.15)}
 #team .section-title{color:var(--white)}
-#team .section-sub{color:rgba(255,255,255,.5)}
-.agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:56px}
-.agent-card{position:relative;overflow:hidden;background:var(--navy-mid);cursor:pointer}
-.agent-card:hover{transform:translateY(-4px)}
-.agent-img{height:320px;position:relative;overflow:hidden;background:var(--navy-lt);display:flex;align-items:center;justify-content:center}
-.agent-initials{font-family:var(--font-display);font-size:48px;font-weight:400;color:rgba(197,160,89,.4);letter-spacing:.05em}
-.agent-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,47,1) 0%,rgba(10,25,47,.3) 60%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;transition:background .35s}
-.agent-card:hover .agent-overlay{background:linear-gradient(to top,rgba(10,25,47,1) 20%,rgba(10,25,47,.5) 70%,rgba(197,160,89,.1) 100%)}
-.agent-name{font-family:var(--font-display);font-size:20px;font-weight:400;color:var(--white);margin-bottom:4px}
-.agent-role{font-size:9px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
-.agent-contact-links{display:flex;gap:10px;opacity:0;transform:translateY(10px);transition:opacity .3s,transform .3s}
-.agent-card:hover .agent-contact-links{opacity:1;transform:translateY(0)}
-.agent-link{padding:6px 14px;border:1px solid rgba(197,160,89,.5);font-size:9px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);transition:background .2s,color .2s}
-.agent-link:hover{background:var(--gold);color:var(--navy)}
+#team .section-sub{color:rgba(255,255,255,.55);max-width:560px}
+.agent-profiles-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:24px;margin-top:48px;max-width:1200px}
+.agent-profile-card{background:var(--navy-mid);border:1px solid rgba(197,160,89,.22);overflow:hidden;display:flex;flex-direction:column;transition:var(--lift)}
+.agent-profile-card:hover{transform:translateY(-4px);border-color:rgba(197,160,89,.55);box-shadow:0 24px 64px rgba(0,0,0,.35)}
+.agent-profile-card:focus-within{border-color:var(--gold);box-shadow:0 0 0 2px rgba(197,160,89,.25),0 24px 64px rgba(0,0,0,.35)}
+.agent-profile-photo{aspect-ratio:4/5;max-height:260px;background:linear-gradient(165deg,var(--navy-lt) 0%,var(--navy) 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;border-bottom:1px solid rgba(197,160,89,.2)}
+.agent-profile-photo::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(197,160,89,.12) 0%,transparent 65%)}
+.agent-profile-headshot{width:clamp(96px,18vw,120px);height:clamp(96px,18vw,120px);border-radius:50%;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:clamp(32px,5vw,42px);font-weight:400;color:var(--gold);background:rgba(10,25,47,.55);position:relative;z-index:1;box-shadow:0 8px 32px rgba(0,0,0,.25)}
+.agent-profile-body{padding:clamp(24px,3vw,28px);display:flex;flex-direction:column;flex:1}
+.agent-profile-name{font-family:var(--font-display);font-size:clamp(22px,2.5vw,26px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:6px}
+.agent-profile-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.agent-profile-expertise{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.agent-profile-tag{font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);background:rgba(197,160,89,.1);border:1px solid rgba(197,160,89,.28);padding:4px 9px}
+.agent-profile-bio{font-size:13px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:24px;flex:1}
+.agent-profile-cta{width:100%;padding:13px;background:transparent;border:1px solid rgba(197,160,89,.45);color:var(--gold);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;transition:var(--lift);margin-top:auto}
+.agent-profile-cta:hover{background:var(--gold);color:var(--navy);transform:translateY(-4px);box-shadow:0 8px 24px rgba(197,160,89,.3)}
 
 /* ─── TESTIMONIALS ────────────────────────────────── */
 #testimonials{background:var(--off-white)}
@@ -509,6 +511,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
 @media(max-width:1100px){
   section{padding:80px 48px}
   .agents-grid{grid-template-columns:repeat(2,1fr)}
+  .agent-profiles-grid{grid-template-columns:1fr}
   .footer-top{grid-template-columns:1fr 1fr}
   .investor-grid{grid-template-columns:1fr}
   .listing-body{grid-template-columns:320px 1fr}
@@ -531,6 +534,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
   .search-field{border-right:none;border-bottom:1px solid var(--gray-100)}
   .buyer-features{grid-template-columns:1fr}
   .agents-grid{grid-template-columns:1fr 1fr}
+  .agent-profiles-grid{grid-template-columns:repeat(2,1fr)}
   .testimonials-grid{grid-template-columns:1fr}
   #contact-strip{padding:56px 28px;flex-direction:column}
   footer{padding:48px 28px 32px}
@@ -550,6 +554,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
 @media(max-width:600px){
   .property-grid{grid-template-columns:1fr}
   .agents-grid{grid-template-columns:1fr}
+  .agent-profiles-grid{grid-template-columns:1fr}
   .hero-eyebrow{letter-spacing:.22em;font-size:9px}
   .hero-headline-wrap{padding:0 1rem}
   .hero-stats{display:none}
@@ -1080,22 +1085,6 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
     </div>
   </section>
 
-  <section id="team" aria-labelledby="team-title">
-    <div style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:56px;">
-      <div>
-        <div class="section-eyebrow">The Team</div>
-        <h2 class="section-title" id="team-title" style="color:var(--white);">Meet Our <em>Agents</em></h2>
-        <p class="section-sub" style="color:rgba(255,255,255,.5);">Four dedicated professionals with a single mission: your success.</p>
-      </div>
-    </div>
-    <div class="agents-grid" role="list">
-      <div class="agent-card" role="listitem"><div class="agent-img"><div class="agent-initials">MW</div><div class="agent-overlay"><div class="agent-name">Marsha Watson</div><div class="agent-role">Realtor &amp; Team Lead</div><div class="agent-contact-links"><button class="agent-link" onclick="openModal()">Contact</button><button class="agent-link" onclick="openModal()">Bio</button></div></div></div></div>
-      <div class="agent-card" role="listitem"><div class="agent-img"><div class="agent-initials">SM</div><div class="agent-overlay"><div class="agent-name">Sharon McDuffie</div><div class="agent-role">Realtor</div><div class="agent-contact-links"><button class="agent-link" onclick="openModal()">Contact</button><button class="agent-link" onclick="openModal()">Bio</button></div></div></div></div>
-      <div class="agent-card" role="listitem"><div class="agent-img"><div class="agent-initials">SW</div><div class="agent-overlay"><div class="agent-name">Sylvia T. Wheeler</div><div class="agent-role">Realtor</div><div class="agent-contact-links"><button class="agent-link" onclick="openModal()">Contact</button><button class="agent-link" onclick="openModal()">Bio</button></div></div></div></div>
-      <div class="agent-card" role="listitem"><div class="agent-img"><div class="agent-initials">DD</div><div class="agent-overlay"><div class="agent-name">Dexter Drayton</div><div class="agent-role">Realtor</div><div class="agent-contact-links"><button class="agent-link" onclick="openModal()">Contact</button><button class="agent-link" onclick="openModal()">Bio</button></div></div></div></div>
-    </div>
-  </section>
-
   <section id="testimonials" aria-labelledby="testimonials-title">
     <div class="testimonials-header">
       <div>
@@ -1156,6 +1145,78 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
       </div>
     </div>
     <div class="testimonial-dots" id="testimonial-dots" aria-hidden="true"></div>
+  </section>
+
+  <section id="team" aria-labelledby="team-title">
+    <div class="section-eyebrow">The Team</div>
+    <h2 class="section-title" id="team-title">Meet Our <em>Agents</em></h2>
+    <p class="section-sub">Four dedicated professionals with deep Triangle market expertise — each bringing a distinct specialty to your buying, selling, or investment journey.</p>
+    <div class="agent-profiles-grid" role="list">
+      <article class="agent-profile-card" role="listitem">
+        <div class="agent-profile-photo" aria-hidden="true">
+          <div class="agent-profile-headshot">MW</div>
+        </div>
+        <div class="agent-profile-body">
+          <h3 class="agent-profile-name">Marsha Watson</h3>
+          <p class="agent-profile-role">Realtor &amp; Team Lead</p>
+          <div class="agent-profile-expertise">
+            <span class="agent-profile-tag">Luxury Listings</span>
+            <span class="agent-profile-tag">Seller Strategy</span>
+            <span class="agent-profile-tag">North Raleigh</span>
+          </div>
+          <p class="agent-profile-bio">With over two decades in Triangle real estate, Marsha leads Core Collective with a precision listing strategy that consistently delivers above-asking results for luxury sellers.</p>
+          <button class="agent-profile-cta" onclick="openAgentConsultation('marsha-watson')">Schedule Consultation</button>
+        </div>
+      </article>
+      <article class="agent-profile-card" role="listitem">
+        <div class="agent-profile-photo" aria-hidden="true">
+          <div class="agent-profile-headshot">SM</div>
+        </div>
+        <div class="agent-profile-body">
+          <h3 class="agent-profile-name">Sharon McDuffie</h3>
+          <p class="agent-profile-role">Realtor · Buyer Specialist</p>
+          <div class="agent-profile-expertise">
+            <span class="agent-profile-tag">Buyer Representation</span>
+            <span class="agent-profile-tag">Off-Market Access</span>
+            <span class="agent-profile-tag">Cary &amp; Apex</span>
+          </div>
+          <p class="agent-profile-bio">Sharon's insider network and relentless negotiation style give buyers a decisive edge — from first-time homeowners to families upgrading into premier neighborhoods.</p>
+          <button class="agent-profile-cta" onclick="openAgentConsultation('sharon-mcduffie')">Schedule Consultation</button>
+        </div>
+      </article>
+      <article class="agent-profile-card" role="listitem">
+        <div class="agent-profile-photo" aria-hidden="true">
+          <div class="agent-profile-headshot">SW</div>
+        </div>
+        <div class="agent-profile-body">
+          <h3 class="agent-profile-name">Sylvia T. Wheeler</h3>
+          <p class="agent-profile-role">Realtor · Relocation Expert</p>
+          <div class="agent-profile-expertise">
+            <span class="agent-profile-tag">Relocation</span>
+            <span class="agent-profile-tag">Chapel Hill</span>
+            <span class="agent-profile-tag">School Districts</span>
+          </div>
+          <p class="agent-profile-bio">Sylvia guides relocating families through every detail — neighborhood matching, school research, and seamless closings across Chapel Hill, Durham, and beyond.</p>
+          <button class="agent-profile-cta" onclick="openAgentConsultation('sylvia-wheeler')">Schedule Consultation</button>
+        </div>
+      </article>
+      <article class="agent-profile-card" role="listitem">
+        <div class="agent-profile-photo" aria-hidden="true">
+          <div class="agent-profile-headshot">DD</div>
+        </div>
+        <div class="agent-profile-body">
+          <h3 class="agent-profile-name">Dexter Drayton</h3>
+          <p class="agent-profile-role">Realtor · Investment Advisor</p>
+          <div class="agent-profile-expertise">
+            <span class="agent-profile-tag">Investment Properties</span>
+            <span class="agent-profile-tag">Cap Rate Analysis</span>
+            <span class="agent-profile-tag">Multi-Family</span>
+          </div>
+          <p class="agent-profile-bio">Dexter partners with investors to identify high-yield assets across the Triangle — combining sharp financial analysis with an unmatched off-market deal pipeline.</p>
+          <button class="agent-profile-cta" onclick="openAgentConsultation('dexter-drayton')">Schedule Consultation</button>
+        </div>
+      </article>
+    </div>
   </section>
 
   <div id="contact-strip" role="complementary">
@@ -1322,6 +1383,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
     <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
     <div class="modal-eyebrow">Core Collective Real Estate</div>
     <h2 class="modal-title" id="modal-title">Let's Connect</h2>
+    <input type="hidden" id="f-agent" value="">
     <div class="form-field"><label class="form-label" for="f-name">Full Name</label><input class="form-input" id="f-name" type="text" placeholder="Your full name" autocomplete="name"></div>
     <div class="form-field"><label class="form-label" for="f-email">Email Address</label><input class="form-input" id="f-email" type="email" placeholder="your@email.com" autocomplete="email"></div>
     <div class="form-field"><label class="form-label" for="f-phone">Phone</label><input class="form-input" id="f-phone" type="tel" placeholder="(919) 000-0000" autocomplete="tel"></div>
@@ -1610,8 +1672,27 @@ function closeModal(){
   s.className='form-status';s.textContent='';
   document.getElementById('form-submit-btn').disabled=false;
   document.getElementById('form-submit-btn').textContent='Submit Inquiry';
+  document.getElementById('modal-title').textContent='Let\'s Connect';
+  document.getElementById('f-agent').value='';
 }
 function closeModalOutside(e){if(e.target===e.currentTarget)closeModal();}
+
+const AGENT_ROUTES={
+  'marsha-watson':{name:'Marsha Watson',role:'Realtor & Team Lead',interest:'Seller',expertise:'Luxury Listings · Seller Strategy · North Raleigh'},
+  'sharon-mcduffie':{name:'Sharon McDuffie',role:'Realtor · Buyer Specialist',interest:'Buyer',expertise:'Buyer Representation · Off-Market Access · Cary & Apex'},
+  'sylvia-wheeler':{name:'Sylvia T. Wheeler',role:'Realtor · Relocation Expert',interest:'Buyer',expertise:'Relocation · Chapel Hill · School Districts'},
+  'dexter-drayton':{name:'Dexter Drayton',role:'Realtor · Investment Advisor',interest:'Investor',expertise:'Investment Properties · Cap Rate Analysis · Multi-Family'}
+};
+
+function openAgentConsultation(agentId){
+  const agent=AGENT_ROUTES[agentId];
+  if(!agent)return;
+  openModal();
+  document.getElementById('f-agent').value=agentId;
+  document.getElementById('f-interest').value=agent.interest;
+  document.getElementById('f-msg').value='I would like to schedule a consultation with '+agent.name+' ('+agent.role+'). Areas of interest: '+agent.expertise+'.';
+  document.getElementById('modal-title').textContent='Schedule with '+agent.name.split(' ')[0];
+}
 
 /* ── MULTI-STEP VALUATION FORM ───────────────────────── */
 let valuationCurrentStep=1;
@@ -1748,6 +1829,7 @@ async function submitForm(){
   const phone   =document.getElementById('f-phone').value.trim();
   const interest=document.getElementById('f-interest').value;
   const message =document.getElementById('f-msg').value.trim();
+  const agentRoute=document.getElementById('f-agent').value;
   const btn     =document.getElementById('form-submit-btn');
 
   if(!name){showFormStatus('error','Please enter your full name.');document.getElementById('f-name').focus();return;}
@@ -1756,7 +1838,7 @@ async function submitForm(){
   const payload={
     source:'Core Collective Website',
     timestamp:new Date().toISOString(),
-    lead:{fullName:name,email,phone,interest,message}
+    lead:{fullName:name,email,phone,interest,message,agentRoute:agentRoute||null,assignedAgent:agentRoute?AGENT_ROUTES[agentRoute]?.name:null}
   };
 
   btn.disabled=true;btn.textContent='Sending…';
@@ -1788,6 +1870,8 @@ function showFormStatus(type,msg){
 function clearForm(){
   ['f-name','f-email','f-phone','f-msg'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-interest').value='';
+  document.getElementById('f-agent').value='';
+  document.getElementById('modal-title').textContent='Let\'s Connect';
   document.getElementById('form-submit-btn').disabled=false;
 }
 
