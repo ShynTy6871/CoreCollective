@@ -2446,8 +2446,8 @@ function renderAgents(items){
         <p class="agent-profile-role">${escHtml(a.title)}</p>
         <div class="agent-profile-expertise">${tags}</div>
         <p class="agent-profile-bio">${escHtml(a.bio)}</p>
-        <button type="button" class="agent-profile-read-bio" onclick="openAgentBio(${JSON.stringify(id)})">Read Full Bio →</button>
-        <button class="agent-profile-cta" onclick="openAgentConsultation(${JSON.stringify(id)})">Schedule Consultation</button>
+        <button type="button" class="agent-profile-read-bio" onclick='openAgentBio(${JSON.stringify(id)})'>Read Full Bio →</button>
+        <button class="agent-profile-cta" onclick='openAgentConsultation(${JSON.stringify(id)})'>Schedule Consultation</button>
       </div>
     </article>`;
   }).join('');
