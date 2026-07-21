@@ -79,6 +79,8 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
   .logo-line1{font-size:14px;letter-spacing:.04em}
   .logo-line2{font-size:6.5px;letter-spacing:.16em}
   .header-cta{padding:8px 12px;font-size:8.5px;letter-spacing:.1em}
+  .hero-h1{font-size:clamp(2.25rem,4vw + 0.75rem,4.75rem)}
+  .hero-eyebrow{letter-spacing:.3em}
 }
 
 /* DROPDOWN */
@@ -95,15 +97,15 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 .menu-toggle span{display:block;width:24px;height:1.5px;background:var(--white);transition:transform .3s,opacity .3s}
 
 /* ─── HERO ─────────────────────────────────────────── */
-#hero{position:relative;height:100vh;min-height:700px;overflow:hidden;display:flex;align-items:flex-end}
-.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0A192F 0%,#16324F 40%,#1a3a5c 100%)}
+#hero{position:relative;height:100vh;min-height:700px;overflow:hidden;display:flex;align-items:flex-end;width:100%}
+.hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0A192F 0%,#16324F 40%,#1a3a5c 100%);overflow:hidden}
 .hero-bg::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1800&q=80') center/cover no-repeat;opacity:.22}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,47,.98) 0%,rgba(10,25,47,.55) 50%,rgba(10,25,47,.2) 100%)}
-/* padding-top: var(--header-h) ensures the headline can never slide behind the fixed nav bar */
-.hero-content{position:relative;z-index:2;padding:var(--header-h) 80px 100px;max-width:900px;width:100%}
-.hero-eyebrow{font-size:10px;font-weight:500;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:16px}
-.hero-eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--gold)}
-.hero-h1{font-family:var(--font-display);font-size:clamp(52px,7vw,96px);font-weight:400;line-height:.95;color:var(--white);margin-bottom:24px;letter-spacing:-.01em}
+.hero-content{position:relative;z-index:2;max-width:100%;width:100%;min-width:0;box-sizing:border-box;padding:calc(var(--header-h) + 1.5rem) clamp(1.5rem,4vw,5rem) 100px;overflow:hidden}
+.hero-eyebrow{font-size:10px;font-weight:500;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:16px;max-width:100%;flex-wrap:wrap}
+.hero-eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--gold);flex-shrink:0}
+.hero-headline-wrap{max-width:100%;padding:0 1.5rem;box-sizing:border-box;overflow:hidden}
+.hero-h1{font-family:var(--font-display);font-size:clamp(2.5rem,5vw + 1rem,5.5rem);font-weight:400;line-height:1.05;color:var(--white);margin-bottom:24px;letter-spacing:-.01em;max-width:100%;overflow-wrap:break-word;word-wrap:break-word}
 .hero-h1 em{font-style:italic;color:var(--gold)}
 .hero-trust-bar{display:flex;align-items:stretch;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.6);margin-bottom:28px;max-width:640px;box-shadow:0 8px 32px rgba(10,25,47,.12)}
 .hero-trust-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 12px;text-align:center;position:relative}
@@ -440,7 +442,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
   #site-header{padding:0 28px}
   .main-nav,.header-cta{display:none}
   .menu-toggle{display:flex}
-  .hero-content{padding:var(--header-h) 28px 120px}
+  .hero-content{padding:calc(var(--header-h) + 1rem) clamp(1.5rem,5vw,2rem) 120px}
   .hero-stats{position:relative;display:flex;flex-wrap:wrap}
   section{padding:64px 28px}
   #sellers{grid-template-columns:1fr}
@@ -471,7 +473,8 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
 @media(max-width:600px){
   .property-grid{grid-template-columns:1fr}
   .agents-grid{grid-template-columns:1fr}
-  .hero-h1{font-size:42px}
+  .hero-eyebrow{letter-spacing:.22em;font-size:9px}
+  .hero-headline-wrap{padding:0 1rem}
   .hero-stats{display:none}
   .listing-features{grid-template-columns:1fr}
   .market-metrics{grid-template-columns:1fr}
@@ -601,7 +604,9 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
     <div class="hero-bg"></div>
     <div class="hero-content">
       <div class="hero-eyebrow">Raleigh–Durham's Premier Team</div>
-      <h1 class="hero-h1">Where <em>Exceptional</em><br>Homes Find<br>Their People</h1>
+      <div class="hero-headline-wrap">
+        <h1 class="hero-h1">Where <em>Exceptional</em><br>Homes Find<br>Their People</h1>
+      </div>
       <div class="hero-trust-bar" role="complementary" aria-label="Company credentials">
         <div class="hero-trust-item">
           <div class="hero-trust-num">$50M+</div>
