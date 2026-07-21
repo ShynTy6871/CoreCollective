@@ -114,7 +114,7 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 .hero-trust-label{font-size:8px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--navy);line-height:1.4}
 .hero-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,.65);max-width:480px;line-height:1.7;margin-bottom:40px;letter-spacing:.02em}
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
-.btn-primary,.btn-outline,.header-cta,.prop-card,.testimonial-card,.agent-card,.metric-card,.buyer-feature,.val-btn-next,.search-btn,.form-submit,.schedule-btn,.no-results-reset,.filter-tab,.agent-link,.listing-btn,.val-btn-back{transition:var(--lift)}
+.btn-primary,.btn-outline,.header-cta,.prop-card,.testimonial-card,.agent-card,.metric-card,.buyer-feature,.val-btn-next,.search-btn,.form-submit,.schedule-btn,.no-results-reset,.filter-tab,.agent-link,.listing-btn,.val-btn-back,.neighborhood-card,.mortgage-preapprove,.nhood-cta,.exit-modal-submit,.exit-modal-close{transition:var(--lift)}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
 .btn-primary:hover{background:var(--gold-lt);transform:translateY(-4px);box-shadow:0 8px 24px rgba(197,160,89,.35)}
 .btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:1px solid rgba(255,255,255,.4);color:var(--white);font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase}
@@ -263,6 +263,81 @@ section{padding:100px 80px}
 .s-stat:last-child{border:none;margin:0}
 .s-stat-num{font-family:var(--font-display);font-size:36px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:6px}
 .s-stat-label{font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+
+/* ─── MORTGAGE CALCULATOR ─────────────────────────── */
+#mortgage-calculator{background:var(--navy);padding:clamp(64px,8vw,100px) clamp(1.5rem,4vw,5rem)}
+#mortgage-calculator .section-title{color:var(--white)}
+#mortgage-calculator .section-sub{color:rgba(255,255,255,.55);max-width:560px}
+.mortgage-panel{display:grid;grid-template-columns:1fr 1fr;gap:48px;margin-top:48px;max-width:1100px}
+.mortgage-sliders{background:rgba(197,160,89,.08);border:1px solid rgba(197,160,89,.25);padding:clamp(28px,4vw,40px)}
+.mortgage-slider-group{margin-bottom:28px}
+.mortgage-slider-group:last-child{margin-bottom:0}
+.mortgage-slider-header{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px;gap:12px;flex-wrap:wrap}
+.mortgage-slider-label{font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.mortgage-slider-value{font-family:var(--font-display);font-size:clamp(18px,2.5vw,24px);font-weight:700;color:var(--white)}
+.mortgage-range{width:100%;height:4px;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,.15);outline:none;border-radius:2px;cursor:pointer}
+.mortgage-range::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid var(--navy);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.mortgage-range::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:var(--gold);cursor:pointer;border:2px solid var(--navy)}
+.mortgage-range-labels{display:flex;justify-content:space-between;margin-top:8px;font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.06em}
+.mortgage-result{background:var(--white);padding:clamp(32px,4vw,48px);display:flex;flex-direction:column;justify-content:center;border-top:3px solid var(--gold)}
+.mortgage-result-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.mortgage-payment{font-family:var(--font-display);font-size:clamp(36px,5vw,56px);font-weight:700;color:var(--navy);line-height:1;margin-bottom:8px}
+.mortgage-payment-sub{font-size:13px;font-weight:300;color:var(--gray-500);margin-bottom:24px;line-height:1.6}
+.mortgage-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px;padding-top:20px;border-top:1px solid var(--gray-100)}
+.mortgage-breakdown-item{font-size:11px;color:var(--gray-500);letter-spacing:.04em}
+.mortgage-breakdown-item strong{display:block;font-family:var(--font-display);font-size:18px;color:var(--navy);font-weight:700;margin-top:4px}
+.mortgage-preapprove{width:100%;padding:15px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;transition:var(--lift)}
+.mortgage-preapprove:hover{background:var(--gold-lt);transform:translateY(-4px);box-shadow:0 8px 24px rgba(197,160,89,.35)}
+.mortgage-disclaimer{font-size:10px;color:rgba(255,255,255,.3);margin-top:24px;max-width:1100px;line-height:1.6;letter-spacing:.02em}
+
+/* ─── TRIANGLE NEIGHBORHOOD GUIDES ────────────────── */
+#triangle-guides{background:var(--off-white)}
+.neighborhood-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:20px;margin-top:48px}
+.neighborhood-card{background:var(--white);border:1px solid var(--gray-100);overflow:hidden;transition:var(--lift)}
+.neighborhood-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(10,25,47,.12)}
+.nhood-img-wrap{position:relative;aspect-ratio:16/10;overflow:hidden}
+.nhood-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--trans)}
+.neighborhood-card:hover .nhood-img-wrap img{transform:scale(1.06)}
+.nhood-img-wrap::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,47,.75) 0%,transparent 55%)}
+.nhood-median{position:absolute;bottom:16px;left:16px;z-index:1}
+.nhood-median-label{font-size:8px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:4px}
+.nhood-median-price{font-family:var(--font-display);font-size:clamp(22px,3vw,28px);font-weight:700;color:var(--gold)}
+.nhood-body{padding:28px}
+.nhood-name{font-family:var(--font-display);font-size:clamp(22px,2.5vw,26px);font-weight:400;color:var(--navy);margin-bottom:8px;line-height:1.15}
+.nhood-tagline{font-size:12px;font-weight:300;color:var(--gray-500);margin-bottom:16px;line-height:1.6}
+.nhood-highlights{list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:24px}
+.nhood-highlights li{font-size:11px;color:var(--navy);letter-spacing:.04em;padding-left:16px;position:relative;line-height:1.5}
+.nhood-highlights li::before{content:'◆';position:absolute;left:0;color:var(--gold);font-size:8px;top:3px}
+.nhood-cta{width:100%;padding:13px;border:1px solid var(--navy);color:var(--navy);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;background:transparent;transition:var(--lift)}
+.nhood-cta:hover{background:var(--navy);color:var(--gold);transform:translateY(-4px)}
+
+/* ─── EXIT-INTENT MODAL ───────────────────────────── */
+.exit-modal-overlay{display:none;position:fixed;inset:0;background:rgba(6,15,29,.92);z-index:2100;backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1.5rem}
+.exit-modal-overlay.open{display:flex}
+.exit-modal-box{background:linear-gradient(145deg,var(--navy) 0%,var(--navy-mid) 100%);width:100%;max-width:540px;padding:clamp(36px,5vw,52px);position:relative;border:1px solid rgba(197,160,89,.35);box-shadow:0 32px 80px rgba(0,0,0,.5);max-height:92vh;overflow-y:auto;box-sizing:border-box}
+.exit-modal-close{position:absolute;top:18px;right:18px;width:36px;height:36px;border:1px solid rgba(197,160,89,.3);color:rgba(255,255,255,.6);font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--lift)}
+.exit-modal-close:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-4px)}
+.exit-modal-eyebrow{font-size:9px;font-weight:600;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.exit-modal-eyebrow::before{content:'';display:block;width:28px;height:1px;background:var(--gold)}
+.exit-modal-title{font-family:var(--font-display);font-size:clamp(28px,4vw,38px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:14px}
+.exit-modal-title em{font-style:italic;color:var(--gold)}
+.exit-modal-desc{font-size:14px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.75;margin-bottom:28px}
+.exit-modal-perks{display:flex;flex-direction:column;gap:10px;margin-bottom:28px}
+.exit-modal-perk{display:flex;align-items:center;gap:10px;font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.04em}
+.exit-modal-perk-icon{color:var(--gold);font-size:11px}
+.exit-modal-field{margin-bottom:16px}
+.exit-modal-label{display:block;font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.exit-modal-input{width:100%;padding:14px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(197,160,89,.3);color:var(--white);font-family:var(--font-sans);font-size:14px;outline:none;transition:border-color .2s}
+.exit-modal-input::placeholder{color:rgba(255,255,255,.35)}
+.exit-modal-input:focus{border-color:var(--gold)}
+.exit-modal-submit{width:100%;padding:15px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;transition:var(--lift)}
+.exit-modal-submit:hover{background:var(--gold-lt);transform:translateY(-4px)}
+.exit-modal-dismiss{display:block;width:100%;margin-top:14px;padding:10px;font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.35);text-align:center;cursor:pointer;transition:color .2s;background:none;border:none}
+.exit-modal-dismiss:hover{color:var(--gold)}
+.exit-modal-status{display:none;padding:14px;margin-top:16px;font-size:12px;text-align:center;letter-spacing:.04em}
+.exit-modal-status.success{background:rgba(92,184,92,.12);color:#7dcea0;border:1px solid rgba(92,184,92,.3)}
+.exit-modal-status.error{background:rgba(192,57,43,.1);color:#e8a090;border:1px solid rgba(192,57,43,.25)}
+.exit-modal-status.show{display:block}
 
 /* ─── INVESTORS ───────────────────────────────────── */
 #investors{background:var(--white)}
@@ -450,6 +525,8 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
   .sellers-content{padding:56px 32px}
   .val-pill-group.cols-5{grid-template-columns:repeat(3,1fr)}
   .valuation-step-label{font-size:7px}
+  .mortgage-panel{grid-template-columns:1fr}
+  .mortgage-breakdown{grid-template-columns:1fr}
   .search-row{grid-template-columns:1fr}
   .search-field{border-right:none;border-bottom:1px solid var(--gray-100)}
   .buyer-features{grid-template-columns:1fr}
@@ -842,6 +919,135 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
     </div>
   </section>
 
+  <section id="mortgage-calculator" aria-labelledby="mortgage-title">
+    <div class="section-eyebrow">Financing Tools</div>
+    <h2 class="section-title" id="mortgage-title">Estimate Your <em>Monthly Payment</em></h2>
+    <p class="section-sub">Model your investment with real-time payment estimates — adjust price, down payment, and rate to find your comfort zone.</p>
+    <div class="mortgage-panel">
+      <div class="mortgage-sliders">
+        <div class="mortgage-slider-group">
+          <div class="mortgage-slider-header">
+            <span class="mortgage-slider-label">Home Price</span>
+            <span class="mortgage-slider-value" id="mc-price-display">$750,000</span>
+          </div>
+          <input type="range" class="mortgage-range" id="mc-price" min="300000" max="3500000" step="25000" value="750000" aria-label="Home price">
+          <div class="mortgage-range-labels"><span>$300K</span><span>$3M+</span></div>
+        </div>
+        <div class="mortgage-slider-group">
+          <div class="mortgage-slider-header">
+            <span class="mortgage-slider-label">Down Payment</span>
+            <span class="mortgage-slider-value" id="mc-down-display">20% · $150,000</span>
+          </div>
+          <input type="range" class="mortgage-range" id="mc-down" min="5" max="50" step="1" value="20" aria-label="Down payment percentage">
+          <div class="mortgage-range-labels"><span>5%</span><span>50%</span></div>
+        </div>
+        <div class="mortgage-slider-group">
+          <div class="mortgage-slider-header">
+            <span class="mortgage-slider-label">Interest Rate</span>
+            <span class="mortgage-slider-value" id="mc-rate-display">6.75%</span>
+          </div>
+          <input type="range" class="mortgage-range" id="mc-rate" min="3" max="9" step="0.05" value="6.75" aria-label="Interest rate">
+          <div class="mortgage-range-labels"><span>3.0%</span><span>9.0%</span></div>
+        </div>
+      </div>
+      <div class="mortgage-result">
+        <div class="mortgage-result-label">Estimated Monthly Payment</div>
+        <div class="mortgage-payment" id="mc-payment">$3,890</div>
+        <p class="mortgage-payment-sub">30-year fixed · Principal &amp; interest only</p>
+        <div class="mortgage-breakdown">
+          <div class="mortgage-breakdown-item">Loan Amount<strong id="mc-loan">$600,000</strong></div>
+          <div class="mortgage-breakdown-item">Total Interest<strong id="mc-interest">$800,400</strong></div>
+        </div>
+        <button class="mortgage-preapprove" onclick="openPreApproval()">Get Pre-Approved →</button>
+      </div>
+    </div>
+    <p class="mortgage-disclaimer">*Estimated payment for illustrative purposes only. Does not include taxes, insurance, HOA fees, or PMI. Rates subject to change. Consult a licensed lender for accurate pre-approval.</p>
+  </section>
+
+  <section id="triangle-guides" aria-labelledby="triangle-title">
+    <div class="section-eyebrow">Local Expertise</div>
+    <h2 class="section-title" id="triangle-title">Explore The <em>Triangle</em></h2>
+    <p class="section-sub">Curated guides to the Triangle's most sought-after sub-markets — median pricing, lifestyle highlights, and insider access from Core Collective agents.</p>
+    <div class="neighborhood-grid" role="list">
+      <article class="neighborhood-card" role="listitem">
+        <div class="nhood-img-wrap">
+          <img src="https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80" alt="Downtown Raleigh skyline" loading="lazy">
+          <div class="nhood-median">
+            <div class="nhood-median-label">Median Price</div>
+            <div class="nhood-median-price">$625K</div>
+          </div>
+        </div>
+        <div class="nhood-body">
+          <h3 class="nhood-name">Downtown Raleigh</h3>
+          <p class="nhood-tagline">Urban luxury living steps from award-winning dining, the Warehouse District, and Red Hat Amphitheater.</p>
+          <ul class="nhood-highlights">
+            <li>Walk Score 88 · Vibrant nightlife &amp; arts scene</li>
+            <li>New luxury high-rise and loft conversions</li>
+            <li>5-min access to Glenwood South &amp; Moore Square</li>
+          </ul>
+          <button class="nhood-cta" onclick="requestCommunityGuide('Downtown Raleigh')">Request Community Guide</button>
+        </div>
+      </article>
+      <article class="neighborhood-card" role="listitem">
+        <div class="nhood-img-wrap">
+          <img src="https://images.unsplash.com/photo-1605276374101-de4c0a5a9622?w=800&q=80" alt="North Hills luxury shopping district" loading="lazy">
+          <div class="nhood-median">
+            <div class="nhood-median-label">Median Price</div>
+            <div class="nhood-median-price">$875K</div>
+          </div>
+        </div>
+        <div class="nhood-body">
+          <h3 class="nhood-name">North Hills</h3>
+          <p class="nhood-tagline">Raleigh's premier mixed-use enclave — designer boutiques, fine dining, and estate-caliber residences.</p>
+          <ul class="nhood-highlights">
+            <li>Midtown's walkable luxury retail corridor</li>
+            <li>Top-rated schools &amp; country club access</li>
+            <li>Custom builds &amp; gated estate communities</li>
+          </ul>
+          <button class="nhood-cta" onclick="requestCommunityGuide('North Hills')">Request Community Guide</button>
+        </div>
+      </article>
+      <article class="neighborhood-card" role="listitem">
+        <div class="nhood-img-wrap">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Cary luxury home" loading="lazy">
+          <div class="nhood-median">
+            <div class="nhood-median-label">Median Price</div>
+            <div class="nhood-median-price">$725K</div>
+          </div>
+        </div>
+        <div class="nhood-body">
+          <h3 class="nhood-name">Cary</h3>
+          <p class="nhood-tagline">Family-forward sophistication with master-planned communities, top schools, and RTP commuter convenience.</p>
+          <ul class="nhood-highlights">
+            <li>Preston, Lochmere &amp; MacGregor Downs estates</li>
+            <li>A+ rated Wake County schools</li>
+            <li>15-min commute to Research Triangle Park</li>
+          </ul>
+          <button class="nhood-cta" onclick="requestCommunityGuide('Cary')">Request Community Guide</button>
+        </div>
+      </article>
+      <article class="neighborhood-card" role="listitem">
+        <div class="nhood-img-wrap">
+          <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80" alt="Wake Forest estate home" loading="lazy">
+          <div class="nhood-median">
+            <div class="nhood-median-label">Median Price</div>
+            <div class="nhood-median-price">$585K</div>
+          </div>
+        </div>
+        <div class="nhood-body">
+          <h3 class="nhood-name">Wake Forest</h3>
+          <p class="nhood-tagline">Expansive acreage, equestrian properties, and new-construction luxury in one of the Triangle's fastest-growing corridors.</p>
+          <ul class="nhood-highlights">
+            <li>1+ acre estate lots &amp; custom builders</li>
+            <li>Historic downtown charm meets new growth</li>
+            <li>Strong appreciation &amp; inventory diversity</li>
+          </ul>
+          <button class="nhood-cta" onclick="requestCommunityGuide('Wake Forest')">Request Community Guide</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
   <section id="investors" aria-labelledby="investors-title">
     <div class="section-eyebrow">For Investors</div>
     <h2 class="section-title" id="investors-title">Intelligent <em>Capital</em><br>Deployment</h2>
@@ -1084,6 +1290,30 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
     </div>
   </div>
   <button class="back-btn" onclick="showHome()">← Back to Listings</button>
+</div>
+
+<!-- EXIT-INTENT MODAL -->
+<div class="exit-modal-overlay" id="exit-modal" role="dialog" aria-modal="true" aria-labelledby="exit-modal-title" onclick="closeExitModalOutside(event)">
+  <div class="exit-modal-box">
+    <button class="exit-modal-close" onclick="closeExitModal()" aria-label="Close">✕</button>
+    <div class="exit-modal-eyebrow">Exclusive Market Intelligence</div>
+    <h2 class="exit-modal-title" id="exit-modal-title">Triangle Luxury Market &amp;<br><em>Off-Market Report</em></h2>
+    <p class="exit-modal-desc">Get our curated quarterly briefing — median price trends, off-market opportunities, and neighborhood insights delivered to your inbox.</p>
+    <div class="exit-modal-perks">
+      <div class="exit-modal-perk"><span class="exit-modal-perk-icon" aria-hidden="true">◆</span> Off-market &amp; pocket listing alerts</div>
+      <div class="exit-modal-perk"><span class="exit-modal-perk-icon" aria-hidden="true">◆</span> Sub-market price trend analysis</div>
+      <div class="exit-modal-perk"><span class="exit-modal-perk-icon" aria-hidden="true">◆</span> Curated by Core Collective agents</div>
+    </div>
+    <form id="exit-modal-form" novalidate onsubmit="return false;">
+      <div class="exit-modal-field">
+        <label class="exit-modal-label" for="exit-email">Email Address</label>
+        <input class="exit-modal-input" id="exit-email" type="email" placeholder="your@email.com" autocomplete="email" required>
+      </div>
+      <button type="button" class="exit-modal-submit" id="exit-submit-btn" onclick="submitExitModal()">Download Free Report →</button>
+      <button type="button" class="exit-modal-dismiss" onclick="dismissExitModal()">No thanks, I'll browse</button>
+      <div class="exit-modal-status" id="exit-modal-status" role="status" aria-live="polite"></div>
+    </form>
+  </div>
 </div>
 
 <!-- MODAL -->
@@ -1566,7 +1796,12 @@ function toggleMobileNav(){document.getElementById('mobile-nav').classList.toggl
 function closeMobileNav(){document.getElementById('mobile-nav').classList.remove('open');}
 
 /* ── ESC KEY CLOSES MODAL ────────────────────────────── */
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
+    if(document.getElementById('exit-modal').classList.contains('open'))closeExitModal();
+    else closeModal();
+  }
+});
 
 /* ── INIT ────────────────────────────────────────────── */
 renderProperties('all');
@@ -1640,6 +1875,147 @@ function initTestimonialSlider(){
 
   buildDots();
 }
+
+/* ── MORTGAGE CALCULATOR ─────────────────────────────── */
+function formatCurrency(n){
+  return '$'+Math.round(n).toLocaleString('en-US');
+}
+
+function calculateMortgage(){
+  const price=parseInt(document.getElementById('mc-price').value,10);
+  const downPct=parseInt(document.getElementById('mc-down').value,10);
+  const rate=parseFloat(document.getElementById('mc-rate').value);
+  const downAmt=price*(downPct/100);
+  const loan=price-downAmt;
+  const monthlyRate=rate/100/12;
+  const months=360;
+  let payment=0;
+  let totalInterest=0;
+  if(monthlyRate>0){
+    payment=loan*(monthlyRate*Math.pow(1+monthlyRate,months))/(Math.pow(1+monthlyRate,months)-1);
+    totalInterest=(payment*months)-loan;
+  }else{
+    payment=loan/months;
+    totalInterest=0;
+  }
+  document.getElementById('mc-price-display').textContent=price>=3500000?'$3M+':formatCurrency(price);
+  document.getElementById('mc-down-display').textContent=downPct+'% · '+formatCurrency(downAmt);
+  document.getElementById('mc-rate-display').textContent=rate.toFixed(2)+'%';
+  document.getElementById('mc-payment').textContent=formatCurrency(payment);
+  document.getElementById('mc-loan').textContent=formatCurrency(loan);
+  document.getElementById('mc-interest').textContent=formatCurrency(totalInterest);
+}
+
+function initMortgageCalculator(){
+  ['mc-price','mc-down','mc-rate'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.addEventListener('input',calculateMortgage);
+  });
+  calculateMortgage();
+}
+
+function openPreApproval(){
+  openModal();
+  document.getElementById('f-interest').value='Buyer';
+  document.getElementById('f-msg').value='I would like to get pre-approved for a mortgage. I used the payment calculator on your website.';
+}
+
+function requestCommunityGuide(neighborhood){
+  openModal();
+  document.getElementById('f-interest').value='Buyer';
+  document.getElementById('f-msg').value='Please send me the community guide for '+neighborhood+'.';
+}
+
+/* ── EXIT-INTENT MODAL ───────────────────────────────── */
+const EXIT_MODAL_KEY='cc_exit_modal_shown';
+
+function canShowExitModal(){
+  if(sessionStorage.getItem(EXIT_MODAL_KEY))return false;
+  if(document.getElementById('modal').classList.contains('open'))return false;
+  if(document.getElementById('exit-modal').classList.contains('open'))return false;
+  if(document.getElementById('listing-page').classList.contains('active'))return false;
+  return true;
+}
+
+function showExitModal(){
+  if(!canShowExitModal())return;
+  sessionStorage.setItem(EXIT_MODAL_KEY,'1');
+  document.getElementById('exit-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+  setTimeout(()=>document.getElementById('exit-email').focus(),100);
+}
+
+function closeExitModal(){
+  document.getElementById('exit-modal').classList.remove('open');
+  if(!document.getElementById('modal').classList.contains('open'))document.body.style.overflow='';
+}
+
+function dismissExitModal(){
+  sessionStorage.setItem(EXIT_MODAL_KEY,'1');
+  closeExitModal();
+}
+
+function closeExitModalOutside(e){
+  if(e.target===e.currentTarget)closeExitModal();
+}
+
+async function submitExitModal(){
+  const email=document.getElementById('exit-email').value.trim();
+  const btn=document.getElementById('exit-submit-btn');
+  const statusEl=document.getElementById('exit-modal-status');
+  if(!email||!email.includes('@')){
+    statusEl.className='exit-modal-status error show';
+    statusEl.textContent='Please enter a valid email address.';
+    document.getElementById('exit-email').focus();
+    return;
+  }
+  const payload={
+    source:'Core Collective Website — Exit Intent Report',
+    timestamp:new Date().toISOString(),
+    lead:{fullName:'',email,phone:'',interest:'Buyer',message:'Requested: Triangle Luxury Market & Off-Market Report'}
+  };
+  btn.disabled=true;
+  btn.textContent='Sending…';
+  statusEl.className='exit-modal-status';
+  statusEl.textContent='';
+  if(LOFTY_WEBHOOK_URL){
+    try{
+      const res=await fetch(LOFTY_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      statusEl.className='exit-modal-status success show';
+      statusEl.textContent='Thank you! Your report will arrive at '+email+' shortly.';
+      document.getElementById('exit-email').value='';
+      setTimeout(closeExitModal,2500);
+    }catch(err){
+      statusEl.className='exit-modal-status error show';
+      statusEl.textContent='Something went wrong. Please try again or call (919) 555-0100.';
+      btn.disabled=false;
+      btn.textContent='Download Free Report →';
+    }
+  }else{
+    statusEl.className='exit-modal-status success show';
+    statusEl.textContent='Thank you! Your report will arrive at '+email+' shortly.';
+    document.getElementById('exit-email').value='';
+    setTimeout(closeExitModal,2500);
+  }
+}
+
+function initExitIntent(){
+  let mobileTriggered=false;
+  document.addEventListener('mouseout',e=>{
+    if(e.clientY<=0&&!e.relatedTarget&&!e.toElement)showExitModal();
+  });
+  window.addEventListener('scroll',()=>{
+    if(mobileTriggered||window.innerWidth>768)return;
+    const maxScroll=document.documentElement.scrollHeight-window.innerHeight;
+    if(maxScroll<=0)return;
+    const scrollPct=window.scrollY/maxScroll;
+    if(scrollPct>=0.8){mobileTriggered=true;showExitModal();}
+  },{passive:true});
+}
+
+initMortgageCalculator();
+initExitIntent();
 </script>
 </body>
 </html>
