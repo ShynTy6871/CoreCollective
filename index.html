@@ -5,6 +5,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Core Collective Real Estate | Premium Properties</title>
+<meta name="description" content="Where exceptional homes find their people. Find your property value or tour premier listings today.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Core Collective Real Estate">
+<meta property="og:title" content="Core Collective | Luxury Real Estate">
+<meta property="og:description" content="Where exceptional homes find their people. Find your property value or tour premier listings today.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=630&fit=crop&q=80">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://corecollective.com/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Core Collective | Luxury Real Estate">
+<meta name="twitter:description" content="Where exceptional homes find their people. Find your property value or tour premier listings today.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=630&fit=crop&q=80">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
@@ -22,8 +35,11 @@
   --font-sans:'Inter',system-ui,sans-serif;
   --header-h:80px;
   --trans:cubic-bezier(0.4,0,0.2,1);
+  --trust-gold:#d97706;
+  --lift:all .3s ease;
 }
 html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{font-family:var(--font-sans);background:var(--white);color:var(--text-dark);overflow-x:hidden;line-height:1.6}
 img{display:block;width:100%;object-fit:cover}
 a{text-decoration:none;color:inherit}
@@ -73,8 +89,8 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 .dropdown a:hover{color:var(--gold);background:rgba(197,160,89,.08);padding-left:30px}
 
 /* HEADER CTA */
-.header-cta{flex-shrink:0;padding:9px 16px;background:var(--gold);color:var(--navy);font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;transition:background .2s,transform .15s}
-.header-cta:hover{background:var(--gold-lt);transform:translateY(-1px)}
+.header-cta{flex-shrink:0;padding:9px 16px;background:var(--gold);color:var(--navy);font-size:9.5px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap}
+.header-cta:hover{background:var(--gold-lt);transform:translateY(-4px)}
 .menu-toggle{display:none;flex-direction:column;gap:5px;padding:8px;cursor:pointer}
 .menu-toggle span{display:block;width:24px;height:1.5px;background:var(--white);transition:transform .3s,opacity .3s}
 
@@ -87,14 +103,20 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 .hero-content{position:relative;z-index:2;padding:var(--header-h) 80px 100px;max-width:900px;width:100%}
 .hero-eyebrow{font-size:10px;font-weight:500;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:16px}
 .hero-eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--gold)}
-.hero-h1{font-family:var(--font-display);font-size:clamp(52px,7vw,96px);font-weight:400;line-height:.95;color:var(--white);margin-bottom:28px;letter-spacing:-.01em}
+.hero-h1{font-family:var(--font-display);font-size:clamp(52px,7vw,96px);font-weight:400;line-height:.95;color:var(--white);margin-bottom:24px;letter-spacing:-.01em}
 .hero-h1 em{font-style:italic;color:var(--gold)}
+.hero-trust-bar{display:flex;align-items:stretch;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.6);margin-bottom:28px;max-width:640px;box-shadow:0 8px 32px rgba(10,25,47,.12)}
+.hero-trust-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 12px;text-align:center;position:relative}
+.hero-trust-item:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:var(--gray-100)}
+.hero-trust-num{font-family:var(--font-display);font-size:clamp(18px,2.2vw,24px);font-weight:700;color:var(--trust-gold);line-height:1.1;margin-bottom:5px;white-space:nowrap}
+.hero-trust-label{font-size:8px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--navy);line-height:1.4}
 .hero-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,.65);max-width:480px;line-height:1.7;margin-bottom:40px;letter-spacing:.02em}
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;transition:background .2s,transform .15s,box-shadow .2s}
-.btn-primary:hover{background:var(--gold-lt);transform:translateY(-2px);box-shadow:0 8px 24px rgba(197,160,89,.35)}
-.btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:1px solid rgba(255,255,255,.4);color:var(--white);font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase;transition:border-color .2s,color .2s,background .2s}
-.btn-outline:hover{border-color:var(--gold);color:var(--gold);background:rgba(197,160,89,.06)}
+.btn-primary,.btn-outline,.header-cta,.prop-card,.testimonial-card,.agent-card,.metric-card,.buyer-feature,.val-btn-next,.search-btn,.form-submit,.schedule-btn,.no-results-reset,.filter-tab,.agent-link,.listing-btn,.val-btn-back{transition:var(--lift)}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+.btn-primary:hover{background:var(--gold-lt);transform:translateY(-4px);box-shadow:0 8px 24px rgba(197,160,89,.35)}
+.btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:1px solid rgba(255,255,255,.4);color:var(--white);font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase}
+.btn-outline:hover{border-color:var(--gold);color:var(--gold);background:rgba(197,160,89,.06);transform:translateY(-4px)}
 .hero-stats{position:absolute;bottom:0;right:0;z-index:2;display:flex;border-top:1px solid rgba(197,160,89,.25);border-left:1px solid rgba(197,160,89,.25)}
 .stat-block{padding:28px 40px;text-align:center;background:rgba(10,25,47,.85);backdrop-filter:blur(10px);border-right:1px solid rgba(197,160,89,.15)}
 .stat-block:last-child{border-right:none}
@@ -125,7 +147,7 @@ section{padding:100px 80px}
 .prop-img-wrap{position:relative;aspect-ratio:16/10;overflow:hidden}
 .prop-img-wrap img{width:100%;height:100%;transition:transform .7s var(--trans)}
 
-.prop-card{background:var(--white);cursor:pointer;overflow:hidden;position:relative;border:1px solid var(--gray-100);transition:box-shadow .35s var(--trans),transform .35s var(--trans)}
+.prop-card{background:var(--white);cursor:pointer;overflow:hidden;position:relative;border:1px solid var(--gray-100)}
 .prop-card:hover{box-shadow:0 20px 60px rgba(10,25,47,.18);transform:translateY(-4px);z-index:2}
 .prop-card:hover .prop-img-wrap img{transform:scale(1.08)}
 .status-tag{position:absolute;top:16px;left:16px;padding:5px 12px;font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;z-index:1}
@@ -155,7 +177,7 @@ section{padding:100px 80px}
 .no-results-title{font-family:var(--font-display);font-size:28px;font-weight:400;color:var(--navy);margin-bottom:10px}
 .no-results-sub{font-size:14px;font-weight:300;color:var(--gray-500);margin-bottom:28px}
 .no-results-reset{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--navy);color:var(--gold);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:background .2s}
-.no-results-reset:hover{background:var(--gold);color:var(--navy)}
+.no-results-reset:hover{background:var(--gold);color:var(--navy);transform:translateY(-4px)}
 .view-all{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);border-bottom:1px solid var(--navy);padding-bottom:2px;margin-top:48px;transition:color .2s,border-color .2s}
 .view-all:hover{color:var(--gold);border-color:var(--gold)}
 .view-all-arrow{transition:transform .2s}
@@ -174,9 +196,10 @@ section{padding:100px 80px}
 .search-input{border:none;outline:none;font-family:var(--font-sans);font-size:14px;font-weight:300;color:var(--navy);background:transparent;width:100%}
 .search-select{border:none;outline:none;font-family:var(--font-sans);font-size:14px;font-weight:300;color:var(--navy);background:transparent;width:100%;appearance:none;cursor:pointer}
 .search-btn{padding:20px 36px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transition:background .2s;white-space:nowrap}
-.search-btn:hover{background:var(--gold-lt)}
+.search-btn:hover{background:var(--gold-lt);transform:translateY(-4px)}
 .buyer-features{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:56px}
 .buyer-feature{border-top:2px solid rgba(197,160,89,.3);padding-top:28px}
+.buyer-feature:hover{transform:translateY(-4px)}
 .buyer-feature-icon{font-size:28px;margin-bottom:16px;color:var(--gold)}
 .buyer-feature-title{font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--white);margin-bottom:10px}
 .buyer-feature-text{font-size:13px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.75}
@@ -192,11 +215,47 @@ section{padding:100px 80px}
 .worth-block{background:rgba(197,160,89,.1);border:1px solid rgba(197,160,89,.3);padding:32px;margin-top:8px}
 .worth-title{font-family:var(--font-display);font-size:28px;font-weight:400;color:var(--gold);margin-bottom:10px;line-height:1.2}
 .worth-sub{font-size:13px;font-weight:300;color:rgba(255,255,255,.6);margin-bottom:24px}
-.worth-form{display:flex;gap:0}
-.worth-input{flex:1;padding:14px 18px;background:rgba(255,255,255,.08);border:1px solid rgba(197,160,89,.3);border-right:none;color:var(--white);font-family:var(--font-sans);font-size:13px;outline:none}
-.worth-input::placeholder{color:rgba(255,255,255,.35)}
-.worth-submit{padding:14px 24px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase}
-.worth-submit:hover{background:var(--gold-lt)}
+.valuation-form{position:relative}
+.valuation-progress{display:flex;align-items:center;gap:0;margin-bottom:28px}
+.valuation-step-indicator{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;position:relative}
+.valuation-step-indicator:not(:last-child)::after{content:'';position:absolute;top:14px;left:calc(50% + 18px);right:calc(-50% + 18px);height:1px;background:rgba(197,160,89,.25);transition:background .3s}
+.valuation-step-indicator.done:not(:last-child)::after{background:var(--gold)}
+.valuation-step-num{width:28px;height:28px;border-radius:50%;border:1px solid rgba(197,160,89,.4);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;color:rgba(255,255,255,.5);background:rgba(10,25,47,.4);transition:background .3s,border-color .3s,color .3s;position:relative;z-index:1}
+.valuation-step-indicator.active .valuation-step-num,.valuation-step-indicator.done .valuation-step-num{border-color:var(--gold);background:var(--gold);color:var(--navy)}
+.valuation-step-label{font-size:8px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.35);text-align:center;transition:color .3s}
+.valuation-step-indicator.active .valuation-step-label,.valuation-step-indicator.done .valuation-step-label{color:var(--gold)}
+.valuation-panel{display:none;animation:valFadeIn .35s var(--trans)}
+.valuation-panel.active{display:block}
+@keyframes valFadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.valuation-panel-title{font-family:var(--font-display);font-size:20px;font-weight:400;color:var(--white);margin-bottom:6px}
+.valuation-panel-desc{font-size:12px;font-weight:300;color:rgba(255,255,255,.5);margin-bottom:20px;line-height:1.6}
+.val-field{margin-bottom:16px}
+.val-label{display:block;font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+.val-input,.val-select{width:100%;padding:13px 16px;background:rgba(255,255,255,.08);border:1px solid rgba(197,160,89,.3);color:var(--white);font-family:var(--font-sans);font-size:13px;outline:none;transition:border-color .2s,background .2s}
+.val-input::placeholder{color:rgba(255,255,255,.35)}
+.val-input:focus,.val-select:focus{border-color:var(--gold);background:rgba(255,255,255,.12)}
+.val-select{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23C5A059' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center}
+.val-select option{background:var(--navy);color:var(--white)}
+.val-pill-group{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.val-pill-group.cols-5{grid-template-columns:repeat(5,1fr)}
+.val-pill-group.cols-4{grid-template-columns:repeat(2,1fr)}
+.val-pill{padding:11px 8px;border:1px solid rgba(197,160,89,.3);background:rgba(255,255,255,.05);color:rgba(255,255,255,.7);font-size:11px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-align:center;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.val-pill:hover{border-color:rgba(197,160,89,.6);color:var(--white)}
+.val-pill.selected{border-color:var(--gold);background:rgba(197,160,89,.2);color:var(--gold)}
+.val-actions{display:flex;gap:10px;margin-top:24px}
+.val-btn-back{flex:0 0 auto;padding:13px 20px;border:1px solid rgba(197,160,89,.35);color:rgba(255,255,255,.7);font-size:10px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;transition:border-color .2s,color .2s,background .2s}
+.val-btn-back:hover{border-color:var(--gold);color:var(--gold)}
+.val-btn-next{flex:1;padding:13px 24px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transition:background .2s,transform .15s}
+.val-btn-next:hover{background:var(--gold-lt);transform:translateY(-4px)}
+.val-btn-next:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.val-trust{display:flex;align-items:center;gap:8px;margin-top:16px;font-size:11px;font-weight:300;color:rgba(255,255,255,.4);letter-spacing:.04em}
+.val-trust-icon{color:var(--gold);font-size:13px}
+.val-status{display:none;padding:14px 18px;margin-top:16px;font-size:12px;font-weight:500;letter-spacing:.06em;text-align:center}
+.val-status.success{background:rgba(92,184,92,.12);color:#7dcea0;border:1px solid rgba(92,184,92,.3)}
+.val-status.error{background:rgba(192,57,43,.1);color:#e8a090;border:1px solid rgba(192,57,43,.25)}
+.val-status.show{display:block}
+.val-error{font-size:11px;color:#e8a090;margin-top:-10px;margin-bottom:12px;display:none}
+.val-error.show{display:block}
 .sellers-stats{display:flex;gap:0;margin-top:40px;border-top:1px solid rgba(197,160,89,.2);padding-top:32px}
 .s-stat{flex:1;border-right:1px solid rgba(197,160,89,.15);padding-right:24px;margin-right:24px}
 .s-stat:last-child{border:none;margin:0}
@@ -216,6 +275,7 @@ section{padding:100px 80px}
 .cap-range{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--gold)}
 .market-metrics{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px}
 .metric-card{background:var(--navy);padding:24px}
+.metric-card:hover{transform:translateY(-4px);box-shadow:0 12px 32px rgba(10,25,47,.25)}
 .metric-card-label{font-size:10px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:10px}
 .metric-card-val{font-family:var(--font-display);font-size:28px;font-weight:700;color:var(--gold);line-height:1;margin-bottom:4px}
 .metric-card-chg{font-size:11px;font-weight:400;color:#5cb85c}
@@ -227,6 +287,7 @@ section{padding:100px 80px}
 #team .section-sub{color:rgba(255,255,255,.5)}
 .agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:56px}
 .agent-card{position:relative;overflow:hidden;background:var(--navy-mid);cursor:pointer}
+.agent-card:hover{transform:translateY(-4px)}
 .agent-img{height:320px;position:relative;overflow:hidden;background:var(--navy-lt);display:flex;align-items:center;justify-content:center}
 .agent-initials{font-family:var(--font-display);font-size:48px;font-weight:400;color:rgba(197,160,89,.4);letter-spacing:.05em}
 .agent-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,47,1) 0%,rgba(10,25,47,.3) 60%,transparent 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:24px;transition:background .35s}
@@ -240,15 +301,26 @@ section{padding:100px 80px}
 
 /* ─── TESTIMONIALS ────────────────────────────────── */
 #testimonials{background:var(--off-white)}
-.testimonials-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:56px}
-.testimonial-card{background:var(--white);padding:40px;border-top:3px solid transparent;transition:border-color .3s,transform .3s}
-.testimonial-card:hover{border-color:var(--gold);transform:translateY(-4px)}
-.testimonial-stars{color:var(--gold);font-size:14px;margin-bottom:20px;letter-spacing:3px}
-.testimonial-text{font-family:var(--font-serif);font-size:17px;font-style:italic;font-weight:300;color:var(--navy);line-height:1.7;margin-bottom:28px}
-.testimonial-author{display:flex;align-items:center;gap:14px}
-.t-avatar{width:44px;height:44px;border-radius:50%;background:var(--navy);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--gold)}
-.t-name{font-size:12px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);margin-bottom:3px}
-.t-detail{font-size:11px;color:var(--gray-500)}
+.testimonials-header{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:24px;margin-bottom:8px}
+.testimonials-nav{display:flex;gap:8px}
+.testimonial-nav-btn{width:40px;height:40px;border:1px solid var(--gray-100);background:var(--white);color:var(--navy);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--lift)}
+.testimonial-nav-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-4px)}
+.testimonials-track-wrap{overflow:hidden;margin-top:48px}
+.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;transition:transform .45s var(--trans)}
+.testimonial-card{background:var(--white);padding:36px;border:1px solid var(--gray-100);border-top:3px solid transparent;position:relative}
+.testimonial-card:hover{border-top-color:var(--gold);transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,25,47,.1)}
+.testimonial-stars{display:flex;gap:3px;margin-bottom:18px}
+.testimonial-stars span{color:var(--gold);font-size:15px;line-height:1}
+.testimonial-text{font-family:var(--font-serif);font-size:16px;font-style:italic;font-weight:300;color:var(--navy);line-height:1.75;margin-bottom:24px}
+.testimonial-text::before{content:'\201C';font-family:var(--font-display);font-size:48px;color:var(--gold);opacity:.25;position:absolute;top:28px;right:28px;line-height:1;font-style:normal}
+.testimonial-author{display:flex;align-items:center;gap:14px;margin-top:auto}
+.t-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--navy) 0%,var(--navy-lt) 100%);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--gold);flex-shrink:0;border:2px solid rgba(197,160,89,.35);overflow:hidden;position:relative}
+.t-avatar::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(10,25,47,.15));border-radius:50%}
+.t-name{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.t-neighborhood{display:inline-block;font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);background:rgba(197,160,89,.12);padding:3px 8px;border:1px solid rgba(197,160,89,.25)}
+.testimonial-dots{display:none;justify-content:center;gap:8px;margin-top:24px}
+.testimonial-dot{width:8px;height:8px;border-radius:50%;background:var(--gray-100);border:none;padding:0;cursor:pointer;transition:background .3s,transform .3s}
+.testimonial-dot.active{background:var(--gold);transform:scale(1.2)}
 
 /* ─── CONTACT STRIP ───────────────────────────────── */
 #contact-strip{background:var(--navy);padding:80px;display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap}
@@ -300,8 +372,8 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
 .spec-label{font-size:9px;font-weight:500;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:6px}
 .spec-value{font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--white)}
 .spec-badge{display:inline-block;padding:4px 10px;background:var(--gold);color:var(--navy);font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
-.schedule-btn{width:100%;padding:18px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transition:background .2s;margin-bottom:16px}
-.schedule-btn:hover{background:var(--gold-lt)}
+.schedule-btn{width:100%;padding:18px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px}
+.schedule-btn:hover{background:var(--gold-lt);transform:translateY(-4px)}
 .inquiry-btn{width:100%;padding:16px;border:1px solid rgba(197,160,89,.4);color:var(--gold);font-size:11px;font-weight:400;letter-spacing:.18em;text-transform:uppercase;transition:background .2s,color .2s}
 .inquiry-btn:hover{background:rgba(197,160,89,.1)}
 .agent-mini{margin-top:32px;padding-top:28px;border-top:1px solid rgba(197,160,89,.15);display:flex;align-items:center;gap:14px}
@@ -349,7 +421,7 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
 .form-input:focus,.form-select:focus,.form-textarea:focus{border-color:var(--gold)}
 .form-textarea{height:90px;resize:none}
 .form-submit{width:100%;padding:15px;background:var(--navy);color:var(--gold);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;transition:background .2s,color .2s}
-.form-submit:hover{background:var(--gold);color:var(--navy)}
+.form-submit:hover{background:var(--gold);color:var(--navy);transform:translateY(-4px)}
 .form-submit:disabled{opacity:.6;cursor:not-allowed}
 .form-status{display:none;padding:14px 18px;margin-top:16px;font-size:12px;font-weight:500;letter-spacing:.06em;text-align:center}
 .form-status.success{background:rgba(92,184,92,.12);color:#2e7d2e;border:1px solid rgba(92,184,92,.3)}
@@ -374,6 +446,8 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
   #sellers{grid-template-columns:1fr}
   .sellers-img{min-height:300px}
   .sellers-content{padding:56px 32px}
+  .val-pill-group.cols-5{grid-template-columns:repeat(3,1fr)}
+  .valuation-step-label{font-size:7px}
   .search-row{grid-template-columns:1fr}
   .search-field{border-right:none;border-bottom:1px solid var(--gray-100)}
   .buyer-features{grid-template-columns:1fr}
@@ -406,6 +480,37 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
 .mobile-nav.open{display:block}
 .mobile-nav a{display:block;padding:16px 0;font-size:14px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);border-bottom:1px solid rgba(255,255,255,.07);transition:color .2s}
 .mobile-nav a:hover{color:var(--gold)}
+
+/* ─── MOBILE STICKY CTA ───────────────────────────── */
+.mobile-sticky-cta{display:none;position:fixed;bottom:0;left:0;right:0;z-index:998;background:var(--white);border-top:1px solid var(--gray-100);padding:12px 16px;gap:10px;box-shadow:0 -4px 24px rgba(10,25,47,.12)}
+.mobile-sticky-btn{flex:1;display:flex;align-items:center;justify-content:center;padding:13px 10px;font-size:9px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-align:center;transition:var(--lift)}
+.mobile-sticky-btn.outline{border:1px solid var(--navy);color:var(--navy);background:transparent}
+.mobile-sticky-btn.outline:hover{background:rgba(10,25,47,.04);transform:translateY(-4px)}
+.mobile-sticky-btn.filled{background:var(--gold);color:var(--navy);border:1px solid var(--gold)}
+.mobile-sticky-btn.filled:hover{background:var(--gold-lt);transform:translateY(-4px)}
+
+@media(min-width:769px) and (max-width:1099px){
+  .testimonials-track-wrap{overflow:hidden}
+  .testimonials-grid{grid-template-columns:repeat(2,1fr);width:200%;transition:transform .45s var(--trans)}
+}
+@media(min-width:1100px){
+  .testimonials-nav{display:none}
+}
+@media(max-width:768px){
+  .mobile-sticky-cta{display:flex}
+  body{padding-bottom:72px}
+  .hero-trust-bar{max-width:100%;display:grid;grid-template-columns:1fr 1fr}
+  .hero-trust-item::after{display:none!important}
+  .hero-trust-item{border-right:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100)}
+  .hero-trust-item:nth-child(2n){border-right:none}
+  .hero-trust-item:nth-child(n+3){border-bottom:none}
+  .testimonials-nav{display:none}
+  .testimonials-track-wrap{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-top:32px}
+  .testimonials-track-wrap::-webkit-scrollbar{display:none}
+  .testimonials-grid{display:flex;gap:16px;width:max-content;padding-bottom:4px}
+  .testimonial-card{flex:0 0 calc(100vw - 72px);max-width:340px;scroll-snap-align:start}
+  .testimonial-dots{display:flex}
+}
 </style>
 </head>
 <body>
@@ -497,6 +602,24 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
     <div class="hero-content">
       <div class="hero-eyebrow">Raleigh–Durham's Premier Team</div>
       <h1 class="hero-h1">Where <em>Exceptional</em><br>Homes Find<br>Their People</h1>
+      <div class="hero-trust-bar" role="complementary" aria-label="Company credentials">
+        <div class="hero-trust-item">
+          <div class="hero-trust-num">$50M+</div>
+          <div class="hero-trust-label">Volume Sold</div>
+        </div>
+        <div class="hero-trust-item">
+          <div class="hero-trust-num">100+</div>
+          <div class="hero-trust-label">Happy Clients</div>
+        </div>
+        <div class="hero-trust-item">
+          <div class="hero-trust-num">5.0★</div>
+          <div class="hero-trust-label">Rating</div>
+        </div>
+        <div class="hero-trust-item">
+          <div class="hero-trust-num">15+</div>
+          <div class="hero-trust-label">Years Experience</div>
+        </div>
+      </div>
       <p class="hero-sub">Core Collective Real Estate delivers white-glove representation across the Triangle's most coveted addresses — from first-time buyers to seasoned portfolio investors.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="scrollToSection('properties')">View Properties <span>→</span></button>
@@ -595,7 +718,6 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
     </div>
   </section>
 
-  <!-- UPGRADE 3a: worth-address input pre-populates the modal message -->
   <section id="sellers" aria-labelledby="sellers-title" style="padding:0;">
     <div class="sellers-img" aria-hidden="true">
       <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=80" alt="Luxury home exterior" loading="lazy">
@@ -604,13 +726,108 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
       <div class="section-eyebrow">For Sellers</div>
       <h2 class="section-title" id="sellers-title">Sell with <em>Confidence</em></h2>
       <p class="section-sub">Our proven listing strategy combines precision pricing, professional staging, and targeted digital marketing to sell your home faster and for more.</p>
-      <div class="worth-block" role="complementary">
+      <div class="worth-block" role="complementary" aria-label="Home valuation form">
         <div class="worth-title">What's My Home Worth?</div>
-        <p class="worth-sub">Get an instant market analysis from a Core Collective agent.</p>
-        <div class="worth-form">
-          <input class="worth-input" id="worth-address" type="text" placeholder="Enter your property address">
-          <button class="worth-submit" onclick="openValuationModal()">Get Value →</button>
-        </div>
+        <p class="worth-sub">Answer a few quick questions and receive a personalized market analysis from a Core Collective agent.</p>
+        <form class="valuation-form" id="valuation-form" novalidate onsubmit="return false;">
+          <div class="valuation-progress" aria-hidden="true">
+            <div class="valuation-step-indicator active" data-step-ind="1">
+              <div class="valuation-step-num">1</div>
+              <div class="valuation-step-label">Property</div>
+            </div>
+            <div class="valuation-step-indicator" data-step-ind="2">
+              <div class="valuation-step-num">2</div>
+              <div class="valuation-step-label">Details</div>
+            </div>
+            <div class="valuation-step-indicator" data-step-ind="3">
+              <div class="valuation-step-num">3</div>
+              <div class="valuation-step-label">Report</div>
+            </div>
+          </div>
+
+          <div class="valuation-panel active" id="val-step-1" role="group" aria-labelledby="val-step-1-title">
+            <h3 class="valuation-panel-title" id="val-step-1-title">Your Property</h3>
+            <p class="valuation-panel-desc">Tell us where your home is and what type of property it is.</p>
+            <div class="val-field">
+              <label class="val-label" for="val-address">Property Address</label>
+              <input class="val-input" id="val-address" type="text" placeholder="123 Main St, Raleigh, NC 27601" autocomplete="street-address" required>
+            </div>
+            <div class="val-field">
+              <label class="val-label" for="val-type">Property Type</label>
+              <select class="val-select" id="val-type" required>
+                <option value="">Select property type</option>
+                <option value="Single Family Home">Single Family Home</option>
+                <option value="Townhome / Condo">Townhome / Condo</option>
+                <option value="Multi-Family">Multi-Family</option>
+                <option value="Land / Lot">Land / Lot</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+            <div class="val-error" id="val-error-1"></div>
+            <div class="val-actions">
+              <button type="button" class="val-btn-next" onclick="valuationNext(1)">Continue →</button>
+            </div>
+          </div>
+
+          <div class="valuation-panel" id="val-step-2" role="group" aria-labelledby="val-step-2-title">
+            <h3 class="valuation-panel-title" id="val-step-2-title">Property Details</h3>
+            <p class="valuation-panel-desc">Help us refine your estimate with a few key details.</p>
+            <div class="val-field">
+              <span class="val-label">Bedrooms</span>
+              <div class="val-pill-group cols-5" id="val-beds-group" role="group" aria-label="Number of bedrooms">
+                <button type="button" class="val-pill" data-value="1">1</button>
+                <button type="button" class="val-pill" data-value="2">2</button>
+                <button type="button" class="val-pill" data-value="3">3</button>
+                <button type="button" class="val-pill" data-value="4">4</button>
+                <button type="button" class="val-pill" data-value="5+">5+</button>
+              </div>
+              <input type="hidden" id="val-beds" value="">
+            </div>
+            <div class="val-field">
+              <span class="val-label">Overall Condition</span>
+              <div class="val-pill-group cols-4" id="val-condition-group" role="group" aria-label="Property condition">
+                <button type="button" class="val-pill" data-value="Excellent">Excellent</button>
+                <button type="button" class="val-pill" data-value="Good">Good</button>
+                <button type="button" class="val-pill" data-value="Fair">Fair</button>
+                <button type="button" class="val-pill" data-value="Needs Work">Needs Work</button>
+              </div>
+              <input type="hidden" id="val-condition" value="">
+            </div>
+            <div class="val-error" id="val-error-2"></div>
+            <div class="val-actions">
+              <button type="button" class="val-btn-back" onclick="valuationBack(2)">← Back</button>
+              <button type="button" class="val-btn-next" onclick="valuationNext(2)">Continue →</button>
+            </div>
+          </div>
+
+          <div class="valuation-panel" id="val-step-3" role="group" aria-labelledby="val-step-3-title">
+            <h3 class="valuation-panel-title" id="val-step-3-title">Receive Your Report</h3>
+            <p class="valuation-panel-desc">Where should we send your complimentary market analysis?</p>
+            <div class="val-field">
+              <label class="val-label" for="val-name">Full Name</label>
+              <input class="val-input" id="val-name" type="text" placeholder="Your full name" autocomplete="name" required>
+            </div>
+            <div class="val-field">
+              <label class="val-label" for="val-email">Email Address</label>
+              <input class="val-input" id="val-email" type="email" placeholder="your@email.com" autocomplete="email" required>
+            </div>
+            <div class="val-field">
+              <label class="val-label" for="val-phone">Phone Number</label>
+              <input class="val-input" id="val-phone" type="tel" placeholder="(919) 000-0000" autocomplete="tel">
+            </div>
+            <div class="val-error" id="val-error-3"></div>
+            <div class="val-actions">
+              <button type="button" class="val-btn-back" onclick="valuationBack(3)">← Back</button>
+              <button type="button" class="val-btn-next" id="val-submit-btn" onclick="submitValuationForm()">Get My Report →</button>
+            </div>
+            <div class="val-trust">
+              <span class="val-trust-icon" aria-hidden="true">◆</span>
+              <span>Free · No obligation · Delivered within 24 hours</span>
+            </div>
+          </div>
+
+          <div class="val-status" id="val-status" role="status" aria-live="polite"></div>
+        </form>
       </div>
       <div class="sellers-stats" role="list">
         <div class="s-stat" role="listitem"><div class="s-stat-num">98.7%</div><div class="s-stat-label">List-to-Sale Ratio</div></div>
@@ -669,25 +886,65 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
   </section>
 
   <section id="testimonials" aria-labelledby="testimonials-title">
-    <div class="section-eyebrow">Client Stories</div>
-    <h2 class="section-title" id="testimonials-title">What Our Clients <em>Say</em></h2>
-    <div class="testimonials-grid" role="list">
-      <article class="testimonial-card" role="listitem">
-        <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-        <blockquote class="testimonial-text">"Marsha and the Core Collective team made selling our North Raleigh home an absolute breeze. Listed on Thursday, had seven offers by Sunday, and closed $68K above asking."</blockquote>
-        <div class="testimonial-author"><div class="t-avatar">JT</div><div><div class="t-name">James &amp; Tanya Morrison</div><div class="t-detail">Sellers · North Raleigh, NC</div></div></div>
-      </article>
-      <article class="testimonial-card" role="listitem">
-        <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-        <blockquote class="testimonial-text">"As a first-time buyer navigating a brutal market, Sharon was invaluable. She knew every neighborhood, every listing before it went live, and fought hard for our family."</blockquote>
-        <div class="testimonial-author"><div class="t-avatar">AP</div><div><div class="t-name">Amara Patel</div><div class="t-detail">Buyer · Cary, NC</div></div></div>
-      </article>
-      <article class="testimonial-card" role="listitem">
-        <div class="testimonial-stars" aria-label="5 stars">★★★★★</div>
-        <blockquote class="testimonial-text">"Dexter helped me acquire three investment properties in 18 months. His market analysis is sharp, his network is exceptional, and his deal-making ability is second to none."</blockquote>
-        <div class="testimonial-author"><div class="t-avatar">RC</div><div><div class="t-name">Robert Chen</div><div class="t-detail">Investor · Durham, NC</div></div></div>
-      </article>
+    <div class="testimonials-header">
+      <div>
+        <div class="section-eyebrow">Client Stories</div>
+        <h2 class="section-title" id="testimonials-title">What Our Clients <em>Say</em></h2>
+      </div>
+      <div class="testimonials-nav" aria-label="Testimonial navigation">
+        <button class="testimonial-nav-btn" id="testimonial-prev" aria-label="Previous review">←</button>
+        <button class="testimonial-nav-btn" id="testimonial-next" aria-label="Next review">→</button>
+      </div>
     </div>
+    <div class="testimonials-track-wrap" id="testimonials-track-wrap">
+      <div class="testimonials-grid" id="testimonials-grid" role="list">
+        <article class="testimonial-card" role="listitem">
+          <div class="testimonial-stars" aria-label="5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <blockquote class="testimonial-text">"Marsha and the Core Collective team made selling our North Raleigh home an absolute breeze. Listed on Thursday, had seven offers by Sunday, and closed $68K above asking."</blockquote>
+          <div class="testimonial-author">
+            <div class="t-avatar" aria-hidden="true">JT</div>
+            <div>
+              <div class="t-name">James &amp; Tanya Morrison</div>
+              <span class="t-neighborhood">Sold in North Raleigh, NC</span>
+            </div>
+          </div>
+        </article>
+        <article class="testimonial-card" role="listitem">
+          <div class="testimonial-stars" aria-label="5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <blockquote class="testimonial-text">"As a first-time buyer navigating a brutal market, Sharon was invaluable. She knew every neighborhood, every listing before it went live, and fought hard for our family."</blockquote>
+          <div class="testimonial-author">
+            <div class="t-avatar" aria-hidden="true">AP</div>
+            <div>
+              <div class="t-name">Amara Patel</div>
+              <span class="t-neighborhood">Bought in Cary, NC</span>
+            </div>
+          </div>
+        </article>
+        <article class="testimonial-card" role="listitem">
+          <div class="testimonial-stars" aria-label="5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <blockquote class="testimonial-text">"Dexter helped me acquire three investment properties in 18 months. His market analysis is sharp, his network is exceptional, and his deal-making ability is second to none."</blockquote>
+          <div class="testimonial-author">
+            <div class="t-avatar" aria-hidden="true">RC</div>
+            <div>
+              <div class="t-name">Robert Chen</div>
+              <span class="t-neighborhood">Invested in Durham, NC</span>
+            </div>
+          </div>
+        </article>
+        <article class="testimonial-card" role="listitem">
+          <div class="testimonial-stars" aria-label="5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+          <blockquote class="testimonial-text">"Sylvia guided us through a complex relocation from Chicago with zero stress. Her knowledge of Chapel Hill neighborhoods and school districts was exactly what we needed."</blockquote>
+          <div class="testimonial-author">
+            <div class="t-avatar" aria-hidden="true">KL</div>
+            <div>
+              <div class="t-name">Karen &amp; Luis Ortiz</div>
+              <span class="t-neighborhood">Bought in Chapel Hill, NC</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+    <div class="testimonial-dots" id="testimonial-dots" aria-hidden="true"></div>
   </section>
 
   <div id="contact-strip" role="complementary">
@@ -744,6 +1001,11 @@ footer{background:#060f1d;color:rgba(255,255,255,.45);padding:64px 80px 40px}
       <nav class="footer-legal"><a href="#">Privacy Policy</a><a href="#">Terms of Service</a><a href="#">Fair Housing Notice</a><a href="#">DMCA</a></nav>
     </div>
   </footer>
+
+  <div class="mobile-sticky-cta" id="mobile-sticky-cta" role="complementary" aria-label="Quick actions">
+    <button class="mobile-sticky-btn outline" onclick="scrollToSection('sellers')">What's My Home Worth?</button>
+    <a class="mobile-sticky-btn filled" href="tel:+19195550100">Call / Text Us</a>
+  </div>
 </div>
 
 <!-- LISTING PAGE -->
@@ -1116,19 +1378,125 @@ function closeModal(){
 }
 function closeModalOutside(e){if(e.target===e.currentTarget)closeModal();}
 
-/* ════════════════════════════════════════════════════════
-   UPGRADE 3a: HOME VALUATION → PRE-POPULATE MODAL
-   Reads the seller address input, opens the contact modal,
-   and writes the address into the message field so agents
-   immediately know what property is being valued.
-════════════════════════════════════════════════════════ */
-function openValuationModal(){
-  const addr=document.getElementById('worth-address').value.trim();
-  openModal();
-  if(addr){
-    document.getElementById('f-interest').value='Seller';
-    document.getElementById('f-msg').value=`I would like a premium market valuation for my property: ${addr}`;
+/* ── MULTI-STEP VALUATION FORM ───────────────────────── */
+let valuationCurrentStep=1;
+
+function initValuationForm(){
+  document.querySelectorAll('.val-pill-group').forEach(group=>{
+    group.addEventListener('click',e=>{
+      const pill=e.target.closest('.val-pill');
+      if(!pill)return;
+      group.querySelectorAll('.val-pill').forEach(p=>p.classList.remove('selected'));
+      pill.classList.add('selected');
+      const hidden=group.nextElementSibling;
+      if(hidden&&hidden.tagName==='INPUT')hidden.value=pill.dataset.value;
+    });
+  });
+}
+initValuationForm();
+
+function valuationShowStep(step){
+  valuationCurrentStep=step;
+  document.querySelectorAll('.valuation-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('val-step-'+step).classList.add('active');
+  document.querySelectorAll('.valuation-step-indicator').forEach(ind=>{
+    const n=parseInt(ind.dataset.stepInd,10);
+    ind.classList.toggle('active',n===step);
+    ind.classList.toggle('done',n<step);
+  });
+  document.querySelectorAll('.val-error').forEach(el=>{el.classList.remove('show');el.textContent='';});
+  const firstInput=document.getElementById('val-step-'+step).querySelector('input,select,button.val-btn-next');
+  if(firstInput)setTimeout(()=>firstInput.focus(),80);
+}
+
+function valuationShowError(step,msg){
+  const el=document.getElementById('val-error-'+step);
+  el.textContent=msg;
+  el.classList.add('show');
+}
+
+function valuationNext(fromStep){
+  if(fromStep===1){
+    const addr=document.getElementById('val-address').value.trim();
+    const type=document.getElementById('val-type').value;
+    if(!addr){valuationShowError(1,'Please enter your property address.');document.getElementById('val-address').focus();return;}
+    if(!type){valuationShowError(1,'Please select a property type.');document.getElementById('val-type').focus();return;}
   }
+  if(fromStep===2){
+    const beds=document.getElementById('val-beds').value;
+    const condition=document.getElementById('val-condition').value;
+    if(!beds){valuationShowError(2,'Please select the number of bedrooms.');return;}
+    if(!condition){valuationShowError(2,'Please select the overall condition.');return;}
+  }
+  valuationShowStep(fromStep+1);
+}
+
+function valuationBack(fromStep){
+  valuationShowStep(fromStep-1);
+}
+
+async function submitValuationForm(){
+  const name=document.getElementById('val-name').value.trim();
+  const email=document.getElementById('val-email').value.trim();
+  const phone=document.getElementById('val-phone').value.trim();
+  const addr=document.getElementById('val-address').value.trim();
+  const type=document.getElementById('val-type').value;
+  const beds=document.getElementById('val-beds').value;
+  const condition=document.getElementById('val-condition').value;
+  const btn=document.getElementById('val-submit-btn');
+  const statusEl=document.getElementById('val-status');
+
+  if(!name){valuationShowError(3,'Please enter your full name.');document.getElementById('val-name').focus();return;}
+  if(!email||!email.includes('@')){valuationShowError(3,'Please enter a valid email address.');document.getElementById('val-email').focus();return;}
+
+  const message=[
+    'Home Valuation Request',
+    `Address: ${addr}`,
+    `Property Type: ${type}`,
+    `Bedrooms: ${beds}`,
+    `Condition: ${condition}`
+  ].join('\n');
+
+  const payload={
+    source:'Core Collective Website — Home Valuation',
+    timestamp:new Date().toISOString(),
+    lead:{fullName:name,email,phone,interest:'Seller',message}
+  };
+
+  btn.disabled=true;
+  btn.textContent='Sending…';
+  statusEl.className='val-status';
+  statusEl.textContent='';
+
+  if(LOFTY_WEBHOOK_URL){
+    try{
+      const res=await fetch(LOFTY_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(!res.ok)throw new Error('HTTP '+res.status);
+      statusEl.className='val-status success show';
+      statusEl.textContent=`Thank you, ${name}! Your market analysis will arrive at ${email} within 24 hours.`;
+      resetValuationForm();
+    }catch(err){
+      statusEl.className='val-status error show';
+      statusEl.textContent='There was a problem submitting your request. Please call us at (919) 555-0100.';
+      btn.disabled=false;
+      btn.textContent='Get My Report →';
+    }
+  }else{
+    statusEl.className='val-status success show';
+    statusEl.textContent=`Thank you, ${name}! Your market analysis will arrive at ${email} within 24 hours.`;
+    resetValuationForm();
+  }
+}
+
+function resetValuationForm(){
+  ['val-address','val-name','val-email','val-phone'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('val-type').value='';
+  document.getElementById('val-beds').value='';
+  document.getElementById('val-condition').value='';
+  document.querySelectorAll('.val-pill').forEach(p=>p.classList.remove('selected'));
+  document.getElementById('val-submit-btn').disabled=false;
+  document.getElementById('val-submit-btn').textContent='Get My Report →';
+  setTimeout(()=>valuationShowStep(1),3000);
 }
 
 /* ════════════════════════════════════════════════════════
@@ -1197,6 +1565,76 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 /* ── INIT ────────────────────────────────────────────── */
 renderProperties('all');
+initTestimonialSlider();
+
+function initTestimonialSlider(){
+  const track=document.getElementById('testimonials-grid');
+  const wrap=document.getElementById('testimonials-track-wrap');
+  const dotsEl=document.getElementById('testimonial-dots');
+  const prevBtn=document.getElementById('testimonial-prev');
+  const nextBtn=document.getElementById('testimonial-next');
+  if(!track||!wrap)return;
+
+  const cards=track.querySelectorAll('.testimonial-card');
+  let page=0;
+
+  function isMobile(){return window.innerWidth<=768}
+  function isTablet(){return window.innerWidth>768&&window.innerWidth<1100}
+  function mobilePages(){return cards.length}
+  function tabletPages(){return Math.ceil(cards.length/2)}
+
+  function buildDots(){
+    if(!dotsEl)return;
+    dotsEl.innerHTML='';
+    if(!isMobile())return;
+    for(let i=0;i<cards.length;i++){
+      const dot=document.createElement('button');
+      dot.className='testimonial-dot'+(i===0?' active':'');
+      dot.type='button';
+      dot.setAttribute('aria-label','Go to review '+(i+1));
+      dot.addEventListener('click',()=>goTo(i));
+      dotsEl.appendChild(dot);
+    }
+  }
+
+  function updateDots(idx){
+    dotsEl.querySelectorAll('.testimonial-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  }
+
+  function goTo(idx){
+    if(isMobile()){
+      page=idx;
+      const card=cards[page];
+      if(card)wrap.scrollTo({left:card.offsetLeft-wrap.offsetLeft,behavior:'smooth'});
+      updateDots(page);
+    }else if(isTablet()){
+      page=Math.max(0,Math.min(idx,tabletPages()-1));
+      track.style.transform='translateX(-'+(page*50)+'%)';
+    }
+  }
+
+  prevBtn&&prevBtn.addEventListener('click',()=>goTo(page-1));
+  nextBtn&&nextBtn.addEventListener('click',()=>goTo(page+1));
+
+  wrap.addEventListener('scroll',()=>{
+    if(!isMobile())return;
+    let closest=0,minDist=Infinity;
+    cards.forEach((c,i)=>{
+      const dist=Math.abs(c.offsetLeft-wrap.scrollLeft);
+      if(dist<minDist){minDist=dist;closest=i}
+    });
+    page=closest;
+    updateDots(page);
+  },{passive:true});
+
+  window.addEventListener('resize',()=>{
+    track.style.transform='';
+    page=0;
+    buildDots();
+  });
+
+  buildDots();
+}
 </script>
 </body>
 </html>
