@@ -67,7 +67,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .exit-modal-close:focus-visible,.video-lightbox-close:focus-visible,.testimonial-nav-btn:focus-visible,
 .nav-link:focus-visible,.header-cta:focus-visible,.menu-toggle:focus-visible,
 .val-btn-next:focus-visible,.val-btn-back:focus-visible,.val-pill:focus-visible,
-.nhood-cta:focus-visible,.agent-profile-cta:focus-visible,.mobile-sticky-btn:focus-visible,
+.nhood-cta:focus-visible,.agent-profile-cta:focus-visible,.agent-profile-read-bio:focus-visible,.mobile-sticky-btn:focus-visible,
 .blog-card:focus-visible,.blog-read-more:focus-visible,.blog-modal-close:focus-visible,.faq-question:focus-visible,.loc-pref-option input:focus-visible{
   outline:var(--focus-ring);outline-offset:var(--focus-offset);box-shadow:0 0 0 4px rgba(212,175,55,.28)
 }
@@ -451,7 +451,9 @@ section{padding:100px 80px}
 .agent-profile-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
 .agent-profile-expertise{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
 .agent-profile-tag{font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-on-dark-secondary);background:rgba(197,160,89,.1);border:1px solid rgba(197,160,89,.28);padding:4px 9px}
-.agent-profile-bio{font-size:13px;font-weight:300;color:var(--text-on-dark-secondary);line-height:1.75;margin-bottom:24px;flex:1}
+.agent-profile-bio{font-size:13px;font-weight:300;color:var(--text-on-dark-secondary);line-height:1.75;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;min-height:calc(1.75em * 3);max-height:calc(1.75em * 3)}
+.agent-profile-read-bio{align-self:flex-start;background:none;border:none;padding:0;margin-bottom:16px;font-size:10px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);cursor:pointer;transition:color .2s}
+.agent-profile-read-bio:hover{color:var(--gold-lt)}
 .agent-profile-cta{width:100%;padding:13px;background:transparent;border:1px solid rgba(197,160,89,.45);color:var(--gold);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;transition:var(--lift);margin-top:auto}
 .agent-profile-cta:hover{background:var(--gold);color:var(--navy);transform:translateY(-4px);box-shadow:0 8px 24px rgba(197,160,89,.3)}
 
@@ -638,6 +640,10 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 .form-status.success{background:rgba(92,184,92,.12);color:#2e7d2e;border:1px solid rgba(92,184,92,.3)}
 .form-status.error{background:rgba(192,57,43,.1);color:#922b21;border:1px solid rgba(192,57,43,.25)}
 .form-status.show{display:block}
+.agent-bio-modal-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:-8px 0 20px}
+.agent-bio-modal-body{font-size:14px;font-weight:300;color:var(--gray-500);line-height:1.75;max-height:52vh;overflow-y:auto}
+.agent-bio-modal-body p{margin-bottom:14px}
+.agent-bio-modal-body p:last-child{margin-bottom:0}
 
 /* ─── RESPONSIVE ──────────────────────────────────── */
 @media(max-width:1100px){
@@ -1646,6 +1652,17 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   </div>
 </div>
 
+<!-- AGENT BIO MODAL (read-only) -->
+<div class="modal-overlay" id="agent-bio-modal" role="dialog" aria-modal="true" aria-labelledby="agent-bio-modal-title" aria-hidden="true" onclick="closeAgentBioOutside(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeAgentBio()" aria-label="Close bio">✕</button>
+    <div class="modal-eyebrow">Agent Profile</div>
+    <h2 class="modal-title" id="agent-bio-modal-title"></h2>
+    <p class="agent-bio-modal-role" id="agent-bio-modal-role"></p>
+    <div class="agent-bio-modal-body" id="agent-bio-modal-body"></div>
+  </div>
+</div>
+
 <script>
 /* ════════════════════════════════════════════════════════
    UPGRADE 4b — LOFTY CRM WEBHOOK URL
@@ -1928,7 +1945,7 @@ function closeModal(){
   const modal=document.getElementById('modal');
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
-  if(!document.getElementById('video-lightbox').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')){
+  if(!document.getElementById('video-lightbox').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
     document.body.style.overflow='';
   }
   const s=document.getElementById('form-status');
@@ -1939,6 +1956,36 @@ function closeModal(){
   document.getElementById('f-agent').value='';
 }
 function closeModalOutside(e){if(e.target===e.currentTarget)closeModal();}
+
+function formatBioParagraphs(text){
+  return String(text||'').split(/\n\n+/).filter(Boolean).map(p=>`<p>${escHtml(p.trim())}</p>`).join('');
+}
+
+function openAgentBio(agentId){
+  const agent=AGENT_ROUTES[agentId];
+  if(!agent?.bio)return;
+  document.getElementById('agent-bio-modal-title').textContent=agent.name;
+  document.getElementById('agent-bio-modal-role').textContent=agent.role;
+  document.getElementById('agent-bio-modal-body').innerHTML=formatBioParagraphs(agent.bio);
+  const modal=document.getElementById('agent-bio-modal');
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow='hidden';
+  modal.querySelector('.modal-close').focus();
+}
+
+function closeAgentBio(){
+  const modal=document.getElementById('agent-bio-modal');
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('video-lightbox').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')){
+    document.body.style.overflow='';
+  }
+}
+
+function closeAgentBioOutside(e){
+  if(e.target===e.currentTarget)closeAgentBio();
+}
 
 const AGENT_ROUTES_FALLBACK={
   'marsha-watson':{name:'Marsha Watson',role:'Realtor & Team Lead',interest:'Seller',expertise:'Luxury Listings · Seller Strategy · North Raleigh'},
@@ -2164,7 +2211,8 @@ function closeMobileNav(){
 /* ── ESC KEY CLOSES MODAL ────────────────────────────── */
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
-    if(document.getElementById('blog-modal').classList.contains('open'))closeBlogModal();
+    if(document.getElementById('agent-bio-modal').classList.contains('open'))closeAgentBio();
+    else if(document.getElementById('blog-modal').classList.contains('open'))closeBlogModal();
     else if(document.getElementById('video-lightbox').classList.contains('open'))closeVideoLightbox();
     else if(document.getElementById('exit-modal').classList.contains('open'))closeExitModal();
     else closeModal();
@@ -2242,7 +2290,7 @@ function closeVideoLightbox(){
   const lightbox=document.getElementById('video-lightbox');
   lightbox.classList.remove('open');
   lightbox.setAttribute('aria-hidden','true');
-  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')){
+  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
     document.body.style.overflow='';
   }
 }
@@ -2387,7 +2435,7 @@ function renderAgents(items){
       return `<span class="agent-profile-tag">${escHtml(text)}</span>`;
     }).join('');
     const expertise=(a.focus_tags||[]).map(t=>typeof t==='string'?t:t.tag).join(' · ');
-    routes[id]={name:a.name,role:a.title,interest:a.interest||'Buyer',expertise,phone:a.phone,email:a.email};
+    routes[id]={name:a.name,role:a.title,bio:a.bio,interest:a.interest||'Buyer',expertise,phone:a.phone,email:a.email};
     const headshot=a.headshot
       ? `<div class="agent-profile-headshot has-photo"><img src="${escHtml(a.headshot)}" alt="${escHtml(a.name+(a.title?', '+a.title:''))}"></div>`
       : `<div class="agent-profile-headshot" aria-hidden="true">${escHtml(a.initials)}</div>`;
@@ -2398,6 +2446,7 @@ function renderAgents(items){
         <p class="agent-profile-role">${escHtml(a.title)}</p>
         <div class="agent-profile-expertise">${tags}</div>
         <p class="agent-profile-bio">${escHtml(a.bio)}</p>
+        <button type="button" class="agent-profile-read-bio" onclick="openAgentBio(${JSON.stringify(id)})">Read Full Bio →</button>
         <button class="agent-profile-cta" onclick="openAgentConsultation(${JSON.stringify(id)})">Schedule Consultation</button>
       </div>
     </article>`;
@@ -2538,7 +2587,7 @@ function closeBlogModal(){
   const modal=document.getElementById('blog-modal');
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
-  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('video-lightbox').classList.contains('open')){
+  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('video-lightbox').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
     document.body.style.overflow='';
   }
 }
@@ -2691,7 +2740,7 @@ function closeExitModal(){
   const modal=document.getElementById('exit-modal');
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
-  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('video-lightbox').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')){
+  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('video-lightbox').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
     document.body.style.overflow='';
   }
 }
