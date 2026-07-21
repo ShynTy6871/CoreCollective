@@ -3,52 +3,6 @@
     {
       "focus_tags": [
         {
-          "tag": "Buyer Representation"
-        },
-        {
-          "tag": "Off-Market Access"
-        },
-        {
-          "tag": "Cary & Apex"
-        }
-      ],
-      "bio": "Sharon Burwell McDuffie is a dedicated real estate professional with Core Collective Real Estate Group, known for her steady guidance, client‑centered approach, and deep commitment to helping individuals and families find places where their lives can truly flourish. She brings a warm, relationship‑driven style to her work, pairing market expertise with genuine care for the people she serves.\n\nSharon’s approach to real estate is shaped by her belief in community, service, and the power of home. She understands that buying or selling a home is more than a transaction—it’s a milestone that can strengthen families, build stability, and open doors to new opportunities. Her clients value her thoughtful communication, her ability to simplify complex decisions, and her unwavering dedication to their goals.\n\nHer work in real estate is deeply connected to the way she shows up in her community. Sharon is an active member of her local church, serving faithfully as a deaconess, Children’s Church teacher, and member of the Events Ministry, where her organizational talent and welcoming spirit shine. She also extends her leadership beyond the church walls as the Chaplain of the Raleigh Chapter of Sigma Gamma Rho Sorority, Incorporated, offering encouragement, compassion, and spiritual grounding to her sorors.\n\nFamily is at the heart of Sharon’s life. She is the proud mother of two adult daughters and is married to Ty McDuffie, founder of Griot and Grits, whose work in cultural preservation and storytelling aligns with her own commitment to community uplift. Together, they share a passion for service, legacy building, and creating spaces—both literal and figurative—where people feel supported and empowered.\n\nWhether guiding a first‑time buyer, supporting a family preparing to sell a longtime home, or helping clients navigate investment opportunities, Sharon brings warmth, integrity, and a steady hand to every step of the journey. Her work reflects not only her professional skill, but her belief in strengthening communities one home at a time.",
-      "interest": "Buyer",
-      "name": "Sharon McDuffie",
-      "phone": "(919) 555-0101",
-      "order": 2,
-      "initials": "SM",
-      "agent_id": "sharon-mcduffie",
-      "title": "Realtor · Buyer Specialist",
-      "headshot": "/images/uploads/image.jpg",
-      "email": "sharon@corecollectivere.com"
-    },
-    {
-      "focus_tags": [
-        {
-          "tag": "Luxury Listings"
-        },
-        {
-          "tag": "Seller Strategy"
-        },
-        {
-          "tag": "North Raleigh"
-        }
-      ],
-      "bio": "Marsha Watson is a North Carolina REALTOR® with eXp Realty and the team lead of Core Collective Real Estate. Serving Raleigh, Cary, Clayton, Garner, Johnston County, Wake County, and surrounding Triangle communities, Marsha helps buyers and sellers make confident real estate decisions through education, strategy, and personalized guidance.\n\nBefore real estate, Marsha spent more than 20 years in nonprofit and mental health work, including advocacy for individuals and families experiencing homelessness. That background shaped her client-first approach and deep commitment to helping people find stability, opportunity, and long-term wealth through homeownership.\n\nMarsha specializes in first-time homebuyers, military relocation, VA buyers, relocation clients, new construction, and sellers preparing for their next chapter. As a Military Relocation Professional and Certified eXp Mentor, she brings strong communication, local market knowledge, and steady guidance to every transaction.\n\nHer approach is warm, honest, and educational. She believes clients deserve more than a transaction—they deserve an advocate who listens, explains the process clearly, and protects their goals from consultation to closing.\n\nAt Core Collective Real Estate, the mission is clear: Your Goals. Our Core Mission.",
-      "interest": "Seller",
-      "name": "Marsha Watson",
-      "phone": "(919) 555-0100",
-      "order": 1,
-      "initials": "MW",
-      "agent_id": "marsha-watson",
-      "title": "Realtor & Team Lead",
-      "headshot": "/images/uploads/marsha.jpg",
-      "email": "marsha@corecollectivere.com"
-    },
-    {
-      "focus_tags": [
-        {
           "tag": "Relocation"
         },
         {
@@ -91,6 +45,52 @@
       "title": "Realtor · Investment Advisor",
       "headshot": "",
       "email": "dexter@corecollectivere.com"
+    },
+    {
+      "focus_tags": [
+        {
+          "tag": "Buyer Representation"
+        },
+        {
+          "tag": "Off-Market Access"
+        },
+        {
+          "tag": "Cary & Apex"
+        }
+      ],
+      "bio": "Sharon Burwell McDuffie is a dedicated real estate professional with Core Collective Real Estate Group, known for her steady guidance, client‑centered approach, and deep commitment to helping individuals and families find places where their lives can truly flourish. She brings a warm, relationship‑driven style to her work, pairing market expertise with genuine care for the people she serves.\n\nSharon’s approach to real estate is shaped by her belief in community, service, and the power of home. She understands that buying or selling a home is more than a transaction—it’s a milestone that can strengthen families, build stability, and open doors to new opportunities. Her clients value her thoughtful communication, her ability to simplify complex decisions, and her unwavering dedication to their goals.\n\nHer work in real estate is deeply connected to the way she shows up in her community. Sharon is an active member of her local church, serving faithfully as a deaconess, Children’s Church teacher, and member of the Events Ministry, where her organizational talent and welcoming spirit shine. She also extends her leadership beyond the church walls as the Chaplain of the Raleigh Chapter of Sigma Gamma Rho Sorority, Incorporated, offering encouragement, compassion, and spiritual grounding to her sorors.\n\nFamily is at the heart of Sharon’s life. She is the proud mother of two adult daughters and is married to Ty McDuffie, founder of Griot and Grits, whose work in cultural preservation and storytelling aligns with her own commitment to community uplift. Together, they share a passion for service, legacy building, and creating spaces—both literal and figurative—where people feel supported and empowered.\n\nWhether guiding a first‑time buyer, supporting a family preparing to sell a longtime home, or helping clients navigate investment opportunities, Sharon brings warmth, integrity, and a steady hand to every step of the journey. Her work reflects not only her professional skill, but her belief in strengthening communities one home at a time.",
+      "interest": "Buyer",
+      "name": "Sharon McDuffie",
+      "phone": "(919) 555-0101",
+      "order": 2,
+      "initials": "SM",
+      "agent_id": "sharon-mcduffie",
+      "title": "Realtor · Buyer Specialist",
+      "headshot": "/images/uploads/image.jpg",
+      "email": "sharon@corecollectivere.com"
+    },
+    {
+      "focus_tags": [
+        {
+          "tag": "Luxury Listings"
+        },
+        {
+          "tag": "Seller Strategy"
+        },
+        {
+          "tag": "North Raleigh"
+        }
+      ],
+      "bio": "Marsha Watson is a North Carolina REALTOR® with eXp Realty and the team lead of Core Collective Real Estate. Serving Raleigh, Cary, Clayton, Garner, Johnston County, Wake County, and surrounding Triangle communities, Marsha helps buyers and sellers make confident real estate decisions through education, strategy, and personalized guidance.\n\nBefore real estate, Marsha spent more than 20 years in nonprofit and mental health work, including advocacy for individuals and families experiencing homelessness. That background shaped her client-first approach and deep commitment to helping people find stability, opportunity, and long-term wealth through homeownership.\n\nMarsha specializes in first-time homebuyers, military relocation, VA buyers, relocation clients, new construction, and sellers preparing for their next chapter. As a Military Relocation Professional and Certified eXp Mentor, she brings strong communication, local market knowledge, and steady guidance to every transaction.\n\nHer approach is warm, honest, and educational. She believes clients deserve more than a transaction—they deserve an advocate who listens, explains the process clearly, and protects their goals from consultation to closing.\n\nAt Core Collective Real Estate, the mission is clear: Your Goals. Our Core Mission.",
+      "interest": "Seller",
+      "name": "Marsha Watson",
+      "phone": "(919) 555-0100",
+      "order": 1,
+      "initials": "MW",
+      "agent_id": "marsha-watson",
+      "title": "Realtor & Team Lead",
+      "headshot": "/images/uploads/marsha.jpg",
+      "email": "marsha@corecollectivere.com"
     }
   ]
 }
