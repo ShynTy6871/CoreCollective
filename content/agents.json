@@ -5,9 +5,7 @@
         {
           "tag": "Relocation"
         },
-        {
-          "tag": "Chapel Hill"
-        },
+        "Wake County",
         {
           "tag": "School Districts"
         }
@@ -17,11 +15,11 @@
       "name": "Sylvia T. Wheeler",
       "phone": "(919) 555-0102",
       "order": 3,
-      "initials": "SW",
+      "initials": "STW",
       "agent_id": "sylvia-wheeler",
-      "title": "Realtor · Relocation Expert",
-      "headshot": "/images/agents/sylvia-wheeler-.jpg",
-      "email": "sylvia@corecollectivere.com"
+      "title": "Realtor ·First Time Home Buyer-Investors",
+      "headshot": "",
+      "email": "sylvia.t.wheeler@exprealty.com"
     },
     {
       "focus_tags": [
@@ -43,7 +41,7 @@
       "initials": "DD",
       "agent_id": "dexter-drayton",
       "title": "Realtor · Investment Advisor",
-      "headshot": "/images/agents/dexter-.jpg",
+      "headshot": "",
       "email": "dexter@corecollectivere.com"
     },
     {
