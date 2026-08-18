@@ -166,7 +166,7 @@ collections:
               - label: Cover Image
                 name: cover_image
                 widget: image
-                media_folder: "images/blog"
+                media_folder: "/images/blog"
                 public_folder: "/images/blog"
                 hint: "Wide/landscape photo works best (at least 800px wide)."
               - { label: Cover Alt Text, name: cover_alt, widget: string, required: false }
