@@ -31,6 +31,7 @@ collections:
               - { label: Full Name, name: name, widget: string }
               - { label: Initials, name: initials, widget: string, hint: "2–3 letters shown when no headshot is uploaded" }
               - { label: Title / Role, name: title, widget: string }
+              - { label: "NC License Number", name: "license", widget: "string" }
               - { label: Bio, name: bio, widget: text }
               - label: Focus Tags
                 name: focus_tags

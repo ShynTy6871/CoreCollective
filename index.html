@@ -448,7 +448,8 @@ section{padding:100px 80px}
 .agent-profile-headshot img{width:100%;height:100%;object-fit:cover;border-radius:50%}
 .agent-profile-body{padding:clamp(24px,3vw,28px);display:flex;flex-direction:column;flex:1}
 .agent-profile-name{font-family:var(--font-display);font-size:clamp(1.25rem,2.5vw + 0.25rem,1.625rem);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:6px;max-width:100%}
-.agent-profile-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+.agent-profile-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
+.agent-profile-license{font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-on-dark-secondary);margin:0 0 16px}
 .agent-profile-expertise{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
 .agent-profile-tag{font-size:8px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--text-on-dark-secondary);background:rgba(197,160,89,.1);border:1px solid rgba(197,160,89,.28);padding:4px 9px}
 .agent-profile-bio{font-size:13px;font-weight:300;color:var(--text-on-dark-secondary);line-height:1.75;margin-bottom:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;min-height:calc(1.75em * 3);max-height:calc(1.75em * 3)}
@@ -641,7 +642,8 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 .form-status.success{background:rgba(92,184,92,.12);color:#2e7d2e;border:1px solid rgba(92,184,92,.3)}
 .form-status.error{background:rgba(192,57,43,.1);color:#922b21;border:1px solid rgba(192,57,43,.25)}
 .form-status.show{display:block}
-.agent-bio-modal-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:-8px 0 20px}
+.agent-bio-modal-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin:-8px 0 4px}
+.agent-bio-modal-license{font-size:9px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-500);margin:0 0 20px}
 .agent-bio-modal-body{font-size:14px;font-weight:300;color:var(--gray-500);line-height:1.75;max-height:52vh;overflow-y:auto}
 .agent-bio-modal-body p{margin-bottom:14px}
 .agent-bio-modal-body p:last-child{margin-bottom:0}
@@ -1369,7 +1371,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   <section id="team" aria-labelledby="team-title">
     <div class="section-eyebrow">The Team</div>
     <h2 class="section-title" id="team-title">Meet Our <em>Agents</em></h2>
-    <p class="section-sub">Four dedicated professionals with deep Triangle market expertise — each bringing a distinct specialty to your buying, selling, or investment journey.</p>
+    <p class="section-sub">Six dedicated professionals with deep Triangle market expertise — each bringing a distinct specialty to your buying, selling, or investment journey.</p>
     <div class="agent-profiles-grid" id="cms-agents" role="list">
       <article class="agent-profile-card" role="listitem">
         <div class="agent-profile-photo" aria-hidden="true">
@@ -1480,7 +1482,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <div>
         <div class="footer-col-title">Contact</div>
         <ul class="footer-links">
-          <li><a href="tel:+19198964491">(919) 896-4491</a></li>
+          <li><a href="tel:+19193245134">(919) 324-5134</a></li>
           <li><a href="mailto:marsha.watson@exprealty.com">marsha.watson@exprealty.com</a></li>
           <li><a href="#">4321 Capital Blvd, Suite 200</a></li>
           <li><a href="#">Raleigh, NC 27604</a></li>
@@ -1501,7 +1503,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 
   <div class="mobile-sticky-cta" id="mobile-sticky-cta" role="complementary" aria-label="Quick actions">
     <button class="mobile-sticky-btn outline" onclick="scrollToSection('sellers')">What's My Home Worth?</button>
-    <a class="mobile-sticky-btn filled" href="tel:+19198964491">Call / Text Us</a>
+    <a class="mobile-sticky-btn filled" href="tel:+19193245134">Call / Text Us</a>
   </div>
 </div>
 
@@ -1666,6 +1668,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <div class="modal-eyebrow">Agent Profile</div>
     <h2 class="modal-title" id="agent-bio-modal-title"></h2>
     <p class="agent-bio-modal-role" id="agent-bio-modal-role"></p>
+    <p class="agent-bio-modal-license" id="agent-bio-modal-license"></p>
     <div class="agent-bio-modal-body" id="agent-bio-modal-body"></div>
   </div>
 </div>
@@ -1973,6 +1976,11 @@ function openAgentBio(agentId){
   if(!agent?.bio)return;
   document.getElementById('agent-bio-modal-title').textContent=agent.name;
   document.getElementById('agent-bio-modal-role').textContent=agent.role;
+  const licenseEl=document.getElementById('agent-bio-modal-license');
+  if(licenseEl){
+    licenseEl.textContent=agent.license?`NC License #${agent.license}`:'';
+    licenseEl.hidden=!agent.license;
+  }
   document.getElementById('agent-bio-modal-body').innerHTML=formatBioParagraphs(agent.bio);
   const modal=document.getElementById('agent-bio-modal');
   modal.classList.add('open');
@@ -2111,7 +2119,7 @@ async function submitValuationForm(){
       resetValuationForm();
     }catch(err){
       statusEl.className='val-status error show';
-      statusEl.textContent='There was a problem submitting your request. Please call us at (919) 896-4491.';
+      statusEl.textContent='There was a problem submitting your request. Please call us at (919) 324-5134.';
       btn.disabled=false;
       btn.textContent='Get My Report →';
     }
@@ -2169,7 +2177,7 @@ async function submitForm(){
       showFormStatus('success',`Thank you, ${name}! We will be in touch at ${email} within 24 hours.`);
       clearForm();
     }catch(err){
-      showFormStatus('error','There was a problem submitting your request. Please call us at (919) 896-4491.');
+      showFormStatus('error','There was a problem submitting your request. Please call us at (919) 324-5134.');
       btn.disabled=false;btn.textContent='Submit Inquiry';
     }
   }else{
@@ -2438,15 +2446,17 @@ function renderAgents(items){
       return `<span class="agent-profile-tag">${escHtml(text)}</span>`;
     }).join('');
     const expertise=(a.focus_tags||[]).map(t=>typeof t==='string'?t:t.tag).join(' · ');
-    routes[id]={name:a.name,role:a.title,bio:a.bio,interest:a.interest||'Buyer',expertise,phone:a.phone,email:a.email};
+    routes[id]={name:a.name,role:a.title,bio:a.bio,interest:a.interest||'Buyer',expertise,phone:a.phone,email:a.email,license:a.license};
     const headshot=a.headshot
       ? `<div class="agent-profile-headshot has-photo"><img src="${escHtml(a.headshot)}" alt="${escHtml(a.name+(a.title?', '+a.title:''))}"></div>`
       : `<div class="agent-profile-headshot" aria-hidden="true">${escHtml(a.initials)}</div>`;
+    const license=a.license?`<p class="agent-profile-license">NC License #${escHtml(a.license)}</p>`:'';
     return `<article class="agent-profile-card" role="listitem">
       <div class="agent-profile-photo" aria-hidden="true">${headshot}</div>
       <div class="agent-profile-body">
         <h3 class="agent-profile-name">${escHtml(a.name)}</h3>
         <p class="agent-profile-role">${escHtml(a.title)}</p>
+        ${license}
         <div class="agent-profile-expertise">${tags}</div>
         <p class="agent-profile-bio">${escHtml(a.bio)}</p>
         <button type="button" class="agent-profile-read-bio" onclick='openAgentBio(${JSON.stringify(id)})'>Read Full Bio →</button>
@@ -2787,7 +2797,7 @@ async function submitExitModal(){
       setTimeout(closeExitModal,2500);
     }catch(err){
       statusEl.className='exit-modal-status error show';
-      statusEl.textContent='Something went wrong. Please try again or call (919) 896-4491.';
+      statusEl.textContent='Something went wrong. Please try again or call (919) 324-5134.';
       btn.disabled=false;
       btn.textContent='Download Free Report →';
     }
