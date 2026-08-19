@@ -8,9 +8,9 @@ backend:
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-site_url: https://corecollective.com
-display_url: https://corecollective.com
-logo_url: https://corecollective.com/images/uploads/logo.png
+site_url: https://corecollectivere.com
+display_url: https://corecollectivere.com
+logo_url: https://corecollectivere.com/images/uploads/logo.png
 
 collections:
   - name: agents
