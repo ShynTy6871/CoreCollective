@@ -287,12 +287,12 @@ function curateRegionalEvents(events, weekStart, weekEnd) {
 
 function buildEventsMarkdown(events, weekLabel, heritage) {
   const intro =
-    `## Introduction\n\nYour weekly **Regional Edit** for the week of **${weekLabel}** — curated happenings across the 130-mile Eastern NC arc from the Research Triangle through the Sandhills military communities to the Crystal Coast and Cape Fear.\n\n## Featured Events\n\n`;
+    `## Introduction\n\nYour monthly **Regional Edit** for the month of **${weekLabel}** — curated happenings across the 130-mile Eastern NC arc from the Research Triangle through the Sandhills military communities to the Crystal Coast and Cape Fear.\n\n## Featured Events\n\n`;
 
   let eventsBlock;
   if (!events.length) {
     eventsBlock =
-      '_Automated feeds returned limited listings this week. Review and enrich with local chamber, base MWR, and coastal tourism calendars before publishing._\n\n**Suggested coverage zones:**\n- **Central NC:** Raleigh-Durham metro festivals and markets\n- **Military communities:** Fort Liberty (Fayetteville), Seymour Johnson AFB (Goldsboro), Camp Lejeune (Jacksonville)\n- **Coastal towns:** Wilmington, New Bern, Morehead City, Emerald Isle';
+      '_Add this month\'s events below before publishing — aim for 4-6 across the regions:_\n\n- [ ] **Central NC:** _(event name, date, link)_\n- [ ] **Central NC:** _(event name, date, link)_\n- [ ] **Military communities:** _(event name, date, link — Fort Liberty, Seymour Johnson AFB, or Camp Lejeune area)_\n- [ ] **Coastal towns:** _(event name, date, link — Wilmington, New Bern, Morehead City, or Emerald Isle area)_';
   } else {
     eventsBlock = events
       .map((event) => {
@@ -312,17 +312,17 @@ function buildEventsMarkdown(events, weekLabel, heritage) {
 
 function buildEventsExcerpt(events) {
   if (!events.length) {
-    return 'Weekly draft: 5–6 curated events across Central NC, military base communities, and coastal towns — plus an Eastern NC heritage spotlight.';
+    return 'Monthly draft: 5–6 curated events across Central NC, military base communities, and coastal towns — plus an Eastern NC heritage spotlight.';
   }
   const zones = [...new Set(events.map((e) => e.hub.zone))];
   const zoneLabel = zones.map((z) => ({ central: 'Triangle', military: 'Sandhills', coastal: 'Coast' }[z] || z)).join(', ');
-  return `${events.length} regional events this week spanning ${zoneLabel} — from Raleigh-Durham to Fayetteville, Goldsboro, Jacksonville, and the Crystal Coast.`;
+  return `${events.length} regional events this month spanning ${zoneLabel} — from Raleigh-Durham to Fayetteville, Goldsboro, Jacksonville, and the Crystal Coast.`;
 }
 
 function buildMarketMarkdown(weekLabel, spotlight) {
   return `## Market Overview
 
-Eastern North Carolina regional briefing for the week of **${weekLabel}** — covering luxury housing dynamics, PCS relocation flows, coastal investment demand, and commute-corridor growth across the 130-mile Raleigh radius.
+Eastern North Carolina regional briefing for the month of **${weekLabel}** — covering luxury housing dynamics, PCS relocation flows, coastal investment demand, and commute-corridor growth across the 130-mile Raleigh radius.
 
 ## Luxury Housing Trends
 
@@ -353,6 +353,7 @@ function buildMarketExcerpt() {
   return 'Regional market draft: luxury trends, PCS relocation flows, coastal investment demand, and I-40/I-95/US-70 corridor growth across Eastern NC.';
 }
 
+// Eventbrite discontinued their public event search API in 2020; kept for a future replacement source.
 async function fetchEventbriteEvents() {
   const token = process.env.EVENTBRITE_TOKEN;
   if (!token) return [];
@@ -426,9 +427,9 @@ async function maybeEnhanceWithAI(eventsArticle, marketArticle, context) {
   if (!apiKey) return { eventsArticle, marketArticle };
 
   try {
-    const prompt = `You are a luxury Eastern NC real estate editorial writer for Core Collective. Refine the excerpt and body markdown for two weekly draft blog posts. Keep markdown structure, section headers (including emoji headers), and factual tone. Return JSON: {"eventsBody":"...","eventsExcerpt":"...","marketBody":"...","marketExcerpt":"..."}.
+    const prompt = `You are a luxury Eastern NC real estate editorial writer for Core Collective. Refine the excerpt and body markdown for two monthly draft blog posts. Keep markdown structure, section headers (including emoji headers), and factual tone. Return JSON: {"eventsBody":"...","eventsExcerpt":"...","marketBody":"...","marketExcerpt":"..."}.
 
-Context: Week of ${context.weekLabel}. Events found: ${context.eventCount}. Heritage region: ${context.heritage.region}.
+Context: Month of ${context.weekLabel}. Events found: ${context.eventCount}. Heritage region: ${context.heritage.region}.
 
 Events draft body:
 ${eventsArticle.body}
@@ -485,8 +486,18 @@ function isWeeklyAutoDraft(post) {
 }
 
 function upsertWeeklyDrafts(existingPosts, newDrafts) {
-  const preserved = (existingPosts || []).filter((post) => !isWeeklyAutoDraft(post));
-  return [...newDrafts, ...preserved];
+  const existing = existingPosts || [];
+  const finalDrafts = newDrafts.map((newDraft) => {
+    const existingDraft = existing.find(
+      (post) => isWeeklyAutoDraft(post) && post.title === newDraft.title
+    );
+    if (existingDraft?.body?.includes('- [ ] **')) {
+      return existingDraft;
+    }
+    return newDraft;
+  });
+  const preserved = existing.filter((post) => !isWeeklyAutoDraft(post));
+  return [...finalDrafts, ...preserved];
 }
 
 async function main() {
@@ -497,8 +508,7 @@ async function main() {
   const spotlight = pickRotating(DEFENSE_SPOTLIGHTS, weekIndex);
 
   const rssEvents = await fetchRssEvents();
-  const ebEvents = await fetchEventbriteEvents();
-  const merged = dedupeEvents([...rssEvents, ...ebEvents]);
+  const merged = dedupeEvents(rssEvents);
   const curated = curateRegionalEvents(merged, mon, sun);
 
   let eventsArticle = {
