@@ -1,15 +1,7 @@
 {
   "agents": [
     {
-      "focus_tags": [
-        {
-          "tag": "Relocation"
-        },
-        "Wake County",
-        {
-          "tag": "School Districts"
-        }
-      ],
+      "focus_tags": [],
       "bio": "Looking for a friendly and dedicated real estate agent to guide you through your property journey?\nI’m Sylvia T. Wheeler, your trusted Realtor in Wake County, North Carolina. With a strong background in mortgage underwriting and a passion for helping others, I’m committed to guiding you through every step of buying, selling, or investing.\n\nAs a Boston native, I bring a blend of big-city perspective and local expertise. I stay current with the latest real estate trends and technology to help you make confident, informed decisions.\n\nBuilding community is important to me — I love connecting people, supporting local initiatives, and helping others find their place to call home.\n\nIf you’re ready to start your real estate journey, I’d be honored to help.",
       "interest": "Buyer",
       "name": "Sylvia T. Wheeler",
@@ -17,22 +9,13 @@
       "order": 3,
       "initials": "STW",
       "agent_id": "sylvia-wheeler",
-      "title": "Realtor ·First Time Home Buyer-Investors",
+      "title": "Realtor",
+      "license": "346469",
       "headshot": "/images/agents/chatgpt-image-jul-23-2026-01_41_24-pm-1-.png",
       "email": "sylvia.t.wheeler@exprealty.com"
     },
     {
-      "focus_tags": [
-        {
-          "tag": "Investment Properties"
-        },
-        {
-          "tag": "Cap Rate Analysis"
-        },
-        {
-          "tag": "Multi-Family"
-        }
-      ],
+      "focus_tags": [],
       "bio": "Dexter partners with investors to identify high-yield assets across the Triangle — combining sharp financial analysis with an unmatched off-market deal pipeline.",
       "interest": "Investor",
       "name": "Dexter Drayton",
@@ -40,22 +23,13 @@
       "order": 4,
       "initials": "DD",
       "agent_id": "dexter-drayton",
-      "title": "Realtor · Investment Advisor",
+      "title": "Realtor",
+      "license": "334292",
       "headshot": "",
       "email": "Dexter.drayton@exprealty.com"
     },
     {
-      "focus_tags": [
-        {
-          "tag": "Buyer Representation"
-        },
-        {
-          "tag": "Off-Market Access"
-        },
-        {
-          "tag": "Cary & Apex"
-        }
-      ],
+      "focus_tags": [],
       "bio": "Sharon Burwell McDuffie is a dedicated real estate professional with Core Collective Real Estate Group, known for her steady guidance, client‑centered approach, and deep commitment to helping individuals and families find places where their lives can truly flourish. She brings a warm, relationship‑driven style to her work, pairing market expertise with genuine care for the people she serves.\n\nSharon’s approach to real estate is shaped by her belief in community, service, and the power of home. She understands that buying or selling a home is more than a transaction—it’s a milestone that can strengthen families, build stability, and open doors to new opportunities. Her clients value her thoughtful communication, her ability to simplify complex decisions, and her unwavering dedication to their goals.\n\nHer work in real estate is deeply connected to the way she shows up in her community. Sharon is an active member of her local church, serving faithfully as a deaconess, Children’s Church teacher, and member of the Events Ministry, where her organizational talent and welcoming spirit shine. She also extends her leadership beyond the church walls as the Chaplain of the Raleigh Chapter of Sigma Gamma Rho Sorority, Incorporated, offering encouragement, compassion, and spiritual grounding to her sorors.\n\nFamily is at the heart of Sharon’s life. She is the proud mother of two adult daughters and is married to Ty McDuffie, founder of Griot and Grits, whose work in cultural preservation and storytelling aligns with her own commitment to community uplift. Together, they share a passion for service, legacy building, and creating spaces—both literal and figurative—where people feel supported and empowered.\n\nWhether guiding a first‑time buyer, supporting a family preparing to sell a longtime home, or helping clients navigate investment opportunities, Sharon brings warmth, integrity, and a steady hand to every step of the journey. Her work reflects not only her professional skill, but her belief in strengthening communities one home at a time.",
       "interest": "Buyer",
       "name": "Sharon McDuffie",
@@ -63,32 +37,52 @@
       "order": 2,
       "initials": "SM",
       "agent_id": "sharon-mcduffie",
-      "title": "Realtor · Buyer Specialist",
+      "title": "Realtor",
+      "license": "331830",
       "headshot": "/images/uploads/image.jpg",
       "email": "Sharon.McDuffie@exprealty.com"
     },
     {
-      "focus_tags": [
-        {
-          "tag": "Luxury Listings"
-        },
-        {
-          "tag": "Seller Strategy"
-        },
-        {
-          "tag": "North Raleigh"
-        }
-      ],
+      "focus_tags": [],
       "bio": "Marsha Watson is a North Carolina REALTOR® with eXp Realty and the team lead of Core Collective Real Estate. Serving Raleigh, Cary, Clayton, Garner, Johnston County, Wake County, and surrounding Triangle communities, Marsha helps buyers and sellers make confident real estate decisions through education, strategy, and personalized guidance.\n\nBefore real estate, Marsha spent more than 20 years in nonprofit and mental health work, including advocacy for individuals and families experiencing homelessness. That background shaped her client-first approach and deep commitment to helping people find stability, opportunity, and long-term wealth through homeownership.\n\nMarsha specializes in first-time homebuyers, military relocation, VA buyers, relocation clients, new construction, and sellers preparing for their next chapter. As a Military Relocation Professional and Certified eXp Mentor, she brings strong communication, local market knowledge, and steady guidance to every transaction.\n\nHer approach is warm, honest, and educational. She believes clients deserve more than a transaction—they deserve an advocate who listens, explains the process clearly, and protects their goals from consultation to closing.\n\nAt Core Collective Real Estate, the mission is clear: Your Goals. Our Core Mission.",
       "interest": "Seller",
       "name": "Marsha Watson",
-      "phone": "(919) 896-4491",
+      "phone": "(919) 324-5134",
       "order": 1,
       "initials": "MW",
       "agent_id": "marsha-watson",
-      "title": "Realtor & Team Lead",
+      "title": "Realtor",
+      "license": "331158",
       "headshot": "/images/uploads/marsha.jpg",
       "email": "Marsha.Watson@exprealty.com"
+    },
+    {
+      "focus_tags": [],
+      "bio": "Originally from beautiful Southern New England, Jennifer Wiggins was born in Connecticut and graduated from high school and college in Western Massachusetts, where she studied Psychology at Bay Path College. She relocated to the Raleigh area in 2007 and has proudly called Rocky Mount home since 2017. Jennifer quickly fell in love with the area's small-town charm, welcoming spirit, and genuine Southern hospitality.\n\nJennifer's professional journey has always been rooted in service, communication, and helping others move forward with confidence. She began her career in the human services field, working with children with special needs, and later spent ten years serving as a therapeutic mentor to children and families in specialized foster care. These experiences strengthened her ability to listen carefully, advocate for others, solve problems, and remain calm and compassionate during important life transitions.\n\nShe later transitioned into a successful sales and leadership career spanning more than 15 years. During her time with Time Warner Cable and Charter Communications, Jennifer consistently met and exceeded sales, quality assurance, and performance standards. She advanced into leadership roles where she supervised, trained, coached, and developed sales professionals, conducted interviews and team meetings, monitored performance, and helped implement systems designed to improve customer satisfaction and team success.\n\nJennifer also spent ten years homeschooling her children, an experience that further developed her patience, organization, creativity, and ability to explain complex information in a clear and approachable way. Today, she brings this unique combination of service, education, sales, leadership, and advocacy into every real estate relationship.\n\nAs a member of the Core Collective Real Estate Team with eXp Realty, Jennifer is committed to helping buyers and sellers navigate the real estate process with clarity, care, and confidence. She understands that buying or selling a home is more than a transaction—it is often the beginning of a new chapter. Her goal is to ensure that every client feels informed, supported, respected, and genuinely cared for from the first conversation through the closing table and beyond.\n\nWhether she is assisting a first-time homebuyer, helping a family sell a cherished property, or guiding a client through a major transition, Jennifer approaches every opportunity with integrity, diligence, attention to detail, and a strong commitment to excellence.\n\nOutside of real estate, Jennifer is a devoted wife, mother of three, grandmother, and proud dog mom. She is an avid reader, a passionate foodie, and a world traveler who enjoys learning about different cultures and creating meaningful experiences with her family.\n\nJennifer believes that real estate is ultimately about people, relationships, and trust. She looks forward to helping her clients confidently take the next step toward homeownership, investment, relocation, or the next meaningful chapter of their lives.",
+      "interest": "Seller",
+      "name": "Jennifer \"Jenie\" Wiggins",
+      "phone": "(252) 450-0164",
+      "order": 5,
+      "initials": "JW",
+      "agent_id": "jennifer-wiggins",
+      "title": "Realtor",
+      "license": "308263",
+      "headshot": "images/agents/jennifer-headshot.jpg",
+      "email": "jenie.wiggins@gmail.com"
+    },
+    {
+      "focus_tags": [],
+      "bio": "Frederick Davis is a REALTOR® with Core Collective Real Estate, proudly serving the Raleigh, NC metro area with eXp Realty. Frederick brings a client-first approach to every transaction, focused on clear communication, careful attention to detail, and helping buyers navigate the home search process with confidence. Whether you're purchasing your first home or your next, Frederick is committed to making the experience smooth, informed, and tailored to your goals.",
+      "interest": "Buyer",
+      "name": "Frederick Davis",
+      "phone": "(919) 214-5494",
+      "order": 6,
+      "initials": "FD",
+      "agent_id": "frederick-davis",
+      "title": "Realtor",
+      "license": "309699",
+      "headshot": "images/agents/frederick-headshot.jpg",
+      "email": "ffrederick.h.davis@exprealty.com"
     }
   ]
 }
