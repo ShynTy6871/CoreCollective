@@ -292,7 +292,7 @@ function buildEventsMarkdown(events, weekLabel, heritage) {
   let eventsBlock;
   if (!events.length) {
     eventsBlock =
-      '_Automated feeds returned limited listings this week. Review and enrich with local chamber, base MWR, and coastal tourism calendars before publishing._\n\n**Suggested coverage zones:**\n- **Central NC:** Raleigh-Durham metro festivals and markets\n- **Military communities:** Fort Liberty (Fayetteville), Seymour Johnson AFB (Goldsboro), Camp Lejeune (Jacksonville)\n- **Coastal towns:** Wilmington, New Bern, Morehead City, Emerald Isle';
+      '_Add this week\'s events below before publishing — aim for 4-6 across the regions:_\n\n- [ ] **Central NC:** _(event name, date, link)_\n- [ ] **Central NC:** _(event name, date, link)_\n- [ ] **Military communities:** _(event name, date, link — Fort Liberty, Seymour Johnson AFB, or Camp Lejeune area)_\n- [ ] **Coastal towns:** _(event name, date, link — Wilmington, New Bern, Morehead City, or Emerald Isle area)_';
   } else {
     eventsBlock = events
       .map((event) => {
@@ -353,6 +353,7 @@ function buildMarketExcerpt() {
   return 'Regional market draft: luxury trends, PCS relocation flows, coastal investment demand, and I-40/I-95/US-70 corridor growth across Eastern NC.';
 }
 
+// Eventbrite discontinued their public event search API in 2020; kept for a future replacement source.
 async function fetchEventbriteEvents() {
   const token = process.env.EVENTBRITE_TOKEN;
   if (!token) return [];
@@ -497,8 +498,7 @@ async function main() {
   const spotlight = pickRotating(DEFENSE_SPOTLIGHTS, weekIndex);
 
   const rssEvents = await fetchRssEvents();
-  const ebEvents = await fetchEventbriteEvents();
-  const merged = dedupeEvents([...rssEvents, ...ebEvents]);
+  const merged = dedupeEvents(rssEvents);
   const curated = curateRegionalEvents(merged, mon, sun);
 
   let eventsArticle = {
