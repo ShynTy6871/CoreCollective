@@ -1,9 +1,9 @@
-name: Weekly Community Events Draft
+name: Monthly Community Events Draft
 
 on:
   schedule:
-    # Mondays 8:00 AM US Eastern Standard Time (13:00 UTC)
-    - cron: '0 13 * * 1'
+    # 1st of every month, 8:00 AM US Eastern Standard Time (13:00 UTC)
+    - cron: '0 13 1 * *'
   workflow_dispatch:
 
 permissions:
