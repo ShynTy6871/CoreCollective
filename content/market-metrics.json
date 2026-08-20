@@ -1,19 +1,20 @@
 {
-  "hero_trust": [
-    { "value": "$50M+", "label": "Volume Sold" },
-    { "value": "100+", "label": "Happy Clients" },
-    { "value": "5.0★", "label": "Rating" },
-    { "value": "15+", "label": "Years Experience" }
-  ],
-  "hero_stats": [
-    { "value": "$2.4B+", "label": "Volume Closed" },
-    { "value": "1,200+", "label": "Transactions" },
-    { "value": "98.7%", "label": "List-to-Sale Ratio" },
-    { "value": "14 Days", "label": "Avg. Days on Market" }
-  ],
-  "seller_stats": [
-    { "value": "98.7%", "label": "List-to-Sale Ratio" },
-    { "value": "14 Days", "label": "Avg. DOM" },
-    { "value": "$2.4B", "label": "Total Volume" }
+  "area_facts": [
+    { "value": "1.26M+", "label": "Wake County Population (2025)" },
+    { "value": "+2.3%", "label": "Wake County Annual Growth Rate" },
+    { "value": "8,113", "label": "New Housing Permits in Wake Co. (2025)" },
+    { "value": "3", "label": "Major Research Universities in the Triangle" },
+    { "value": "7,000 Acres", "label": "Research Triangle Park \u2014 One of the World's Largest Research Parks" },
+    { "value": "\u201cCity of Oaks\u201d", "label": "Raleigh's Nickname, for Its Tree-Lined Streets" },
+    { "value": "1M+", "label": "Annual Visitors to the NC State Fair" },
+    { "value": "52,000+", "label": "Active-Duty Soldiers at Fort Liberty, Fayetteville" },
+    { "value": "$8B+", "label": "Fort Liberty's Annual Economic Impact on NC" },
+    { "value": "530,000", "label": "Greater Fayetteville Metro Area Population" },
+    { "value": "180,000", "label": "Military & Family Community, Jacksonville/Camp Lejeune" },
+    { "value": "14 Miles", "label": "Of Beaches at Camp Lejeune, Including Onslow Beach" },
+    { "value": "22.8", "label": "Average Age in Jacksonville \u2014 One of the Youngest Cities in the U.S." },
+    { "value": "+13%", "label": "Wilmington Population Growth, 2020\u20132024" },
+    { "value": "#1", "label": "Wilmington's National Ranking for Inbound Moves" },
+    { "value": "83%", "label": "Of 2024 Moves Into Wilmington Were People Moving In" }
   ]
 }
