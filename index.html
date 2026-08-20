@@ -2416,7 +2416,7 @@ function renderNeighborhoods(items){
         <h3 class="nhood-name">${escHtml(n.name)}</h3>
         <p class="nhood-tagline">${escHtml(n.description)}</p>
         <ul class="nhood-highlights">${highlights}</ul>
-        <button class="nhood-cta" onclick="requestCommunityGuide(${JSON.stringify(n.name)})">Request Community Guide</button>
+        <button class="nhood-cta" onclick="requestCommunityGuide(${JSON.stringify(n.name).replace(/"/g,'&quot;')})">Request Community Guide</button>
       </div>
     </article>`;
   }).join('');
