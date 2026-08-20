@@ -141,6 +141,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .hero-trust-item:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:var(--gray-100)}
 .hero-trust-num{font-family:var(--font-display);font-size:clamp(18px,2.2vw,24px);font-weight:700;color:var(--trust-gold);line-height:1.1;margin-bottom:5px;white-space:nowrap}
 .hero-trust-label{font-size:8px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--navy);line-height:1.4}
+.fade-swap{transition:opacity .4s}
 .hero-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,.65);max-width:480px;line-height:1.7;margin-bottom:40px;letter-spacing:.02em}
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
 .btn-primary,.btn-outline,.header-cta,.prop-card,.testimonial-card,.metric-card,.buyer-feature,.val-btn-next,.search-btn,.form-submit,.schedule-btn,.no-results-reset,.filter-tab,.agent-link,.listing-btn,.val-btn-back,.neighborhood-card,.mortgage-preapprove,.nhood-cta,.exit-modal-submit,.exit-modal-close,.agent-profile-card,.agent-profile-cta,.video-showcase-card,.video-reel-card,.video-lightbox-close{transition:var(--lift)}
@@ -2328,31 +2329,71 @@ async function loadCMSContent(){
   await loadProperties();
 }
 
+let areaFactsInterval=null;
+
+function shuffleAreaFacts(list){
+  const shuffled=list.slice();
+  for(let i=shuffled.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    const tmp=shuffled[i];
+    shuffled[i]=shuffled[j];
+    shuffled[j]=tmp;
+  }
+  return shuffled;
+}
+
 function renderMarketMetrics(data){
+  const facts=data.area_facts||[];
+  if(!facts.length) return;
+  if(areaFactsInterval){
+    clearInterval(areaFactsInterval);
+    areaFactsInterval=null;
+  }
+  const shuffled=shuffleAreaFacts(facts);
   const trustEl=document.getElementById('cms-hero-trust');
-  if(trustEl&&data.hero_trust?.length){
-    trustEl.innerHTML=data.hero_trust.map(s=>`
+  const heroStatsEl=document.getElementById('cms-hero-stats');
+  const sellerEl=document.getElementById('cms-sellers-stats');
+  const blocks=[trustEl,heroStatsEl,sellerEl].filter(Boolean);
+  blocks.forEach(el=>el.classList.add('fade-swap'));
+  let offset=0;
+
+  function take(start,count){
+    return Array.from({length:count},(_,i)=>shuffled[(start+i)%shuffled.length]);
+  }
+
+  function paintAreaFacts(){
+    if(trustEl){
+      trustEl.innerHTML=take(offset,4).map(s=>`
       <div class="hero-trust-item">
         <div class="hero-trust-num">${escHtml(s.value)}</div>
         <div class="hero-trust-label">${escHtml(s.label)}</div>
       </div>`).join('');
-  }
-  const heroStatsEl=document.getElementById('cms-hero-stats');
-  if(heroStatsEl&&data.hero_stats?.length){
-    heroStatsEl.innerHTML=data.hero_stats.map(s=>`
+    }
+    if(heroStatsEl){
+      heroStatsEl.innerHTML=take(offset+4,4).map(s=>`
       <div class="stat-block">
         <div class="stat-num">${escHtml(s.value)}</div>
         <div class="stat-label">${escHtml(s.label)}</div>
       </div>`).join('');
-  }
-  const sellerEl=document.getElementById('cms-sellers-stats');
-  if(sellerEl&&data.seller_stats?.length){
-    sellerEl.innerHTML=data.seller_stats.map(s=>`
+    }
+    if(sellerEl){
+      sellerEl.innerHTML=take(offset+8,3).map(s=>`
       <div class="s-stat" role="listitem">
         <div class="s-stat-num">${escHtml(s.value)}</div>
         <div class="s-stat-label">${escHtml(s.label)}</div>
       </div>`).join('');
+    }
   }
+
+  paintAreaFacts();
+  areaFactsInterval=setInterval(()=>{
+    blocks.forEach(el=>el.style.opacity='0');
+    setTimeout(()=>{
+      offset=(offset+1)%shuffled.length;
+      paintAreaFacts();
+      blocks.forEach(el=>el.style.opacity='1');
+    },400);
+  },5000);
 }
 
 function renderNeighborhoods(items){
