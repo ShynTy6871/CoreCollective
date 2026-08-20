@@ -64,7 +64,7 @@ h1,h2,h3{max-width:100%;overflow-wrap:break-word;word-wrap:break-word}
 :focus-visible{outline:var(--focus-ring);outline-offset:var(--focus-offset)}
 button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,
 .filter-tab:focus-visible,.mortgage-range:focus-visible,.modal-close:focus-visible,
-.exit-modal-close:focus-visible,.video-lightbox-close:focus-visible,.testimonial-nav-btn:focus-visible,
+.exit-modal-close:focus-visible,.agent-spotlight-thumb:focus-visible,.agent-spotlight-cta:focus-visible,.testimonial-nav-btn:focus-visible,
 .nav-link:focus-visible,.header-cta:focus-visible,.menu-toggle:focus-visible,
 .val-btn-next:focus-visible,.val-btn-back:focus-visible,.val-pill:focus-visible,
 .nhood-cta:focus-visible,.agent-profile-cta:focus-visible,.agent-profile-read-bio:focus-visible,.mobile-sticky-btn:focus-visible,
@@ -144,7 +144,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .fade-swap{transition:opacity .4s}
 .hero-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,.65);max-width:480px;line-height:1.7;margin-bottom:40px;letter-spacing:.02em}
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
-.btn-primary,.btn-outline,.header-cta,.prop-card,.testimonial-card,.metric-card,.buyer-feature,.val-btn-next,.search-btn,.form-submit,.schedule-btn,.no-results-reset,.filter-tab,.agent-link,.listing-btn,.val-btn-back,.neighborhood-card,.mortgage-preapprove,.nhood-cta,.exit-modal-submit,.exit-modal-close,.agent-profile-card,.agent-profile-cta,.video-showcase-card,.video-reel-card,.video-lightbox-close{transition:var(--lift)}
+.btn-primary,.btn-outline,.header-cta,.prop-card,.testimonial-card,.metric-card,.buyer-feature,.val-btn-next,.search-btn,.form-submit,.schedule-btn,.no-results-reset,.filter-tab,.agent-link,.listing-btn,.val-btn-back,.neighborhood-card,.mortgage-preapprove,.nhood-cta,.exit-modal-submit,.exit-modal-close,.agent-profile-card,.agent-profile-cta,.agent-spotlight-cta,.agent-spotlight-thumb{transition:var(--lift)}
 .btn-primary{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
 .btn-primary:hover{background:var(--gold-lt);transform:translateY(-4px);box-shadow:0 8px 24px rgba(197,160,89,.35)}
 .btn-outline{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:1px solid rgba(255,255,255,.4);color:var(--white);font-size:11px;font-weight:400;letter-spacing:.22em;text-transform:uppercase}
@@ -159,52 +159,34 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .scroll-line{width:1px;height:48px;background:linear-gradient(to bottom,var(--gold),transparent);animation:scrollPulse 2s ease-in-out infinite}
 @keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
 
-/* ─── CINEMATIC VIDEO & MEDIA ─────────────────────── */
+/* ─── AGENT SPOTLIGHT ──────────────────────────────── */
 #cinematic-media{background:var(--navy);padding:clamp(64px,8vw,100px) clamp(1.5rem,4vw,5rem);overflow:hidden}
 #cinematic-media .section-title{color:var(--white)}
 #cinematic-media .section-sub{color:var(--text-on-dark-secondary);max-width:560px}
-.video-showcase-card{position:relative;margin-top:48px;border:1px solid rgba(197,160,89,.3);overflow:hidden;cursor:pointer;background:var(--navy-mid);transition:var(--lift)}
-.video-showcase-card:hover{transform:translateY(-4px);border-color:rgba(197,160,89,.6);box-shadow:0 24px 64px rgba(0,0,0,.4)}
-.video-showcase-card:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
-.video-showcase-thumb{position:relative;aspect-ratio:21/9;overflow:hidden;background:var(--navy-lt)}
-.video-showcase-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--trans)}
-.video-showcase-card:hover .video-showcase-thumb img{transform:scale(1.04)}
-.video-showcase-thumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,47,.85) 0%,rgba(10,25,47,.25) 50%,rgba(10,25,47,.15) 100%)}
-.video-play-btn{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:2;width:clamp(64px,10vw,88px);height:clamp(64px,10vw,88px);border-radius:50%;background:rgba(197,160,89,.92);border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;transition:var(--lift);box-shadow:0 8px 32px rgba(0,0,0,.35)}
-.video-play-btn::after{content:'';width:0;height:0;border-style:solid;border-width:12px 0 12px 20px;border-color:transparent transparent transparent var(--navy);margin-left:5px}
-.video-showcase-card:hover .video-play-btn{background:var(--gold-lt);transform:translate(-50%,-50%) scale(1.08);box-shadow:0 12px 40px rgba(197,160,89,.45)}
-.video-showcase-meta{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:clamp(20px,3vw,32px);display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
-.video-showcase-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
-.video-showcase-title{font-family:var(--font-display);font-size:clamp(20px,3vw,28px);font-weight:400;color:var(--white);line-height:1.15}
-.video-showcase-duration{font-size:10px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-on-dark-secondary);padding:6px 12px;border:1px solid rgba(255,255,255,.28);white-space:nowrap}
-.video-reels-header{display:flex;justify-content:space-between;align-items:baseline;margin-top:clamp(40px,5vw,56px);margin-bottom:20px;flex-wrap:wrap;gap:12px}
-.video-reels-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
-.video-reels-sub{font-size:12px;font-weight:300;color:var(--text-on-dark-secondary);letter-spacing:.04em}
-.video-reels-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:16px}
-.video-reel-card{position:relative;border:1px solid rgba(197,160,89,.22);background:var(--navy-mid);overflow:hidden;cursor:pointer;text-align:left;transition:var(--lift)}
-.video-reel-card:hover{transform:translateY(-4px);border-color:rgba(197,160,89,.55);box-shadow:0 16px 48px rgba(0,0,0,.35)}
-.video-reel-card:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
-.video-reel-thumb{position:relative;aspect-ratio:16/10;overflow:hidden}
-.video-reel-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--trans)}
-.video-reel-card:hover .video-reel-thumb img{transform:scale(1.06)}
-.video-reel-thumb::after{content:'';position:absolute;inset:0;background:rgba(10,25,47,.35);transition:background .3s}
-.video-reel-card:hover .video-reel-thumb::after{background:rgba(10,25,47,.15)}
-.video-reel-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;width:44px;height:44px;border-radius:50%;background:rgba(197,160,89,.9);display:flex;align-items:center;justify-content:center;transition:var(--lift)}
-.video-reel-play::after{content:'';width:0;height:0;border-style:solid;border-width:7px 0 7px 12px;border-color:transparent transparent transparent var(--navy);margin-left:3px}
-.video-reel-card:hover .video-reel-play{background:var(--gold-lt);transform:translate(-50%,-50%) scale(1.1)}
-.video-reel-body{padding:16px 18px 20px}
-.video-reel-title{font-family:var(--font-display);font-size:clamp(16px,2vw,18px);font-weight:400;color:var(--white);margin-bottom:4px;line-height:1.2}
-.video-reel-tag{font-size:8px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
-.video-lightbox{display:none;position:fixed;inset:0;z-index:2200;background:rgba(6,15,29,.95);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:clamp(1rem,3vw,2rem);box-sizing:border-box}
-.video-lightbox.open{display:flex}
-.video-lightbox-inner{width:100%;max-width:1100px;position:relative}
-.video-lightbox-close{position:absolute;top:-48px;right:0;width:40px;height:40px;border:1px solid rgba(197,160,89,.35);color:var(--text-on-dark);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--lift);z-index:1;background:rgba(10,25,47,.6)}
-.video-lightbox-close:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-4px)}
-.video-lightbox-player{position:relative;aspect-ratio:16/9;background:#000;border:1px solid rgba(197,160,89,.25);overflow:hidden}
-.video-lightbox-player video,.video-lightbox-player iframe{width:100%;height:100%;border:none;display:block}
-.video-lightbox-caption{margin-top:16px;text-align:center}
-.video-lightbox-caption-title{font-family:var(--font-display);font-size:clamp(18px,2.5vw,24px);color:var(--white);margin-bottom:4px}
-.video-lightbox-caption-sub{font-size:11px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.agent-spotlight-hero{margin-top:48px}
+.agent-spotlight-frame{position:relative;aspect-ratio:21/9;overflow:hidden;background:var(--navy-lt);border:1px solid rgba(197,160,89,.3)}
+.agent-spotlight-frame::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(10,25,47,.85) 0%,rgba(10,25,47,.25) 50%,rgba(10,25,47,.15) 100%);pointer-events:none}
+.agent-spotlight-photo,.agent-spotlight-photo-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%}
+.agent-spotlight-photo{display:block;animation:agentKenBurns 12s ease-out forwards}
+.agent-spotlight-photo-fallback{display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:clamp(48px,8vw,96px);color:var(--gold);background:linear-gradient(165deg,var(--navy-lt) 0%,var(--navy) 100%)}
+@keyframes agentKenBurns{from{transform:scale(1)}to{transform:scale(1.08)}}
+@media(prefers-reduced-motion:reduce){.agent-spotlight-photo{animation:none}}
+.agent-spotlight-meta{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:clamp(20px,3vw,36px);max-width:720px}
+.agent-spotlight-badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:5px 12px;margin-bottom:12px}
+.agent-spotlight-name{font-family:var(--font-display);font-size:clamp(22px,3.2vw,34px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:4px}
+.agent-spotlight-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.agent-spotlight-quote{font-family:var(--font-display);font-size:clamp(16px,2.2vw,24px);font-weight:400;line-height:1.35;margin:0 0 20px;max-width:640px}
+.agent-spotlight-quote em{font-family:var(--font-display);font-style:italic;color:var(--gold)}
+.agent-spotlight-cta{display:inline-flex;align-items:center;padding:13px 24px;background:var(--gold);color:var(--navy);font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.agent-spotlight-cta:hover{background:var(--gold-lt);transform:translateY(-4px);box-shadow:0 8px 24px rgba(197,160,89,.35)}
+.agent-spotlight-filmstrip{display:flex;gap:16px;margin-top:24px;overflow-x:auto;padding:4px 2px 10px;scrollbar-width:thin}
+.agent-spotlight-thumb{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:8px;width:92px;cursor:pointer;background:none;border:none;padding:0;color:rgba(255,255,255,.72)}
+.agent-spotlight-thumb img,.agent-spotlight-thumb-initials{width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid rgba(197,160,89,.28);background:var(--navy-mid);box-sizing:border-box}
+.agent-spotlight-thumb-initials{display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:18px;color:var(--gold)}
+.agent-spotlight-thumb-name{font-size:9px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;text-align:center;line-height:1.3}
+.agent-spotlight-thumb.active{color:var(--white)}
+.agent-spotlight-thumb.active img,.agent-spotlight-thumb.active .agent-spotlight-thumb-initials{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.agent-spotlight-thumb:hover img,.agent-spotlight-thumb:hover .agent-spotlight-thumb-initials{border-color:rgba(197,160,89,.7)}
 
 section{padding:100px 80px}
 .section-eyebrow{font-size:10px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:14px}
@@ -672,7 +654,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   .valuation-step-label{font-size:7px}
   .mortgage-panel{grid-template-columns:1fr}
   .mortgage-breakdown{grid-template-columns:1fr}
-  .video-reels-row{grid-template-columns:1fr}
+  .agent-spotlight-frame{aspect-ratio:4/5}
   .search-row{grid-template-columns:1fr}
   .search-field{border-right:none;border-bottom:1px solid var(--gray-100)}
   .buyer-features{grid-template-columns:1fr}
@@ -868,60 +850,11 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   </section>
 
   <section id="cinematic-media" aria-labelledby="cinematic-title">
-    <div class="section-eyebrow">Cinematic Media</div>
-    <h2 class="section-title" id="cinematic-title">Experience <em>Luxury</em> in Motion</h2>
-    <p class="section-sub">Tour premier properties and hear from our clients — cinematic walkthroughs and market insights from the Core Collective team.</p>
-
-    <button type="button" class="video-showcase-card" onclick="openVideoLightbox('brand-main')" aria-label="Play Core Collective brand film">
-      <div class="video-showcase-thumb">
-        <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=75" alt="Luxury home interior with floor-to-ceiling windows and modern furnishings" loading="lazy" width="1400" height="600">
-        <div class="video-play-btn" aria-hidden="true"></div>
-        <div class="video-showcase-meta">
-          <div>
-            <div class="video-showcase-label">Featured Film</div>
-            <div class="video-showcase-title">Core Collective · Luxury Property Walkthrough</div>
-          </div>
-          <span class="video-showcase-duration">3:24</span>
-        </div>
-      </div>
-    </button>
-
-    <div class="video-reels-header">
-      <span class="video-reels-label">Video Reels</span>
-      <span class="video-reels-sub">Tap to watch · Streams on demand</span>
-    </div>
-    <div class="video-reels-row" role="list">
-      <button type="button" class="video-reel-card" role="listitem" onclick="openVideoLightbox('reel-client')" aria-label="Play Client Success Story">
-        <div class="video-reel-thumb">
-          <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=75" alt="Couple reviewing their North Raleigh home sale documents" loading="lazy" width="600" height="375">
-          <div class="video-reel-play" aria-hidden="true"></div>
-        </div>
-        <div class="video-reel-body">
-          <div class="video-reel-title">Client Success Story</div>
-          <div class="video-reel-tag">Seller · North Raleigh</div>
-        </div>
-      </button>
-      <button type="button" class="video-reel-card" role="listitem" onclick="openVideoLightbox('reel-market')" aria-label="Play Raleigh Market Insights">
-        <div class="video-reel-thumb">
-          <img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=75" alt="Raleigh downtown skyline at sunset" loading="lazy" width="600" height="375">
-          <div class="video-reel-play" aria-hidden="true"></div>
-        </div>
-        <div class="video-reel-body">
-          <div class="video-reel-title">Raleigh Market Insights</div>
-          <div class="video-reel-tag">Q1 2026 · Market Report</div>
-        </div>
-      </button>
-      <button type="button" class="video-reel-card" role="listitem" onclick="openVideoLightbox('reel-neighborhood')" aria-label="Play Neighborhood Spotlight">
-        <div class="video-reel-thumb">
-          <img src="https://images.unsplash.com/photo-1605276374101-de4c0a5a9622?w=600&q=75" alt="North Hills neighborhood street with upscale homes and tree-lined sidewalks" loading="lazy" width="600" height="375">
-          <div class="video-reel-play" aria-hidden="true"></div>
-        </div>
-        <div class="video-reel-body">
-          <div class="video-reel-title">North Hills Spotlight</div>
-          <div class="video-reel-tag">Neighborhood Guide</div>
-        </div>
-      </button>
-    </div>
+    <div class="section-eyebrow">Meet the Team</div>
+    <h2 class="section-title" id="cinematic-title">The People Behind <em>Your Move</em></h2>
+    <p class="section-sub">Six local agents, ready to guide you from first showing to closing day.</p>
+    <div class="agent-spotlight-hero" id="agent-spotlight-hero"></div>
+    <div class="agent-spotlight-filmstrip" id="agent-spotlight-filmstrip" role="list"></div>
   </section>
 
   <section id="properties" aria-labelledby="properties-title">
@@ -1581,18 +1514,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   <button class="back-btn" onclick="showHome()">← Back to Listings</button>
 </div>
 
-<!-- VIDEO LIGHTBOX -->
-<div class="video-lightbox" id="video-lightbox" role="dialog" aria-modal="true" aria-labelledby="video-lightbox-title" aria-hidden="true" onclick="closeVideoLightboxOutside(event)">
-  <div class="video-lightbox-inner">
-    <button class="video-lightbox-close" onclick="closeVideoLightbox()" aria-label="Close video">✕</button>
-    <div class="video-lightbox-player" id="video-lightbox-player"></div>
-    <div class="video-lightbox-caption">
-      <div class="video-lightbox-caption-title" id="video-lightbox-title"></div>
-      <div class="video-lightbox-caption-sub" id="video-lightbox-sub"></div>
-    </div>
-  </div>
-</div>
-
 <!-- BLOG ARTICLE MODAL -->
 <div class="blog-modal-overlay" id="blog-modal" role="dialog" aria-modal="true" aria-labelledby="blog-modal-title" aria-hidden="true" onclick="closeBlogModalOutside(event)">
   <div class="blog-modal-box">
@@ -1683,6 +1604,15 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
    message displays instead until the URL is configured.
 ════════════════════════════════════════════════════════ */
 const LOFTY_WEBHOOK_URL = "";
+
+const AGENT_PULL_QUOTES={
+  'sylvia-wheeler':"A trusted guide through Wake County, backed by a background in mortgage underwriting.",
+  'dexter-drayton':"Sharp financial analysis, paired with an off-market pipeline other investors don't see.",
+  'sharon-mcduffie':"A warm, relationship-driven approach — helping families find where their lives can flourish.",
+  'marsha-watson':"Twenty years in service before real estate — now bringing that same care to every family's goals.",
+  'jennifer-wiggins':"From foster care advocacy to real estate — bringing patience, clarity, and genuine care to every step.",
+  'frederick-davis':"Clear communication and careful attention, from the first showing to the closing table."
+};
 
 /* ════════════════════════════════════════════════════════
    PROPERTY DATA — Decap CMS file content/properties.json
@@ -1922,7 +1852,7 @@ function closeModal(){
   const modal=document.getElementById('modal');
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
-  if(!document.getElementById('video-lightbox').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
+  if(!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
     document.body.style.overflow='';
   }
   const s=document.getElementById('form-status');
@@ -1960,7 +1890,7 @@ function closeAgentBio(){
   const modal=document.getElementById('agent-bio-modal');
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
-  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('video-lightbox').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')){
+  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')){
     document.body.style.overflow='';
   }
 }
@@ -2195,90 +2125,103 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     if(document.getElementById('agent-bio-modal').classList.contains('open'))closeAgentBio();
     else if(document.getElementById('blog-modal').classList.contains('open'))closeBlogModal();
-    else if(document.getElementById('video-lightbox').classList.contains('open'))closeVideoLightbox();
     else if(document.getElementById('exit-modal').classList.contains('open'))closeExitModal();
     else closeModal();
   }
 });
 
-/* ── VIDEO LIGHTBOX (lazy-loaded) ────────────────────── */
-const VIDEO_LIBRARY={
-  'brand-main':{
-    type:'html5',
-    src:'https://assets.mixkit.co/videos/preview/mixkit-aerial-view-of-a-luxurious-house-with-a-pool-4032-large.mp4',
-    title:'Core Collective · Luxury Property Walkthrough',
-    sub:'Featured Brand Film',
-    poster:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1400&q=75'
-  },
-  'reel-client':{
-    type:'html5',
-    src:'https://assets.mixkit.co/videos/preview/mixkit-young-couple-talking-in-the-living-room-4024-large.mp4',
-    title:'Client Success Story',
-    sub:'Seller · North Raleigh',
-    poster:'https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=600&q=75'
-  },
-  'reel-market':{
-    type:'youtube',
-    src:'https://www.youtube-nocookie.com/embed/EEIk7hub6be?autoplay=1&rel=0&modestbranding=1',
-    title:'Raleigh Market Insights',
-    sub:'Q1 2026 · Market Report',
-    poster:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=600&q=75'
-  },
-  'reel-neighborhood':{
-    type:'html5',
-    src:'https://assets.mixkit.co/videos/preview/mixkit-view-of-the-city-at-night-from-a-balcony-4433-large.mp4',
-    title:'North Hills Spotlight',
-    sub:'Neighborhood Guide',
-    poster:'https://images.unsplash.com/photo-1605276374101-de4c0a5a9622?w=600&q=75'
-  }
-};
+/* ── AGENT SPOTLIGHT ─────────────────────────────────── */
+let spotlightAgents=[];
+let spotlightIndex=0;
+let spotlightTimer=null;
+let spotlightPaused=false;
 
-function openVideoLightbox(videoId){
-  const video=VIDEO_LIBRARY[videoId];
-  if(!video)return;
-  const player=document.getElementById('video-lightbox-player');
-  const lightbox=document.getElementById('video-lightbox');
-  player.innerHTML='';
-  if(video.type==='youtube'){
-    const iframe=document.createElement('iframe');
-    iframe.src=video.src;
-    iframe.title=video.title;
-    iframe.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
-    iframe.allowFullscreen=true;
-    iframe.loading='lazy';
-    player.appendChild(iframe);
-  }else{
-    const vid=document.createElement('video');
-    vid.src=video.src;
-    vid.poster=video.poster;
-    vid.controls=true;
-    vid.preload='none';
-    vid.playsInline=true;
-    player.appendChild(vid);
-    vid.play().catch(()=>{});
-  }
-  document.getElementById('video-lightbox-title').textContent=video.title;
-  document.getElementById('video-lightbox-sub').textContent=video.sub;
-  lightbox.classList.add('open');
-  lightbox.setAttribute('aria-hidden','false');
-  document.body.style.overflow='hidden';
+function agentFirstName(name){
+  return String(name||'').trim().split(/\s+/)[0]||'our team';
 }
 
-function closeVideoLightbox(){
-  const player=document.getElementById('video-lightbox-player');
-  const vid=player.querySelector('video');
-  if(vid){vid.pause();vid.removeAttribute('src');vid.load()}
-  player.innerHTML='';
-  const lightbox=document.getElementById('video-lightbox');
-  lightbox.classList.remove('open');
-  lightbox.setAttribute('aria-hidden','true');
-  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
-    document.body.style.overflow='';
-  }
+function stopSpotlightTimer(){
+  if(spotlightTimer){clearInterval(spotlightTimer);spotlightTimer=null;}
 }
 
-function closeVideoLightboxOutside(e){
-  if(e.target===e.currentTarget)closeVideoLightbox();
+function startSpotlightTimer(){
+  stopSpotlightTimer();
+  if(spotlightPaused||spotlightAgents.length<2)return;
+  spotlightTimer=setInterval(()=>showSpotlight(spotlightIndex+1,false),9000);
+}
+
+function showSpotlight(index,restartTimer=true){
+  const n=spotlightAgents.length;
+  if(!n)return;
+  spotlightIndex=((index%n)+n)%n;
+  const a=spotlightAgents[spotlightIndex];
+  const hero=document.getElementById('agent-spotlight-hero');
+  const strip=document.getElementById('agent-spotlight-filmstrip');
+  if(!hero)return;
+  const quote=AGENT_PULL_QUOTES[a.id]||'';
+  const first=agentFirstName(a.name);
+  const photo=a.headshot
+    ? `<img class="agent-spotlight-photo" src="${escHtml(a.headshot)}" alt="${escHtml(a.name+(a.title?', '+a.title:''))}">`
+    : `<div class="agent-spotlight-photo-fallback">${escHtml(a.initials||first.charAt(0))}</div>`;
+  hero.innerHTML=`<div class="agent-spotlight-frame">
+      ${photo}
+      <div class="agent-spotlight-meta">
+        <span class="agent-spotlight-badge">${escHtml(a.interest)}</span>
+        <div class="agent-spotlight-name">${escHtml(a.name)}</div>
+        <div class="agent-spotlight-role">${escHtml(a.title)}</div>
+        ${quote?`<p class="agent-spotlight-quote"><em>${escHtml(quote)}</em></p>`:''}
+        <button type="button" class="agent-spotlight-cta" onclick='openAgentConsultation(${JSON.stringify(a.id)})'>Schedule with ${escHtml(first)}</button>
+      </div>
+    </div>`;
+  if(strip){
+    strip.querySelectorAll('.agent-spotlight-thumb').forEach((btn,i)=>{
+      const on=i===spotlightIndex;
+      btn.classList.toggle('active',on);
+      btn.setAttribute('aria-pressed',on?'true':'false');
+    });
+  }
+  if(restartTimer)startSpotlightTimer();
+}
+
+function renderAgentSpotlight(items,routes){
+  const hero=document.getElementById('agent-spotlight-hero');
+  const strip=document.getElementById('agent-spotlight-filmstrip');
+  if(!hero||!strip||!items.length)return;
+  stopSpotlightTimer();
+  spotlightAgents=items.map(a=>{
+    const id=a.agent_id||a.name.toLowerCase().replace(/\s+/g,'-');
+    const meta=routes[id]||{};
+    return {
+      id,
+      name:a.name,
+      title:a.title||meta.role||'Realtor',
+      interest:a.interest||meta.interest||'Buyer',
+      headshot:a.headshot||'',
+      initials:a.initials||''
+    };
+  });
+  strip.innerHTML=spotlightAgents.map((a,i)=>`
+    <button type="button" class="agent-spotlight-thumb${i===0?' active':''}" role="listitem" data-index="${i}" aria-label="Show ${escHtml(a.name)}" aria-pressed="${i===0?'true':'false'}">
+      ${a.headshot
+        ? `<img src="${escHtml(a.headshot)}" alt="" width="72" height="72">`
+        : `<span class="agent-spotlight-thumb-initials" aria-hidden="true">${escHtml(a.initials||agentFirstName(a.name).charAt(0))}</span>`}
+      <span class="agent-spotlight-thumb-name">${escHtml(a.name)}</span>
+    </button>`).join('');
+  strip.onclick=e=>{
+    const btn=e.target.closest('.agent-spotlight-thumb');
+    if(!btn||!strip.contains(btn))return;
+    showSpotlight(Number(btn.dataset.index));
+  };
+  const pause=()=>{spotlightPaused=true;stopSpotlightTimer();};
+  const resume=()=>{spotlightPaused=false;startSpotlightTimer();};
+  [hero,strip].forEach(el=>{
+    el.onmouseenter=pause;
+    el.onmouseleave=resume;
+    el.ontouchstart=pause;
+    el.ontouchend=resume;
+  });
+  spotlightPaused=false;
+  showSpotlight(0);
 }
 
 /* ── INIT ────────────────────────────────────────────── */
@@ -2472,6 +2415,7 @@ function renderAgents(items){
     </article>`;
   }).join('');
   AGENT_ROUTES={...AGENT_ROUTES,...routes};
+  renderAgentSpotlight(items, routes);
 }
 
 let BLOG_POSTS=[];
@@ -2607,7 +2551,7 @@ function closeBlogModal(){
   const modal=document.getElementById('blog-modal');
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
-  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('video-lightbox').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
+  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('exit-modal').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
     document.body.style.overflow='';
   }
 }
@@ -2760,7 +2704,7 @@ function closeExitModal(){
   const modal=document.getElementById('exit-modal');
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
-  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('video-lightbox').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
+  if(!document.getElementById('modal').classList.contains('open')&&!document.getElementById('blog-modal').classList.contains('open')&&!document.getElementById('agent-bio-modal').classList.contains('open')){
     document.body.style.overflow='';
   }
 }
