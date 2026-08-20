@@ -46,7 +46,7 @@ if(window.netlifyIdentity){
   --font-serif:'Cormorant Garamond',Georgia,serif;
   --font-display:'Playfair Display',Georgia,serif;
   --font-sans:'Inter',system-ui,sans-serif;
-  --header-h:80px;
+  --header-h:120px;
   --trans:cubic-bezier(0.4,0,0.2,1);
   --trust-gold:#d97706;
   --lift:all .3s ease;
@@ -91,6 +91,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .logo{display:flex;flex-direction:column;gap:2px;cursor:pointer;flex-shrink:0}
 .logo-line1{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--white);letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap}
 .logo-line2{font-family:var(--font-sans);font-size:7px;font-weight:300;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
+.header-logo-img{height:90px;width:auto;display:block}
 
 /* NAV */
 .main-nav{display:flex;align-items:center;justify-content:center;gap:0;min-width:0;overflow:visible}
@@ -659,6 +660,8 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   .listing-body{grid-template-columns:320px 1fr}
 }
 @media(max-width:900px){
+  :root{--header-h:100px}
+  .header-logo-img{height:64px}
   #site-header{padding:0 28px}
   .main-nav,.header-cta{display:none}
   .menu-toggle{display:flex}
@@ -746,8 +749,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 <!-- HEADER -->
 <header id="site-header">
   <div class="logo" onclick="showHome()">
-    <div class="logo-line1">Core Collective</div>
-    <div class="logo-line2">Real Estate · Brokered by eXp Realty, LLC</div>
+    <img src="images/Logos/core-collective-logo.png" alt="Core Collective Real Estate — Brokered by eXp Realty, LLC" class="header-logo-img">
   </div>
   <nav class="main-nav" aria-label="Primary navigation">
     <div class="nav-item">
