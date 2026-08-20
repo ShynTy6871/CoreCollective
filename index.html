@@ -88,11 +88,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 }
 #site-header.scrolled{background:var(--navy);box-shadow:0 2px 32px rgba(0,0,0,.35)}
 #site-header.listing-header{background:var(--navy)}
-.logo{display:flex;flex-direction:column;gap:2px;cursor:pointer;flex-shrink:0}
+.logo{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;flex-shrink:0;min-width:0;max-width:100%;overflow:hidden}
 .logo-line1{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--white);letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap}
 .logo-line2{font-family:var(--font-sans);font-size:7px;font-weight:300;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
-.header-logo-img{height:90px;width:auto;display:block}
-.header-brokerage-line{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75);text-align:center;margin-top:2px}
+.header-logo-img{height:90px;width:auto;max-width:100%;max-height:calc(var(--header-h) - 28px);display:block;object-fit:contain;align-self:center;flex-shrink:0}
+.header-brokerage-line{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75);text-align:center;margin-top:2px;line-height:1.2;white-space:nowrap}
 
 /* NAV */
 .main-nav{display:flex;align-items:center;justify-content:center;gap:0;min-width:0;overflow:visible}
@@ -662,8 +662,8 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 }
 @media(max-width:900px){
   :root{--header-h:100px}
-  .header-logo-img{height:64px}
-  #site-header{padding:0 28px}
+  .header-logo-img{height:64px;width:auto;object-fit:contain}
+  #site-header{padding:0 28px;overflow:hidden}
   .main-nav,.header-cta{display:none}
   .menu-toggle{display:flex}
   .hero-content{padding:0 clamp(1.5rem,5vw,2rem) 120px}
