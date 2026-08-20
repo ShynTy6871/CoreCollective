@@ -95,7 +95,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 /* NAV */
 .main-nav{display:flex;align-items:center;justify-content:center;gap:0;min-width:0;overflow:visible}
 .nav-item{position:relative}
-.nav-link{display:block;padding:10px 10px;font-size:9.5px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);transition:color .2s;white-space:nowrap}
+.nav-link{display:block;padding:10px 10px;font-size:13px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.85);transition:color .2s;white-space:nowrap}
 .nav-link::after{content:'';display:block;height:1px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--trans);margin-top:3px}
 .nav-item:hover .nav-link{color:var(--gold)}
 .nav-item:hover .nav-link::after{transform:scaleX(1)}
@@ -104,7 +104,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
    This catches the most common laptop sizes (1280px, 1366px, 1440px) at 100% zoom */
 @media(min-width:901px) and (max-width:1400px){
   #site-header{padding:0 20px;gap:8px}
-  .nav-link{font-size:8.5px;padding:10px 7px;letter-spacing:.05em}
+  .nav-link{font-size:11px;padding:10px 7px;letter-spacing:.05em}
   .logo-line1{font-size:14px;letter-spacing:.04em}
   .logo-line2{font-size:6.5px;letter-spacing:.16em}
   .header-cta{padding:8px 12px;font-size:8.5px;letter-spacing:.1em}
@@ -2393,7 +2393,7 @@ function renderMarketMetrics(data){
       paintAreaFacts();
       blocks.forEach(el=>el.style.opacity='1');
     },400);
-  },5000);
+  },9000);
 }
 
 function renderNeighborhoods(items){
