@@ -65,6 +65,20 @@ collections:
                   - "Relocation"
                   - "Listing / Seller Strategy"
                   - "Down Payment Assistance / Grants"
+              - label: "Working Style"
+                name: "traits"
+                widget: "select"
+                multiple: true
+                required: false
+                options:
+                  - "Fast-moving & decisive"
+                  - "Warm & patient"
+                  - "Highly communicative"
+                  - "Detail-oriented & analytical"
+                  - "Strategic negotiator"
+                  - "Calm under pressure"
+                  - "Community-connected"
+                  - "Educator at heart"
 
   - name: neighborhoods
     label: Neighborhood Cards
