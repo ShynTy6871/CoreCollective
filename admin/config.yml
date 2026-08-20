@@ -8,9 +8,9 @@ backend:
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
-site_url: https://corecollective.com
-display_url: https://corecollective.com
-logo_url: https://corecollective.com/images/uploads/logo.png
+site_url: https://corecollectivere.com
+display_url: https://corecollectivere.com
+logo_url: https://corecollectivere.com/images/uploads/logo.png
 
 collections:
   - name: agents
@@ -109,32 +109,13 @@ collections:
         file: content/market-metrics.json
         description: Hero trust bar, hero stats strip, and seller section metrics.
         fields:
-          - label: Hero Trust Bar
-            name: hero_trust
+          - label: Regional Facts
+            name: area_facts
+            label_singular: Fact
             widget: list
-            label_singular: Stat
             summary: "{{fields.value}} — {{fields.label}}"
-            max: 4
             fields:
-              - { label: Value, name: value, widget: string, hint: "e.g. $50M+" }
-              - { label: Label, name: label, widget: string }
-          - label: Hero Bottom Stats
-            name: hero_stats
-            widget: list
-            label_singular: Stat
-            summary: "{{fields.value}} — {{fields.label}}"
-            max: 4
-            fields:
-              - { label: Value, name: value, widget: string }
-              - { label: Label, name: label, widget: string }
-          - label: Seller Section Stats
-            name: seller_stats
-            widget: list
-            label_singular: Stat
-            summary: "{{fields.value}} — {{fields.label}}"
-            max: 4
-            fields:
-              - { label: Value, name: value, widget: string }
+              - { label: Value, name: value, widget: string, hint: "e.g. 1.26M+" }
               - { label: Label, name: label, widget: string }
 
   - name: blog
