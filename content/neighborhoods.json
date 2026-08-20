@@ -2,7 +2,7 @@
   "neighborhoods": [
     {
       "name": "Downtown Raleigh",
-      "median_price": "$625K",
+      "median_price": "$465K",
       "description": "Urban luxury living steps from award-winning dining, the Warehouse District, and Red Hat Amphitheater.",
       "highlights": [
         { "highlight": "Walk Score 88 · Vibrant nightlife & arts scene" },
@@ -28,7 +28,7 @@
     },
     {
       "name": "Cary",
-      "median_price": "$725K",
+      "median_price": "$630K",
       "description": "Family-forward sophistication with master-planned communities, top schools, and RTP commuter convenience.",
       "highlights": [
         { "highlight": "Preston, Lochmere & MacGregor Downs estates" },
@@ -41,7 +41,7 @@
     },
     {
       "name": "Wake Forest",
-      "median_price": "$585K",
+      "median_price": "$480K",
       "description": "Expansive acreage, equestrian properties, and new-construction luxury in one of the Triangle's fastest-growing corridors.",
       "highlights": [
         { "highlight": "1+ acre estate lots & custom builders" },
