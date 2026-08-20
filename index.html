@@ -1684,126 +1684,92 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 const LOFTY_WEBHOOK_URL = "";
 
 /* ════════════════════════════════════════════════════════
-   PROPERTY DATA ARRAY
-   ────────────────────────────────────────────────────────
-   UPGRADE 4b — MLS / IDX LIVE FEED SWAP POINT
-   ────────────────────────────────────────────────────────
-   Once your broker IDX compliance approval is granted,
-   a developer replaces the PROPERTIES array below with
-   a live fetch() call like this:
-
-     const raw = await fetch(
-       'https://api.idxbroker.com/clients/listings',
-       { headers: { 'accesskey': 'YOUR_IDX_KEY' } }
-     ).then(r => r.json());
-
-     const PROPERTIES = raw.map(m => ({
-       id:       m.listingID,
-       status:   m.propStatus.toLowerCase(),
-       type:     m.propType,       // map to: residential / commercial / investment
-       price:    '$' + Number(m.listPrice).toLocaleString(),
-       priceNum: Number(m.listPrice),
-       address:  m.address,
-       city:     m.cityName + ', ' + m.stateAbrv + ' ' + m.zipcode,
-       beds:     m.bedrooms,
-       baths:    m.bathsFull,
-       sqft:     Number(m.sqFt).toLocaleString(),
-       image:    m.image?.[0]?.uri || '',
-       agent:    { name: m.agentName, initials: m.agentName.split(' ').map(n=>n[0]).join('') },
-       heroImage: m.image?.[0]?.uri || '',
-       descTitle: m.remarksConcat?.split('.')?.[0] || m.address,
-       lot:      m.lotSizeAcres + ' AC',
-       year:     m.yearBuilt,
-       p1: m.remarksConcat || '', p2: '', p3: ''
-     }));
-
-   Until then the mock array below powers all search and UI.
+   PROPERTY DATA — Decap CMS file content/properties.json
 ════════════════════════════════════════════════════════ */
-const PROPERTIES = [
-  {
-    id:'p001',status:'active',type:'residential',
-    price:'$1,395,000',priceNum:1395000,
-    address:'2847 Wyndham Falls Drive',city:'Raleigh, NC 27615',
-    beds:5,baths:4.5,sqft:'5,240',
-    image:'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=75',
-    agent:{name:'Marsha Watson',initials:'MW'},
-    heroImage:'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1800&q=80',
-    descTitle:'A Masterwork of Modern Luxury Living',lot:'0.72 AC',year:'2019',
-    p1:'Nestled within the prestigious gated enclave of Wyndham Falls, this extraordinary five-bedroom estate redefines sophisticated living in North Raleigh. Designed by award-winning architect James Holloway and built to exacting standards in 2019, every inch of this 5,240 square foot residence reflects an obsessive commitment to quality and craftsmanship.',
-    p2:'The grand two-story foyer opens to a breathtaking great room featuring ten-foot coffered ceilings, wide-plank white oak floors, and a wall of floor-to-ceiling glass overlooking the private rear terrace and salt-water pool. The chef\'s kitchen is anchored by a 12-foot quartzite island and appointed with Thermador Professional appliances.',
-    p3:'The primary suite occupies the entire east wing of the second floor, offering a private sitting room, dual dressing rooms, and a spa-inspired bathroom with heated marble floors. A climate-controlled wine cellar, home theater, and three-car garage with EV charging complete this unparalleled offering.'
-  },
-  {
-    id:'p002',status:'coming',type:'residential',
-    price:'$875,000',priceNum:875000,
-    address:'114 Overture Lane',city:'Chapel Hill, NC 27514',
-    beds:4,baths:3,sqft:'3,890',
-    image:'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=75',
-    agent:{name:'Sharon McDuffie',initials:'SM'},
-    heroImage:'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1800&q=80',
-    descTitle:'Chapel Hill Elegance in a Prime Location',lot:'0.38 AC',year:'2016',
-    p1:'Situated on a coveted corner lot in one of Chapel Hill\'s most established neighborhoods, this four-bedroom colonial offers timeless architecture with thoughtfully updated interiors.',
-    p2:'The open-concept main level features a renovated kitchen with quartz countertops, stainless appliances, and a generous island that flows into a sun-drenched living room with custom built-ins.',
-    p3:'The primary retreat provides a spa-like bathroom with dual vanities, a soaking tub, and a walk-in closet. Three additional bedrooms and a bonus room complete this exceptional offering.'
-  },
-  {
-    id:'p003',status:'active',type:'investment',
-    price:'$2,100,000',priceNum:2100000,
-    address:'800 Hillsborough Street',city:'Raleigh, NC 27603',
-    beds:12,baths:12,sqft:'8,400',
-    image:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=800&q=75',
-    agent:{name:'Dexter Drayton',initials:'DD'},
-    heroImage:'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=1800&q=80',
-    descTitle:'6-Unit Investment Property Near NCSU',lot:'0.21 AC',year:'2008',
-    p1:'A rare opportunity to acquire a fully-occupied six-unit apartment building in the heart of the NCSU corridor — one of Raleigh\'s most reliable rental submarkets with persistently low vacancy rates.',
-    p2:'All six units have been renovated within the last three years. In-place NOI of $128,400 delivers a cap rate of 6.1% with immediate value-add potential through below-market rents.',
-    p3:'Separately metered for utilities with ample parking. Ideally positioned for a long-term hold or 1031 exchange. Financials available upon execution of NDA.'
-  },
-  {
-    id:'p004',status:'pending',type:'residential',
-    price:'$629,000',priceNum:629000,
-    address:'519 Magnolia Ridge Court',city:'Durham, NC 27705',
-    beds:4,baths:3,sqft:'2,980',
-    image:'https://images.unsplash.com/photo-1598228723793-52759bba239c?w=800&q=75',
-    agent:{name:'Sylvia T. Wheeler',initials:'SW'},
-    heroImage:'https://images.unsplash.com/photo-1598228723793-52759bba239c?w=1800&q=80',
-    descTitle:'Contemporary Craftsman in Duke Forest',lot:'0.29 AC',year:'2014',
-    p1:'A beautifully maintained craftsman-style home in the sought-after Duke Forest corridor, offering the perfect blend of classic charm and modern amenities for the discerning buyer.',
-    p2:'The main level features an open floor plan with hardwood floors, a gourmet kitchen with gas range and granite counters, and a screened rear porch perfect for entertaining.',
-    p3:'The primary suite includes a walk-in closet and updated bath with tile shower. Three additional bedrooms, a bonus room, and a two-car garage complete this exceptional Durham offering.'
-  },
-  {
-    id:'p005',status:'active',type:'commercial',
-    price:'$3,450,000',priceNum:3450000,
-    address:'1201 Chatham Street',city:'Cary, NC 27511',
-    beds:null,baths:null,sqft:'12,600',
-    image:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=75',
-    agent:{name:'Marsha Watson',initials:'MW'},
-    heroImage:'https://images.unsplash.com/photo-1486325212027-8081e485255e?w=1800&q=80',
-    descTitle:'Class A Office Building · Cary Town Center',lot:'1.1 AC',year:'2012',
-    p1:'A premier Class A office asset in Cary\'s thriving Town Center business district, offering 12,600 square feet of modern office space with excellent highway visibility and signage rights.',
-    p2:'Currently 94% occupied by professional tenants on staggered lease terms through 2028. Features upgraded lobby finishes, conference center, and generous surface parking.',
-    p3:'Strong in-place cash flow, cap rate of 6.4%, and significant lease-up upside in the vacant suite — an exceptional addition to any commercial portfolio.'
-  },
-  {
-    id:'p006',status:'active',type:'residential',
-    price:'$489,000',priceNum:489000,
-    address:'321 Birchwood Drive',city:'Apex, NC 27502',
-    beds:3,baths:2.5,sqft:'2,240',
-    image:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=75',
-    agent:{name:'Sharon McDuffie',initials:'SM'},
-    heroImage:'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=1800&q=80',
-    descTitle:'Charming Apex Craftsman — Move-In Ready',lot:'0.18 AC',year:'2011',
-    p1:'Nestled in a quiet Apex neighborhood with top-rated Wake County schools, this move-in-ready craftsman is the perfect starter luxury home for buyers seeking quality and value.',
-    p2:'Fresh paint, new LVP flooring, and a recently updated kitchen with quartz counters and stainless appliances make this home truly turnkey, complete with a cozy gas fireplace.',
-    p3:'Upstairs: primary suite with walk-in closet, two secondary bedrooms, and a full bath. Two-car garage, screened porch, and fenced backyard complete this well-priced Apex gem.'
+let PROPERTIES = [];
+
+function slugifyProperty(value){
+  return String(value||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'') || 'property';
+}
+
+function initialsFromName(name){
+  return String(name||'').split(/\s+/).filter(Boolean).map(part=>{
+    const letter=part.replace(/[^A-Za-z]/g,'');
+    return letter.charAt(0);
+  }).join('').slice(0,3).toUpperCase() || '•';
+}
+
+function firstPhoto(photos){
+  const list=Array.isArray(photos)?photos:[];
+  for(const item of list){
+    if(!item) continue;
+    if(typeof item==='string' && item.trim()) return item.trim();
+    const url=item.image||item.url||item.photo||'';
+    if(url) return String(url);
   }
-];
+  return '';
+}
+
+function mapCMSProperty(entry, fallbackId){
+  const photo=firstPhoto(entry.photos);
+  const agentName=typeof entry.agent==='string'?entry.agent:(entry.agent&&entry.agent.name)||'';
+  const priceNum=Number(entry.price)||0;
+  const bedsRaw=entry.beds;
+  const bathsRaw=entry.baths;
+  const sqftRaw=entry.sqft;
+  const beds=bedsRaw===''||bedsRaw==null?null:Number(bedsRaw);
+  const baths=bathsRaw===''||bathsRaw==null?null:Number(bathsRaw);
+  const sqftNum=sqftRaw===''||sqftRaw==null?null:Number(sqftRaw);
+  const desc=String(entry.description||'').trim();
+  const paras=desc.split(/\n+/).map(s=>s.trim()).filter(Boolean);
+  return {
+    id: entry.id || fallbackId || slugifyProperty(entry.address),
+    status: entry.status || 'active',
+    type: entry.type || 'residential',
+    price: '$'+priceNum.toLocaleString('en-US'),
+    priceNum,
+    address: entry.address || '',
+    city: entry.city_state || '',
+    beds: Number.isFinite(beds)?beds:null,
+    baths: Number.isFinite(baths)?baths:null,
+    sqft: Number.isFinite(sqftNum)?sqftNum.toLocaleString('en-US'):'',
+    image: photo,
+    agent: { name: agentName, initials: initialsFromName(agentName) },
+    heroImage: photo,
+    descTitle: entry.address || 'Property',
+    p1: paras[0] || '',
+    p2: paras[1] || '',
+    p3: paras.slice(2).join('\n\n') || ''
+  };
+}
+
+async function loadProperties(){
+  let mapped=[];
+  try{
+    const res=await fetch('content/properties.json');
+    if(res.ok){
+      const data=await res.json();
+      mapped=(data.properties||[]).map((entry,i)=>mapCMSProperty(entry, 'p'+i));
+    }
+  }catch(err){
+    console.warn('Property listings load skipped:',err);
+  }
+  PROPERTIES=mapped;
+  renderProperties('all');
+}
 
 /* ── RENDER GRID ─────────────────────────────────────── */
 function renderGrid(props){
   const grid=document.getElementById('property-grid');
   if(!props.length){
+    if(!PROPERTIES.length){
+      grid.innerHTML=`<div class="no-results">
+      <div class="no-results-icon">◎</div>
+      <div class="no-results-title">New listings coming soon.</div>
+      <p class="no-results-sub">We're preparing fresh properties for this page. Please check back shortly.</p>
+    </div>`;
+      return;
+    }
     grid.innerHTML=`<div class="no-results">
       <div class="no-results-icon">◎</div>
       <div class="no-results-title">No Matching Properties Found</div>
@@ -2315,7 +2281,6 @@ function closeVideoLightboxOutside(e){
 }
 
 /* ── INIT ────────────────────────────────────────────── */
-renderProperties('all');
 loadCMSContent().then(()=>initTestimonialSlider());
 
 /* ── DECAP CMS CONTENT LOADER ────────────────────────── */
@@ -2360,6 +2325,7 @@ async function loadCMSContent(){
   }catch(err){
     console.warn('CMS content load skipped:',err);
   }
+  await loadProperties();
 }
 
 function renderMarketMetrics(data){
