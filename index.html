@@ -211,6 +211,9 @@ section{padding:100px 80px}
 .section-title{font-family:var(--font-display);font-size:clamp(1.75rem,4vw + 0.5rem,3.625rem);font-weight:400;line-height:1.1;color:var(--navy);margin-bottom:20px;max-width:100%}
 .section-title em{font-style:italic}
 .section-sub{font-size:15px;font-weight:300;color:var(--gray-500);max-width:520px;line-height:1.75}
+.reveal-on-scroll{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+.reveal-on-scroll.is-revealed{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal-on-scroll{opacity:1;transform:none;transition:none}}
 
 /* ─── PROPERTIES ──────────────────────────────────── */
 #properties{background:var(--off-white)}
@@ -890,9 +893,11 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   </section>
 
   <section id="agent-matcher" aria-labelledby="matcher-title">
+    <div class="reveal-on-scroll">
     <div class="section-eyebrow">Find Your Agent</div>
     <h2 class="section-title" id="matcher-title">Let's Find the <em>Right Fit</em></h2>
     <p class="section-sub">Answer three quick questions and we'll match you with the Core Collective agent whose specialties and working style fit your move.</p>
+    </div>
     <div class="matcher-wrap">
       <div class="worth-block">
         <div class="valuation-form" id="agent-matcher-form">
@@ -978,11 +983,11 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 
   <section id="properties" aria-labelledby="properties-title">
     <div class="section-header">
-      <div>
+        <div class="reveal-on-scroll">
         <div class="section-eyebrow">Featured Listings</div>
         <h2 class="section-title" id="properties-title">Curated <em>Properties</em></h2>
         <p class="section-sub">Hand-selected listings across Raleigh, Durham, Chapel Hill, and Cary.</p>
-      </div>
+        </div>
       <div class="filter-tabs" role="tablist" aria-label="Filter properties by type">
         <button class="filter-tab active" id="tab-all" role="tab" aria-selected="true" aria-controls="property-grid" onclick="filterProps(this,'all')">All</button>
         <button class="filter-tab" id="tab-residential" role="tab" aria-selected="false" aria-controls="property-grid" onclick="filterProps(this,'residential')">Residential</button>
@@ -995,9 +1000,11 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   </section>
 
   <section id="buyers" aria-labelledby="buyers-title">
+    <div class="reveal-on-scroll">
     <div class="section-eyebrow">For Buyers</div>
     <h2 class="section-title" id="buyers-title">Find Your <em>Dream Home</em></h2>
     <p class="section-sub">Leverage our market intelligence and deep network to secure the right property — at the right price.</p>
+    </div>
     <div class="search-panel" role="search">
       <div class="search-row">
         <div class="search-field">
@@ -1064,9 +1071,11 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <img src="https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=900&q=80" alt="Luxury home exterior" loading="lazy">
     </div>
     <div class="sellers-content">
+      <div class="reveal-on-scroll">
       <div class="section-eyebrow">For Sellers</div>
       <h2 class="section-title" id="sellers-title">Sell with <em>Confidence</em></h2>
       <p class="section-sub">Our proven listing strategy combines precision pricing, professional staging, and targeted digital marketing to sell your home faster and for more.</p>
+      </div>
       <div class="worth-block" role="complementary" aria-label="Home valuation form">
         <div class="worth-title">What's My Home Worth?</div>
         <p class="worth-sub">Answer a few quick questions and receive a personalized market analysis from a Core Collective agent.</p>
@@ -1179,9 +1188,11 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   </section>
 
   <section id="mortgage-calculator" aria-labelledby="mortgage-title">
+    <div class="reveal-on-scroll">
     <div class="section-eyebrow">Financing Tools</div>
     <h2 class="section-title" id="mortgage-title">Estimate Your <em>Monthly Payment</em></h2>
     <p class="section-sub">Model your investment with real-time payment estimates — adjust price, down payment, and rate to find your comfort zone.</p>
+    </div>
     <div class="mortgage-panel">
       <div class="mortgage-sliders">
         <div class="mortgage-slider-group">
@@ -1224,9 +1235,11 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   </section>
 
   <section id="triangle-guides" aria-labelledby="triangle-title">
+    <div class="reveal-on-scroll">
     <div class="section-eyebrow">Local Expertise</div>
     <h2 class="section-title" id="triangle-title">Explore The <em>Triangle</em></h2>
     <p class="section-sub">Curated guides to the Triangle's most sought-after sub-markets — median pricing, lifestyle highlights, and insider access from Core Collective agents.</p>
+    </div>
     <div class="neighborhood-grid" id="cms-neighborhoods" role="list">
       <article class="neighborhood-card" role="listitem">
         <div class="nhood-img-wrap">
@@ -1308,8 +1321,10 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   </section>
 
   <section id="investors" aria-labelledby="investors-title">
+    <div class="reveal-on-scroll">
     <div class="section-eyebrow">For Investors</div>
     <h2 class="section-title" id="investors-title">Intelligent <em>Capital</em><br>Deployment</h2>
+    </div>
     <div class="investor-grid">
       <div class="investor-main">
         <p class="investor-philosophy">"Real estate investing isn't about buying property — it's about acquiring income streams that compound over time."</p>
@@ -1340,9 +1355,11 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   </section>
 
   <section id="blog" aria-labelledby="blog-title">
+    <div class="reveal-on-scroll">
     <div class="section-eyebrow">Blog &amp; Market Insights</div>
     <h2 class="section-title" id="blog-title">Triangle <em>Lifestyle</em> &amp; Market Intel</h2>
     <p class="section-sub">Market analysis, community events, and relocation guides curated by the Core Collective team.</p>
+    </div>
     <div class="filter-tabs" id="blog-filter-tabs" role="tablist" aria-label="Filter blog by region">
       <button class="filter-tab active" id="blog-tab-all" role="tab" aria-selected="true" onclick="filterBlog(this,'all')">All</button>
       <button class="filter-tab" id="blog-tab-triangle" role="tab" aria-selected="false" onclick="filterBlog(this,'Core Triangle')">Core Triangle</button>
@@ -1354,10 +1371,10 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 
   <section id="testimonials" aria-labelledby="testimonials-title">
     <div class="testimonials-header">
-      <div>
+        <div class="reveal-on-scroll">
         <div class="section-eyebrow">Client Stories</div>
         <h2 class="section-title" id="testimonials-title">What Our Clients <em>Say</em></h2>
-      </div>
+        </div>
       <div class="testimonials-nav" aria-label="Testimonial navigation">
         <button class="testimonial-nav-btn" id="testimonial-prev" aria-label="Previous review">←</button>
         <button class="testimonial-nav-btn" id="testimonial-next" aria-label="Next review">→</button>
@@ -1371,9 +1388,11 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   </section>
 
   <section id="faq" aria-labelledby="faq-title">
+    <div class="reveal-on-scroll">
     <div class="section-eyebrow">Questions &amp; Answers</div>
     <h2 class="section-title" id="faq-title">Frequently <em>Asked</em></h2>
     <p class="section-sub">Common questions about buying, selling, and relocating with Core Collective across the Triangle and Eastern North Carolina.</p>
+    </div>
     <div class="faq-list" id="cms-faqs" role="list"></div>
   </section>
 
@@ -2255,6 +2274,24 @@ function renderAgentSpotlight(items,routes){
 
 /* ── INIT ────────────────────────────────────────────── */
 loadCMSContent().then(()=>initTestimonialSlider());
+initScrollReveal();
+
+function initScrollReveal(){
+  const els=document.querySelectorAll('.reveal-on-scroll');
+  if(!els.length)return;
+  if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+    els.forEach(el=>el.classList.add('is-revealed'));
+    return;
+  }
+  const io=new IntersectionObserver((entries,obs)=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      entry.target.classList.add('is-revealed');
+      obs.unobserve(entry.target);
+    });
+  },{threshold:.12,rootMargin:'0px 0px -8% 0px'});
+  els.forEach(el=>io.observe(el));
+}
 
 /* ── DECAP CMS CONTENT LOADER ────────────────────────── */
 function escHtml(str){
