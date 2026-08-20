@@ -194,6 +194,17 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .agent-spotlight-thumb.active img,.agent-spotlight-thumb.active .agent-spotlight-thumb-initials{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
 .agent-spotlight-thumb:hover img,.agent-spotlight-thumb:hover .agent-spotlight-thumb-initials{border-color:rgba(197,160,89,.7)}
 
+/* ─── AGENT MATCHER ──────────────────────────────── */
+#agent-matcher{background:var(--navy);padding:clamp(64px,8vw,100px) clamp(1.5rem,4vw,5rem);border-top:1px solid rgba(197,160,89,.15)}
+#agent-matcher .section-title{color:var(--white)}
+#agent-matcher .section-sub{color:var(--text-on-dark-secondary);max-width:560px}
+.matcher-wrap{max-width:720px;margin-top:40px}
+.matcher-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:20px}
+.matcher-results .agent-profile-photo{aspect-ratio:1;max-height:180px}
+.matcher-why{font-size:13px;font-weight:300;color:var(--text-on-dark-secondary);line-height:1.7;margin:0 0 16px}
+.matcher-start-over{display:inline-block;margin-top:28px;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+.matcher-start-over:hover{color:var(--gold-lt)}
+
 section{padding:100px 80px}
 .section-eyebrow{font-size:10px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:14px}
 .section-eyebrow::before{content:'';display:block;width:32px;height:1px;background:var(--gold)}
@@ -659,6 +670,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   .sellers-img{min-height:300px}
   .sellers-content{padding:56px 32px}
   .val-pill-group.cols-5{grid-template-columns:repeat(3,1fr)}
+  #agent-matcher .val-pill-group{grid-template-columns:1fr 1fr}
   .valuation-step-label{font-size:7px}
   .mortgage-panel{grid-template-columns:1fr}
   .mortgage-breakdown{grid-template-columns:1fr}
@@ -866,6 +878,93 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <p class="section-sub">Six local agents, ready to guide you from first showing to closing day.</p>
     <div class="agent-spotlight-hero" id="agent-spotlight-hero"></div>
     <div class="agent-spotlight-filmstrip" id="agent-spotlight-filmstrip" role="list"></div>
+  </section>
+
+  <section id="agent-matcher" aria-labelledby="matcher-title">
+    <div class="section-eyebrow">Find Your Agent</div>
+    <h2 class="section-title" id="matcher-title">Let's Find the <em>Right Fit</em></h2>
+    <p class="section-sub">Answer three quick questions and we'll match you with the Core Collective agent whose specialties and working style fit your move.</p>
+    <div class="matcher-wrap">
+      <div class="worth-block">
+        <div class="valuation-form" id="agent-matcher-form">
+          <div class="valuation-progress" aria-hidden="true">
+            <div class="valuation-step-indicator active" data-step-ind="1">
+              <div class="valuation-step-num">1</div>
+              <div class="valuation-step-label">Goal</div>
+            </div>
+            <div class="valuation-step-indicator" data-step-ind="2">
+              <div class="valuation-step-num">2</div>
+              <div class="valuation-step-label">Focus</div>
+            </div>
+            <div class="valuation-step-indicator" data-step-ind="3">
+              <div class="valuation-step-num">3</div>
+              <div class="valuation-step-label">Style</div>
+            </div>
+          </div>
+
+          <div class="valuation-panel active" id="match-step-1" role="group" aria-labelledby="match-step-1-title">
+            <h3 class="valuation-panel-title" id="match-step-1-title">What are you looking to do?</h3>
+            <p class="valuation-panel-desc">Choose the path that best describes your next move.</p>
+            <div class="val-pill-group" data-match-step="1" role="group" aria-label="What are you looking to do?">
+              <button type="button" class="val-pill" data-value="Buying">Buying</button>
+              <button type="button" class="val-pill" data-value="Selling">Selling</button>
+              <button type="button" class="val-pill" data-value="Investing">Investing</button>
+            </div>
+            <input type="hidden" id="match-answer-1" value="">
+            <div class="val-actions">
+              <button type="button" class="val-btn-next" id="match-next-1" disabled onclick="matcherNext(1)">Continue →</button>
+            </div>
+          </div>
+
+          <div class="valuation-panel" id="match-step-2" role="group" aria-labelledby="match-step-2-title">
+            <h3 class="valuation-panel-title" id="match-step-2-title">What matters most to you right now?</h3>
+            <p class="valuation-panel-desc">Pick the specialty that is most important for this transaction.</p>
+            <div class="val-pill-group" data-match-step="2" role="group" aria-label="What matters most to you right now?">
+              <button type="button" class="val-pill" data-value="First-Time Buyers">First-Time Buyers</button>
+              <button type="button" class="val-pill" data-value="Luxury / Move-Up Homes">Luxury / Move-Up Homes</button>
+              <button type="button" class="val-pill" data-value="Investment Properties">Investment Properties</button>
+              <button type="button" class="val-pill" data-value="Military &amp; PCS Relocation">Military &amp; PCS Relocation</button>
+              <button type="button" class="val-pill" data-value="New Construction">New Construction</button>
+              <button type="button" class="val-pill" data-value="Relocation">Relocation</button>
+              <button type="button" class="val-pill" data-value="Listing / Seller Strategy">Listing / Seller Strategy</button>
+              <button type="button" class="val-pill" data-value="Down Payment Assistance / Grants">Down Payment Assistance / Grants</button>
+            </div>
+            <input type="hidden" id="match-answer-2" value="">
+            <div class="val-actions">
+              <button type="button" class="val-btn-back" onclick="matcherBack(2)">← Back</button>
+              <button type="button" class="val-btn-next" id="match-next-2" disabled onclick="matcherNext(2)">Continue →</button>
+            </div>
+          </div>
+
+          <div class="valuation-panel" id="match-step-3" role="group" aria-labelledby="match-step-3-title">
+            <h3 class="valuation-panel-title" id="match-step-3-title">What kind of experience are you looking for?</h3>
+            <p class="valuation-panel-desc">Choose the working style that feels like the best fit.</p>
+            <div class="val-pill-group" data-match-step="3" role="group" aria-label="What kind of experience are you looking for?">
+              <button type="button" class="val-pill" data-value="Fast-moving &amp; decisive">Fast-moving &amp; decisive</button>
+              <button type="button" class="val-pill" data-value="Warm &amp; patient">Warm &amp; patient</button>
+              <button type="button" class="val-pill" data-value="Highly communicative">Highly communicative</button>
+              <button type="button" class="val-pill" data-value="Detail-oriented &amp; analytical">Detail-oriented &amp; analytical</button>
+              <button type="button" class="val-pill" data-value="Strategic negotiator">Strategic negotiator</button>
+              <button type="button" class="val-pill" data-value="Calm under pressure">Calm under pressure</button>
+              <button type="button" class="val-pill" data-value="Community-connected">Community-connected</button>
+              <button type="button" class="val-pill" data-value="Educator at heart">Educator at heart</button>
+            </div>
+            <input type="hidden" id="match-answer-3" value="">
+            <div class="val-actions">
+              <button type="button" class="val-btn-back" onclick="matcherBack(3)">← Back</button>
+              <button type="button" class="val-btn-next" id="match-next-3" disabled onclick="matcherNext(3)">Continue →</button>
+            </div>
+          </div>
+
+          <div class="valuation-panel" id="match-step-results" role="status" aria-labelledby="match-results-title">
+            <h3 class="valuation-panel-title" id="match-results-title">Your matched agents</h3>
+            <p class="valuation-panel-desc">Based on what matters most to you right now.</p>
+            <div class="matcher-results" id="match-results-grid" role="list"></div>
+            <a href="#agent-matcher" class="matcher-start-over" onclick="matcherStartOver();return false;">Start Over</a>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="properties" aria-labelledby="properties-title">
@@ -1820,7 +1919,9 @@ function openAgentConsultation(agentId){
 let valuationCurrentStep=1;
 
 function initValuationForm(){
-  document.querySelectorAll('.val-pill-group').forEach(group=>{
+  const form=document.getElementById('valuation-form');
+  if(!form)return;
+  form.querySelectorAll('.val-pill-group').forEach(group=>{
     group.addEventListener('click',e=>{
       const pill=e.target.closest('.val-pill');
       if(!pill)return;
@@ -1835,14 +1936,16 @@ initValuationForm();
 
 function valuationShowStep(step){
   valuationCurrentStep=step;
-  document.querySelectorAll('.valuation-panel').forEach(p=>p.classList.remove('active'));
+  const form=document.getElementById('valuation-form');
+  if(!form)return;
+  form.querySelectorAll('.valuation-panel').forEach(p=>p.classList.remove('active'));
   document.getElementById('val-step-'+step).classList.add('active');
-  document.querySelectorAll('.valuation-step-indicator').forEach(ind=>{
+  form.querySelectorAll('.valuation-step-indicator').forEach(ind=>{
     const n=parseInt(ind.dataset.stepInd,10);
     ind.classList.toggle('active',n===step);
     ind.classList.toggle('done',n<step);
   });
-  document.querySelectorAll('.val-error').forEach(el=>{el.classList.remove('show');el.textContent='';});
+  form.querySelectorAll('.val-error').forEach(el=>{el.classList.remove('show');el.textContent='';});
   const firstInput=document.getElementById('val-step-'+step).querySelector('input,select,button.val-btn-next');
   if(firstInput)setTimeout(()=>firstInput.focus(),80);
 }
@@ -1931,7 +2034,7 @@ function resetValuationForm(){
   document.getElementById('val-type').value='';
   document.getElementById('val-beds').value='';
   document.getElementById('val-condition').value='';
-  document.querySelectorAll('.val-pill').forEach(p=>p.classList.remove('selected'));
+  document.querySelectorAll('#valuation-form .val-pill').forEach(p=>p.classList.remove('selected'));
   document.getElementById('val-submit-btn').disabled=false;
   document.getElementById('val-submit-btn').textContent='Get My Report →';
   setTimeout(()=>valuationShowStep(1),3000);
@@ -2309,7 +2412,155 @@ function renderAgents(items){
     routes[id]={name:a.name,role:a.title,bio:a.bio,interest:a.interest||'Buyer',expertise,phone:a.phone,email:a.email,license:a.license};
   });
   AGENT_ROUTES={...AGENT_ROUTES,...routes};
+  MATCHER_AGENTS=items.map(a=>({
+    id:a.agent_id||a.name.toLowerCase().replace(/\s+/g,'-'),
+    name:a.name,
+    title:a.title||'Realtor',
+    interest:a.interest||'Buyer',
+    specialties:a.specialties||[],
+    traits:a.traits||[],
+    headshot:a.headshot||'',
+    initials:a.initials||'',
+    order:a.order||99
+  }));
   renderAgentSpotlight(items, routes);
+}
+
+/* ── AGENT MATCHER ───────────────────────────────────── */
+let MATCHER_AGENTS=[];
+const MATCHER_INTEREST={Buying:'Buyer',Selling:'Seller',Investing:'Investor'};
+
+function initAgentMatcher(){
+  const root=document.getElementById('agent-matcher-form');
+  if(!root)return;
+  root.querySelectorAll('.val-pill-group').forEach(group=>{
+    group.addEventListener('click',e=>{
+      const pill=e.target.closest('.val-pill');
+      if(!pill)return;
+      group.querySelectorAll('.val-pill').forEach(p=>p.classList.remove('selected'));
+      pill.classList.add('selected');
+      const hidden=group.nextElementSibling;
+      if(hidden&&hidden.tagName==='INPUT')hidden.value=pill.dataset.value;
+      const step=parseInt(group.dataset.matchStep,10);
+      const btn=document.getElementById('match-next-'+step);
+      if(btn)btn.disabled=false;
+    });
+  });
+}
+initAgentMatcher();
+
+function matcherShowStep(step){
+  const root=document.getElementById('agent-matcher-form');
+  if(!root)return;
+  root.querySelectorAll('.valuation-panel').forEach(p=>p.classList.remove('active'));
+  const panel=document.getElementById(step==='results'?'match-step-results':'match-step-'+step);
+  if(panel)panel.classList.add('active');
+  root.querySelectorAll('.valuation-step-indicator').forEach(ind=>{
+    const n=parseInt(ind.dataset.stepInd,10);
+    if(step==='results'){
+      ind.classList.remove('active');
+      ind.classList.add('done');
+    }else{
+      ind.classList.toggle('active',n===step);
+      ind.classList.toggle('done',n<step);
+    }
+  });
+  if(step!=='results'){
+    const btn=document.getElementById('match-next-'+step);
+    const hidden=document.getElementById('match-answer-'+step);
+    if(btn)btn.disabled=!(hidden&&hidden.value);
+  }
+}
+
+function matcherNext(fromStep){
+  const hidden=document.getElementById('match-answer-'+fromStep);
+  if(!hidden||!hidden.value)return;
+  if(fromStep===3){matcherShowResults();return;}
+  matcherShowStep(fromStep+1);
+}
+
+function matcherBack(fromStep){
+  matcherShowStep(fromStep-1);
+}
+
+function matcherStartOver(){
+  const root=document.getElementById('agent-matcher-form');
+  if(!root)return;
+  root.querySelectorAll('.val-pill').forEach(p=>p.classList.remove('selected'));
+  ['match-answer-1','match-answer-2','match-answer-3'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el)el.value='';
+  });
+  ['match-next-1','match-next-2','match-next-3'].forEach(id=>{
+    const btn=document.getElementById(id);
+    if(btn)btn.disabled=true;
+  });
+  matcherShowStep(1);
+}
+
+function matcherScoreAgents(goal,specialty,trait){
+  const interest=MATCHER_INTEREST[goal]||goal;
+  return MATCHER_AGENTS.map(a=>{
+    const specialties=a.specialties||[];
+    const traits=a.traits||[];
+    const specHit=specialties.indexOf(specialty)!==-1;
+    const traitHit=traits.indexOf(trait)!==-1;
+    const interestHit=a.interest===interest;
+    let score=0;
+    if(specHit)score+=3;
+    if(traitHit)score+=2;
+    if(interestHit)score+=1;
+    const reasons=[];
+    if(specHit)reasons.push('Specializes in '+specialty);
+    if(traitHit)reasons.push('Known for being '+trait);
+    if(interestHit){
+      const verb=interest==='Seller'?'sellers':interest==='Investor'?'investors':'buyers';
+      reasons.push('Works with '+verb);
+    }
+    return Object.assign({},a,{score:score,reasons:reasons});
+  }).sort((a,b)=>b.score-a.score||(a.order||99)-(b.order||99));
+}
+
+function matcherPickResults(scored){
+  if(!scored.length)return[];
+  const top=scored[0];
+  const second=scored[1];
+  if(!second)return[top];
+  const gap=top.score-second.score;
+  if(gap>=3||(top.score>0&&second.score===0))return[top];
+  return[top,second];
+}
+
+function matcherShowResults(){
+  const goal=(document.getElementById('match-answer-1')||{}).value||'';
+  const specialty=(document.getElementById('match-answer-2')||{}).value||'';
+  const trait=(document.getElementById('match-answer-3')||{}).value||'';
+  const scored=matcherScoreAgents(goal,specialty,trait);
+  const picks=matcherPickResults(scored);
+  const el=document.getElementById('match-results-grid');
+  if(!el)return;
+  if(!picks.length){
+    el.innerHTML='<p class="matcher-why">Our team will be ready to match you shortly. Please check back soon.</p>';
+  }else{
+    el.innerHTML=picks.map(a=>{
+      const first=agentFirstName(a.name);
+      const why=a.reasons.length?a.reasons.join(' • '):'A Core Collective agent ready to guide you through your next move.';
+      const photo=a.headshot
+        ? `<div class="agent-profile-headshot has-photo"><img src="${escHtml(a.headshot)}" alt="${escHtml(a.name+(a.title?', '+a.title:''))}"></div>`
+        : `<div class="agent-profile-headshot" aria-hidden="true">${escHtml(a.initials||first.charAt(0))}</div>`;
+      return `<article class="agent-profile-card" role="listitem">
+        <div class="agent-profile-photo" aria-hidden="true">${photo}</div>
+        <div class="agent-profile-body">
+          <h3 class="agent-profile-name">${escHtml(a.name)}</h3>
+          <p class="agent-profile-role">${escHtml(a.title||'Realtor')}</p>
+          <span class="val-label">Why we matched you</span>
+          <p class="matcher-why">${escHtml(why)}</p>
+          <button type="button" class="agent-profile-cta" onclick='openAgentConsultation(${JSON.stringify(a.id)})'>Schedule with ${escHtml(first)}</button>
+        </div>
+      </article>`;
+    }).join('');
+  }
+  matcherShowStep('results');
 }
 
 let BLOG_POSTS=[];
