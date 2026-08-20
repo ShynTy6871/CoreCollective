@@ -165,13 +165,16 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 #cinematic-media .section-sub{color:var(--text-on-dark-secondary);max-width:560px}
 .agent-spotlight-hero{margin-top:48px}
 .agent-spotlight-frame{position:relative;aspect-ratio:21/9;overflow:hidden;background:var(--navy-lt);border:1px solid rgba(197,160,89,.3)}
-.agent-spotlight-frame::after{content:'';position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(10,25,47,.85) 0%,rgba(10,25,47,.25) 50%,rgba(10,25,47,.15) 100%);pointer-events:none}
+.agent-spotlight-frame::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(10,25,47,.88) 0%,rgba(10,25,47,.28) 42%,transparent 72%);pointer-events:none}
+.agent-spotlight-bg{position:absolute;inset:0 0 0 40%;z-index:0;background-size:cover;background-position:center}
+.agent-spotlight-photo-wrap{position:absolute;inset:0 auto 0 0;width:60%;overflow:hidden;z-index:1;-webkit-mask-image:linear-gradient(to right,#000 58%,transparent 100%);mask-image:linear-gradient(to right,#000 58%,transparent 100%)}
+.agent-spotlight-photo-wrap::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to right,transparent 48%,rgba(10,25,47,.4) 100%)}
 .agent-spotlight-photo,.agent-spotlight-photo-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%}
 .agent-spotlight-photo{display:block;animation:agentKenBurns 12s ease-out forwards}
 .agent-spotlight-photo-fallback{display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:clamp(48px,8vw,96px);color:var(--gold);background:linear-gradient(165deg,var(--navy-lt) 0%,var(--navy) 100%)}
 @keyframes agentKenBurns{from{transform:scale(1)}to{transform:scale(1.08)}}
 @media(prefers-reduced-motion:reduce){.agent-spotlight-photo{animation:none}}
-.agent-spotlight-meta{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:clamp(20px,3vw,36px);max-width:720px}
+.agent-spotlight-meta{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:clamp(20px,3vw,36px);max-width:720px}
 .agent-spotlight-badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:5px 12px;margin-bottom:12px}
 .agent-spotlight-name{font-family:var(--font-display);font-size:clamp(22px,3.2vw,34px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:4px}
 .agent-spotlight-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
@@ -654,7 +657,10 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   .valuation-step-label{font-size:7px}
   .mortgage-panel{grid-template-columns:1fr}
   .mortgage-breakdown{grid-template-columns:1fr}
-  .agent-spotlight-frame{aspect-ratio:4/5}
+  .agent-spotlight-frame{aspect-ratio:auto;display:flex;flex-direction:column}
+  .agent-spotlight-photo-wrap{position:relative;inset:auto;width:100%;aspect-ratio:4/5;-webkit-mask-image:linear-gradient(to bottom,#000 62%,transparent 100%);mask-image:linear-gradient(to bottom,#000 62%,transparent 100%)}
+  .agent-spotlight-photo-wrap::after{background:linear-gradient(to bottom,transparent 48%,rgba(10,25,47,.4) 100%)}
+  .agent-spotlight-bg{position:relative;inset:auto;width:100%;aspect-ratio:16/9;margin-top:-18%}
   .search-row{grid-template-columns:1fr}
   .search-field{border-right:none;border-bottom:1px solid var(--gray-100)}
   .buyer-features{grid-template-columns:1fr}
@@ -1614,6 +1620,11 @@ const AGENT_PULL_QUOTES={
   'frederick-davis':"Clear communication and careful attention, from the first showing to the closing table."
 };
 
+const SPOTLIGHT_BG_IMAGES=[
+  'https://images.unsplash.com/photo-1758951995614-1a223f1512e4?w=1200&q=75&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1757359056339-22968344cce6?w=1200&q=75&auto=format&fit=crop'
+];
+
 /* ════════════════════════════════════════════════════════
    PROPERTY DATA — Decap CMS file content/properties.json
 ════════════════════════════════════════════════════════ */
@@ -2160,11 +2171,13 @@ function showSpotlight(index,restartTimer=true){
   if(!hero)return;
   const quote=AGENT_PULL_QUOTES[a.id]||'';
   const first=agentFirstName(a.name);
+  const bg=SPOTLIGHT_BG_IMAGES[spotlightIndex%2];
   const photo=a.headshot
     ? `<img class="agent-spotlight-photo" src="${escHtml(a.headshot)}" alt="${escHtml(a.name+(a.title?', '+a.title:''))}">`
     : `<div class="agent-spotlight-photo-fallback">${escHtml(a.initials||first.charAt(0))}</div>`;
   hero.innerHTML=`<div class="agent-spotlight-frame">
-      ${photo}
+      <div class="agent-spotlight-bg" style="background-image:url('${escHtml(bg)}')" aria-hidden="true"></div>
+      <div class="agent-spotlight-photo-wrap">${photo}</div>
       <div class="agent-spotlight-meta">
         <span class="agent-spotlight-badge">${escHtml(a.interest)}</span>
         <div class="agent-spotlight-name">${escHtml(a.name)}</div>
