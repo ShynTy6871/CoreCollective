@@ -1256,50 +1256,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     </div>
     <div class="testimonials-track-wrap" id="testimonials-track-wrap">
       <div class="testimonials-grid" id="testimonials-grid" role="list">
-        <article class="testimonial-card" role="listitem">
-          <div class="testimonial-stars" aria-label="5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <blockquote class="testimonial-text">"Marsha and the Core Collective team made selling our North Raleigh home an absolute breeze. Listed on Thursday, had seven offers by Sunday, and closed $68K above asking."</blockquote>
-          <div class="testimonial-author">
-            <div class="t-avatar" aria-hidden="true">JT</div>
-            <div>
-              <div class="t-name">James &amp; Tanya Morrison</div>
-              <span class="t-neighborhood">Sold in North Raleigh, NC</span>
-            </div>
-          </div>
-        </article>
-        <article class="testimonial-card" role="listitem">
-          <div class="testimonial-stars" aria-label="5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <blockquote class="testimonial-text">"As a first-time buyer navigating a brutal market, Sharon was invaluable. She knew every neighborhood, every listing before it went live, and fought hard for our family."</blockquote>
-          <div class="testimonial-author">
-            <div class="t-avatar" aria-hidden="true">AP</div>
-            <div>
-              <div class="t-name">Amara Patel</div>
-              <span class="t-neighborhood">Bought in Cary, NC</span>
-            </div>
-          </div>
-        </article>
-        <article class="testimonial-card" role="listitem">
-          <div class="testimonial-stars" aria-label="5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <blockquote class="testimonial-text">"Dexter helped me acquire three investment properties in 18 months. His market analysis is sharp, his network is exceptional, and his deal-making ability is second to none."</blockquote>
-          <div class="testimonial-author">
-            <div class="t-avatar" aria-hidden="true">RC</div>
-            <div>
-              <div class="t-name">Robert Chen</div>
-              <span class="t-neighborhood">Invested in Durham, NC</span>
-            </div>
-          </div>
-        </article>
-        <article class="testimonial-card" role="listitem">
-          <div class="testimonial-stars" aria-label="5 stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
-          <blockquote class="testimonial-text">"Sylvia guided us through a complex relocation from Chicago with zero stress. Her knowledge of Chapel Hill neighborhoods and school districts was exactly what we needed."</blockquote>
-          <div class="testimonial-author">
-            <div class="t-avatar" aria-hidden="true">KL</div>
-            <div>
-              <div class="t-name">Karen &amp; Luis Ortiz</div>
-              <span class="t-neighborhood">Bought in Chapel Hill, NC</span>
-            </div>
-          </div>
-        </article>
       </div>
     </div>
     <div class="testimonial-dots" id="testimonial-dots" aria-hidden="true"></div>
@@ -2385,7 +2341,21 @@ function renderNeighborhoods(items){
 
 function renderTestimonials(items){
   const el=document.getElementById('testimonials-grid');
-  if(!el||!items.length)return;
+  if(!el)return;
+  const prevBtn=document.getElementById('testimonial-prev');
+  const nextBtn=document.getElementById('testimonial-next');
+  if(!items.length){
+    el.innerHTML=`<div class="no-results">
+      <div class="no-results-icon">◎</div>
+      <div class="no-results-title">Client reviews coming soon.</div>
+      <p class="no-results-sub">We're gathering stories from our clients. Please check back shortly.</p>
+    </div>`;
+    if(prevBtn)prevBtn.style.display='none';
+    if(nextBtn)nextBtn.style.display='none';
+    return;
+  }
+  if(prevBtn)prevBtn.style.display='';
+  if(nextBtn)nextBtn.style.display='';
   el.innerHTML=items.map(t=>{
     const stars=Math.min(5,Math.max(1,t.stars||5));
     const starHtml=Array.from({length:stars},()=>'<span>★</span>').join('');
