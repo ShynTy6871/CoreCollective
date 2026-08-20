@@ -126,11 +126,11 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .menu-toggle span{display:block;width:24px;height:1.5px;background:var(--white);transition:transform .3s,opacity .3s}
 
 /* ─── HERO ─────────────────────────────────────────── */
-#hero{position:relative;height:100vh;min-height:700px;overflow:hidden;display:flex;align-items:flex-end;width:100%}
+#hero{position:relative;min-height:max(100vh,700px);overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;width:100%;box-sizing:border-box;padding-top:calc(var(--header-h) + 5rem)}
 .hero-bg{position:absolute;inset:0;background:linear-gradient(135deg,#0A192F 0%,#16324F 40%,#1a3a5c 100%);overflow:hidden}
 .hero-bg::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1800&q=80') center/cover no-repeat;opacity:.22}
 .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(10,25,47,.98) 0%,rgba(10,25,47,.55) 50%,rgba(10,25,47,.2) 100%)}
-.hero-content{position:relative;z-index:2;max-width:100%;width:100%;min-width:0;box-sizing:border-box;padding:calc(var(--header-h) + 1.5rem) clamp(1.5rem,4vw,5rem) 100px;overflow:hidden}
+.hero-content{position:relative;z-index:2;max-width:100%;width:100%;min-width:0;box-sizing:border-box;padding:0 clamp(1.5rem,4vw,5rem) 100px;overflow:hidden}
 .hero-eyebrow{font-size:10px;font-weight:500;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);margin-bottom:20px;display:flex;align-items:center;gap:16px;max-width:100%;flex-wrap:wrap}
 .hero-eyebrow::before{content:'';display:block;width:40px;height:1px;background:var(--gold);flex-shrink:0}
 .hero-headline-wrap{max-width:100%;padding:0 1.5rem;box-sizing:border-box;overflow:hidden}
@@ -662,7 +662,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   #site-header{padding:0 28px}
   .main-nav,.header-cta{display:none}
   .menu-toggle{display:flex}
-  .hero-content{padding:calc(var(--header-h) + 1rem) clamp(1.5rem,5vw,2rem) 120px}
+  .hero-content{padding:0 clamp(1.5rem,5vw,2rem) 120px}
   .hero-stats{position:relative;display:flex;flex-wrap:wrap}
   section{padding:64px 28px}
   #sellers{grid-template-columns:1fr}
