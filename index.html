@@ -171,6 +171,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .agent-spotlight-frame::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(10,25,47,.88) 0%,rgba(10,25,47,.28) 42%,transparent 72%);pointer-events:none}
 .agent-spotlight-bg{position:absolute;inset:0 0 0 40%;z-index:0;background-size:cover;background-position:center}
 .agent-spotlight-bg::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to right,var(--navy) 0%,transparent 28%)}
+.agent-spotlight-bg::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to bottom,var(--navy) 0%,transparent 18%),linear-gradient(to right,transparent 72%,var(--navy) 100%)}
 .agent-spotlight-photo-wrap{position:absolute;inset:0 auto 0 0;width:60%;overflow:hidden;z-index:1}
 .agent-spotlight-photo,.agent-spotlight-photo-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%}
 .agent-spotlight-photo{display:block;animation:agentKenBurns 12s ease-out forwards}
@@ -681,6 +682,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   .agent-spotlight-photo-wrap{position:relative;inset:auto;width:100%;aspect-ratio:4/5}
   .agent-spotlight-bg{position:relative;inset:auto;width:100%;aspect-ratio:16/9;margin-top:-18%}
   .agent-spotlight-bg::before{background:linear-gradient(to bottom,var(--navy) 0%,transparent 28%)}
+  .agent-spotlight-bg::after{background:linear-gradient(to bottom,var(--navy) 0%,transparent 16%),linear-gradient(to top,var(--navy) 0%,transparent 20%)}
   .search-row{grid-template-columns:1fr}
   .search-field{border-right:none;border-bottom:1px solid var(--gray-100)}
   .buyer-features{grid-template-columns:1fr}
@@ -1642,8 +1644,11 @@ const AGENT_PULL_QUOTES={
 };
 
 const SPOTLIGHT_BG_IMAGES=[
-  'https://images.unsplash.com/photo-1758951995614-1a223f1512e4?w=1200&q=75&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1598228723793-52759bba239c?w=1200&q=75&auto=format&fit=crop'
+  'https://images.unsplash.com/photo-1598228723793-52759bba239c?w=1200&q=75&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1756435292384-1bf32eff7baf?w=1200&q=75&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1561026554-29d9815d4f3d?w=1200&q=75&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?w=1200&q=75&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=1200&q=75&auto=format&fit=crop'
 ];
 
 /* ════════════════════════════════════════════════════════
@@ -2206,7 +2211,7 @@ function showSpotlight(index,restartTimer=true){
   if(!hero)return;
   const quote=AGENT_PULL_QUOTES[a.id]||'';
   const first=agentFirstName(a.name);
-  const bg=SPOTLIGHT_BG_IMAGES[spotlightIndex%2];
+  const bg=SPOTLIGHT_BG_IMAGES[spotlightIndex%SPOTLIGHT_BG_IMAGES.length];
   const photo=a.headshot
     ? `<img class="agent-spotlight-photo" src="${escHtml(a.headshot)}" alt="${escHtml(a.name+(a.title?', '+a.title:''))}">`
     : `<div class="agent-spotlight-photo-fallback">${escHtml(a.initials||first.charAt(0))}</div>`;
