@@ -67,7 +67,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .exit-modal-close:focus-visible,.agent-spotlight-thumb:focus-visible,.agent-spotlight-cta:focus-visible,.testimonial-nav-btn:focus-visible,
 .nav-link:focus-visible,.header-cta:focus-visible,.menu-toggle:focus-visible,
 .val-btn-next:focus-visible,.val-btn-back:focus-visible,.val-pill:focus-visible,
-.nhood-cta:focus-visible,.agent-profile-cta:focus-visible,.agent-profile-read-bio:focus-visible,.mobile-sticky-btn:focus-visible,
+.nhood-cta:focus-visible,.agent-profile-cta:focus-visible,.agent-profile-read-bio:focus-visible,.mobile-sticky-btn:focus-visible,.desktop-quick-btn:focus-visible,
 .blog-card:focus-visible,.blog-read-more:focus-visible,.blog-modal-close:focus-visible,.faq-question:focus-visible,.loc-pref-option input:focus-visible{
   outline:var(--focus-ring);outline-offset:var(--focus-offset);box-shadow:0 0 0 4px rgba(212,175,55,.28)
 }
@@ -721,6 +721,15 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 .mobile-sticky-btn.outline:hover{background:rgba(10,25,47,.04);transform:translateY(-4px)}
 .mobile-sticky-btn.filled{background:var(--gold);color:var(--navy);border:1px solid var(--gold)}
 .mobile-sticky-btn.filled:hover{background:var(--gold-lt);transform:translateY(-4px)}
+
+/* ─── DESKTOP QUICK RAIL ──────────────────────────── */
+#desktop-quick-rail{display:none;position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:997;flex-direction:column;gap:8px;opacity:0;pointer-events:none;transition:opacity .4s ease}
+.desktop-quick-btn{width:96px;padding:12px 8px;background:var(--navy);color:var(--gold);border:1px solid rgba(197,160,89,.45);font-size:9px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;text-align:center;line-height:1.35;box-shadow:0 8px 24px rgba(10,25,47,.22);transition:var(--lift)}
+.desktop-quick-btn:hover{background:var(--gold);color:var(--navy);border-color:var(--gold);transform:translateY(-4px)}
+@media(min-width:901px){
+  #desktop-quick-rail{display:flex}
+  #desktop-quick-rail.is-visible{opacity:1;pointer-events:auto}
+}
 
 @media(min-width:769px) and (max-width:1099px){
   .testimonials-track-wrap{overflow:hidden}
@@ -1432,6 +1441,12 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <button class="mobile-sticky-btn outline" onclick="scrollToSection('sellers')">What's My Home Worth?</button>
     <a class="mobile-sticky-btn filled" href="tel:+19193245134">Call / Text Us</a>
   </div>
+
+  <nav id="desktop-quick-rail" aria-label="Quick actions">
+    <a class="desktop-quick-btn" href="tel:+19193245134">Call / Text Us</a>
+    <button type="button" class="desktop-quick-btn" onclick="scrollToSection('sellers')">What's My Home Worth?</button>
+    <button type="button" class="desktop-quick-btn" onclick="scrollToSection('agent-matcher')">Find Your Agent</button>
+  </nav>
 </div>
 
 <!-- LISTING PAGE -->
@@ -1828,6 +1843,16 @@ window.addEventListener('scroll',()=>{
   const h=document.getElementById('site-header');
   if(!h.classList.contains('listing-header'))h.classList.toggle('scrolled',window.scrollY>80);
 },{passive:true});
+
+function updateDesktopQuickRail(){
+  const rail=document.getElementById('desktop-quick-rail');
+  const hero=document.getElementById('hero');
+  if(!rail)return;
+  const heroH=hero?hero.offsetHeight:0;
+  rail.classList.toggle('is-visible',window.scrollY>heroH);
+}
+window.addEventListener('scroll',updateDesktopQuickRail,{passive:true});
+updateDesktopQuickRail();
 
 /* ── SMOOTH SCROLL ───────────────────────────────────── */
 function scrollToSection(id,e){
