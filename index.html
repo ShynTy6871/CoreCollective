@@ -1684,7 +1684,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 const LOFTY_WEBHOOK_URL = "";
 
 /* ════════════════════════════════════════════════════════
-   PROPERTY DATA — Decap CMS files in content/properties/
+   PROPERTY DATA — Decap CMS file content/properties.json
 ════════════════════════════════════════════════════════ */
 let PROPERTIES = [];
 
@@ -1743,60 +1743,14 @@ function mapCMSProperty(entry, fallbackId){
   };
 }
 
-async function listPropertyFiles(){
-  const names=new Set();
-  try{
-    const dirRes=await fetch('content/properties/');
-    if(dirRes.ok){
-      const ct=dirRes.headers.get('content-type')||'';
-      if(ct.includes('json')){
-        const data=await dirRes.json();
-        const list=Array.isArray(data)?data:(data.properties||data.files||[]);
-        list.forEach(item=>{
-          if(typeof item==='string'){
-            const name=item.split('/').pop();
-            if(/\.json$/i.test(name)) names.add(name);
-          }else if(item&&item.name&&/\.json$/i.test(item.name)){
-            names.add(item.name);
-          }
-        });
-      }else{
-        const html=await dirRes.text();
-        for(const m of html.matchAll(/href=["']([^"'?#]+\.json)["']/gi)){
-          names.add(decodeURIComponent(m[1].split('/').pop()));
-        }
-      }
-    }
-  }catch(err){}
-  try{
-    const gh=await fetch('https://api.github.com/repos/ShynTy6871/CoreCollective/contents/content/properties');
-    if(gh.ok){
-      const items=await gh.json();
-      if(Array.isArray(items)){
-        items.forEach(item=>{
-          if(item&&item.type==='file'&&/\.json$/i.test(item.name)) names.add(item.name);
-        });
-      }
-    }
-  }catch(err){}
-  return [...names].filter(n=>n&&n.toLowerCase()!=='index.json');
-}
-
 async function loadProperties(){
   let mapped=[];
   try{
-    const files=await listPropertyFiles();
-    const loaded=await Promise.all(files.map(async name=>{
-      try{
-        const res=await fetch('content/properties/'+encodeURIComponent(name));
-        if(!res.ok) return null;
-        const data=await res.json();
-        return mapCMSProperty(data, name.replace(/\.json$/i,''));
-      }catch(err){
-        return null;
-      }
-    }));
-    mapped=loaded.filter(Boolean);
+    const res=await fetch('content/properties.json');
+    if(res.ok){
+      const data=await res.json();
+      mapped=(data.properties||[]).map((entry,i)=>mapCMSProperty(entry, 'p'+i));
+    }
   }catch(err){
     console.warn('Property listings load skipped:',err);
   }
