@@ -170,8 +170,8 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .agent-spotlight-frame:hover{border-color:rgba(197,160,89,.7);box-shadow:0 12px 40px rgba(197,160,89,.18)}
 .agent-spotlight-frame::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(10,25,47,.88) 0%,rgba(10,25,47,.28) 42%,transparent 72%);pointer-events:none}
 .agent-spotlight-bg{position:absolute;inset:0 0 0 40%;z-index:0;background-size:cover;background-position:center}
-.agent-spotlight-photo-wrap{position:absolute;inset:0 auto 0 0;width:60%;overflow:hidden;z-index:1;-webkit-mask-image:linear-gradient(to right,#000 58%,transparent 100%);mask-image:linear-gradient(to right,#000 58%,transparent 100%)}
-.agent-spotlight-photo-wrap::after{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to right,transparent 48%,rgba(10,25,47,.4) 100%)}
+.agent-spotlight-bg::before{content:'';position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(to right,var(--navy) 0%,transparent 28%)}
+.agent-spotlight-photo-wrap{position:absolute;inset:0 auto 0 0;width:60%;overflow:hidden;z-index:1}
 .agent-spotlight-photo,.agent-spotlight-photo-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%}
 .agent-spotlight-photo{display:block;animation:agentKenBurns 12s ease-out forwards}
 .agent-spotlight-photo-fallback{display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:clamp(48px,8vw,96px);color:var(--gold);background:linear-gradient(165deg,var(--navy-lt) 0%,var(--navy) 100%)}
@@ -678,9 +678,9 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   .mortgage-panel{grid-template-columns:1fr}
   .mortgage-breakdown{grid-template-columns:1fr}
   .agent-spotlight-frame{aspect-ratio:auto;display:flex;flex-direction:column}
-  .agent-spotlight-photo-wrap{position:relative;inset:auto;width:100%;aspect-ratio:4/5;-webkit-mask-image:linear-gradient(to bottom,#000 62%,transparent 100%);mask-image:linear-gradient(to bottom,#000 62%,transparent 100%)}
-  .agent-spotlight-photo-wrap::after{background:linear-gradient(to bottom,transparent 48%,rgba(10,25,47,.4) 100%)}
+  .agent-spotlight-photo-wrap{position:relative;inset:auto;width:100%;aspect-ratio:4/5}
   .agent-spotlight-bg{position:relative;inset:auto;width:100%;aspect-ratio:16/9;margin-top:-18%}
+  .agent-spotlight-bg::before{background:linear-gradient(to bottom,var(--navy) 0%,transparent 28%)}
   .search-row{grid-template-columns:1fr}
   .search-field{border-right:none;border-bottom:1px solid var(--gray-100)}
   .buyer-features{grid-template-columns:1fr}
@@ -1643,7 +1643,7 @@ const AGENT_PULL_QUOTES={
 
 const SPOTLIGHT_BG_IMAGES=[
   'https://images.unsplash.com/photo-1758951995614-1a223f1512e4?w=1200&q=75&auto=format&fit=crop',
-  'https://images.unsplash.com/photo-1757359056339-22968344cce6?w=1200&q=75&auto=format&fit=crop'
+  'https://images.unsplash.com/photo-1598228723793-52759bba239c?w=1200&q=75&auto=format&fit=crop'
 ];
 
 /* ════════════════════════════════════════════════════════
