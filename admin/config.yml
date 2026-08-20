@@ -51,6 +51,20 @@ collections:
                 widget: select
                 options: ["Seller", "Buyer", "Investor"]
                 default: Buyer
+              - label: "Specialties"
+                name: "specialties"
+                widget: "select"
+                multiple: true
+                required: false
+                options:
+                  - "First-Time Buyers"
+                  - "Luxury / Move-Up Homes"
+                  - "Investment Properties"
+                  - "Military & PCS Relocation"
+                  - "New Construction"
+                  - "Relocation"
+                  - "Listing / Seller Strategy"
+                  - "Down Payment Assistance / Grants"
 
   - name: neighborhoods
     label: Neighborhood Cards
