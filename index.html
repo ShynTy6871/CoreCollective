@@ -162,11 +162,12 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
 
 /* ─── AGENT SPOTLIGHT ──────────────────────────────── */
-#cinematic-media{background:var(--navy);padding:clamp(64px,8vw,100px) clamp(1.5rem,4vw,5rem);overflow:hidden}
-#cinematic-media .section-title{color:var(--white)}
-#cinematic-media .section-sub{color:var(--text-on-dark-secondary);max-width:560px}
+#team{background:var(--navy);padding:clamp(64px,8vw,100px) clamp(1.5rem,4vw,5rem);overflow:hidden}
+#team .section-title{color:var(--white)}
+#team .section-sub{color:var(--text-on-dark-secondary);max-width:560px}
 .agent-spotlight-hero{margin-top:48px}
-.agent-spotlight-frame{position:relative;aspect-ratio:21/9;overflow:hidden;background:var(--navy-lt);border:1px solid rgba(197,160,89,.3)}
+.agent-spotlight-frame{position:relative;aspect-ratio:21/9;overflow:hidden;background:var(--navy-lt);border:1px solid rgba(197,160,89,.3);cursor:pointer;transition:border-color .25s,box-shadow .25s}
+.agent-spotlight-frame:hover{border-color:rgba(197,160,89,.7);box-shadow:0 12px 40px rgba(197,160,89,.18)}
 .agent-spotlight-frame::after{content:'';position:absolute;inset:0;z-index:2;background:linear-gradient(to top,rgba(10,25,47,.88) 0%,rgba(10,25,47,.28) 42%,transparent 72%);pointer-events:none}
 .agent-spotlight-bg{position:absolute;inset:0 0 0 40%;z-index:0;background-size:cover;background-position:center}
 .agent-spotlight-photo-wrap{position:absolute;inset:0 auto 0 0;width:60%;overflow:hidden;z-index:1;-webkit-mask-image:linear-gradient(to right,#000 58%,transparent 100%);mask-image:linear-gradient(to right,#000 58%,transparent 100%)}
@@ -859,7 +860,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <div class="scroll-cue" aria-hidden="true"><span>Scroll</span><div class="scroll-line"></div></div>
   </section>
 
-  <section id="cinematic-media" aria-labelledby="cinematic-title">
+  <section id="team" aria-labelledby="cinematic-title">
     <div class="section-eyebrow">Meet the Team</div>
     <h2 class="section-title" id="cinematic-title">The People Behind <em>Your Move</em></h2>
     <p class="section-sub">Six local agents, ready to guide you from first showing to closing day.</p>
@@ -1266,80 +1267,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <h2 class="section-title" id="faq-title">Frequently <em>Asked</em></h2>
     <p class="section-sub">Common questions about buying, selling, and relocating with Core Collective across the Triangle and Eastern North Carolina.</p>
     <div class="faq-list" id="cms-faqs" role="list"></div>
-  </section>
-
-  <section id="team" aria-labelledby="team-title">
-    <div class="section-eyebrow">The Team</div>
-    <h2 class="section-title" id="team-title">Meet Our <em>Agents</em></h2>
-    <p class="section-sub">Six dedicated professionals with deep Triangle market expertise — each bringing a distinct specialty to your buying, selling, or investment journey.</p>
-    <div class="agent-profiles-grid" id="cms-agents" role="list">
-      <article class="agent-profile-card" role="listitem">
-        <div class="agent-profile-photo" aria-hidden="true">
-          <div class="agent-profile-headshot">MW</div>
-        </div>
-        <div class="agent-profile-body">
-          <h3 class="agent-profile-name">Marsha Watson</h3>
-          <p class="agent-profile-role">Realtor, Team Lead</p>
-          <p class="agent-profile-bio">Marsha Watson is a North Carolina REALTOR® with eXp Realty and the team lead of Core Collective Real Estate.</p>
-          <button class="agent-profile-cta" onclick="openAgentConsultation('marsha-watson')">Schedule Consultation</button>
-        </div>
-      </article>
-      <article class="agent-profile-card" role="listitem">
-        <div class="agent-profile-photo" aria-hidden="true">
-          <div class="agent-profile-headshot">SM</div>
-        </div>
-        <div class="agent-profile-body">
-          <h3 class="agent-profile-name">Sharon McDuffie</h3>
-          <p class="agent-profile-role">Realtor</p>
-          <p class="agent-profile-bio">Sharon Burwell McDuffie is a dedicated real estate professional with Core Collective Real Estate Group, known for her steady guidance, client‑centered approach, and deep commitment to helping individuals and families find places where their lives can truly flourish.</p>
-          <button class="agent-profile-cta" onclick="openAgentConsultation('sharon-mcduffie')">Schedule Consultation</button>
-        </div>
-      </article>
-      <article class="agent-profile-card" role="listitem">
-        <div class="agent-profile-photo" aria-hidden="true">
-          <div class="agent-profile-headshot">STW</div>
-        </div>
-        <div class="agent-profile-body">
-          <h3 class="agent-profile-name">Sylvia T. Wheeler</h3>
-          <p class="agent-profile-role">Realtor</p>
-          <p class="agent-profile-bio">I’m Sylvia T. Wheeler, your trusted Realtor in Wake County, North Carolina.</p>
-          <button class="agent-profile-cta" onclick="openAgentConsultation('sylvia-wheeler')">Schedule Consultation</button>
-        </div>
-      </article>
-      <article class="agent-profile-card" role="listitem">
-        <div class="agent-profile-photo" aria-hidden="true">
-          <div class="agent-profile-headshot">DD</div>
-        </div>
-        <div class="agent-profile-body">
-          <h3 class="agent-profile-name">Dexter Drayton</h3>
-          <p class="agent-profile-role">Realtor</p>
-          <p class="agent-profile-bio">Dexter partners with investors to identify high-yield assets across the Triangle — combining sharp financial analysis with an unmatched off-market deal pipeline.</p>
-          <button class="agent-profile-cta" onclick="openAgentConsultation('dexter-drayton')">Schedule Consultation</button>
-        </div>
-      </article>
-      <article class="agent-profile-card" role="listitem">
-        <div class="agent-profile-photo" aria-hidden="true">
-          <div class="agent-profile-headshot">JW</div>
-        </div>
-        <div class="agent-profile-body">
-          <h3 class="agent-profile-name">Jennifer "Jenie" Wiggins</h3>
-          <p class="agent-profile-role">Realtor</p>
-          <p class="agent-profile-bio">As a member of the Core Collective Real Estate Team with eXp Realty, Jennifer is committed to helping buyers and sellers navigate the real estate process with clarity, care, and confidence.</p>
-          <button class="agent-profile-cta" onclick="openAgentConsultation('jennifer-wiggins')">Schedule Consultation</button>
-        </div>
-      </article>
-      <article class="agent-profile-card" role="listitem">
-        <div class="agent-profile-photo" aria-hidden="true">
-          <div class="agent-profile-headshot">FD</div>
-        </div>
-        <div class="agent-profile-body">
-          <h3 class="agent-profile-name">Frederick Davis</h3>
-          <p class="agent-profile-role">Realtor</p>
-          <p class="agent-profile-bio">Frederick Davis is a REALTOR® with Core Collective Real Estate, proudly serving the Raleigh, NC metro area with eXp Realty.</p>
-          <button class="agent-profile-cta" onclick="openAgentConsultation('frederick-davis')">Schedule Consultation</button>
-        </div>
-      </article>
-    </div>
   </section>
 
   <div id="contact-strip" role="complementary">
@@ -2136,7 +2063,7 @@ function showSpotlight(index,restartTimer=true){
   const photo=a.headshot
     ? `<img class="agent-spotlight-photo" src="${escHtml(a.headshot)}" alt="${escHtml(a.name+(a.title?', '+a.title:''))}">`
     : `<div class="agent-spotlight-photo-fallback">${escHtml(a.initials||first.charAt(0))}</div>`;
-  hero.innerHTML=`<div class="agent-spotlight-frame">
+  hero.innerHTML=`<div class="agent-spotlight-frame" role="button" tabindex="0" aria-label="Read full bio for ${escHtml(a.name)}" onclick='openAgentBio(${JSON.stringify(a.id)})' onkeydown='if(event.target!==this)return;if(event.key==="Enter"||event.key===" "){event.preventDefault();openAgentBio(${JSON.stringify(a.id)})}'>
       <div class="agent-spotlight-bg" style="background-image:url('${escHtml(bg)}')" aria-hidden="true"></div>
       <div class="agent-spotlight-photo-wrap">${photo}</div>
       <div class="agent-spotlight-meta">
@@ -2144,7 +2071,7 @@ function showSpotlight(index,restartTimer=true){
         <div class="agent-spotlight-name">${escHtml(a.name)}</div>
         <div class="agent-spotlight-role">${escHtml(a.title)}</div>
         ${quote?`<p class="agent-spotlight-quote"><em>${escHtml(quote)}</em></p>`:''}
-        <button type="button" class="agent-spotlight-cta" onclick='openAgentConsultation(${JSON.stringify(a.id)})'>Schedule with ${escHtml(first)}</button>
+        <button type="button" class="agent-spotlight-cta" onclick='event.stopPropagation();openAgentConsultation(${JSON.stringify(a.id)})'>Schedule with ${escHtml(first)}</button>
       </div>
     </div>`;
   if(strip){
@@ -2374,34 +2301,13 @@ function renderTestimonials(items){
 }
 
 function renderAgents(items){
-  const el=document.getElementById('cms-agents');
-  if(!el||!items.length)return;
+  if(!items.length)return;
   const routes={};
-  el.innerHTML=items.map(a=>{
+  items.forEach(a=>{
     const id=a.agent_id||a.name.toLowerCase().replace(/\s+/g,'-');
-    const tags=(a.focus_tags||[]).map(t=>{
-      const text=typeof t==='string'?t:t.tag;
-      return `<span class="agent-profile-tag">${escHtml(text)}</span>`;
-    }).join('');
     const expertise=(a.focus_tags||[]).map(t=>typeof t==='string'?t:t.tag).join(' · ');
     routes[id]={name:a.name,role:a.title,bio:a.bio,interest:a.interest||'Buyer',expertise,phone:a.phone,email:a.email,license:a.license};
-    const headshot=a.headshot
-      ? `<div class="agent-profile-headshot has-photo"><img src="${escHtml(a.headshot)}" alt="${escHtml(a.name+(a.title?', '+a.title:''))}"></div>`
-      : `<div class="agent-profile-headshot" aria-hidden="true">${escHtml(a.initials)}</div>`;
-    const license=a.license?`<p class="agent-profile-license">NC License #${escHtml(a.license)}</p>`:'';
-    return `<article class="agent-profile-card" role="listitem">
-      <div class="agent-profile-photo" aria-hidden="true">${headshot}</div>
-      <div class="agent-profile-body">
-        <h3 class="agent-profile-name">${escHtml(a.name)}</h3>
-        <p class="agent-profile-role">${escHtml(a.title)}</p>
-        ${license}
-        <div class="agent-profile-expertise">${tags}</div>
-        <p class="agent-profile-bio">${escHtml(a.bio)}</p>
-        <button type="button" class="agent-profile-read-bio" onclick='openAgentBio(${JSON.stringify(id)})'>Read Full Bio →</button>
-        <button class="agent-profile-cta" onclick='openAgentConsultation(${JSON.stringify(id)})'>Schedule Consultation</button>
-      </div>
-    </article>`;
-  }).join('');
+  });
   AGENT_ROUTES={...AGENT_ROUTES,...routes};
   renderAgentSpotlight(items, routes);
 }
