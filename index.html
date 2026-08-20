@@ -1717,7 +1717,7 @@ async function loadProperties(){
     const res=await fetch('content/properties.json');
     if(res.ok){
       const data=await res.json();
-      mapped=(data.properties||[]).map((entry,i)=>mapCMSProperty(entry, 'p'+i));
+      mapped=(data.properties||[]).filter(entry=>!entry.pending_approval).map((entry,i)=>mapCMSProperty(entry, 'p'+i));
     }
   }catch(err){
     console.warn('Property listings load skipped:',err);
@@ -2439,6 +2439,7 @@ function renderNeighborhoods(items){
 function renderTestimonials(items){
   const el=document.getElementById('testimonials-grid');
   if(!el)return;
+  items=(items||[]).filter(t=>!t.pending_approval);
   const prevBtn=document.getElementById('testimonial-prev');
   const nextBtn=document.getElementById('testimonial-next');
   if(!items.length){
