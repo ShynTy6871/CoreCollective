@@ -2114,10 +2114,11 @@ async function submitForm(){
   if(!name){showFormStatus('error','Please enter your full name.');document.getElementById('f-name').focus();return;}
   if(!email||!email.includes('@')){showFormStatus('error','Please enter a valid email address.');document.getElementById('f-email').focus();return;}
 
+  const agentName=agentRoute?AGENT_ROUTES[agentRoute]?.name:null;
   const payload={
-    source:'Core Collective Website',
+    source:agentName?`Core Collective Website — Agent Request: ${agentName}`:'Core Collective Website',
     timestamp:new Date().toISOString(),
-    lead:{fullName:name,email,phone,interest,message,locationPreferences,agentRoute:agentRoute||null,assignedAgent:agentRoute?AGENT_ROUTES[agentRoute]?.name:null}
+    lead:{fullName:name,email,phone,interest,message,locationPreferences,agentRoute:agentRoute||null,assignedAgent:agentName}
   };
 
   btn.disabled=true;btn.textContent='Sending…';
