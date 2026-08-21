@@ -52,6 +52,7 @@ exports.handler = async (event) => {
     firstName,
     lastName,
     email,
+    phone,
     source: source || 'Core Collective Website',
     notes
   };
