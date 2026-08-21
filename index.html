@@ -1625,15 +1625,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 </div>
 
 <script>
-/* ════════════════════════════════════════════════════════
-   UPGRADE 4b — LOFTY CRM WEBHOOK URL
-   Paste your unique Lofty webhook URL between the quotes.
-   Example: "https://app.loftymls.com/api/webhook/YOUR_KEY"
-   Leave empty ("") while testing — a polished confirmation
-   message displays instead until the URL is configured.
-════════════════════════════════════════════════════════ */
-const LOFTY_WEBHOOK_URL = "";
-
 const AGENT_PULL_QUOTES={
   'sylvia-wheeler':"A trusted guide through Wake County, backed by a background in mortgage underwriting.",
   'dexter-drayton':"Sharp financial analysis, paired with an off-market pipeline other investors don't see.",
@@ -2058,23 +2049,17 @@ async function submitValuationForm(){
   statusEl.className='val-status';
   statusEl.textContent='';
 
-  if(LOFTY_WEBHOOK_URL){
-    try{
-      const res=await fetch(LOFTY_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-      if(!res.ok)throw new Error('HTTP '+res.status);
-      statusEl.className='val-status success show';
-      statusEl.textContent=`Thank you, ${name}! Your market analysis will arrive at ${email} within 24 hours.`;
-      resetValuationForm();
-    }catch(err){
-      statusEl.className='val-status error show';
-      statusEl.textContent='There was a problem submitting your request. Please call us at (919) 324-5134.';
-      btn.disabled=false;
-      btn.textContent='Get My Report →';
-    }
-  }else{
+  try{
+    const res=await fetch('/.netlify/functions/submit-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!res.ok)throw new Error('HTTP '+res.status);
     statusEl.className='val-status success show';
     statusEl.textContent=`Thank you, ${name}! Your market analysis will arrive at ${email} within 24 hours.`;
     resetValuationForm();
+  }catch(err){
+    statusEl.className='val-status error show';
+    statusEl.textContent='There was a problem submitting your request. Please call us at (919) 324-5134.';
+    btn.disabled=false;
+    btn.textContent='Get My Report →';
   }
 }
 
@@ -2090,12 +2075,7 @@ function resetValuationForm(){
 }
 
 /* ════════════════════════════════════════════════════════
-   UPGRADE 4a: FORM SUBMIT → LOFTY CRM WEBHOOK (Fetch API)
-   1. Validates name and email.
-   2. Builds a structured JSON payload.
-   3. POSTs to LOFTY_WEBHOOK_URL via fetch().
-   4. Shows a polished success or error status message.
-   (If LOFTY_WEBHOOK_URL is empty, shows confirmation only.)
+   FORM SUBMIT → /.netlify/functions/submit-lead (Lofty CRM)
 ════════════════════════════════════════════════════════ */
 async function submitForm(){
   const name    =document.getElementById('f-name').value.trim();
@@ -2118,21 +2098,14 @@ async function submitForm(){
 
   btn.disabled=true;btn.textContent='Sending…';
 
-  if(LOFTY_WEBHOOK_URL){
-    try{
-      const res=await fetch(LOFTY_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-      if(!res.ok)throw new Error('HTTP '+res.status);
-      showFormStatus('success',`Thank you, ${name}! We will be in touch at ${email} within 24 hours.`);
-      clearForm();
-    }catch(err){
-      showFormStatus('error','There was a problem submitting your request. Please call us at (919) 324-5134.');
-      btn.disabled=false;btn.textContent='Submit Inquiry';
-    }
-  }else{
-    /* No webhook configured yet — show polished confirmation.
-       Remove this else block once LOFTY_WEBHOOK_URL is set.  */
-    showFormStatus('success',`Thank you, ${name}! A Core Collective agent will reach out to ${email} within 24 hours.`);
+  try{
+    const res=await fetch('/.netlify/functions/submit-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    showFormStatus('success',`Thank you, ${name}! We will be in touch at ${email} within 24 hours.`);
     clearForm();
+  }catch(err){
+    showFormStatus('error','There was a problem submitting your request. Please call us at (919) 324-5134.');
+    btn.disabled=false;btn.textContent='Submit Inquiry';
   }
 }
 
@@ -2950,27 +2923,19 @@ async function submitExitModal(){
   btn.textContent='Sending…';
   statusEl.className='exit-modal-status';
   statusEl.textContent='';
-  if(LOFTY_WEBHOOK_URL){
-    try{
-      const res=await fetch(LOFTY_WEBHOOK_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-      if(!res.ok)throw new Error('HTTP '+res.status);
-      statusEl.className='exit-modal-status success show';
-      statusEl.textContent='Thank you! Your report will arrive at '+email+' shortly.';
-      document.getElementById('exit-email').value='';
-      document.querySelectorAll('input[name="exit-loc-pref"]').forEach(el=>{el.checked=false});
-      setTimeout(closeExitModal,2500);
-    }catch(err){
-      statusEl.className='exit-modal-status error show';
-      statusEl.textContent='Something went wrong. Please try again or call (919) 324-5134.';
-      btn.disabled=false;
-      btn.textContent='Download Free Report →';
-    }
-  }else{
+  try{
+    const res=await fetch('/.netlify/functions/submit-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!res.ok)throw new Error('HTTP '+res.status);
     statusEl.className='exit-modal-status success show';
     statusEl.textContent='Thank you! Your report will arrive at '+email+' shortly.';
     document.getElementById('exit-email').value='';
     document.querySelectorAll('input[name="exit-loc-pref"]').forEach(el=>{el.checked=false});
     setTimeout(closeExitModal,2500);
+  }catch(err){
+    statusEl.className='exit-modal-status error show';
+    statusEl.textContent='Something went wrong. Please try again or call (919) 324-5134.';
+    btn.disabled=false;
+    btn.textContent='Download Free Report →';
   }
 }
 
