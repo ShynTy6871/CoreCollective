@@ -420,6 +420,10 @@ section{padding:100px 80px}
 
 /* ─── INVESTORS ───────────────────────────────────── */
 #investors{background:var(--white)}
+#military-relocation{background:var(--off-white)}
+#financing-resources{background:var(--white)}
+#military-relocation .investor-text p,#financing-resources .investor-text p{margin:0 0 1.1em}
+#military-relocation .investor-text a,#financing-resources .investor-text a{color:var(--navy);font-weight:500;text-decoration:underline;text-underline-offset:3px}
 .investor-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;margin-top:56px;align-items:start}
 .investor-philosophy{font-family:var(--font-serif);font-size:22px;font-style:italic;color:var(--navy);line-height:1.6;border-left:3px solid var(--gold);padding-left:28px;margin-bottom:32px}
 .investor-text{font-size:14px;font-weight:300;color:var(--gray-500);line-height:1.8;margin-bottom:28px}
@@ -804,7 +808,8 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
         <a href="#" onclick="navFilter('all');return false;">Property Search</a>
         <a href="#" onclick="scrollToSection('buyers',event)">Buyer's Guide</a>
         <a href="#" onclick="scrollToSection('mortgage-calculator',event);return false;">Mortgage Calculator</a>
-        <a href="#" onclick="openModal();return false;">Relocation Services</a>
+        <a href="#" onclick="scrollToSection('military-relocation',event)">Relocation Services</a>
+        <a href="#" onclick="scrollToSection('financing-resources',event)">Financing Resources</a>
       </div>
     </div>
     <div class="nav-item">
@@ -1353,6 +1358,37 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
           <div class="metric-card" role="listitem"><div class="metric-card-label">Avg. Rent Growth</div><div class="metric-card-val">8.7%</div><div class="metric-card-chg">▲ 3-Year CAGR</div></div>
         </div>
       </div>
+    </div>
+  </section>
+
+  <section id="military-relocation" aria-labelledby="military-title">
+    <div class="reveal-on-scroll">
+    <div class="section-eyebrow">For Military Families</div>
+    <h2 class="section-title" id="military-title">Military &amp; <em>PCS Relocation</em></h2>
+    <p class="section-sub">A PCS move runs on a different timeline than a typical home search. Our team helps you move efficiently, without cutting corners.</p>
+    </div>
+    <div class="investor-text" style="max-width:900px;margin:32px auto 0">
+      <p>Permanent Change of Station orders often compress months of house-hunting into a single trip. Marsha Watson, our team lead, holds a Military Relocation Professional (MRP) certification and works specifically with service members navigating this exact timeline — coordinating showings around leave schedules, pre-screening listings before you arrive, and helping you move quickly without skipping the diligence that protects you.</p>
+      <p>Our service area includes Goldsboro, home to Seymour Johnson Air Force Base and the 4th Fighter Wing — real, local experience with the base community, not just a general familiarity with military moves.</p>
+      <p>We help eligible buyers understand VA loan benefits specifically: no down payment requirement, no private mortgage insurance, and guidance on rolling the funding fee into your loan. <a href="#" onclick="scrollToSection('blog',event)">Read our full PCS move guide on the blog</a> for a step-by-step breakdown.</p>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <button class="form-submit" style="max-width:320px" onclick="openAgentConsultation('marsha-watson')">Schedule with Marsha</button>
+    </div>
+  </section>
+
+  <section id="financing-resources" aria-labelledby="financing-resources-title">
+    <div class="reveal-on-scroll">
+    <div class="section-eyebrow">Homebuyer Resources</div>
+    <h2 class="section-title" id="financing-resources-title">Understanding <em>Your Options</em></h2>
+    <p class="section-sub">Financing a home involves more moving pieces than most buyers expect. Here's where to start.</p>
+    </div>
+    <div class="investor-text" style="max-width:900px;margin:32px auto 0">
+      <p>Most buyers don't need a full 20% down payment — several loan programs allow for far less, and real down payment assistance programs exist to help close the gap further. Our <a href="#" onclick="scrollToSection('blog',event)">blog</a> covers this in detail, including a breakdown of NC-specific assistance programs, what closing costs actually include, and how your credit score affects your rate.</p>
+      <p>Once you have a sense of your options, use our <a href="#" onclick="scrollToSection('mortgage-calculator',event)">mortgage calculator</a> to model a real monthly payment based on your numbers.</p>
+    </div>
+    <div style="text-align:center;margin-top:32px">
+      <button class="form-submit" style="max-width:320px" onclick="openModal()">Talk to an Advisor</button>
     </div>
   </section>
 
