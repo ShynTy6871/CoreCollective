@@ -1,6 +1,19 @@
 {
   "neighborhoods": [
     {
+      "name": "Raleigh",
+      "median_price": "$450K",
+      "description": "North Carolina's capital and the anchor of the Triangle region — a major job market, top-ranked schools, and a genuine mix of historic and new-construction inventory.",
+      "highlights": [
+        { "highlight": "Home to Research Triangle Park and a major tech and biotech job market" },
+        { "highlight": "Wake County's largest school district, with over 180 public, private, and charter schools" },
+        { "highlight": "A true range of inventory — from historic Five Points bungalows to new downtown high-rises" }
+      ],
+      "cover_photo": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80",
+      "cover_alt": "Raleigh downtown skyline at dusk",
+      "order": 0
+    },
+    {
       "name": "Wendell",
       "median_price": "$379K",
       "description": "One of the fastest-growing towns in North Carolina, with newer housing stock, small-town charm, and a historic Main Street.",
