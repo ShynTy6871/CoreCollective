@@ -1,56 +1,82 @@
 {
   "neighborhoods": [
     {
-      "name": "Downtown Raleigh",
-      "median_price": "$625K",
-      "description": "Urban luxury living steps from award-winning dining, the Warehouse District, and Red Hat Amphitheater.",
+      "name": "Wendell",
+      "median_price": "$379K",
+      "description": "One of the fastest-growing towns in North Carolina, with newer housing stock, small-town charm, and a historic Main Street.",
       "highlights": [
-        { "highlight": "Walk Score 88 · Vibrant nightlife & arts scene" },
-        { "highlight": "New luxury high-rise and loft conversions" },
-        { "highlight": "5-min access to Glenwood South & Moore Square" }
+        { "highlight": "Population up 114% since 2020 — fastest growth in NC" },
+        { "highlight": "Newest housing stock of any town in the state" },
+        { "highlight": "Historic downtown with an active Main Street district" }
       ],
-      "cover_photo": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=800&q=80",
-      "cover_alt": "Downtown Raleigh skyline",
+      "cover_photo": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
+      "cover_alt": "Wendell NC home",
       "order": 1
     },
     {
-      "name": "North Hills",
-      "median_price": "$875K",
-      "description": "Raleigh's premier mixed-use enclave — designer boutiques, fine dining, and estate-caliber residences.",
+      "name": "Zebulon",
+      "median_price": "$320K",
+      "description": "A historic railroad town turned Wake County growth story, sitting right at the crossroads of Highways 64 and 264.",
       "highlights": [
-        { "highlight": "Midtown's walkable luxury retail corridor" },
-        { "highlight": "Top-rated schools & country club access" },
-        { "highlight": "Custom builds & gated estate communities" }
+        { "highlight": "Population up 82% since 2020 — 2nd-fastest in NC" },
+        { "highlight": "Direct access to Raleigh via US-64" },
+        { "highlight": "Recently awarded $2.1M+ for new community park development" }
       ],
-      "cover_photo": "https://images.unsplash.com/photo-1605276374101-de4c0a5a9622?w=800&q=80",
-      "cover_alt": "North Hills luxury shopping district",
+      "cover_photo": "https://images.unsplash.com/photo-1598228723793-52759bba239c?w=800&q=80",
+      "cover_alt": "Zebulon NC home",
       "order": 2
     },
     {
-      "name": "Cary",
-      "median_price": "$725K",
-      "description": "Family-forward sophistication with master-planned communities, top schools, and RTP commuter convenience.",
+      "name": "Garner",
+      "median_price": "$397K",
+      "description": "A Wake County value leader just south of Raleigh, with strong new-construction inventory and a revitalizing historic downtown.",
       "highlights": [
-        { "highlight": "Preston, Lochmere & MacGregor Downs estates" },
-        { "highlight": "A+ rated Wake County schools" },
-        { "highlight": "15-min commute to Research Triangle Park" }
+        { "highlight": "Population up 38% since 2020" },
+        { "highlight": "Home to Amazon's 2.6M-square-foot fulfillment center" },
+        { "highlight": "10–20 minutes to downtown Raleigh" }
       ],
-      "cover_photo": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80",
-      "cover_alt": "Cary luxury home",
+      "cover_photo": "https://images.unsplash.com/photo-1756435292384-1bf32eff7baf?w=800&q=80",
+      "cover_alt": "Garner NC home",
       "order": 3
     },
     {
-      "name": "Wake Forest",
-      "median_price": "$585K",
-      "description": "Expansive acreage, equestrian properties, and new-construction luxury in one of the Triangle's fastest-growing corridors.",
+      "name": "Four Oaks",
+      "median_price": "$253K",
+      "description": "A close-knit Johnston County town offering genuine affordability and small-town character, with easy access to the wider Triangle region.",
       "highlights": [
-        { "highlight": "1+ acre estate lots & custom builders" },
-        { "highlight": "Historic downtown charm meets new growth" },
-        { "highlight": "Strong appreciation & inventory diversity" }
+        { "highlight": "Population up 36% since 2020" },
+        { "highlight": "Among the most affordable towns in the region" },
+        { "highlight": "Historic Commercial District listed on the National Register of Historic Places" }
       ],
       "cover_photo": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&q=80",
-      "cover_alt": "Wake Forest estate home",
+      "cover_alt": "Four Oaks NC home",
       "order": 4
+    },
+    {
+      "name": "Rocky Mount",
+      "median_price": "$205K",
+      "description": "An established Nash/Edgecombe County hub along I-95, offering real affordability and a stable, historic community.",
+      "highlights": [
+        { "highlight": "Home prices up 9% year-over-year" },
+        { "highlight": "Historic Rocky Mount Mills district with shops, dining, and events" },
+        { "highlight": "Direct I-95 access to the entire East Coast corridor" }
+      ],
+      "cover_photo": "https://images.unsplash.com/photo-1561026554-29d9815d4f3d?w=800&q=80",
+      "cover_alt": "Rocky Mount NC home",
+      "order": 5
+    },
+    {
+      "name": "Goldsboro",
+      "median_price": "$228K",
+      "description": "A Wayne County community anchored by Seymour Johnson Air Force Base, offering strong affordability for military families and civilians alike.",
+      "highlights": [
+        { "highlight": "Home to Seymour Johnson AFB's 4th Fighter Wing" },
+        { "highlight": "Cost of living roughly 22% below the national average" },
+        { "highlight": "Cliffs of the Neuse State Park just 15 minutes away" }
+      ],
+      "cover_photo": "https://images.unsplash.com/photo-1591474200742-8e512e6f98f8?w=800&q=80",
+      "cover_alt": "Goldsboro NC home",
+      "order": 6
     }
   ]
 }
