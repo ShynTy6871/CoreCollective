@@ -784,22 +784,9 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       </div>
     </div>
     <div class="nav-item">
-      <a href="#" class="nav-link" onclick="return false;" aria-haspopup="true">Commercial</a>
-      <div class="dropdown">
-        <a href="#" onclick="navFilter('commercial');return false;">All Commercial</a>
-        <a href="#" onclick="navFilter('commercial');return false;">Office Spaces</a>
-        <a href="#" onclick="navFilter('commercial');return false;">Retail Properties</a>
-        <a href="#" onclick="navFilter('commercial');return false;">Multi-Family</a>
-        <a href="#" onclick="navFilter('commercial');return false;">Industrial</a>
-      </div>
-    </div>
-    <div class="nav-item">
       <a href="#" class="nav-link" onclick="scrollToSection('sellers',event)" aria-haspopup="true">Sellers</a>
       <div class="dropdown">
         <a href="#" onclick="scrollToSection('sellers',event)">Home Valuation</a>
-        <a href="#" onclick="scrollToSection('sellers',event)">Market Reports</a>
-        <a href="#" onclick="scrollToSection('sellers',event)">Listing Strategy</a>
-        <a href="#" onclick="scrollToSection('sellers',event)">Staging Concierge</a>
       </div>
     </div>
     <div class="nav-item">
@@ -817,8 +804,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <div class="dropdown">
         <a href="#" onclick="navFilter('investment');return false;">Investment Listings</a>
         <a href="#" onclick="scrollToSection('investors',event)">Market Analytics</a>
-        <a href="#" onclick="openModal();return false;">Portfolio Strategy</a>
-        <a href="#" onclick="openModal();return false;">Cap Rate Reports</a>
       </div>
     </div>
     <div class="nav-item">
@@ -827,8 +812,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
         <a href="#" onclick="scrollToSection('team',event)">Meet the Team</a>
         <a href="#" onclick="scrollToSection('testimonials',event)">Client Reviews</a>
         <a href="#" onclick="scrollToSection('blog',event)">Blog &amp; Insights</a>
-        <a href="#" onclick="openModal();return false;">Awards &amp; Press</a>
-        <a href="#" onclick="openModal();return false;">Community</a>
       </div>
     </div>
   </nav>
@@ -839,7 +822,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 <!-- UPGRADE 3b: Every link closes mobile nav before any action so forms never render under the overlay -->
 <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
   <a href="#" onclick="navFilter('residential');closeMobileNav();return false;">Residential</a>
-  <a href="#" onclick="navFilter('commercial');closeMobileNav();return false;">Commercial</a>
   <a href="#" onclick="scrollToSection('sellers');closeMobileNav();return false;">Sellers</a>
   <a href="#" onclick="scrollToSection('buyers');closeMobileNav();return false;">Buyers</a>
   <a href="#" onclick="scrollToSection('investors');closeMobileNav();return false;">Investors</a>
@@ -1429,7 +1411,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <div class="reveal-on-scroll">
     <div class="section-eyebrow">Questions &amp; Answers</div>
     <h2 class="section-title" id="faq-title">Frequently <em>Asked</em></h2>
-    <p class="section-sub">Common questions about buying, selling, and relocating with Core Collective across the Triangle and Eastern North Carolina.</p>
+    <p class="section-sub">Common questions about buying, selling, and relocating with Core Collective across Eastern North Carolina.</p>
     </div>
     <div class="faq-list" id="cms-faqs" role="list"></div>
   </section>
@@ -1441,7 +1423,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     </div>
     <div class="contact-actions">
       <button class="btn-primary" onclick="openModal()">Schedule a Call</button>
-      <button class="btn-outline" onclick="openModal()">Send a Message</button>
     </div>
   </div>
 
@@ -1458,10 +1439,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
         <div class="footer-col-title">Properties</div>
         <ul class="footer-links">
           <li><a href="#" onclick="navFilter('residential');return false;">Residential Listings</a></li>
-          <li><a href="#" onclick="navFilter('commercial');return false;">Commercial Properties</a></li>
-          <li><a href="#" onclick="navFilter('residential');return false;">Luxury Collection</a></li>
-          <li><a href="#" onclick="navFilter('residential');return false;">New Development</a></li>
-          <li><a href="#" onclick="navFilter('all');return false;">Off-Market Properties</a></li>
+          <li><a href="#" onclick="navFilter('investment');return false;">Investment Properties</a></li>
         </ul>
       </div>
       <div>
@@ -1470,7 +1448,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
           <li><a href="#" onclick="scrollToSection('buyers');return false;">Buyer Representation</a></li>
           <li><a href="#" onclick="scrollToSection('sellers');return false;">Seller Services</a></li>
           <li><a href="#" onclick="scrollToSection('investors');return false;">Investment Advisory</a></li>
-          <li><a href="#" onclick="openModal();return false;">Property Management</a></li>
           <li><a href="#" onclick="scrollToSection('military-relocation');return false;">Relocation Services</a></li>
         </ul>
       </div>
