@@ -133,6 +133,7 @@ collections:
                 widget: "boolean"
                 default: true
                 hint: "Checked = hidden from the live site, waiting for Marsha's approval. Uncheck this box and save to publish it live."
+              - { label: "Source GUID", name: "source_guid", widget: "hidden", required: false }
 
   - name: market_metrics
     label: Market Metrics
