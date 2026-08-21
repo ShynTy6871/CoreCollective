@@ -52,7 +52,6 @@ exports.handler = async (event) => {
     firstName,
     lastName,
     email,
-    phones: [{ number: phone }],
     source: source || 'Core Collective Website',
     notes
   };
