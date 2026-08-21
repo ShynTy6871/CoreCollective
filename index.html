@@ -527,8 +527,10 @@ section{padding:100px 80px}
 .testimonials-nav{display:flex;gap:8px}
 .testimonial-nav-btn{width:40px;height:40px;border:1px solid var(--gray-100);background:var(--white);color:var(--navy);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--lift)}
 .testimonial-nav-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-4px)}
-.testimonials-track-wrap{overflow:hidden;margin-top:48px}
-.testimonials-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;transition:transform .45s var(--trans)}
+.testimonials-track-wrap{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-top:48px}
+.testimonials-track-wrap::-webkit-scrollbar{display:none}
+.testimonials-grid{display:flex;gap:16px;width:max-content;padding-bottom:4px}
+.testimonial-card{flex:0 0 360px;scroll-snap-align:start}
 .testimonial-card{background:var(--white);padding:36px;border:1px solid var(--gray-100);border-top:3px solid transparent;position:relative}
 .testimonial-card:hover{border-top-color:var(--gold);transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,25,47,.1)}
 .testimonial-stars{display:flex;gap:3px;margin-bottom:18px}
@@ -540,7 +542,7 @@ section{padding:100px 80px}
 .t-avatar::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(10,25,47,.15));border-radius:50%}
 .t-name{font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
 .t-neighborhood{display:inline-block;font-size:9px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);background:rgba(197,160,89,.12);padding:3px 8px;border:1px solid rgba(197,160,89,.25)}
-.testimonial-dots{display:none;justify-content:center;gap:8px;margin-top:24px}
+.testimonial-dots{display:flex;justify-content:center;gap:8px;margin-top:24px;flex-wrap:wrap}
 .testimonial-dot{width:8px;height:8px;border-radius:50%;background:var(--gray-100);border:none;padding:0;cursor:pointer;transition:background .3s,transform .3s}
 .testimonial-dot.active{background:var(--gold);transform:scale(1.2)}
 
@@ -740,13 +742,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   #desktop-quick-rail.is-visible{opacity:1;pointer-events:auto}
 }
 
-@media(min-width:769px) and (max-width:1099px){
-  .testimonials-track-wrap{overflow:hidden}
-  .testimonials-grid{grid-template-columns:repeat(2,1fr);width:200%;transition:transform .45s var(--trans)}
-}
-@media(min-width:1100px){
-  .testimonials-nav{display:none}
-}
 @media(max-width:768px){
   .mobile-sticky-cta{display:flex}
   body{padding-bottom:72px}
@@ -755,11 +750,10 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   .hero-trust-item{border-right:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100)}
   .hero-trust-item:nth-child(2n){border-right:none}
   .hero-trust-item:nth-child(n+3){border-bottom:none}
-  .testimonials-nav{display:none}
   .testimonials-track-wrap{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-top:32px}
   .testimonials-track-wrap::-webkit-scrollbar{display:none}
   .testimonials-grid{display:flex;gap:16px;width:max-content;padding-bottom:4px}
-  .testimonial-card{flex:0 0 calc(100vw - 72px);max-width:340px;scroll-snap-align:start}
+  .testimonial-card{flex:0 0 calc(100vw - 72px);max-width:340px}
   .testimonial-dots{display:flex}
 }
 </style>
@@ -2813,61 +2807,48 @@ function initTestimonialSlider(){
   if(!track||!wrap)return;
 
   const cards=track.querySelectorAll('.testimonial-card');
-  let page=0;
-
-  function isMobile(){return window.innerWidth<=768}
-  function isTablet(){return window.innerWidth>768&&window.innerWidth<1100}
-  function mobilePages(){return cards.length}
-  function tabletPages(){return Math.ceil(cards.length/2)}
+  let current=0;
 
   function buildDots(){
     if(!dotsEl)return;
     dotsEl.innerHTML='';
-    if(!isMobile())return;
-    for(let i=0;i<cards.length;i++){
+    cards.forEach((_,i)=>{
       const dot=document.createElement('button');
       dot.className='testimonial-dot'+(i===0?' active':'');
       dot.type='button';
       dot.setAttribute('aria-label','Go to review '+(i+1));
       dot.addEventListener('click',()=>goTo(i));
       dotsEl.appendChild(dot);
-    }
+    });
   }
 
   function updateDots(idx){
+    if(!dotsEl)return;
     dotsEl.querySelectorAll('.testimonial-dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
   }
 
   function goTo(idx){
-    if(isMobile()){
-      page=idx;
-      const card=cards[page];
-      if(card)wrap.scrollTo({left:card.offsetLeft-wrap.offsetLeft,behavior:'smooth'});
-      updateDots(page);
-    }else if(isTablet()){
-      page=Math.max(0,Math.min(idx,tabletPages()-1));
-      track.style.transform='translateX(-'+(page*50)+'%)';
-    }
+    current=Math.max(0,Math.min(idx,cards.length-1));
+    const card=cards[current];
+    if(card)wrap.scrollTo({left:card.offsetLeft-wrap.offsetLeft,behavior:'smooth'});
+    updateDots(current);
   }
 
-  prevBtn&&prevBtn.addEventListener('click',()=>goTo(page-1));
-  nextBtn&&nextBtn.addEventListener('click',()=>goTo(page+1));
+  if(prevBtn)prevBtn.onclick=()=>goTo(current-1);
+  if(nextBtn)nextBtn.onclick=()=>goTo(current+1);
 
+  let scrollTimeout;
   wrap.addEventListener('scroll',()=>{
-    if(!isMobile())return;
-    let closest=0,minDist=Infinity;
-    cards.forEach((c,i)=>{
-      const dist=Math.abs(c.offsetLeft-wrap.scrollLeft);
-      if(dist<minDist){minDist=dist;closest=i}
-    });
-    page=closest;
-    updateDots(page);
-  },{passive:true});
-
-  window.addEventListener('resize',()=>{
-    track.style.transform='';
-    page=0;
-    buildDots();
+    clearTimeout(scrollTimeout);
+    scrollTimeout=setTimeout(()=>{
+      let closest=0,closestDist=Infinity;
+      cards.forEach((card,i)=>{
+        const dist=Math.abs(card.offsetLeft-wrap.offsetLeft-wrap.scrollLeft);
+        if(dist<closestDist){closestDist=dist;closest=i;}
+      });
+      current=closest;
+      updateDots(current);
+    },100);
   });
 
   buildDots();
