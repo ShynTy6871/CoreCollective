@@ -793,7 +793,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <a href="#" class="nav-link" onclick="scrollToSection('buyers',event)" aria-haspopup="true">Buyers</a>
       <div class="dropdown">
         <a href="#" onclick="navFilter('all');return false;">Property Search</a>
-        <a href="#" onclick="scrollToSection('buyers',event)">Buyer's Guide</a>
+        <a href="#" onclick="goToBuyerGuide(event)">Buyer's Guide</a>
         <a href="#" onclick="scrollToSection('mortgage-calculator',event);return false;">Mortgage Calculator</a>
         <a href="#" onclick="scrollToSection('military-relocation',event)">Relocation Services</a>
         <a href="#" onclick="scrollToSection('financing-resources',event)">Financing Resources</a>
@@ -1382,9 +1382,10 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     </div>
     <div class="filter-tabs" id="blog-filter-tabs" role="tablist" aria-label="Filter blog by region">
       <button class="filter-tab active" id="blog-tab-all" role="tab" aria-selected="true" onclick="filterBlog(this,'all')">All</button>
-      <button class="filter-tab" id="blog-tab-triangle" role="tab" aria-selected="false" onclick="filterBlog(this,'Core Triangle')">Core Triangle</button>
-      <button class="filter-tab" id="blog-tab-military" role="tab" aria-selected="false" onclick="filterBlog(this,'Military & Sandhills')">Military &amp; Sandhills</button>
-      <button class="filter-tab" id="blog-tab-coastal" role="tab" aria-selected="false" onclick="filterBlog(this,'Coastal & Beaches')">Coastal &amp; Beaches</button>
+      <button class="filter-tab" id="blog-tab-buyer" role="tab" aria-selected="false" onclick="filterBlog(this,'Buyer')">Buyer</button>
+      <button class="filter-tab" id="blog-tab-seller" role="tab" aria-selected="false" onclick="filterBlog(this,'Seller')">Seller</button>
+      <button class="filter-tab" id="blog-tab-homeowner" role="tab" aria-selected="false" onclick="filterBlog(this,'Homeowner')">Homeowner</button>
+      <button class="filter-tab" id="blog-tab-military" role="tab" aria-selected="false" onclick="filterBlog(this,'Military')">Military</button>
     </div>
     <div class="blog-grid" id="cms-blog" role="list" aria-label="Blog articles"></div>
   </section>
@@ -2671,6 +2672,15 @@ function renderBlog(items){
   filterBlog(activeTab||document.getElementById('blog-tab-all'),'all');
 }
 
+function goToBuyerGuide(event){
+  if(event)event.preventDefault();
+  scrollToSection('blog');
+  setTimeout(()=>{
+    const btn=document.getElementById('blog-tab-buyer');
+    if(btn)filterBlog(btn,'Buyer');
+  },400);
+}
+
 function filterBlog(btn,region){
   document.querySelectorAll('#blog-filter-tabs .filter-tab').forEach(t=>{
     t.classList.remove('active');
@@ -2682,7 +2692,7 @@ function filterBlog(btn,region){
   }
   const el=document.getElementById('cms-blog');
   if(!el)return;
-  const filtered=BLOG_POSTS.filter(p=>region==='all'||p.region===region);
+  const filtered=BLOG_POSTS.filter(p=>region==='all'||p.category===region);
   if(!filtered.length){
     el.innerHTML='<p class="blog-empty">No articles in this region yet. Check back soon or browse All.</p>';
     return;
