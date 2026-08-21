@@ -2666,8 +2666,21 @@ function mdToHtml(md){
   return html;
 }
 
+function slugify(title){
+  return (title||'').toLowerCase().trim()
+    .replace(/[^a-z0-9\s-]/g,'')
+    .replace(/\s+/g,'-')
+    .replace(/-+/g,'-');
+}
+
 function renderBlog(items){
   BLOG_POSTS=(items||[]).filter(p=>!p.draft);
+  const path=window.location.pathname;
+  if(path.startsWith('/blog/')){
+    const slug=path.replace('/blog/','').replace(/\/$/,'');
+    const idx=BLOG_POSTS.findIndex(p=>slugify(p.title)===slug);
+    if(idx>=0)setTimeout(()=>openBlogModal(idx,true),300);
+  }
   const activeTab=document.querySelector('#blog-filter-tabs .filter-tab.active');
   filterBlog(activeTab||document.getElementById('blog-tab-all'),'all');
 }
@@ -2744,9 +2757,16 @@ function toggleFaq(btn){
   }
 }
 
-function openBlogModal(index){
+function openBlogModal(index, skipPushState){
   const p=BLOG_POSTS[index];
   if(!p)return;
+  if(!skipPushState){
+    const slug=slugify(p.title);
+    history.pushState({blogIndex:index}, '', '/blog/'+slug);
+  }
+  document.title=p.title+' | Core Collective Real Estate';
+  const metaDesc=document.querySelector('meta[name="description"]');
+  if(metaDesc)metaDesc.setAttribute('content', p.excerpt||p.title);
   document.getElementById('blog-modal-category').textContent=p.category||'';
   document.getElementById('blog-modal-title').textContent=p.title||'';
   document.getElementById('blog-modal-meta').textContent=(p.author||'')+(p.date?' · '+formatBlogDate(p.date):'');
@@ -2767,6 +2787,10 @@ function openBlogModal(index){
 }
 
 function closeBlogModal(){
+  history.pushState({}, '', '/');
+  document.title='Core Collective Real Estate | Premium Properties';
+  const metaDesc=document.querySelector('meta[name="description"]');
+  if(metaDesc)metaDesc.setAttribute('content','Where exceptional homes find their people. Find your property value or tour premier listings today.');
   const modal=document.getElementById('blog-modal');
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
