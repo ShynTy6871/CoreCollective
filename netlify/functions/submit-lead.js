@@ -42,6 +42,7 @@ exports.handler = async (event) => {
   const lastName = spaceIdx === -1 ? '' : trimmed.slice(spaceIdx + 1).trim();
 
   const notes = [
+    lead.interest ? `Inquiry type: ${lead.interest}` : null,
     message,
     agentRoute ? `Routed to: ${assignedAgent}` : null,
     locationPreferences?.length ? `Areas of interest: ${locationPreferences.join(', ')}` : null
