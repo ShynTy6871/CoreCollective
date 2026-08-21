@@ -1,1 +1,124 @@
-{ "testimonials": [] }
+{
+  "testimonials": [
+    {
+      "quote": "It was a pleasure to work with Marsha, she was very professional and informative. She was very prompt as well any property I suggested she was right on with the showing. Very good customer service",
+      "client_name": "Carnell Parham",
+      "location": "Franklinton NC",
+      "initials": "CP",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "c2c4CUoU"
+    },
+    {
+      "quote": "Marsh Watson the best.Like Family I want let go Honesty.trust.understanding.the best",
+      "client_name": "Rickey Jones",
+      "location": "Raleigh NC.",
+      "initials": "RJ",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "2427lR7C"
+    },
+    {
+      "quote": "Marsha was an absolute professional who worked both on the front lines and behind the scenes to help my wife and I land our dream home. From showing to closing, she facilitated the entire process that took less than 3 weeks...a truly astounding metric considering the dynamics of today's housing market. She worked tirelessly to help us navigate making an offer, negotiating house repairs, and answering any other questions we had. I hope our paths cross again in the future - thank you so much Marsha!",
+      "client_name": "Matt M.",
+      "location": "Durham, NC",
+      "initials": "MM",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "d59cagbC"
+    },
+    {
+      "quote": "She gets five stars across the board. The whole process was amazing she took the fear out of buying my first home. I recommend her service to everyone. We found one house I love and we got it. She beyond amazing. We appreciate her in our life. She gave us our dream house.",
+      "client_name": "Gregory Smith",
+      "location": "Garner north carolina",
+      "initials": "GS",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "cfd1xTGC"
+    },
+    {
+      "quote": "Marsha and Dexter were extremely helpful during our difficult process. Our first choice for a new home failed its inspection, and they guided us through the revocation of our offer efficiently. For our second offer, we were greatly helped by suggestions that got our final price significantly lowered. We appreciated our Realtor's patience and guidance throughout the process.",
+      "client_name": "Robert Lovejoy",
+      "location": "Rocky Mount, NC",
+      "initials": "RL",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "3aeatwhC"
+    },
+    {
+      "quote": "We are pleased with the highest form of customer service from Mrs. Marsha! We had 45 days until our lease was up but our agent understood the assignment and provided outstanding service until the very end. We were able to close in a timely fashion and the service provided reflects great credit upon Mrs. Marsha and her organization.",
+      "client_name": "Jhamori Samuel",
+      "location": "Wilson’s Mills, NC",
+      "initials": "JS",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "6582VEX6"
+    },
+    {
+      "quote": "She was outstanding. I would recommend her to anyone.",
+      "client_name": "Robert West",
+      "location": "Four Oaks NC",
+      "initials": "RW",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "60d0m4Q6"
+    },
+    {
+      "quote": "Marsha Watson is a consummate professional.  Marsha has an intuitive ability to work with her client at each stage of the home buying process in an even keeled demeanor. She reminds the client to use each tool at their disposal to achieve their objective without being heavy handed. Marsha Watson is a good listener, observant and uses the client's stated wants/must haves, uses her knowledge to lead/guide them to their next home. It's like going through the process with an exceptional realtor who happens to be a good friend. Marsha Watson is a Credit to her profession.",
+      "client_name": "Jan Sessoms",
+      "location": "Durham, NC",
+      "initials": "JS",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "81040baL"
+    },
+    {
+      "quote": "Mrs Watson was great to work with, and very professional. She very knowledgeable about buying a home, and made it easy for us to understand the process. Marsha has a way of making you so comfortable around her and give you confidence in your decision to buying a home. We would definitely recommend her to anyone looking to buy a home",
+      "client_name": "Kevin Jones",
+      "location": "Raleigh, North Carolina",
+      "initials": "KJ",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "05f6wtu4"
+    },
+    {
+      "quote": "Marsha was very professional and knows the industry well. She was always available to answer questions and was able to show us houses at times that fit our busy schedule. We are thrilled to have found our home with her help!",
+      "client_name": "Teri Prieto",
+      "location": "Clayton,NC",
+      "initials": "TP",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "6345fmE4"
+    },
+    {
+      "quote": "Sharon was a pleasure to work with during my search for a home. She was extremely knowledeable about the process and provide prompt in-depth responses to my questions. I appreaciated the time and attention that she gave to me during the process of buying a home. I highly recommend her for those seeking to find a home.",
+      "client_name": "J. Sutton",
+      "location": "North Carolina",
+      "initials": "JS",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "7ac9axy6"
+    },
+    {
+      "quote": "Sharon is an outstanding realtor. She has a deep understanding of the market, and her expertise proved invaluable to us. Sharon guided us through every step of the process, was always available to answer our questions, and put us at ease whenever concerns came up.\r\n\r\nI would recommend her to anyone as she is the Subject Matter Expert for all things real estate.",
+      "client_name": "Richell Ragin",
+      "location": "Wendell NC",
+      "initials": "RR",
+      "stars": 5,
+      "pending_approval": true,
+      "source": "RealSatisfied",
+      "source_guid": "e11cxuv6"
+    }
+  ]
+}
