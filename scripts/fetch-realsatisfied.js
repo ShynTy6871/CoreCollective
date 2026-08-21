@@ -140,7 +140,7 @@ async function importAgent(agent, existingGuids) {
       location,
       initials: initialsFromName(name),
       stars,
-      pending_approval: true,
+      pending_approval: false,
       source: 'RealSatisfied',
       source_guid: guid,
     });

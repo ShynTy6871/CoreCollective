@@ -6,7 +6,7 @@
       "location": "Franklinton NC",
       "initials": "CP",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "c2c4CUoU"
     },
@@ -16,7 +16,7 @@
       "location": "Raleigh NC.",
       "initials": "RJ",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "2427lR7C"
     },
@@ -26,7 +26,7 @@
       "location": "Durham, NC",
       "initials": "MM",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "d59cagbC"
     },
@@ -36,7 +36,7 @@
       "location": "Garner north carolina",
       "initials": "GS",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "cfd1xTGC"
     },
@@ -46,7 +46,7 @@
       "location": "Rocky Mount, NC",
       "initials": "RL",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "3aeatwhC"
     },
@@ -56,7 +56,7 @@
       "location": "Wilson’s Mills, NC",
       "initials": "JS",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "6582VEX6"
     },
@@ -66,7 +66,7 @@
       "location": "Four Oaks NC",
       "initials": "RW",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "60d0m4Q6"
     },
@@ -76,7 +76,7 @@
       "location": "Durham, NC",
       "initials": "JS",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "81040baL"
     },
@@ -86,7 +86,7 @@
       "location": "Raleigh, North Carolina",
       "initials": "KJ",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "05f6wtu4"
     },
@@ -96,7 +96,7 @@
       "location": "Clayton,NC",
       "initials": "TP",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "6345fmE4"
     },
@@ -106,7 +106,7 @@
       "location": "North Carolina",
       "initials": "JS",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "7ac9axy6"
     },
@@ -116,7 +116,7 @@
       "location": "Wendell NC",
       "initials": "RR",
       "stars": 5,
-      "pending_approval": true,
+      "pending_approval": false,
       "source": "RealSatisfied",
       "source_guid": "e11cxuv6"
     }
