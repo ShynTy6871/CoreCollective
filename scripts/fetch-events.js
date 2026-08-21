@@ -14,7 +14,7 @@ const CONTENT_DIR = path.join(__dirname, '..', 'content');
 const BLOG_PATH = path.join(CONTENT_DIR, 'blog.json');
 const AUTHOR = 'Core Collective Editorial';
 const POST_TITLE = 'Eastern NC Monthly: Community Events & Market Notes';
-const CONTACT_URL = 'https://corecollectivere.com/#contact-strip';
+const CONTACT_URL = '#contact-strip';
 
 const COVER = {
   image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
