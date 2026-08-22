@@ -264,3 +264,74 @@ collections:
                 widget: "boolean"
                 default: true
                 hint: "Checked = hidden from the live site, waiting for Marsha's approval. Uncheck this box and save to publish it live."
+
+  - name: "events"
+    label: "Events"
+    files:
+      - name: "events"
+        label: "Events"
+        file: "content/events.json"
+        description: "Physical/QR-code event landing pages. An event stays hidden from the site until you check Active."
+        fields:
+          - name: "events"
+            label: "Events"
+            widget: "list"
+            summary: "{{fields.active}} {{fields.name}} — {{fields.event_type}}"
+            fields:
+              - { label: "Event Name", name: "name", widget: "string", hint: "e.g. \"Fall Blessing Basket Drive\" — this also generates the event's web address." }
+              - label: "Event Type"
+                name: "event_type"
+                widget: "select"
+                hint: "Controls the visual style and tone of the event page."
+                options:
+                  - "Blessing Basket Drive"
+                  - "Back to School Drive"
+                  - "Neighborhood Cleanup / Give-Back Day"
+                  - "Local Vendor / Small Business Market"
+                  - "Homebuying Seminar"
+                  - "First-Time Homebuyer Workshop"
+                  - "Investment Property 101"
+                  - "New Construction / Builder Tour"
+                  - "Downsizing & Senior Transition Seminar"
+                  - "Open House"
+                  - "Party"
+                  - "Client Appreciation"
+                  - "VIP Client Appreciation"
+                  - "Military Event"
+              - { label: "Date", name: "date", widget: "date" }
+              - { label: "Time", name: "time", widget: "string", required: false, hint: "e.g. \"10:00 AM – 2:00 PM\"" }
+              - { label: "Location", name: "location", widget: "string", hint: "e.g. \"5300 Greens Dairy Road, Raleigh, NC\"" }
+              - { label: "Description", name: "description", widget: "text", hint: "A few sentences about the event — shown on the event's own page." }
+              - label: "Banner Photo"
+                name: "banner"
+                widget: "image"
+                required: false
+                media_folder: "/images/events"
+                public_folder: "/images/events"
+                hint: "Wide/landscape photo works best (at least 1000px wide)."
+              - label: "Active"
+                name: "active"
+                widget: "boolean"
+                default: false
+                hint: "⚠️ Unchecked = hidden from the site entirely, even with a direct link. Check this when you're ready for people to actually see and register for this event."
+              - label: "Registration Questions"
+                name: "questions"
+                widget: "list"
+                required: false
+                hint: "Beyond name/email/phone (always collected automatically), add any extra questions you want to ask registrants."
+                summary: "{{fields.question_text}}"
+                fields:
+                  - { label: "Question", name: "question_text", widget: "string" }
+                  - label: "Answer Type"
+                    name: "question_type"
+                    widget: "select"
+                    default: "short_text"
+                    options:
+                      - { label: "Short Text Answer", value: "short_text" }
+                      - { label: "Yes / No", value: "yes_no" }
+                      - { label: "Multiple Choice", value: "multiple_choice" }
+                  - label: "Choices (only used for Multiple Choice)"
+                    name: "choices"
+                    widget: "list"
+                    required: false
+                    field: { label: "Choice", name: "choice", widget: "string" }
