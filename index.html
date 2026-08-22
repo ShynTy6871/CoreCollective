@@ -806,6 +806,9 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
         <a href="#" onclick="scrollToSection('blog',event)">Blog &amp; Insights</a>
       </div>
     </div>
+    <div class="nav-item js-events-nav" hidden>
+      <a href="/events" class="nav-link">Events</a>
+    </div>
   </nav>
   <button class="header-cta" onclick="openModal()">Contact Us</button>
   <button class="menu-toggle" id="menu-toggle" onclick="toggleMobileNav()" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-nav"><span></span><span></span><span></span></button>
@@ -819,6 +822,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   <a href="#" onclick="scrollToSection('investors');closeMobileNav();return false;">Investors</a>
   <a href="#" onclick="scrollToSection('blog');closeMobileNav();return false;">Blog &amp; Insights</a>
   <a href="#" onclick="scrollToSection('team');closeMobileNav();return false;">About Us</a>
+  <a href="/events" class="js-events-nav" hidden onclick="closeMobileNav()">Events</a>
   <a href="#" onclick="closeMobileNav();openModal();return false;">Contact Us</a>
 </nav>
 
@@ -1444,6 +1448,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
           <li><a href="#" onclick="scrollToSection('sellers');return false;">Seller Services</a></li>
           <li><a href="#" onclick="scrollToSection('investors');return false;">Investment Advisory</a></li>
           <li><a href="#" onclick="scrollToSection('military-relocation');return false;">Relocation Services</a></li>
+          <li class="js-events-nav" hidden><a href="/events">Events</a></li>
         </ul>
       </div>
       <div>
@@ -2332,7 +2337,29 @@ async function loadCMSContent(){
   }catch(err){
     console.warn('CMS content load skipped:',err);
   }
+  await revealEventsNav();
   await loadProperties();
+}
+
+function eventDatePassed(dateStr){
+  if(!dateStr)return false;
+  const raw=String(dateStr).slice(0,10);
+  const d=new Date(raw+'T00:00:00');
+  if(Number.isNaN(d.getTime()))return false;
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  return d<today;
+}
+
+async function revealEventsNav(){
+  try{
+    const res=await fetch('content/events.json');
+    if(!res.ok)return;
+    const data=await res.json();
+    const live=(data.events||[]).some(e=>e&&e.active===true&&!eventDatePassed(e.date));
+    if(!live)return;
+    document.querySelectorAll('.js-events-nav').forEach(el=>{el.hidden=false;});
+  }catch(err){}
 }
 
 let areaFactsInterval=null;
