@@ -143,6 +143,7 @@ async function importAgent(agent, existingGuids) {
       pending_approval: false,
       source: 'RealSatisfied',
       source_guid: guid,
+      agent_id: agent.agent_id,
     });
   }
 
