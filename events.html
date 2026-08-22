@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upcoming Events | Core Collective Real Estate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A192F;
+  --navy-mid:#0D2244;
+  --gold:#C5A059;
+  --gold-lt:#D4AF37;
+  --white:#FFFFFF;
+  --off-white:#F7F5F0;
+  --gray-100:#ECEAE5;
+  --gray-500:#6B6963;
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+}
+html,body{min-height:100%}
+body{font-family:var(--font-sans);background:var(--off-white);color:var(--navy);line-height:1.6}
+img{display:block;max-width:100%}
+a{color:var(--gold)}
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--gold-lt);outline-offset:3px}
+
+.page-header{background:var(--navy);padding:72px 24px 48px;text-align:center}
+.page-header h1{font-family:var(--font-display);font-size:clamp(32px,5vw,52px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:18px}
+.page-header a{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,.7);border-bottom:1px solid var(--gold);padding-bottom:4px}
+
+.page-body{padding:48px 24px 80px}
+.page-state{text-align:center;padding:48px 16px}
+.page-state p{max-width:420px;margin:0 auto;font-size:16px;color:var(--gray-500);line-height:1.7}
+
+.events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto}
+@media(max-width:900px){.events-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.events-grid{grid-template-columns:1fr}}
+
+.event-card{display:flex;flex-direction:column;background:var(--white);border:1px solid var(--gray-100);text-decoration:none;color:inherit;transition:transform .25s ease,box-shadow .25s ease}
+.event-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(10,25,47,.1)}
+.event-card-photo{width:100%;aspect-ratio:16/9;object-fit:cover;background:var(--off-white)}
+.event-card-photo.placeholder{display:block}
+.event-card-body{padding:24px 22px 28px;display:flex;flex-direction:column;flex:1}
+.event-card-type{font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.event-card-name{font-family:var(--font-display);font-size:22px;font-weight:400;color:var(--navy);line-height:1.25;margin-bottom:10px}
+.event-card-meta{font-size:13px;font-weight:400;color:var(--gray-500);margin-bottom:16px}
+.event-card-cta{margin-top:auto;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--navy);border-bottom:1px solid var(--gold);align-self:flex-start;padding-bottom:3px}
+</style>
+</head>
+<body>
+<header class="page-header">
+  <h1>Upcoming Events</h1>
+  <a href="/">Back to Core Collective</a>
+</header>
+<main class="page-body" id="app">
+  <div class="page-state"><p>Loading events…</p></div>
+</main>
+<script>
+function slugify(name){
+  return String(name||'').toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g,'-')
+    .replace(/^-+|-+$/g,'');
+}
+
+function eventDatePassed(dateStr){
+  if(!dateStr)return false;
+  const raw=String(dateStr).slice(0,10);
+  const d=new Date(raw+'T00:00:00');
+  if(Number.isNaN(d.getTime()))return false;
+  const today=new Date();
+  today.setHours(0,0,0,0);
+  return d<today;
+}
+
+function escHtml(str){
+  return String(str||'').replace(/[&<>"']/g,ch=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[ch]));
+}
+
+function formatDate(dateStr){
+  if(!dateStr)return '';
+  const d=new Date(String(dateStr).slice(0,10)+'T00:00:00');
+  if(Number.isNaN(d.getTime()))return String(dateStr);
+  return d.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'});
+}
+
+function renderEmpty(){
+  document.getElementById('app').innerHTML='<div class="page-state"><p>No events currently scheduled — check back soon!</p></div>';
+}
+
+function renderList(events){
+  const cards=events.map(event=>{
+    const slug=slugify(event.name);
+    const meta=[formatDate(event.date),event.time,event.location].filter(Boolean).join(' · ');
+    const photo=event.banner
+      ? `<img class="event-card-photo" src="${escHtml(event.banner)}" alt="">`
+      : `<div class="event-card-photo placeholder" aria-hidden="true"></div>`;
+    return `<a class="event-card" href="/event/${escHtml(slug)}">
+      ${photo}
+      <div class="event-card-body">
+        <div class="event-card-type">${escHtml(event.event_type||'Event')}</div>
+        <h2 class="event-card-name">${escHtml(event.name)}</h2>
+        <p class="event-card-meta">${escHtml(meta)}</p>
+        <span class="event-card-cta">View event</span>
+      </div>
+    </a>`;
+  }).join('');
+  document.getElementById('app').innerHTML=`<div class="events-grid">${cards}</div>`;
+}
+
+async function init(){
+  try{
+    const res=await fetch('/content/events.json');
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    const events=(Array.isArray(data.events)?data.events:[])
+      .filter(e=>e&&e.active===true&&!eventDatePassed(e.date))
+      .sort((a,b)=>{
+        const da=String(a.date||'').slice(0,10);
+        const db=String(b.date||'').slice(0,10);
+        if(!da&&!db)return 0;
+        if(!da)return 1;
+        if(!db)return -1;
+        return da.localeCompare(db);
+      });
+    if(!events.length){renderEmpty();return;}
+    renderList(events);
+  }catch(err){
+    renderEmpty();
+  }
+}
+
+init();
+</script>
+</body>
+</html>
