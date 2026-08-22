@@ -16,6 +16,10 @@ const FEED_URL = (vanityKey) => `https://rss.realsatisfied.com/rss/agent/${vanit
 const AGENTS = [
   { agent_id: 'marsha-watson', vanity_key: 'Marsha-Watson' },
   { agent_id: 'sharon-mcduffie', vanity_key: 'Sharon-McDuffie' },
+  { agent_id: 'sylvia-wheeler', vanity_key: 'Sylvia-Wheeler' },
+  { agent_id: 'frederick-davis', vanity_key: 'Frederick-Davis' },
+  { agent_id: 'dexter-drayton', vanity_key: 'Dexter-Drayton' },
+  { agent_id: 'jennifer-wiggins', vanity_key: 'Jennifer-Wiggins' },
 ];
 
 function fetchXml(url) {
