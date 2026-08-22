@@ -2446,6 +2446,30 @@ function renderTestimonials(items){
   }
   if(prevBtn)prevBtn.style.display='';
   if(nextBtn)nextBtn.style.display='';
+  const groups={};
+  items.forEach(t=>{
+    const key=t.agent_id||'unknown';
+    (groups[key]||(groups[key]=[])).push(t);
+  });
+  const queues=Object.keys(groups).map(k=>groups[k]);
+  function shuffle(arr){
+    for(let i=arr.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      const tmp=arr[i];arr[i]=arr[j];arr[j]=tmp;
+    }
+    return arr;
+  }
+  queues.forEach(shuffle);
+  shuffle(queues);
+  const interleaved=[];
+  let added=true;
+  while(added){
+    added=false;
+    queues.forEach(q=>{
+      if(q.length){interleaved.push(q.shift());added=true;}
+    });
+  }
+  items=interleaved;
   el.innerHTML=items.map(t=>{
     const stars=Math.min(5,Math.max(1,t.stars||5));
     const starHtml=Array.from({length:stars},()=>'<span>★</span>').join('');
