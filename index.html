@@ -528,11 +528,10 @@ section{padding:100px 80px}
 .testimonial-nav-btn{width:40px;height:40px;border:1px solid var(--gray-100);background:var(--white);color:var(--navy);font-size:16px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:var(--lift);flex-shrink:0}
 .testimonial-nav-btn:hover{border-color:var(--gold);color:var(--gold);transform:translateY(-4px)}
 .testimonials-row{display:flex;align-items:center;gap:12px;margin-top:48px}
-.testimonials-track-wrap{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-top:0;flex:1;min-width:0;container-type:inline-size}
+.testimonials-track-wrap{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;flex:1;min-width:0}
 .testimonials-track-wrap::-webkit-scrollbar{display:none}
 .testimonials-grid{display:flex;gap:16px;width:max-content;padding-bottom:4px}
-.testimonial-card{flex:0 0 calc(25% - 12px);scroll-snap-align:start}
-.testimonial-card{background:var(--white);padding:36px;border:1px solid var(--gray-100);border-top:3px solid transparent;position:relative;height:380px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer}
+.testimonial-card{scroll-snap-align:start;background:var(--white);padding:36px;border:1px solid var(--gray-100);border-top:3px solid transparent;position:relative;height:380px;overflow:hidden;display:flex;flex-direction:column;cursor:pointer;transition:var(--lift)}
 .testimonial-card:hover,.testimonial-card:focus-within{border-top-color:var(--gold);transform:translateY(-4px);box-shadow:0 16px 48px rgba(10,25,47,.1);z-index:6}
 .testimonial-stars{display:flex;gap:3px;margin-bottom:18px}
 .testimonial-stars span{color:var(--gold);font-size:15px;line-height:1}
@@ -546,8 +545,8 @@ section{padding:100px 80px}
 .testimonial-dots{display:flex;justify-content:center;gap:8px;margin-top:24px;flex-wrap:wrap}
 .testimonial-dot{width:8px;height:8px;border-radius:50%;background:var(--gray-100);border:none;padding:0;cursor:pointer;transition:background .3s,transform .3s}
 .testimonial-dot.active{background:var(--gold);transform:scale(1.2)}
-.testimonial-popup{display:none;position:absolute;inset:0;background:var(--white);padding:36px;overflow:auto;z-index:2;font-family:var(--font-serif);font-size:16px;font-weight:400;color:var(--navy);line-height:1.75}
-.testimonial-card:hover .testimonial-popup,.testimonial-card:focus-within .testimonial-popup{display:block}
+.testimonial-popup{position:absolute;inset:0;background:var(--white);padding:36px;overflow:auto;z-index:2;font-family:var(--font-serif);font-size:16px;font-weight:400;color:var(--navy);line-height:1.75;opacity:0;transform:scale(.96);pointer-events:none;transition:opacity .25s var(--trans),transform .25s var(--trans)}
+.testimonial-card:hover .testimonial-popup,.testimonial-card:focus-within .testimonial-popup{opacity:1;transform:scale(1);pointer-events:auto}
 
 /* ─── CONTACT STRIP ───────────────────────────────── */
 #contact-strip{background:var(--navy);padding:80px;display:flex;align-items:center;justify-content:space-between;gap:48px;flex-wrap:wrap}
@@ -753,10 +752,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   .hero-trust-item:nth-child(2n){border-right:none}
   .hero-trust-item:nth-child(n+3){border-bottom:none}
   .testimonials-row{margin-top:32px}
-  .testimonials-track-wrap{overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin-top:0}
-  .testimonials-track-wrap::-webkit-scrollbar{display:none}
-  .testimonials-grid{display:flex;gap:16px;width:max-content;padding-bottom:4px}
-  .testimonial-card{flex:0 0 100%;max-width:none;width:100%}
   .testimonial-dots{display:flex}
 }
 </style>
@@ -2813,6 +2808,16 @@ function initTestimonialSlider(){
   const cards=track.querySelectorAll('.testimonial-card');
   let current=0;
 
+  function sizeCards(){
+    const wrapWidth=wrap.getBoundingClientRect().width;
+    const gap=16;
+    const perRow=window.innerWidth<=768?1:4;
+    const cardWidth=(wrapWidth-(gap*(perRow-1)))/perRow;
+    cards.forEach(card=>{
+      card.style.flex='0 0 '+cardWidth+'px';
+    });
+  }
+
   function buildDots(){
     if(!dotsEl)return;
     dotsEl.innerHTML='';
@@ -2855,6 +2860,13 @@ function initTestimonialSlider(){
     },100);
   });
 
+  let resizeTimeout;
+  window.addEventListener('resize',()=>{
+    clearTimeout(resizeTimeout);
+    resizeTimeout=setTimeout(sizeCards,150);
+  });
+
+  sizeCards();
   buildDots();
 }
 
