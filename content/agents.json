@@ -2,6 +2,32 @@
   "agents": [
     {
       "focus_tags": [],
+      "license": "331158",
+      "traits": [
+        "Strategic negotiator",
+        "Calm under pressure",
+        "Community-connected"
+      ],
+      "bio": "Marsha Watson is a North Carolina REALTOR® with eXp Realty and the team lead of Core Collective Real Estate. Serving Raleigh, Cary, Clayton, Garner, Johnston County, Wake County, and surrounding Triangle communities, Marsha helps buyers and sellers make confident real estate decisions through education, strategy, and personalized guidance.\n\nBefore real estate, Marsha spent more than 20 years in nonprofit and mental health work, including advocacy for individuals and families experiencing homelessness. That background shaped her client-first approach and deep commitment to helping people find stability, opportunity, and long-term wealth through homeownership.\n\nMarsha specializes in first-time homebuyers, military relocation, VA buyers, relocation clients, new construction, and sellers preparing for their next chapter. As a Military Relocation Professional and Certified eXp Mentor, she brings strong communication, local market knowledge, and steady guidance to every transaction.\n\nHer approach is warm, honest, and educational. She believes clients deserve more than a transaction—they deserve an advocate who listens, explains the process clearly, and protects their goals from consultation to closing.\n\nAt Core Collective Real Estate, the mission is clear: Your Goals. Our Core Mission.",
+      "interest": "Seller",
+      "name": "Marsha Watson",
+      "phone": "(919) 324-5134",
+      "order": 1,
+      "initials": "MW",
+      "agent_id": "marsha-watson",
+      "title": "Realtor, Team Lead",
+      "headshot": "/images/uploads/marsha.jpg",
+      "specialties": [
+        "First-Time Buyers",
+        "Military & PCS Relocation",
+        "New Construction",
+        "Relocation",
+        "Down Payment Assistance / Grants"
+      ],
+      "email": "Marsha.Watson@exprealty.com"
+    },
+    {
+      "focus_tags": [],
       "license": "346469",
       "traits": [
         "Detail-oriented & analytical",
@@ -76,32 +102,6 @@
         "Down Payment Assistance / Grants"
       ],
       "email": "Sharon.McDuffie@exprealty.com"
-    },
-    {
-      "focus_tags": [],
-      "license": "331158",
-      "traits": [
-        "Strategic negotiator",
-        "Calm under pressure",
-        "Community-connected"
-      ],
-      "bio": "Marsha Watson is a North Carolina REALTOR® with eXp Realty and the team lead of Core Collective Real Estate. Serving Raleigh, Cary, Clayton, Garner, Johnston County, Wake County, and surrounding Triangle communities, Marsha helps buyers and sellers make confident real estate decisions through education, strategy, and personalized guidance.\n\nBefore real estate, Marsha spent more than 20 years in nonprofit and mental health work, including advocacy for individuals and families experiencing homelessness. That background shaped her client-first approach and deep commitment to helping people find stability, opportunity, and long-term wealth through homeownership.\n\nMarsha specializes in first-time homebuyers, military relocation, VA buyers, relocation clients, new construction, and sellers preparing for their next chapter. As a Military Relocation Professional and Certified eXp Mentor, she brings strong communication, local market knowledge, and steady guidance to every transaction.\n\nHer approach is warm, honest, and educational. She believes clients deserve more than a transaction—they deserve an advocate who listens, explains the process clearly, and protects their goals from consultation to closing.\n\nAt Core Collective Real Estate, the mission is clear: Your Goals. Our Core Mission.",
-      "interest": "Seller",
-      "name": "Marsha Watson",
-      "phone": "(919) 324-5134",
-      "order": 1,
-      "initials": "MW",
-      "agent_id": "marsha-watson",
-      "title": "Realtor, Team Lead",
-      "headshot": "/images/uploads/marsha.jpg",
-      "specialties": [
-        "First-Time Buyers",
-        "Military & PCS Relocation",
-        "New Construction",
-        "Relocation",
-        "Down Payment Assistance / Grants"
-      ],
-      "email": "Marsha.Watson@exprealty.com"
     },
     {
       "focus_tags": [],
