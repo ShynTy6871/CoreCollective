@@ -61,6 +61,37 @@ a{color:var(--gold)}
 .form-status.error{display:block;background:rgba(192,57,43,.1);color:#922b21;border:1px solid rgba(192,57,43,.25)}
 .confirm{text-align:center;padding:24px 8px}
 .confirm p{font-family:var(--font-display);font-size:28px;font-weight:400;color:var(--navy);line-height:1.35}
+
+/* Celebratory: Party, Client Appreciation, VIP Client Appreciation */
+.theme-celebratory .event-header{background:linear-gradient(135deg,var(--gold-lt),var(--gold));}
+.theme-celebratory .event-type{color:var(--navy);opacity:.7}
+.theme-celebratory .event-title{color:var(--navy)}
+.theme-celebratory .event-meta{color:rgba(10,25,47,.75)}
+.theme-celebratory .form-submit{background:var(--navy);color:var(--gold-lt)}
+.theme-celebratory .form-submit:hover{background:var(--navy-mid)}
+
+/* Community & Giving: Blessing Basket, Back to School, Cleanup, Vendor Market */
+.theme-giving .event-header{background:var(--off-white);border-bottom:1px solid var(--gray-100)}
+.theme-giving .event-type{color:var(--gold)}
+.theme-giving .event-title{color:var(--navy)}
+.theme-giving .event-meta{color:var(--gray-500)}
+.theme-giving .form-submit{background:var(--gray-100);color:var(--navy)}
+.theme-giving .form-submit:hover{background:var(--gold-lt);color:var(--navy)}
+
+/* Military */
+.theme-military .event-header{background:var(--navy);border-top:4px solid #8B1A1A;border-bottom:4px solid var(--gold)}
+.theme-military .event-type{color:var(--gold-lt)}
+.theme-military .form-submit{background:#8B1A1A;color:var(--white)}
+.theme-military .form-submit:hover{background:#6b1414}
+
+/* Open House — matches the real property card language */
+.theme-openhouse .event-header{background:var(--white);border-bottom:1px solid var(--gray-100)}
+.theme-openhouse .event-type{color:var(--gold)}
+.theme-openhouse .event-title{color:var(--navy);font-weight:700}
+.theme-openhouse .event-meta{color:var(--gray-500)}
+.theme-openhouse .reg-card{border:1px solid var(--gray-100)}
+.theme-openhouse .form-submit{background:var(--navy);color:var(--white)}
+.theme-openhouse .form-submit:hover{background:var(--navy-mid)}
 </style>
 </head>
 <body>
@@ -110,6 +141,15 @@ function getChoices(question){
   return list.map(c=>typeof c==='string'?c:(c&&(c.choice||c.label||c.value))||'').filter(Boolean);
 }
 
+function getThemeClass(eventType){
+  const t = String(eventType || '');
+  if (['Party','Client Appreciation','VIP Client Appreciation'].includes(t)) return 'theme-celebratory';
+  if (['Blessing Basket Drive','Back to School Drive','Neighborhood Cleanup / Give-Back Day','Local Vendor / Small Business Market'].includes(t)) return 'theme-giving';
+  if (t === 'Military Event') return 'theme-military';
+  if (t === 'Open House') return 'theme-openhouse';
+  return 'theme-educational';
+}
+
 function renderUnavailable(){
   document.getElementById('app').innerHTML=`
     <div class="page-state">
@@ -121,6 +161,14 @@ function renderUnavailable(){
 }
 
 function renderEvent(event){
+  document.body.className = getThemeClass(event.event_type);
+  const ctaText = {
+    'theme-celebratory': 'Save My Spot',
+    'theme-giving': "Count Me In",
+    'theme-military': 'Register Now',
+    'theme-openhouse': 'Schedule My Visit',
+    'theme-educational': 'Register Now'
+  }[getThemeClass(event.event_type)] || 'Register Now';
   const meta=[formatDate(event.date),event.time,event.location].filter(Boolean).join(' · ');
   const questions=Array.isArray(event.questions)?event.questions:[];
   const banner=event.banner?`<img class="event-banner" src="${escHtml(event.banner)}" alt="">`:'';
@@ -179,7 +227,7 @@ function renderEvent(event){
             <input class="form-input" id="phone" name="phone" type="tel" required autocomplete="tel">
           </div>
           ${extra}
-          <button class="form-submit" id="reg-submit" type="submit">Register Now</button>
+          <button class="form-submit" id="reg-submit" type="submit">${escHtml(ctaText)}</button>
           <div class="form-status" id="reg-status" hidden></div>
         </form>
       </div>
