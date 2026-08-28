@@ -662,6 +662,8 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 .agent-bio-modal-body{font-size:14px;font-weight:300;color:var(--gray-500);line-height:1.75;max-height:52vh;overflow-y:auto}
 .agent-bio-modal-body p{margin-bottom:14px}
 .agent-bio-modal-body p:last-child{margin-bottom:0}
+.agent-bio-modal-link{display:inline-block;margin-top:20px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--navy);border-bottom:1px solid var(--gold);padding-bottom:4px}
+.agent-bio-modal-link:hover{color:var(--gold)}
 
 /* ─── RESPONSIVE ──────────────────────────────────── */
 @media(max-width:1100px){
@@ -1632,6 +1634,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <p class="agent-bio-modal-role" id="agent-bio-modal-role"></p>
     <p class="agent-bio-modal-license" id="agent-bio-modal-license"></p>
     <div class="agent-bio-modal-body" id="agent-bio-modal-body"></div>
+    <a href="#" class="agent-bio-modal-link" id="agent-bio-modal-link">View Full Profile &amp; Contact →</a>
   </div>
 </div>
 
@@ -1928,6 +1931,8 @@ function openAgentBio(agentId){
     licenseEl.hidden=!agent.license;
   }
   document.getElementById('agent-bio-modal-body').innerHTML=formatBioParagraphs(agent.bio);
+  const profileLink=document.getElementById('agent-bio-modal-link');
+  if(profileLink)profileLink.href='/agent/'+agentId;
   const modal=document.getElementById('agent-bio-modal');
   modal.classList.add('open');
   modal.setAttribute('aria-hidden','false');
