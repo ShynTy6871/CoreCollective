@@ -18,6 +18,11 @@
   status = 200
 
 [[redirects]]
+  from = "/agent/*"
+  to = "/agent.html"
+  status = 200
+
+[[redirects]]
   from = "/events"
   to = "/events.html"
   status = 200

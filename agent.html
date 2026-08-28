@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent | Core Collective Real Estate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A192F;
+  --navy-mid:#0D2244;
+  --gold:#C5A059;
+  --gold-lt:#D4AF37;
+  --white:#FFFFFF;
+  --off-white:#F7F5F0;
+  --gray-100:#ECEAE5;
+  --gray-500:#6B6963;
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --trans:cubic-bezier(0.4,0,0.2,1);
+}
+html,body{min-height:100%}
+body{font-family:var(--font-sans);background:var(--off-white);color:var(--navy);line-height:1.6}
+img{display:block;max-width:100%}
+button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
+a{color:var(--gold)}
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--gold-lt);outline-offset:3px}
+
+.page-state{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 24px;text-align:center}
+.page-state p{max-width:420px;font-size:16px;font-weight:400;color:var(--gray-500);line-height:1.7}
+.page-state a{display:inline-block;margin-top:20px;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--navy);border-bottom:1px solid var(--gold);padding-bottom:4px}
+
+.agent-header{background:var(--navy);padding:72px 24px 64px;text-align:center}
+.agent-photo{width:148px;height:148px;border-radius:50%;object-fit:cover;margin:0 auto 24px;border:3px solid var(--gold);box-shadow:0 8px 32px rgba(0,0,0,.28)}
+.agent-photo-fallback{width:148px;height:148px;border-radius:50%;margin:0 auto 24px;border:3px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:42px;font-weight:400;color:var(--gold);background:var(--navy-mid)}
+.agent-name{font-family:var(--font-display);font-size:clamp(32px,5vw,48px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:10px}
+.agent-title{font-size:12px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+.agent-license{font-size:12px;font-weight:400;color:rgba(255,255,255,.7)}
+
+.agent-body{padding:48px 24px 80px}
+.agent-bio{max-width:640px;margin:0 auto 40px;font-size:16px;font-weight:400;color:var(--navy);line-height:1.75}
+.agent-bio p+p{margin-top:1.1em}
+
+.tag-block{max-width:640px;margin:0 auto 36px;text-align:center}
+.tag-label{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.tag-row{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.tag-pill{display:inline-block;padding:7px 14px;border:1px solid var(--gold);border-radius:999px;color:var(--navy);font-size:12px;font-weight:500;letter-spacing:.02em;line-height:1.3;background:transparent}
+
+.direct-contact{max-width:480px;margin:0 auto 24px;text-align:center;font-size:14px;font-weight:400;color:var(--gray-500);line-height:1.7}
+.direct-contact a{color:var(--navy);text-decoration:none;border-bottom:1px solid var(--gold);padding-bottom:1px}
+.direct-sep{margin:0 10px;color:var(--gray-100)}
+
+.reg-card{max-width:480px;margin:0 auto;background:var(--white);border:1px solid var(--gray-100);padding:36px 32px}
+.form-field{margin-bottom:18px}
+.form-label{display:block;font-size:9px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--navy);margin-bottom:8px}
+.form-input{width:100%;padding:13px 16px;border:1px solid var(--gray-100);background:var(--off-white);font-family:var(--font-sans);font-size:13px;color:var(--navy);outline:none;transition:border-color .2s}
+textarea.form-input{min-height:120px;resize:vertical;line-height:1.5}
+.form-input:focus{border-color:var(--gold)}
+.form-submit{width:100%;padding:15px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;transition:background .2s var(--trans),transform .2s var(--trans)}
+.form-submit:hover{background:var(--gold-lt);transform:translateY(-2px)}
+.form-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.form-status{display:none;padding:14px 18px;margin-top:16px;font-size:12px;font-weight:500;text-align:center}
+.form-status.error{display:block;background:rgba(192,57,43,.1);color:#922b21;border:1px solid rgba(192,57,43,.25)}
+.confirm{text-align:center;padding:24px 8px}
+.confirm p{font-family:var(--font-display);font-size:28px;font-weight:400;color:var(--navy);line-height:1.35}
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="page-state" id="state-loading">
+    <p>Loading agent…</p>
+  </div>
+</div>
+<script>
+function escHtml(str){
+  return String(str||'').replace(/[&<>"']/g,ch=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[ch]));
+}
+
+function getSlug(){
+  const path=window.location.pathname.replace(/\/+$/,'');
+  const match=path.match(/\/agent\/(.+)$/i);
+  return match?decodeURIComponent(match[1]):'';
+}
+
+function firstName(name){
+  return String(name||'').trim().split(/\s+/)[0]||'our team';
+}
+
+function mediaUrl(src){
+  const s=String(src||'').trim();
+  if(!s)return '';
+  if(/^(https?:)?\/\//i.test(s)||s.startsWith('/'))return s;
+  return '/'+s.replace(/^\.\//,'');
+}
+
+function telHref(phone){
+  const digits=String(phone||'').replace(/\D/g,'');
+  if(!digits)return '';
+  if(digits.length===10)return 'tel:+1'+digits;
+  if(digits.length===11&&digits.charAt(0)==='1')return 'tel:+'+digits;
+  return 'tel:'+digits;
+}
+
+function bioHtml(bio){
+  const parts=String(bio||'').split(/\n{2,}/).map(p=>p.trim()).filter(Boolean);
+  if(!parts.length)return '';
+  return parts.map(p=>`<p>${escHtml(p).replace(/\n/g,'<br>')}</p>`).join('');
+}
+
+function pills(items){
+  return items.map(t=>`<span class="tag-pill">${escHtml(t)}</span>`).join('');
+}
+
+function renderNotFound(){
+  document.getElementById('app').innerHTML=`
+    <div class="page-state">
+      <div>
+        <p>We couldn't find that page. Head back to our homepage to find the right agent.</p>
+        <a href="/">Back to Core Collective</a>
+      </div>
+    </div>`;
+}
+
+function renderAgent(agent){
+  const first=firstName(agent.name);
+  const photoSrc=mediaUrl(agent.headshot);
+  const photo=photoSrc
+    ? `<img class="agent-photo" src="${escHtml(photoSrc)}" alt="${escHtml(agent.name)}">`
+    : `<div class="agent-photo-fallback" aria-hidden="true">${escHtml(agent.initials||first.charAt(0))}</div>`;
+  const specialties=(Array.isArray(agent.specialties)?agent.specialties:[]).map(s=>String(s||'').trim()).filter(Boolean);
+  const traits=(Array.isArray(agent.traits)?agent.traits:[]).map(s=>String(s||'').trim()).filter(Boolean);
+  const specialtiesBlock=specialties.length?`
+    <div class="tag-block">
+      <div class="tag-label">Specialties</div>
+      <div class="tag-row">${pills(specialties)}</div>
+    </div>`:'';
+  const traitsBlock=traits.length?`
+    <div class="tag-block">
+      <div class="tag-label">Working Style</div>
+      <div class="tag-row">${pills(traits)}</div>
+    </div>`:'';
+  const bio=bioHtml(agent.bio);
+  const phone=String(agent.phone||'').trim();
+  const email=String(agent.email||'').trim();
+  const phoneLink=phone?`<a href="${escHtml(telHref(phone))}">${escHtml(phone)}</a>`:'';
+  const emailLink=email?`<a href="mailto:${escHtml(email)}">${escHtml(email)}</a>`:'';
+  const direct=[phoneLink,emailLink].filter(Boolean).join('<span class="direct-sep" aria-hidden="true">·</span>');
+  const license=String(agent.license||'').trim();
+
+  document.title=agent.name+' | Core Collective Real Estate';
+  document.getElementById('app').innerHTML=`
+    <header class="agent-header">
+      ${photo}
+      <h1 class="agent-name">${escHtml(agent.name)}</h1>
+      ${agent.title?`<p class="agent-title">${escHtml(agent.title)}</p>`:''}
+      ${license?`<p class="agent-license">NC License #${escHtml(license)}</p>`:''}
+    </header>
+    <main class="agent-body">
+      ${bio?`<div class="agent-bio">${bio}</div>`:''}
+      ${specialtiesBlock}
+      ${traitsBlock}
+      ${direct?`<p class="direct-contact">${direct}</p>`:''}
+      <div class="reg-card" id="contact-card">
+        <form id="agent-form" novalidate>
+          <div class="form-field">
+            <label class="form-label" for="fullName">Full Name</label>
+            <input class="form-input" id="fullName" name="fullName" type="text" required autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="email">Email</label>
+            <input class="form-input" id="email" name="email" type="email" required autocomplete="email">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="phone">Phone</label>
+            <input class="form-input" id="phone" name="phone" type="tel" required autocomplete="tel">
+          </div>
+          <div class="form-field">
+            <label class="form-label" for="message">Message</label>
+            <textarea class="form-input" id="message" name="message" rows="4"></textarea>
+          </div>
+          <button class="form-submit" id="agent-submit" type="submit">Contact ${escHtml(first)}</button>
+          <div class="form-status" id="agent-status" hidden></div>
+        </form>
+      </div>
+    </main>`;
+
+  document.getElementById('agent-form').addEventListener('submit',e=>{
+    e.preventDefault();
+    submitAgentLead(agent,first);
+  });
+}
+
+async function submitAgentLead(agent,first){
+  const fullName=document.getElementById('fullName').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  const message=document.getElementById('message').value.trim();
+  const status=document.getElementById('agent-status');
+  const btn=document.getElementById('agent-submit');
+  status.hidden=true;status.className='form-status';status.textContent='';
+
+  if(!fullName){showError(status,'Please enter your full name.');document.getElementById('fullName').focus();return;}
+  if(!email||!email.includes('@')){showError(status,'Please enter a valid email address.');document.getElementById('email').focus();return;}
+  if(!phone){showError(status,'Please enter your phone number.');document.getElementById('phone').focus();return;}
+
+  const payload={
+    source:`Agent Page: ${agent.name}`,
+    timestamp:new Date().toISOString(),
+    lead:{
+      fullName,email,phone,
+      interest:agent.interest||'Buyer',
+      message,
+      assignedAgent:agent.name
+    }
+  };
+
+  btn.disabled=true;btn.textContent='Sending…';
+  try{
+    const res=await fetch('/.netlify/functions/submit-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    document.getElementById('contact-card').innerHTML=`<div class="confirm"><p>Thanks for reaching out — ${escHtml(first)} will be in touch soon.</p></div>`;
+  }catch(err){
+    showError(status,'There was a problem sending your message. Please try again or reach out by phone or email.');
+    btn.disabled=false;btn.textContent='Contact '+first;
+  }
+}
+
+function showError(el,msg){
+  el.hidden=false;
+  el.className='form-status error';
+  el.textContent=msg;
+}
+
+async function init(){
+  const slug=getSlug();
+  if(!slug){renderNotFound();return;}
+  try{
+    const res=await fetch('/content/agents.json');
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    const agents=Array.isArray(data.agents)?data.agents:[];
+    const agent=agents.find(a=>String(a&&a.agent_id||'').toLowerCase()===slug.toLowerCase());
+    if(!agent){
+      renderNotFound();
+      return;
+    }
+    renderAgent(agent);
+  }catch(err){
+    renderNotFound();
+  }
+}
+
+init();
+</script>
+</body>
+</html>
