@@ -765,16 +765,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   </div>
   <nav class="main-nav" aria-label="Primary navigation">
     <div class="nav-item">
-      <a href="#" class="nav-link" onclick="return false;" aria-haspopup="true">Residential</a>
-      <div class="dropdown">
-        <a href="#" onclick="navFilter('residential');return false;">All Residential</a>
-        <a href="#" onclick="navFilter('residential');return false;">Single Family Homes</a>
-        <a href="#" onclick="navFilter('residential');return false;">Luxury Estates</a>
-        <a href="#" onclick="navFilter('residential');return false;">Townhomes &amp; Condos</a>
-        <a href="#" onclick="navFilter('residential');return false;">New Construction</a>
-      </div>
-    </div>
-    <div class="nav-item">
       <a href="#" class="nav-link" onclick="scrollToSection('sellers',event)" aria-haspopup="true">Sellers</a>
       <div class="dropdown">
         <a href="#" onclick="scrollToSection('sellers',event)">Home Valuation</a>
@@ -815,7 +805,6 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 
 <!-- UPGRADE 3b: Every link closes mobile nav before any action so forms never render under the overlay -->
 <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation" aria-hidden="true">
-  <a href="#" onclick="navFilter('residential');closeMobileNav();return false;">Residential</a>
   <a href="#" onclick="scrollToSection('sellers');closeMobileNav();return false;">Sellers</a>
   <a href="#" onclick="scrollToSection('buyers');closeMobileNav();return false;">Buyers</a>
   <a href="#" onclick="scrollToSection('investors');closeMobileNav();return false;">Investors</a>
