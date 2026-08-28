@@ -138,11 +138,14 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .hero-headline-wrap{max-width:100%;padding:0 1.5rem;box-sizing:border-box;overflow:hidden}
 .hero-h1{font-family:var(--font-display);font-size:clamp(2.5rem,5vw + 1rem,5.5rem);font-weight:400;line-height:1.05;color:var(--white);margin-bottom:24px;letter-spacing:-.01em;max-width:100%;overflow-wrap:break-word;word-wrap:break-word}
 .hero-h1 em{font-style:italic;color:var(--gold)}
-.hero-trust-bar{display:flex;align-items:stretch;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.6);margin-bottom:28px;max-width:640px;box-shadow:0 8px 32px rgba(10,25,47,.12)}
-.hero-trust-item{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:18px 12px;text-align:center;position:relative}
+.hero-trust-bar{background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.6);margin-bottom:28px;max-width:640px;box-shadow:0 8px 32px rgba(10,25,47,.12);overflow:hidden;position:relative}
+.hero-trust-track{display:flex;align-items:stretch;width:max-content;animation:trust-scroll 40s linear infinite}
+.hero-trust-bar:hover .hero-trust-track{animation-play-state:paused}
+@keyframes trust-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero-trust-item{flex:0 0 auto;width:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;text-align:center;position:relative}
 .hero-trust-item:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:var(--gray-100)}
-.hero-trust-num{font-family:var(--font-display);font-size:clamp(18px,2.2vw,24px);font-weight:700;color:var(--trust-gold);line-height:1.1;margin-bottom:5px;white-space:nowrap}
-.hero-trust-label{font-size:8px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--navy);line-height:1.4}
+.hero-trust-num{font-family:var(--font-display);font-size:clamp(22px,2.64vw,29px);font-weight:700;color:var(--trust-gold);line-height:1.1;margin-bottom:5px;white-space:nowrap}
+.hero-trust-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);line-height:1.45}
 .fade-swap{transition:opacity .4s}
 .hero-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,.65);max-width:480px;line-height:1.7;margin-bottom:40px;letter-spacing:.02em}
 .hero-actions{display:flex;gap:16px;flex-wrap:wrap}
@@ -746,11 +749,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 @media(max-width:768px){
   .mobile-sticky-cta{display:flex}
   body{padding-bottom:72px}
-  .hero-trust-bar{max-width:100%;display:grid;grid-template-columns:1fr 1fr}
-  .hero-trust-item::after{display:none!important}
-  .hero-trust-item{border-right:1px solid var(--gray-100);border-bottom:1px solid var(--gray-100)}
-  .hero-trust-item:nth-child(2n){border-right:none}
-  .hero-trust-item:nth-child(n+3){border-bottom:none}
+  .hero-trust-bar{max-width:100%}
   .testimonials-row{margin-top:32px}
   .testimonial-dots{display:flex}
 }
@@ -836,7 +835,8 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <div class="hero-headline-wrap">
         <h1 class="hero-h1">Where <em>Exceptional</em><br>Homes Find<br>Their People</h1>
       </div>
-      <div class="hero-trust-bar" id="cms-hero-trust" role="complementary" aria-label="Company credentials">
+      <div class="hero-trust-bar" role="complementary" aria-label="Company credentials">
+        <div class="hero-trust-track" id="cms-hero-trust">
         <div class="hero-trust-item">
           <div class="hero-trust-num">$50M+</div>
           <div class="hero-trust-label">Volume Sold</div>
@@ -852,6 +852,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
         <div class="hero-trust-item">
           <div class="hero-trust-num">15+</div>
           <div class="hero-trust-label">Years Experience</div>
+        </div>
         </div>
       </div>
       <p class="hero-sub">Core Collective Real Estate delivers white-glove representation across the Triangle's most coveted addresses — from first-time buyers to seasoned portfolio investors.</p>
@@ -2386,7 +2387,7 @@ function renderMarketMetrics(data){
   const trustEl=document.getElementById('cms-hero-trust');
   const heroStatsEl=document.getElementById('cms-hero-stats');
   const sellerEl=document.getElementById('cms-sellers-stats');
-  const blocks=[trustEl,heroStatsEl,sellerEl].filter(Boolean);
+  const blocks=[heroStatsEl,sellerEl].filter(Boolean);
   blocks.forEach(el=>el.classList.add('fade-swap'));
   let offset=0;
 
@@ -2395,13 +2396,6 @@ function renderMarketMetrics(data){
   }
 
   function paintAreaFacts(){
-    if(trustEl){
-      trustEl.innerHTML=take(offset,4).map(s=>`
-      <div class="hero-trust-item">
-        <div class="hero-trust-num">${escHtml(s.value)}</div>
-        <div class="hero-trust-label">${escHtml(s.label)}</div>
-      </div>`).join('');
-    }
     if(heroStatsEl){
       heroStatsEl.innerHTML=take(offset+4,4).map(s=>`
       <div class="stat-block">
@@ -2416,6 +2410,15 @@ function renderMarketMetrics(data){
         <div class="s-stat-label">${escHtml(s.label)}</div>
       </div>`).join('');
     }
+  }
+
+  if(trustEl){
+    const doubled=[...shuffled,...shuffled];
+    trustEl.innerHTML=doubled.map(s=>`
+      <div class="hero-trust-item">
+        <div class="hero-trust-num">${escHtml(s.value)}</div>
+        <div class="hero-trust-label">${escHtml(s.label)}</div>
+      </div>`).join('');
   }
 
   paintAreaFacts();
