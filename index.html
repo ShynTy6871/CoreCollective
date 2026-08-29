@@ -142,9 +142,9 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .hero-trust-track{display:flex;align-items:stretch;width:max-content;animation:trust-scroll 40s linear infinite}
 .hero-trust-bar:hover .hero-trust-track{animation-play-state:paused}
 @keyframes trust-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-.hero-trust-item{flex:0 0 auto;width:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;text-align:center;position:relative}
+.hero-trust-item{flex:0 0 auto;width:200px;min-height:78px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px 16px;text-align:center;position:relative;overflow:hidden}
 .hero-trust-item:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:var(--gray-100)}
-.hero-trust-num{font-family:var(--font-display);font-size:clamp(22px,2.64vw,29px);font-weight:700;color:var(--trust-gold);line-height:1.1;margin-bottom:5px;white-space:nowrap}
+.hero-trust-num{font-family:var(--font-display);font-size:clamp(18px,2.2vw,26px);font-weight:700;color:var(--trust-gold);line-height:1.15;margin-bottom:5px;white-space:normal}
 .hero-trust-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--navy);line-height:1.45}
 .fade-swap{transition:opacity .4s}
 .hero-sub{font-size:15px;font-weight:300;color:rgba(255,255,255,.65);max-width:480px;line-height:1.7;margin-bottom:40px;letter-spacing:.02em}
