@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://corecollectiverealestate.netlify.app/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://corecollectiverealestate.netlify.app/events</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://corecollectiverealestate.netlify.app/agent/marsha-watson</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://corecollectiverealestate.netlify.app/agent/sylvia-wheeler</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://corecollectiverealestate.netlify.app/agent/dexter-drayton</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://corecollectiverealestate.netlify.app/agent/sharon-mcduffie</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://corecollectiverealestate.netlify.app/agent/jennifer-wiggins</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://corecollectiverealestate.netlify.app/agent/frederick-davis</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+</urlset>
