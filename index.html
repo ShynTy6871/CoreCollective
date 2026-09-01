@@ -12,6 +12,41 @@
   gtag('js', new Date());
   gtag('config', 'G-K2VZ5SGH5D');
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "Core Collective Real Estate",
+  "image": "https://corecollectiverealestate.netlify.app/images/Logos/core-collective-logo.png",
+  "url": "https://corecollectiverealestate.netlify.app/",
+  "telephone": "+19193245134",
+  "email": "marsha.watson@exprealty.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "5300 Greens Dairy Road",
+    "addressLocality": "Raleigh",
+    "addressRegion": "NC",
+    "postalCode": "27616",
+    "addressCountry": "US"
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "North Carolina"
+  },
+  "employee": [
+    {"@type": "Person", "name": "Marsha Watson", "url": "https://corecollectiverealestate.netlify.app/agent/marsha-watson"},
+    {"@type": "Person", "name": "Sylvia T. Wheeler", "url": "https://corecollectiverealestate.netlify.app/agent/sylvia-wheeler"},
+    {"@type": "Person", "name": "Dexter Drayton", "url": "https://corecollectiverealestate.netlify.app/agent/dexter-drayton"},
+    {"@type": "Person", "name": "Sharon McDuffie", "url": "https://corecollectiverealestate.netlify.app/agent/sharon-mcduffie"},
+    {"@type": "Person", "name": "Jennifer Wiggins", "url": "https://corecollectiverealestate.netlify.app/agent/jennifer-wiggins"},
+    {"@type": "Person", "name": "Frederick Davis", "url": "https://corecollectiverealestate.netlify.app/agent/frederick-davis"}
+  ],
+  "parentOrganization": {
+    "@type": "Organization",
+    "name": "eXp Realty, LLC"
+  }
+}
+</script>
 <title>Core Collective Real Estate | Premium Properties</title>
 <meta name="description" content="Where exceptional homes find their people. Find your property value or tour premier listings today.">
 <meta property="og:type" content="website">
@@ -1655,6 +1690,15 @@ const AGENT_PULL_QUOTES={
   'frederick-davis':"Clear communication and careful attention, from the first showing to the closing table."
 };
 
+const AGENT_THUMBS={
+  'marsha-watson':'images/agents/marsha-thumb.jpg',
+  'sylvia-wheeler':'images/agents/sylvia-wheeler-thumb.jpg',
+  'dexter-drayton':'images/agents/dexter-thumb.jpg',
+  'sharon-mcduffie':'images/agents/sharon-thumb.jpg',
+  'jennifer-wiggins':'images/agents/jennifer-thumb.jpg',
+  'frederick-davis':'images/agents/frederick-thumb.jpg'
+};
+
 const SPOTLIGHT_BG_IMAGES=[
   'https://images.unsplash.com/photo-1598228723793-52759bba239c?w=1200&q=75&auto=format&fit=crop',
   'https://images.unsplash.com/photo-1756435292384-1bf32eff7baf?w=1200&q=75&auto=format&fit=crop',
@@ -2254,7 +2298,7 @@ function renderAgentSpotlight(items,routes){
   strip.innerHTML=spotlightAgents.map((a,i)=>`
     <button type="button" class="agent-spotlight-thumb${i===0?' active':''}" role="listitem" data-index="${i}" aria-label="Show ${escHtml(a.name)}" aria-pressed="${i===0?'true':'false'}">
       ${a.headshot
-        ? `<img src="${escHtml(a.headshot)}" alt="" width="72" height="72">`
+        ? `<img src="${escHtml(AGENT_THUMBS[a.id]||a.headshot)}" alt="" width="72" height="72" loading="lazy">`
         : `<span class="agent-spotlight-thumb-initials" aria-hidden="true">${escHtml(a.initials||agentFirstName(a.name).charAt(0))}</span>`}
       <span class="agent-spotlight-thumb-name">${escHtml(a.name)}</span>
     </button>`).join('');
