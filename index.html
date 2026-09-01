@@ -182,7 +182,6 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 @keyframes agentKenBurns{from{transform:scale(1)}to{transform:scale(1.08)}}
 @media(prefers-reduced-motion:reduce){.agent-spotlight-photo{animation:none}}
 .agent-spotlight-meta{position:absolute;bottom:0;left:0;right:0;z-index:3;padding:clamp(20px,3vw,36px);max-width:720px}
-.agent-spotlight-badge{display:inline-block;font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);background:var(--gold);padding:5px 12px;margin-bottom:12px}
 .agent-spotlight-name{font-family:var(--font-display);font-size:clamp(22px,3.2vw,34px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:4px}
 .agent-spotlight-role{font-size:9px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
 .agent-spotlight-quote{font-family:var(--font-display);font-size:clamp(16px,2.2vw,24px);font-weight:400;line-height:1.35;margin:0 0 20px;max-width:640px}
@@ -909,7 +908,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 
           <div class="valuation-panel" id="match-step-2" role="group" aria-labelledby="match-step-2-title">
             <h3 class="valuation-panel-title" id="match-step-2-title">What matters most to you right now?</h3>
-            <p class="valuation-panel-desc">Pick the specialty that is most important for this transaction.</p>
+            <p class="valuation-panel-desc">Pick one or more specialties that matter most for this transaction.</p>
             <div class="val-pill-group" data-match-step="2" role="group" aria-label="What matters most to you right now?">
               <button type="button" class="val-pill" data-value="First-Time Buyers">First-Time Buyers</button>
               <button type="button" class="val-pill" data-value="Luxury / Move-Up Homes">Luxury / Move-Up Homes</button>
@@ -929,7 +928,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 
           <div class="valuation-panel" id="match-step-3" role="group" aria-labelledby="match-step-3-title">
             <h3 class="valuation-panel-title" id="match-step-3-title">What kind of experience are you looking for?</h3>
-            <p class="valuation-panel-desc">Choose the working style that feels like the best fit.</p>
+            <p class="valuation-panel-desc">Choose one or more working styles that feel like the best fit.</p>
             <div class="val-pill-group" data-match-step="3" role="group" aria-label="What kind of experience are you looking for?">
               <button type="button" class="val-pill" data-value="Fast-moving &amp; decisive">Fast-moving &amp; decisive</button>
               <button type="button" class="val-pill" data-value="Warm &amp; patient">Warm &amp; patient</button>
@@ -1954,22 +1953,23 @@ function closeAgentBioOutside(e){
 }
 
 const AGENT_ROUTES_FALLBACK={
-  'marsha-watson':{name:'Marsha Watson',role:'Realtor, Team Lead',interest:'Seller',expertise:''},
-  'sharon-mcduffie':{name:'Sharon McDuffie',role:'Realtor',interest:'Buyer',expertise:''},
-  'sylvia-wheeler':{name:'Sylvia T. Wheeler',role:'Realtor',interest:'Buyer',expertise:''},
-  'dexter-drayton':{name:'Dexter Drayton',role:'Realtor',interest:'Investor',expertise:''},
-  'jennifer-wiggins':{name:'Jennifer "Jenie" Wiggins',role:'Realtor',interest:'Seller',expertise:''},
-  'frederick-davis':{name:'Frederick Davis',role:'Realtor',interest:'Buyer',expertise:''}
+  'marsha-watson':{name:'Marsha Watson',role:'Realtor, Team Lead',expertise:''},
+  'sharon-mcduffie':{name:'Sharon McDuffie',role:'Realtor',expertise:''},
+  'sylvia-wheeler':{name:'Sylvia T. Wheeler',role:'Realtor',expertise:''},
+  'dexter-drayton':{name:'Dexter Drayton',role:'Realtor',expertise:''},
+  'jennifer-wiggins':{name:'Jennifer "Jenie" Wiggins',role:'Realtor',expertise:''},
+  'frederick-davis':{name:'Frederick Davis',role:'Realtor',expertise:''}
 };
 let AGENT_ROUTES={...AGENT_ROUTES_FALLBACK};
 
-function openAgentConsultation(agentId){
+function openAgentConsultation(agentId,timeline){
   const agent=AGENT_ROUTES[agentId];
   if(!agent)return;
   openModal();
   document.getElementById('f-agent').value=agentId;
-  document.getElementById('f-interest').value=agent.interest;
-  document.getElementById('f-msg').value='I would like to schedule a consultation with '+agent.name+' ('+agent.role+'). Areas of interest: '+agent.expertise+'.';
+  let msg='I would like to schedule a consultation with '+agent.name+' ('+agent.role+'). Areas of interest: '+agent.expertise+'.';
+  if(timeline)msg+=' Timeline: '+timeline+'.';
+  document.getElementById('f-msg').value=msg;
   document.getElementById('modal-title').textContent='Schedule with '+agent.name.split(' ')[0];
 }
 
@@ -2211,7 +2211,6 @@ function showSpotlight(index,restartTimer=true){
       <div class="agent-spotlight-bg" style="background-image:url('${escHtml(bg)}')" aria-hidden="true"></div>
       <div class="agent-spotlight-photo-wrap">${photo}</div>
       <div class="agent-spotlight-meta">
-        <span class="agent-spotlight-badge">${escHtml(a.interest)}</span>
         <div class="agent-spotlight-name">${escHtml(a.name)}</div>
         <div class="agent-spotlight-role">${escHtml(a.title)}</div>
         ${quote?`<p class="agent-spotlight-quote"><em>${escHtml(quote)}</em></p>`:''}
@@ -2240,7 +2239,6 @@ function renderAgentSpotlight(items,routes){
       id,
       name:a.name,
       title:a.title||meta.role||'Realtor',
-      interest:a.interest||meta.interest||'Buyer',
       headshot:a.headshot||'',
       initials:a.initials||''
     };
@@ -2518,14 +2516,13 @@ function renderAgents(items){
   items.forEach(a=>{
     const id=a.agent_id||a.name.toLowerCase().replace(/\s+/g,'-');
     const expertise=(a.focus_tags||[]).map(t=>typeof t==='string'?t:t.tag).join(' · ');
-    routes[id]={name:a.name,role:a.title,bio:a.bio,interest:a.interest||'Buyer',expertise,phone:a.phone,email:a.email,license:a.license};
+    routes[id]={name:a.name,role:a.title,bio:a.bio,expertise,phone:a.phone,email:a.email,license:a.license};
   });
   AGENT_ROUTES={...AGENT_ROUTES,...routes};
   MATCHER_AGENTS=items.map(a=>({
     id:a.agent_id||a.name.toLowerCase().replace(/\s+/g,'-'),
     name:a.name,
     title:a.title||'Realtor',
-    interest:a.interest||'Buyer',
     specialties:a.specialties||[],
     traits:a.traits||[],
     headshot:a.headshot||'',
@@ -2537,22 +2534,27 @@ function renderAgents(items){
 
 /* ── AGENT MATCHER ───────────────────────────────────── */
 let MATCHER_AGENTS=[];
-const MATCHER_INTEREST={Buying:'Buyer',Selling:'Seller',Investing:'Investor'};
 
 function initAgentMatcher(){
   const root=document.getElementById('agent-matcher-form');
   if(!root)return;
   root.querySelectorAll('.val-pill-group').forEach(group=>{
+    const step=parseInt(group.dataset.matchStep,10);
+    const multi=step===2||step===3;
     group.addEventListener('click',e=>{
       const pill=e.target.closest('.val-pill');
       if(!pill)return;
-      group.querySelectorAll('.val-pill').forEach(p=>p.classList.remove('selected'));
-      pill.classList.add('selected');
+      if(multi){
+        pill.classList.toggle('selected');
+      }else{
+        group.querySelectorAll('.val-pill').forEach(p=>p.classList.remove('selected'));
+        pill.classList.add('selected');
+      }
       const hidden=group.nextElementSibling;
-      if(hidden&&hidden.tagName==='INPUT')hidden.value=pill.dataset.value;
-      const step=parseInt(group.dataset.matchStep,10);
+      const selected=Array.from(group.querySelectorAll('.val-pill.selected')).map(p=>p.dataset.value);
+      if(hidden&&hidden.tagName==='INPUT')hidden.value=selected.join('|');
       const btn=document.getElementById('match-next-'+step);
-      if(btn)btn.disabled=false;
+      if(btn)btn.disabled=selected.length===0;
     });
   });
 }
@@ -2608,26 +2610,27 @@ function matcherStartOver(){
 }
 
 function matcherScoreAgents(goal,specialty,trait){
-  const interest=MATCHER_INTEREST[goal]||goal;
-  return MATCHER_AGENTS.map(a=>{
+  const pickedSpecialties=(specialty||'').split('|').filter(Boolean);
+  const pickedTraits=(trait||'').split('|').filter(Boolean);
+  const specialtyFreq={};
+  MATCHER_AGENTS.forEach(a=>{
+    (a.specialties||[]).forEach(s=>{specialtyFreq[s]=(specialtyFreq[s]||0)+1;});
+  });
+  const shuffled=MATCHER_AGENTS.map((a,i)=>({a:a,r:Math.random()}))
+    .sort((x,y)=>x.r-y.r).map(x=>x.a);
+  return shuffled.map(a=>{
     const specialties=a.specialties||[];
     const traits=a.traits||[];
-    const specHit=specialties.indexOf(specialty)!==-1;
-    const traitHit=traits.indexOf(trait)!==-1;
-    const interestHit=a.interest===interest;
+    const specHits=pickedSpecialties.filter(s=>specialties.indexOf(s)!==-1);
+    const traitHits=pickedTraits.filter(t=>traits.indexOf(t)!==-1);
     let score=0;
-    if(specHit)score+=3;
-    if(traitHit)score+=2;
-    if(interestHit)score+=1;
+    specHits.forEach(s=>{score+=3/(specialtyFreq[s]||1);});
+    score+=traitHits.length*2;
     const reasons=[];
-    if(specHit)reasons.push('Specializes in '+specialty);
-    if(traitHit)reasons.push('Known for being '+trait);
-    if(interestHit){
-      const verb=interest==='Seller'?'sellers':interest==='Investor'?'investors':'buyers';
-      reasons.push('Works with '+verb);
-    }
+    if(specHits.length)reasons.push('Specializes in '+specHits.join(' & '));
+    if(traitHits.length)reasons.push('Known for being '+traitHits.join(' & '));
     return Object.assign({},a,{score:score,reasons:reasons});
-  }).sort((a,b)=>b.score-a.score||(a.order||99)-(b.order||99));
+  }).sort((a,b)=>b.score-a.score);
 }
 
 function matcherPickResults(scored){

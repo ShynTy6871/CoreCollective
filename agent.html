@@ -214,7 +214,6 @@ async function submitAgentLead(agent,first){
     timestamp:new Date().toISOString(),
     lead:{
       fullName,email,phone,
-      interest:agent.interest||'Buyer',
       message,
       assignedAgent:agent.name
     }
