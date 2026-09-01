@@ -166,12 +166,6 @@ collections:
                 hint: "Square photo works best (400×400px or larger) — it will be cropped into a circle."
               - { label: Phone, name: phone, widget: string, required: false, hint: "Shown on your bio and used for the click-to-call button." }
               - { label: Email, name: email, widget: string, required: false }
-              - label: Default Consultation Type
-                name: interest
-                widget: select
-                options: ["Seller", "Buyer", "Investor"]
-                default: Buyer
-                hint: "Pre-fills the contact form when someone clicks \"Schedule with You\" from your card."
               - label: "Specialties"
                 name: "specialties"
                 widget: "select"
