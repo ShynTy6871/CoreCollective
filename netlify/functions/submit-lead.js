@@ -44,7 +44,7 @@ exports.handler = async (event) => {
   const notes = [
     lead.interest ? `Inquiry type: ${lead.interest}` : null,
     message,
-    agentRoute ? `Routed to: ${assignedAgent}` : null,
+    assignedAgent ? `Routed to: ${assignedAgent}` : null,
     locationPreferences?.length ? `Areas of interest: ${locationPreferences.join(', ')}` : null
   ].filter(Boolean).join('\n\n');
 

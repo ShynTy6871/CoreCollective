@@ -2162,7 +2162,7 @@ async function submitForm(){
 
   const agentName=agentRoute?AGENT_ROUTES[agentRoute]?.name:null;
   const payload={
-    source:agentName?`Core Collective Website — Agent Request: ${agentName}`:'Core Collective Website',
+    source:agentName?`Core Collective Website — Contact Form: ${agentName}`:'Core Collective Website — Contact Form',
     timestamp:new Date().toISOString(),
     lead:{fullName:name,email,phone,interest,message,locationPreferences,agentRoute:agentRoute||null,assignedAgent:agentName}
   };
