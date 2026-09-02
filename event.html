@@ -280,7 +280,7 @@ async function submitRegistration(event,questions){
   const pairs=collectAnswers(questions);
   const message=[event.name].concat(pairs.map(p=>p.label+': '+p.answer)).join('\n');
   const payload={
-    source:`Event Registration: ${event.name}`,
+    source:`Core Collective Website — Event Registration: ${event.name}`,
     timestamp:new Date().toISOString(),
     lead:{fullName,email,phone,message}
   };
