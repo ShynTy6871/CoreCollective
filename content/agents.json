@@ -14,7 +14,7 @@
       "order": 1,
       "initials": "MW",
       "agent_id": "marsha-watson",
-      "title": "Realtor, Team Lead",
+      "title": "Team Lead - Bio",
       "headshot": "/images/uploads/marsha.jpg",
       "specialties": [
         "First-Time Buyers",
@@ -39,7 +39,7 @@
       "order": 3,
       "initials": "STW",
       "agent_id": "sylvia-wheeler",
-      "title": "Realtor",
+      "title": "Realtor Bio",
       "headshot": "images/agents/sylvia-wheeler-headshot.jpg",
       "specialties": [
         "First-Time Buyers",
@@ -88,7 +88,7 @@
       "order": 2,
       "initials": "SM",
       "agent_id": "sharon-mcduffie",
-      "title": "Realtor",
+      "title": "Realtor Bio",
       "headshot": "/images/uploads/image.jpg",
       "specialties": [
         "First-Time Buyers",
@@ -113,7 +113,7 @@
       "order": 5,
       "initials": "JW",
       "agent_id": "jennifer-wiggins",
-      "title": "Realtor",
+      "title": "Realtor Bio",
       "headshot": "images/agents/jennifer-headshot.jpg",
       "specialties": [
         "First-Time Buyers",
@@ -136,7 +136,7 @@
       "order": 6,
       "initials": "FD",
       "agent_id": "frederick-davis",
-      "title": "Realtor",
+      "title": "Realtor Bio",
       "headshot": "images/agents/frederick-headshot.jpg",
       "specialties": [
         "First-Time Buyers",
