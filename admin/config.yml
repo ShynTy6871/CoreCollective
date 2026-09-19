@@ -209,6 +209,12 @@ collections:
                   - "Calm under pressure"
                   - "Community-connected"
                   - "Educator at heart"
+              - label: "✨ Create My Yard Sign Page (Vanishing Act)"
+                name: "vanishing_act_enabled"
+                widget: "boolean"
+                default: false
+                required: false
+                hint: "A fun, animated version of your profile page for a yard sign QR code — reuses your name, photo, phone, and title above, so there's nothing else to fill out. No approval needed — check this box and save, and it goes live immediately at corecollectivere.com/sign/[your agent ID]."
 
   - name: neighborhoods
     label: Neighborhood Cards
@@ -370,3 +376,42 @@ collections:
                     widget: "list"
                     required: false
                     field: { label: "Choice", name: "choice", widget: "string" }
+
+  - name: "builder_signs"
+    label: "Builder Lot Signs"
+    files:
+      - name: "builder_signs"
+        label: "Builder Lot Signs"
+        file: "content/builder-signs.json"
+        description: "QR-code yard signs for builder-partner lots (the \"Dream Homes Appear\" concept — Section 14 of the maintenance guide). A new sign needs Marsha's approval before it's live."
+        fields:
+          - name: "signs"
+            label: "Signs"
+            widget: "list"
+            summary: "{{fields.pending_approval}} {{fields.builder_name}} — {{fields.lot_label}}"
+            fields:
+              - { label: "Sign ID", name: "sign_id", widget: "string", hint: "⚠️ Do not change this after a sign is created — it controls the sign's web address and QR code. Only set this once, using lowercase-with-dashes (e.g. smith-homes-lot-4)." }
+              - { label: "Builder Name", name: "builder_name", widget: "string", hint: "The home builder partner's business name." }
+              - label: "Builder Logo"
+                name: "builder_logo"
+                widget: "image"
+                required: false
+                media_folder: "/images/builders"
+                public_folder: "/images/builders"
+                hint: "Optional. Square logo works best. If left blank, the sign shows the assigned agent's photo instead."
+              - { label: "Lot Label / Number", name: "lot_label", widget: "string", hint: "e.g. \"LOT 4 OF 6\" — shown as a tag on the sign's page. Whatever is actually printed on the physical sign should match this." }
+              - label: "Assigned Agent(s)"
+                name: "assigned_agents"
+                widget: "relation"
+                collection: "agents"
+                search_fields: ["name"]
+                display_fields: ["name"]
+                value_field: "agent_id"
+                multiple: true
+                hint: "Pick whichever agent(s) actually made the deal with this builder — one agent, several, or the whole team. This is decided case by case, not automatically. Each agent picked shows up as their own separate Call/Text button on the sign's page."
+              - label: "⏳ Pending Approval"
+                name: "pending_approval"
+                widget: "boolean"
+                default: true
+                hint: "Checked = hidden from the live site, waiting for Marsha's approval. Uncheck this box and save to publish it live — double-check the builder name, lot number, and assigned agent(s) are all correct first."
+

@@ -26,3 +26,14 @@
   from = "/events"
   to = "/events.html"
   status = 200
+
+[[redirects]]
+  from = "/sign/*"
+  to = "/sign.html"
+  status = 200
+
+[[redirects]]
+  from = "/lot/*"
+  to = "/lot.html"
+  status = 200
+

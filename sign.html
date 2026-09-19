@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K2VZ5SGH5D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K2VZ5SGH5D');
+</script>
+<title>Yard Sign | Core Collective Real Estate</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Archivo:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy-0:#0c1e33;
+    --navy-1:#122c48;
+    --navy-2:#1b3d61;
+    --gold:#cda053;
+    --gold-bright:#e6bd74;
+    --cream:#faf5ea;
+    --ink:#1d2a37;
+    --ink-soft:#4b5a68;
+    --rule:rgba(205,160,83,0.35);
+    font-synthesis:none;
+  }
+  html,body{min-height:100%}
+  body{
+    background:var(--navy-0);
+    color:var(--cream);
+    font-family:'Archivo',ui-sans-serif,system-ui,-apple-system,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    scroll-snap-type:y proximity;
+  }
+  h1,h2{font-family:'Fraunces',Georgia,'Times New Roman',serif;text-wrap:balance;margin:0}
+  img{display:block;max-width:100%}
+  a{color:inherit}
+  :focus-visible{outline:2px solid var(--gold-bright);outline-offset:3px}
+
+  .page-state{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:48px 24px;text-align:center;background:var(--cream);color:var(--ink)}
+  .page-state p{max-width:420px;font-size:16px;line-height:1.7;color:var(--ink-soft)}
+  .page-state a{display:inline-block;margin-top:20px;font-size:11px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--ink);border-bottom:1px solid var(--gold);padding-bottom:4px}
+
+  .stage{max-width:480px;margin:0 auto;min-height:100vh;position:relative}
+  @media (min-width:560px){
+    body{background:linear-gradient(180deg,#e9e2d2 0%,#ded5c1 100%)}
+    .stage{box-shadow:0 30px 80px -20px rgba(12,30,51,.55),0 0 0 10px #16110b,0 0 0 12px rgba(0,0,0,.15);border-radius:34px;overflow:hidden;margin:40px auto;min-height:calc(100vh - 80px)}
+  }
+
+  .act-one{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9vh 8vw 14vh;background:radial-gradient(120% 90% at 50% 8%,var(--navy-2) 0%,var(--navy-1) 46%,var(--navy-0) 100%);scroll-snap-align:start;overflow:hidden}
+  .stars{position:absolute;inset:0;pointer-events:none}
+  .stars span{position:absolute;width:3px;height:3px;background:var(--gold-bright);border-radius:50%;opacity:0;animation:twinkle 3.6s ease-in-out infinite}
+  @keyframes twinkle{0%,100%{opacity:0;transform:scale(.6)}50%{opacity:.85;transform:scale(1)}}
+
+  .scene{width:100%;max-width:340px;aspect-ratio:1/0.86;margin-bottom:2.2vh;opacity:0;transform:translateY(14px);animation:rise .9s cubic-bezier(.2,.7,.2,1) .15s forwards}
+  .house-group{transform-box:fill-box;transform-origin:50% 100%;animation:house-vanish 1.3s cubic-bezier(.45,0,.2,1) 2.6s forwards}
+  @keyframes house-vanish{0%{opacity:1;transform:scale(1) translateY(0)}60%{opacity:.5;transform:scale(.9) translateY(5px)}100%{opacity:0;transform:scale(.68) translateY(12px)}}
+  .poof-cloud circle{--end-op:0.2;opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.45);animation:poof-in 1.4s cubic-bezier(.2,.75,.25,1) forwards}
+  .poof-cloud circle:nth-child(1){animation-delay:2.6s}.poof-cloud circle:nth-child(2){animation-delay:2.74s}.poof-cloud circle:nth-child(3){animation-delay:2.88s}.poof-cloud circle:nth-child(4){animation-delay:3.0s}
+  @keyframes poof-in{0%{opacity:0;transform:scale(.45)}55%{opacity:var(--end-op)}100%{opacity:var(--end-op);transform:scale(1)}}
+  .sparkles{opacity:0;transform-box:fill-box;transform-origin:center;transform:scale(.6);animation:sparkle-pop .8s cubic-bezier(.3,1.3,.4,1) 2.95s forwards}
+  @keyframes sparkle-pop{0%{opacity:0;transform:scale(.6)}55%{opacity:1;transform:scale(1.1)}100%{opacity:.9;transform:scale(1)}}
+  .footprint{opacity:0;animation:footprint-in .7s ease 3.75s forwards}
+  .footprint-label{opacity:0;animation:footprint-in .7s ease 3.95s forwards}
+  @keyframes footprint-in{0%{opacity:0}100%{opacity:.85}}
+  .wand-group{opacity:0;transform-box:fill-box;transform-origin:88% 8%;animation:wand-fade-in .4s ease 1.9s forwards,wand-wave .9s cubic-bezier(.3,.1,.2,1) 2.15s forwards}
+  @keyframes wand-fade-in{to{opacity:1}}
+  @keyframes wand-wave{0%{transform:rotate(0deg)}35%{transform:rotate(-16deg)}70%{transform:rotate(7deg)}100%{transform:rotate(0deg)}}
+  .wand-tip{transform-box:fill-box;transform-origin:center;animation:tip-pulse .6s ease 2.35s}
+  @keyframes tip-pulse{0%{opacity:.7;transform:scale(1)}45%{opacity:1;transform:scale(1.45)}100%{opacity:.9;transform:scale(1)}}
+  .dust circle{opacity:0;animation:dust-fall .85s ease-out forwards}
+  .dust circle:nth-child(1){animation-delay:2.3s}.dust circle:nth-child(2){animation-delay:2.42s}.dust circle:nth-child(3){animation-delay:2.5s}.dust circle:nth-child(4){animation-delay:2.6s}.dust circle:nth-child(5){animation-delay:2.7s}
+  @keyframes dust-fall{0%{opacity:0;transform:translateY(-6px)}35%{opacity:1}100%{opacity:0;transform:translateY(22px)}}
+
+  .eyebrow{margin-top:20px;font-weight:700;font-size:11.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold-bright);opacity:0;animation:rise .6s ease 4.75s forwards}
+  .headline{margin-top:14px;font-size:clamp(28px,8vw,38px);font-weight:600;line-height:1.12;color:var(--cream);opacity:0;animation:rise .7s cubic-bezier(.2,.7,.2,1) 5.05s forwards}
+  .subline{margin-top:0;font-size:16px;line-height:1.5;color:#c9d3dc;max-width:30ch;opacity:0;animation:rise .7s cubic-bezier(.2,.7,.2,1) 4.3s forwards}
+  .subline .laugh{color:var(--gold-bright);font-weight:700}
+  @keyframes rise{to{opacity:1;transform:translateY(0)}}
+
+  .scroll-cue{position:absolute;bottom:6vh;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:6px;opacity:0;animation:rise .7s ease 5.55s forwards,bob 2.2s ease-in-out 6.25s infinite}
+  .scroll-cue span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#9fb0bf}
+  .scroll-cue svg{width:16px;height:16px;stroke:#9fb0bf}
+  @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,6px)}}
+
+  .act-two{position:relative;min-height:100vh;background:var(--cream);color:var(--ink);display:flex;flex-direction:column;align-items:center;padding:11vh 9vw 8vh;text-align:center;scroll-snap-align:start}
+  .act-two::before{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--rule) 20%,var(--rule) 80%,transparent)}
+  .avatar-photo{width:128px;height:128px;border-radius:50%;object-fit:cover;box-shadow:0 0 0 4px var(--cream),0 0 0 5px var(--rule),0 18px 30px -14px rgba(29,42,55,.35);margin-bottom:22px}
+  .avatar-fallback{width:128px;height:128px;border-radius:50%;background:linear-gradient(155deg,#173250,#0f2038);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--cream),0 0 0 5px var(--rule),0 18px 30px -14px rgba(29,42,55,.35);margin-bottom:22px}
+  .avatar-fallback span{font-family:'Fraunces',serif;font-size:36px;font-weight:600;color:var(--gold-bright)}
+  .kicker{font-size:11.5px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#9a7a3d}
+  .name{margin-top:10px;font-size:clamp(26px,7vw,32px);font-weight:600;color:var(--ink)}
+  .role{margin-top:6px;font-size:14.5px;color:var(--ink-soft)}
+  .role b{color:var(--ink);font-weight:700}
+  .pitch{margin-top:22px;font-size:16px;line-height:1.6;color:var(--ink-soft);max-width:34ch}
+  .ctas{margin-top:32px;display:flex;flex-direction:column;gap:12px;width:100%;max-width:320px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:8px;padding:15px 18px;border-radius:11px;font-weight:700;font-size:15px;text-decoration:none;border:1px solid transparent;transition:transform .15s ease}
+  .btn:active{transform:scale(.98)}
+  .btn-primary{background:var(--ink);color:var(--cream);box-shadow:0 10px 22px -10px rgba(29,42,55,.5)}
+  .btn-secondary{background:transparent;color:var(--ink);border-color:#d8cdb6}
+  .fine{margin-top:26px;font-size:12px;color:#a99a7c;letter-spacing:.02em}
+  .fine a{color:var(--ink-soft);font-weight:700;text-decoration:underline;text-underline-offset:2px}
+
+  @media (prefers-reduced-motion:reduce){
+    .scene,.eyebrow,.headline,.subline,.scroll-cue,.stars span,.poof-cloud circle,.sparkles,.footprint,.footprint-label,.wand-group,.wand-tip,.dust circle{animation:none!important;opacity:1!important;transform:none!important}
+    .poof-cloud circle{opacity:var(--end-op)!important}
+    .footprint,.footprint-label{opacity:.85!important}
+    .dust circle{opacity:0!important}
+    .house-group{animation:none!important;opacity:0!important;transform:none!important}
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <div class="page-state" id="state-loading">
+    <p>Loading…</p>
+  </div>
+</div>
+<script>
+function escHtml(str){
+  return String(str||'').replace(/[&<>"']/g,ch=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[ch]));
+}
+
+function getSlug(){
+  const path=window.location.pathname.replace(/\/+$/,'');
+  const match=path.match(/\/sign\/(.+)$/i);
+  return match?decodeURIComponent(match[1]):'';
+}
+
+function firstName(name){
+  return String(name||'').trim().split(/\s+/)[0]||'our team';
+}
+
+function mediaUrl(src){
+  const s=String(src||'').trim();
+  if(!s)return '';
+  if(/^(https?:)?\/\//i.test(s)||s.startsWith('/'))return s;
+  return '/'+s.replace(/^\.\//,'');
+}
+
+function telHref(phone){
+  const digits=String(phone||'').replace(/\D/g,'');
+  if(!digits)return '';
+  if(digits.length===10)return 'tel:+1'+digits;
+  if(digits.length===11&&digits.charAt(0)==='1')return 'tel:+'+digits;
+  return 'tel:'+digits;
+}
+function smsHref(phone){
+  const digits=String(phone||'').replace(/\D/g,'');
+  if(!digits)return '';
+  if(digits.length===10)return 'sms:+1'+digits;
+  if(digits.length===11&&digits.charAt(0)==='1')return 'sms:+'+digits;
+  return 'sms:'+digits;
+}
+
+function renderUnavailable(){
+  document.getElementById('app').innerHTML=`
+    <div class="page-state">
+      <div>
+        <p>This yard sign page isn't available. Head back to our homepage to find the right agent.</p>
+        <a href="/">Back to Core Collective</a>
+      </div>
+    </div>`;
+}
+
+function renderSign(agent){
+  const first=firstName(agent.name);
+  const photoSrc=mediaUrl(agent.headshot);
+  const avatar=photoSrc
+    ? `<img class="avatar-photo" src="${escHtml(photoSrc)}" alt="${escHtml(agent.name)}">`
+    : `<div class="avatar-fallback" aria-hidden="true"><span>${escHtml(agent.initials||first.charAt(0))}</span></div>`;
+  const phone=String(agent.phone||'').trim();
+  const title=String(agent.title||'Realtor').trim();
+
+  document.title='I make houses disappear | '+agent.name;
+  document.getElementById('app').innerHTML=`
+  <div class="stage">
+    <section class="act-one" aria-label="Sign scan opening">
+      <div class="stars" aria-hidden="true">
+        <span style="top:12%;left:18%;animation-delay:.2s;"></span>
+        <span style="top:22%;left:78%;animation-delay:1.1s;"></span>
+        <span style="top:8%;left:52%;animation-delay:1.9s;"></span>
+        <span style="top:34%;left:10%;animation-delay:.7s;"></span>
+        <span style="top:30%;left:88%;animation-delay:2.4s;"></span>
+      </div>
+      <svg class="scene" viewBox="0 0 340 292" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Illustration of a house vanishing in a puff of magical smoke, conjured by a waving wand sprinkling dust">
+        <path d="M0 226 Q170 208 340 226 L340 292 L0 292 Z" fill="#0f2843"/>
+        <path d="M0 226 Q170 208 340 226" stroke="#2b4d70" stroke-width="2" fill="none"/>
+        <g class="house-group">
+          <rect x="194" y="152" width="10" height="24" fill="#8a6a34"/>
+          <polygon points="126,190 170,146 214,190" fill="#8a6a34"/>
+          <rect x="134" y="190" width="72" height="38" rx="2" fill="var(--gold)"/>
+          <rect x="182" y="198" width="15" height="15" fill="#0f2843" opacity="0.8"/>
+          <rect x="159" y="210" width="17" height="18" fill="#0f2843"/>
+        </g>
+        <rect class="footprint" x="128" y="216" width="84" height="13" rx="2" fill="none" stroke="var(--gold)" stroke-width="2" stroke-dasharray="6 7"/>
+        <text class="footprint-label" x="170" y="248" text-anchor="middle" font-family="Archivo, sans-serif" font-size="9.5" letter-spacing="2" fill="#8fa4b8">SOLD &amp; GONE</text>
+        <g class="poof-cloud">
+          <circle cx="155" cy="178" r="17" fill="#dbe1e8" style="--end-op:0.18"/>
+          <circle cx="178" cy="166" r="24" fill="#dbe1e8" style="--end-op:0.24"/>
+          <circle cx="202" cy="180" r="19" fill="#dbe1e8" style="--end-op:0.2"/>
+          <circle cx="182" cy="196" r="15" fill="#dbe1e8" style="--end-op:0.16"/>
+        </g>
+        <g class="sparkles" stroke="var(--gold-bright)" stroke-width="2" stroke-linecap="round">
+          <path d="M212 146 l8 8"/><path d="M220 146 l-8 8"/>
+          <path d="M149 136 l7 7"/><path d="M156 136 l-7 7"/>
+          <path d="M220 186 l6 6"/><path d="M226 186 l-6 6"/>
+        </g>
+        <g class="wand-group">
+          <polygon points="254.3,60.3 208.6,102.6 207.4,101.4 249.7,55.7" fill="#5c4319"/>
+          <polygon points="253.3,59.3 208.1,102.1 207.6,101.9 250.7,56.7" fill="var(--gold)"/>
+          <rect x="240.5" y="60" width="6.5" height="9" rx="1.2" fill="#3c2c10" transform="rotate(45 243.75 64.5)"/>
+          <circle class="wand-tip" cx="203" cy="104" r="4.5" fill="var(--gold-bright)" opacity="0.35"/>
+          <path class="wand-tip" d="M203 87 L205.3 100.7 L220 104 L205.3 107.3 L203 121 L200.7 107.3 L186 104 L200.7 100.7 Z" fill="var(--gold-bright)"/>
+        </g>
+        <g class="dust">
+          <circle cx="196" cy="112" r="2.6" fill="var(--gold-bright)"/>
+          <circle cx="184" cy="108" r="2" fill="var(--gold-bright)"/>
+          <circle cx="204" cy="120" r="1.8" fill="var(--gold-bright)"/>
+          <circle cx="176" cy="122" r="2.2" fill="var(--gold-bright)"/>
+          <circle cx="190" cy="130" r="1.6" fill="var(--gold-bright)"/>
+        </g>
+      </svg>
+      <p class="subline">I make houses disappear. <span class="laugh">Ha — get it?</span></p>
+      <p class="eyebrow">Scanned from a yard sign</p>
+      <h1 class="headline">I&rsquo;m ${escHtml(first)}.<br>Your next realtor.</h1>
+      <div class="scroll-cue">
+        <span>Keep going</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v15M6 13l6 6 6-6"/></svg>
+      </div>
+    </section>
+
+    <section class="act-two" aria-label="Meet ${escHtml(first)}">
+      ${avatar}
+      <p class="kicker">Core Collective Real Estate</p>
+      <h2 class="name">${escHtml(agent.name)}</h2>
+      <p class="role">eXp Realty &middot; <b>${escHtml(title)}</b></p>
+      <p class="pitch">Buying, selling, or just curious what your home's worth — ${escHtml(first)} is one call or text away.</p>
+      <div class="ctas">
+        ${phone?`<a class="btn btn-primary" href="${escHtml(telHref(phone))}">Call ${escHtml(first)}</a>
+        <a class="btn btn-secondary" href="${escHtml(smsHref(phone))}">Text ${escHtml(first)}</a>`:''}
+      </div>
+      <p class="fine"><a href="/agent/${escHtml(agent.agent_id)}">See ${escHtml(first)}'s full profile &rarr;</a></p>
+    </section>
+  </div>`;
+}
+
+async function init(){
+  const slug=getSlug();
+  if(!slug){renderUnavailable();return;}
+  try{
+    const res=await fetch('/content/agents.json');
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    const agents=Array.isArray(data.agents)?data.agents:[];
+    const agent=agents.find(a=>String(a&&a.agent_id||'').toLowerCase()===slug.toLowerCase());
+    if(!agent||agent.vanishing_act_enabled!==true){
+      renderUnavailable();
+      return;
+    }
+    renderSign(agent);
+  }catch(err){
+    renderUnavailable();
+  }
+}
+
+init();
+</script>
+</body>
+</html>
