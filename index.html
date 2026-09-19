@@ -1016,6 +1016,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     </div>
     <div class="property-grid" id="property-grid" role="tabpanel" aria-labelledby="tab-all"></div>
     <a href="#" class="view-all" onclick="navFilter('all');return false;">View All Listings <span class="view-all-arrow">→</span></a>
+    <p class="idx-disclaimer" id="idx-disclaimer" style="display:none;font-size:.75rem;opacity:.65;max-width:760px;margin:1.5rem auto 0;text-align:center;line-height:1.5;"></p>
   </section>
 
   <section id="buyers" aria-labelledby="buyers-title">
@@ -1777,6 +1778,32 @@ async function loadProperties(){
     }
   }catch(err){
     console.warn('Property listings load skipped:',err);
+  }
+  let idxCount=0;
+  try{
+    const settingsRes=await fetch('content/site-settings.json');
+    const settings=settingsRes.ok?await settingsRes.json():{};
+    if(settings.idx_listings_enabled){
+      const idxRes=await fetch('/.netlify/functions/idx-listings');
+      if(idxRes.ok){
+        const idxData=await idxRes.json();
+        const idxMapped=(idxData.properties||[]).map((entry,i)=>mapCMSProperty(entry, 'idx'+i));
+        idxCount=idxMapped.length;
+        mapped=mapped.concat(idxMapped);
+      }
+    }
+  }catch(err){
+    console.warn('IDX listings load skipped:',err);
+  }
+
+  const disclaimer=document.getElementById('idx-disclaimer');
+  if(disclaimer){
+    if(idxCount>0){
+      disclaimer.style.display='';
+      disclaimer.innerHTML='© '+new Date().getFullYear()+' Doorify MLS, Inc. of North Carolina. All rights reserved. Listing information is for consumers\u2019 personal, non-commercial use and may not be used for any purpose other than to identify prospective properties consumers may be interested in purchasing. Core Collective Real Estate, eXp Realty, LLC \u2014 Licensed in North Carolina.';
+    }else{
+      disclaimer.style.display='none';
+    }
   }
   PROPERTIES=mapped;
   renderProperties('all');

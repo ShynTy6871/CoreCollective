@@ -13,6 +13,19 @@ display_url: https://corecollectivere.com
 logo_url: https://corecollectivere.com/images/uploads/logo.png
 
 collections:
+  - name: "site-settings"
+    label: "Site Settings"
+    files:
+      - name: "site-settings"
+        label: "Site Settings"
+        file: "content/site-settings.json"
+        description: "Site-wide switches."
+        fields:
+          - label: "Enable Live MLS Listings (Doorify IDX)"
+            name: "idx_listings_enabled"
+            widget: "boolean"
+            default: false
+            hint: "⚠️ Leave OFF until corecollectivere.com is the live domain and Doorify's required attribution has been confirmed — Claude will tell you when it's safe to switch this on. When ON, live Doorify MLS listings for the team automatically appear in the Properties section alongside anything added manually below."
   - name: "properties"
     label: "Properties"
     files:
