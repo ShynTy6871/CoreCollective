@@ -1,25 +1,22 @@
 /**
  * lookup-agents.js — ONE-TIME DIAGNOSTIC, not used by the site itself.
- *
  * Once DOORIFY_BEARER_TOKEN is set in Netlify, visit:
  *   https://<your-site>.netlify.app/.netlify/functions/lookup-agents?key=YOUR_DEBUG_KEY
- * (set an ADMIN_DEBUG_KEY environment variable in Netlify too, any
- * random string, so this isn't wide open to the public internet)
- *
- * It queries Doorify's Member resource and returns any member records
- * whose license number matches the Core Collective team, PLUS a raw
- * sample Property record, so we can confirm:
- *   1. Doorify's Property records actually use "ListAgentMlsId" to
- *      store the license number (vs. some other field name)
- *   2. The five license numbers below are correct / current
- *
- * Paste the JSON output back to Claude and this can be deleted —
- * it's scaffolding, not a permanent part of the site.
+ * (ADMIN_DEBUG_KEY environment variable must be set in Netlify too)
  */
-
 const API_BASE = 'https://api.sourceredb.com/odata';
 
-const TEAM_LICENSES = ['331158', '334292', '331830', '308263', '309699'];
+// Core Collective team members, searched by name since we don't yet know
+// their Doorify-internal MemberMlsId numbers (these are NOT the same as
+// NC real estate license numbers).
+const TEAM_NAMES = [
+  { first: 'Marsha', last: 'Watson' },
+  { first: 'Dexter', last: 'Drayton' },
+  { first: 'Sharon', last: 'McDuffie' },
+  { first: 'Jennifer', last: 'Wiggins' },
+  { first: 'Frederick', last: 'Davis' },
+  { first: 'Sylvia', last: 'Wheeler' }
+];
 
 exports.handler = async (event) => {
   const json = (statusCode, body) => ({
@@ -40,29 +37,26 @@ exports.handler = async (event) => {
   }
 
   const headers = { Authorization: `Bearer ${token}` };
-  const out = {};
+  const out = { nameLookupResults: [] };
 
-  try {
-    const licenseFilter = TEAM_LICENSES.map((l) => `MemberMlsId eq '${l}'`).join(' or ');
-    const memberUrl = `${API_BASE}/Member?$filter=${encodeURIComponent(licenseFilter)}`;
-    const memberRes = await fetch(memberUrl, { headers });
-    out.memberLookup = {
-      status: memberRes.status,
-      body: memberRes.ok ? await memberRes.json() : await memberRes.text()
-    };
-  } catch (err) {
-    out.memberLookup = { error: err.message };
-  }
-
-  try {
-    const sampleUrl = `${API_BASE}/Property?$top=1&$select=ListingKey,ListAgentFullName,ListAgentMlsId,StandardStatus`;
-    const sampleRes = await fetch(sampleUrl, { headers });
-    out.samplePropertyRecord = {
-      status: sampleRes.status,
-      body: sampleRes.ok ? await sampleRes.json() : await sampleRes.text()
-    };
-  } catch (err) {
-    out.samplePropertyRecord = { error: err.message };
+  for (const person of TEAM_NAMES) {
+    const filter = `MemberFirstName eq '${person.first}' and MemberLastName eq '${person.last}'`;
+    const select = 'MemberKey,MemberMlsId,MemberFirstName,MemberLastName,MemberStateLicense,OfficeName,MemberStatus';
+    const url = `${API_BASE}/Member?$filter=${encodeURIComponent(filter)}&$select=${encodeURIComponent(select)}`;
+    try {
+      const res = await fetch(url, { headers });
+      const body = await res.json();
+      out.nameLookupResults.push({
+        searched: `${person.first} ${person.last}`,
+        status: res.status,
+        found: body.value || body
+      });
+    } catch (err) {
+      out.nameLookupResults.push({
+        searched: `${person.first} ${person.last}`,
+        error: String(err)
+      });
+    }
   }
 
   return json(200, out);
