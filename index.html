@@ -1974,7 +1974,8 @@ function openListingContact(kind){
 }
 
 /* ── SHOW LISTING PAGE ───────────────────────────────── */
-function showListing(id){
+function showListing(id,pushHistory){
+  if(pushHistory===undefined)pushHistory=true;
   const p=PROPERTIES.find(x=>x.id===id);
   if(!p)return;
   const sl={active:'ACTIVE',pending:'UNDER CONTRACT',coming:'COMING SOON',sold:'SOLD'};
@@ -2018,15 +2019,29 @@ function showListing(id){
   document.getElementById('listing-page').classList.add('active');
   document.getElementById('site-header').classList.add('listing-header');
   window.scrollTo({top:0,behavior:'instant'});
+  if(pushHistory)history.pushState({page:'listing',id:id},'','/listing/'+id);
 }
 
 /* ── SHOW HOME ───────────────────────────────────────── */
-function showHome(){
+function showHome(pushHistory){
+  if(pushHistory===undefined)pushHistory=true;
   document.getElementById('listing-page').classList.remove('active');
   document.getElementById('home-page').classList.add('active');
   document.getElementById('site-header').classList.remove('listing-header');
   window.scrollTo({top:0,behavior:'instant'});
+  if(pushHistory)history.pushState({page:'home'},'','/');
 }
+
+/* ── BROWSER BACK/FORWARD BETWEEN HOME AND A LISTING ──── */
+window.addEventListener('popstate',function(){
+  const path=window.location.pathname;
+  if(path.startsWith('/listing/')){
+    const id=path.replace('/listing/','').replace(/\/$/,'');
+    showListing(id,false);
+  }else{
+    showHome(false);
+  }
+});
 
 /* ── STICKY HEADER ───────────────────────────────────── */
 window.addEventListener('scroll',()=>{
@@ -2494,6 +2509,19 @@ async function loadCMSContent(){
   }
   await revealEventsNav();
   await loadProperties();
+
+  // Deep link: if someone lands directly on /listing/<id> (a shared link,
+  // a bookmark, or a page refresh while viewing a listing), open that
+  // listing immediately instead of always showing the home view. Uses
+  // pushHistory=false since the browser already has this URL — no need
+  // to push a duplicate history entry for it.
+  const initialPath=window.location.pathname;
+  if(initialPath.startsWith('/listing/')){
+    const initialId=initialPath.replace('/listing/','').replace(/\/$/,'');
+    if(PROPERTIES.some(function(p){return p.id===initialId;})){
+      showListing(initialId,false);
+    }
+  }
 }
 
 function eventDatePassed(dateStr){
