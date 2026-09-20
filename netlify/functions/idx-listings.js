@@ -28,19 +28,18 @@
 const API_BASE = 'https://api.sourceredb.com/odata';
 
 // Core Collective Real Estate team — Doorify's own internal MemberMlsId
-// values (NOT the same as NC real estate license numbers — that was the
-// original assumption here, confirmed wrong via the lookup-agents.js
-// diagnostic on 9/20/2026, which is why this previously returned zero
-// listings even with a working connection). Only Marsha, Sharon, and
+// values (NOT the same as NC real estate license numbers — confirmed via
+// the lookup-agents.js diagnostic on 9/20/2026). Only Marsha, Sharon, and
 // Jennifer are active Doorify members — Dexter and Frederick are with
-// Hive MLS instead (Dexter's Doorify record, if it's even the same
-// person, shows Inactive at an unrelated brokerage; Frederick has no
-// Doorify record at all) — so they're intentionally left out of this
-// list. Keep this in sync with content/agents.json.
-const TEAM_MLS_IDS = [
-  '104107', // Marsha Watson
-  '103932', // Sharon McDuffie
-  '97433'   // Jennifer "Jenie" Wiggins
+// Hive MLS instead, so they're intentionally left out of this list.
+// `agentId` here matches each agent's `agent_id` in content/agents.json —
+// it's how the front end knows which real team member to route a given
+// listing's "Schedule a Showing" / contact actions to. Keep this in sync
+// with content/agents.json if an agent_id ever changes.
+const TEAM_AGENTS = [
+  { mlsId: '104107', agentId: 'marsha-watson', name: 'Marsha Watson' },
+  { mlsId: '103932', agentId: 'sharon-mcduffie', name: 'Sharon McDuffie' },
+  { mlsId: '97433', agentId: 'jennifer-wiggins', name: 'Jennifer "Jenie" Wiggins' }
 ];
 
 const SELECT_FIELDS = [
@@ -116,8 +115,18 @@ function resizePhoto(mediaUrl, size) {
 
 function mapRecord(rec) {
   const media = Array.isArray(rec.Media) ? rec.Media : [];
-  const firstMedia = media.find((m) => m && m.MediaURL) || {};
-  const photo = resizePhoto(firstMedia.MediaURL, 'medium');
+  // Previously this only kept the FIRST photo (media.find(...)), which is
+  // why the listing detail page's "Interior Gallery" section was showing
+  // hardcoded placeholder stock photos instead of the listing's real
+  // photos — the real pipeline was only ever carrying one photo through.
+  // Now every real photo Doorify has for the listing is included, in the
+  // order Doorify returns them (by their own Order field where present).
+  const photos = media
+    .filter((m) => m && m.MediaURL)
+    .sort((a, b) => (Number(a.Order) || 0) - (Number(b.Order) || 0))
+    .map((m) => resizePhoto(m.MediaURL, 'medium'));
+
+  const agentMatch = TEAM_AGENTS.find((a) => a.mlsId === String(rec.ListAgentMlsId));
 
   return {
     id: 'idx-' + rec.ListingKey,
@@ -130,15 +139,19 @@ function mapRecord(rec) {
     beds: rec.BedroomsTotal == null ? null : Number(rec.BedroomsTotal),
     baths: rec.BathroomsTotalInteger == null ? null : Number(rec.BathroomsTotalInteger),
     sqft: rec.LivingArea == null ? null : Number(rec.LivingArea),
-    photos: photo ? [photo] : [],
-    agent: rec.ListAgentFullName || '',
+    photos,
+    agent: rec.ListAgentFullName || (agentMatch && agentMatch.name) || '',
+    // NEW: lets the front end route this listing's contact/schedule
+    // actions directly to the real listing agent instead of a generic
+    // form. Matches an agent_id in content/agents.json.
+    agentId: agentMatch ? agentMatch.agentId : '',
     description: rec.PublicRemarks || '',
     modified: rec.ModificationTimestamp || null
   };
 }
 
 async function fetchListings(token) {
-  const mlsIdFilter = TEAM_MLS_IDS.map((id) => `ListAgentMlsId eq '${id}'`).join(' or ');
+  const mlsIdFilter = TEAM_AGENTS.map((a) => `ListAgentMlsId eq '${a.mlsId}'`).join(' or ');
   const filter = [
     `(${mlsIdFilter})`,
     'InternetEntireListingDisplayYN eq true',
