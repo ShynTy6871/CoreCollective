@@ -113,16 +113,31 @@ function resizePhoto(mediaUrl, size) {
   return mediaUrl;
 }
 
+// Doorify's Media array isn't only photos — it also carries floor plans,
+// virtual tour links, and documents, some of which can sort ahead of the
+// real photos by Order. Anything whose MediaCategory clearly isn't a
+// photo gets excluded here so the hero image and gallery can never end
+// up pointing at a floor plan PDF or a broken non-image URL again. Media
+// entries with no MediaCategory at all are kept (some feeds omit it).
+const NON_PHOTO_MEDIA_CATEGORIES = [
+  'document',
+  'floor plan',
+  'floorplan',
+  'virtual tour',
+  'branded virtual tour',
+  'unbranded virtual tour',
+  'video',
+  'other'
+];
+
 function mapRecord(rec) {
   const media = Array.isArray(rec.Media) ? rec.Media : [];
-  // Previously this only kept the FIRST photo (media.find(...)), which is
-  // why the listing detail page's "Interior Gallery" section was showing
-  // hardcoded placeholder stock photos instead of the listing's real
-  // photos — the real pipeline was only ever carrying one photo through.
-  // Now every real photo Doorify has for the listing is included, in the
-  // order Doorify returns them (by their own Order field where present).
   const photos = media
-    .filter((m) => m && m.MediaURL)
+    .filter((m) => {
+      if (!m || !m.MediaURL) return false;
+      const category = String(m.MediaCategory || '').trim().toLowerCase();
+      return !NON_PHOTO_MEDIA_CATEGORIES.includes(category);
+    })
     .sort((a, b) => (Number(a.Order) || 0) - (Number(b.Order) || 0))
     .map((m) => resizePhoto(m.MediaURL, 'medium'));
 
