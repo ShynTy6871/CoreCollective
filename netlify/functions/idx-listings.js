@@ -27,18 +27,20 @@
 
 const API_BASE = 'https://api.sourceredb.com/odata';
 
-// Core Collective Real Estate team — NC real estate license numbers,
-// used as ListAgentMlsId to filter the feed to only this team's own
-// listings. Keep this in sync with content/agents.json.
-// TODO: once the token is live, verify these actually match
-// ListAgentMlsId in Doorify's data (vs. e.g. ListAgentKey) — see the
-// lookup-agents.js helper function for a one-time check.
-const TEAM_LICENSES = [
-  '331158', // Marsha Watson
-  '334292', // Dexter Drayton
-  '331830', // Sharon McDuffie
-  '308263', // Jennifer "Jenie" Wiggins
-  '309699'  // Frederick Davis
+// Core Collective Real Estate team — Doorify's own internal MemberMlsId
+// values (NOT the same as NC real estate license numbers — that was the
+// original assumption here, confirmed wrong via the lookup-agents.js
+// diagnostic on 9/20/2026, which is why this previously returned zero
+// listings even with a working connection). Only Marsha, Sharon, and
+// Jennifer are active Doorify members — Dexter and Frederick are with
+// Hive MLS instead (Dexter's Doorify record, if it's even the same
+// person, shows Inactive at an unrelated brokerage; Frederick has no
+// Doorify record at all) — so they're intentionally left out of this
+// list. Keep this in sync with content/agents.json.
+const TEAM_MLS_IDS = [
+  '104107', // Marsha Watson
+  '103932', // Sharon McDuffie
+  '97433'   // Jennifer "Jenie" Wiggins
 ];
 
 const SELECT_FIELDS = [
@@ -136,9 +138,9 @@ function mapRecord(rec) {
 }
 
 async function fetchListings(token) {
-  const licenseFilter = TEAM_LICENSES.map((l) => `ListAgentMlsId eq '${l}'`).join(' or ');
+  const mlsIdFilter = TEAM_MLS_IDS.map((id) => `ListAgentMlsId eq '${id}'`).join(' or ');
   const filter = [
-    `(${licenseFilter})`,
+    `(${mlsIdFilter})`,
     'InternetEntireListingDisplayYN eq true',
     "(StandardStatus eq 'Active' or StandardStatus eq 'Pending' or StandardStatus eq 'Coming Soon')"
   ].join(' and ');
