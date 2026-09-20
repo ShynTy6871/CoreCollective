@@ -1529,9 +1529,9 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
         <p class="listing-hero-city" id="listing-city">Raleigh, North Carolina 27615</p>
       </div>
       <div class="listing-hero-actions">
-        <button class="listing-btn" onclick="openModal()">GALLERY +</button>
-        <button class="listing-btn" onclick="openModal()">VIRTUAL TOUR +</button>
-        <button class="listing-btn primary-btn" onclick="openModal()">SCHEDULE SHOWING +</button>
+        <button class="listing-btn" onclick="scrollToListingGallery()">GALLERY +</button>
+        <button class="listing-btn" onclick="openListingVirtualTour()">VIRTUAL TOUR +</button>
+        <button class="listing-btn primary-btn" onclick="openListingContact('showing')">SCHEDULE SHOWING +</button>
       </div>
     </div>
   </section>
@@ -1547,11 +1547,11 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
         <div class="spec-item"><div class="spec-label">Year Built</div><div class="spec-value" id="spec-year">2019</div></div>
         <div class="spec-item"><div class="spec-label">Status</div><div class="spec-value"><span class="spec-badge" id="spec-status">ACTIVE</span></div></div>
       </div>
-      <button class="schedule-btn" onclick="openModal()">SCHEDULE A SHOWING +</button>
-      <button class="inquiry-btn" onclick="openModal()">REQUEST INFORMATION</button>
-      <div class="agent-mini">
-        <div class="agent-mini-avatar">MW</div>
-        <div><div class="agent-mini-name">Marsha Watson</div><div class="agent-mini-role">Team Lead · Listing Agent</div></div>
+      <button class="schedule-btn" onclick="openListingContact('showing')">SCHEDULE A SHOWING +</button>
+      <button class="inquiry-btn" onclick="openListingContact('info')">REQUEST INFORMATION</button>
+      <div class="agent-mini" id="listing-agent-mini" role="button" tabindex="0" onclick="openAgentBio(CURRENT_LISTING_AGENT_ID)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openAgentBio(CURRENT_LISTING_AGENT_ID)}">
+        <div class="agent-mini-avatar" id="listing-agent-avatar">MW</div>
+        <div><div class="agent-mini-name" id="listing-agent-name">Marsha Watson</div><div class="agent-mini-role" id="listing-agent-role">Team Lead · Listing Agent</div></div>
       </div>
     </aside>
     <div class="listing-description">
@@ -1560,33 +1560,12 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <p class="listing-desc-text" id="listing-desc-p1"></p>
       <p class="listing-desc-text" id="listing-desc-p2"></p>
       <p class="listing-desc-text" id="listing-desc-p3"></p>
-      <div class="listing-features" role="list">
-        <div class="listing-feature">Salt-Water Pool &amp; Spa</div>
-        <div class="listing-feature">3-Car Garage w/ EV Charging</div>
-        <div class="listing-feature">Thermador Professional Kitchen</div>
-        <div class="listing-feature">Home Theater</div>
-        <div class="listing-feature">Climate-Controlled Wine Cellar</div>
-        <div class="listing-feature">Smart Home Automation</div>
-        <div class="listing-feature">10-ft Coffered Ceilings</div>
-        <div class="listing-feature">Wide-Plank White Oak Floors</div>
-        <div class="listing-feature">Butler's Pantry</div>
-        <div class="listing-feature">Gated Community Access</div>
-        <div class="listing-feature">Primary Wing w/ Sitting Room</div>
-        <div class="listing-feature">Heated Marble Bathroom Floors</div>
-      </div>
+      <div class="listing-features" id="listing-features" role="list" hidden></div>
     </div>
   </div>
-  <div class="listing-gallery">
+  <div class="listing-gallery" id="listing-gallery-section" hidden>
     <div class="gallery-label">Interior Gallery</div>
-    <div class="masonry" role="list">
-      <div class="gallery-item gi-1"><img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=900&q=80" alt="Living room" loading="lazy"></div>
-      <div class="gallery-item gi-2"><img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=700&q=80" alt="Kitchen" loading="lazy"></div>
-      <div class="gallery-item gi-3"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?w=600&q=80" alt="Bathroom" loading="lazy"></div>
-      <div class="gallery-item gi-4"><img src="https://images.unsplash.com/photo-1567767292278-a4f21aa2d36e?w=700&q=80" alt="Bedroom" loading="lazy"></div>
-      <div class="gallery-item gi-5"><img src="https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=500&q=80" alt="Wine cellar" loading="lazy"></div>
-      <div class="gallery-item gi-6"><img src="https://images.unsplash.com/photo-1575517111839-3a3843ee7f5d?w=900&q=80" alt="Pool" loading="lazy"></div>
-      <div class="gallery-item gi-7"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Dining room" loading="lazy"></div>
-    </div>
+    <div class="masonry" id="listing-gallery-grid" role="list"></div>
   </div>
   <button class="back-btn" onclick="showHome()">← Back to Listings</button>
 </div>
@@ -1735,9 +1714,35 @@ function firstPhoto(photos){
   return '';
 }
 
+// Maps a plain agent display name to their real agent_id in
+// content/agents.json, so manually-entered properties (which only store
+// the agent's name, via the Decap CMS "relation" widget) can still be
+// routed to the correct agent's real contact info on the listing detail
+// page. IDX/Doorify listings already carry a real agentId directly from
+// idx-listings.js and don't need this lookup.
+const AGENT_NAME_TO_ID={
+  'marsha watson':'marsha-watson',
+  'sharon mcduffie':'sharon-mcduffie',
+  'sylvia t. wheeler':'sylvia-wheeler',
+  'sylvia wheeler':'sylvia-wheeler',
+  'dexter drayton':'dexter-drayton',
+  'jennifer "jenie" wiggins':'jennifer-wiggins',
+  'jennifer wiggins':'jennifer-wiggins',
+  'frederick davis':'frederick-davis'
+};
+function agentIdFromName(name){
+  return AGENT_NAME_TO_ID[String(name||'').trim().toLowerCase()]||'';
+}
+
 function mapCMSProperty(entry, fallbackId){
   const photo=firstPhoto(entry.photos);
+  const photoList=(Array.isArray(entry.photos)?entry.photos:[]).map(item=>{
+    if(!item)return '';
+    if(typeof item==='string')return item.trim();
+    return String(item.image||item.url||item.photo||'').trim();
+  }).filter(Boolean);
   const agentName=typeof entry.agent==='string'?entry.agent:(entry.agent&&entry.agent.name)||'';
+  const agentId=entry.agentId||entry.agent_id||agentIdFromName(agentName);
   const priceNum=Number(entry.price)||0;
   const bedsRaw=entry.beds;
   const bathsRaw=entry.baths;
@@ -1759,7 +1764,9 @@ function mapCMSProperty(entry, fallbackId){
     baths: Number.isFinite(baths)?baths:null,
     sqft: Number.isFinite(sqftNum)?sqftNum.toLocaleString('en-US'):'',
     image: photo,
+    photos: photoList,
     agent: { name: agentName, initials: initialsFromName(agentName) },
+    agentId,
     heroImage: photo,
     descTitle: entry.address || 'Property',
     p1: paras[0] || '',
@@ -1910,6 +1917,62 @@ function toggleSave(e,el){
   el.setAttribute('aria-label',el.classList.contains('saved')?'Remove from saved':'Save property');
 }
 
+/* ── LISTING CONTACT ROUTING (agent-specific, gallery, virtual tour) ── */
+let CURRENT_LISTING_AGENT_ID='';
+let CURRENT_LISTING_ADDRESS='';
+let CURRENT_LISTING_TOUR_URL='';
+
+function renderListingGallery(photos){
+  const section=document.getElementById('listing-gallery-section');
+  const grid=document.getElementById('listing-gallery-grid');
+  if(!section||!grid)return;
+  const list=(Array.isArray(photos)?photos:[]).filter(Boolean);
+  if(!list.length){
+    section.hidden=true;
+    grid.innerHTML='';
+    return;
+  }
+  grid.innerHTML=list.map((url,i)=>{
+    const cls='gi-'+((i%7)+1);
+    return `<div class="gallery-item ${cls}"><img src="${escHtml(url)}" alt="Interior photo" loading="lazy"></div>`;
+  }).join('');
+  section.hidden=false;
+}
+
+function scrollToListingGallery(){
+  const section=document.getElementById('listing-gallery-section');
+  if(section&&!section.hidden){
+    section.scrollIntoView({behavior:'smooth'});
+  }else{
+    openListingContact('gallery');
+  }
+}
+
+function openListingVirtualTour(){
+  if(CURRENT_LISTING_TOUR_URL){
+    window.open(CURRENT_LISTING_TOUR_URL,'_blank','noopener');
+  }else{
+    openListingContact('tour');
+  }
+}
+
+function openListingContact(kind){
+  openModal();
+  const agent=AGENT_ROUTES[CURRENT_LISTING_AGENT_ID];
+  if(agent){
+    document.getElementById('f-agent').value=CURRENT_LISTING_AGENT_ID;
+    document.getElementById('modal-title').textContent='Contact '+agent.name.split(' ')[0];
+    const intros={
+      showing:'I would like to schedule a showing for ',
+      gallery:'I would like to see more photos of ',
+      tour:'I would like a virtual tour of ',
+      info:'I would like more information about '
+    };
+    const intro=intros[kind]||intros.info;
+    document.getElementById('f-msg').value=intro+(CURRENT_LISTING_ADDRESS||'this property')+', currently listed by '+agent.name+'.';
+  }
+}
+
 /* ── SHOW LISTING PAGE ───────────────────────────────── */
 function showListing(id){
   const p=PROPERTIES.find(x=>x.id===id);
@@ -1931,6 +1994,26 @@ function showListing(id){
   document.getElementById('listing-desc-p1').textContent=p.p1;
   document.getElementById('listing-desc-p2').textContent=p.p2;
   document.getElementById('listing-desc-p3').textContent=p.p3;
+
+  CURRENT_LISTING_AGENT_ID=p.agentId||'';
+  CURRENT_LISTING_ADDRESS=p.address||'';
+  CURRENT_LISTING_TOUR_URL=p.virtualTourUrl||'';
+  const agent=AGENT_ROUTES[CURRENT_LISTING_AGENT_ID];
+  const avatarEl=document.getElementById('listing-agent-avatar');
+  const nameEl=document.getElementById('listing-agent-name');
+  const roleEl=document.getElementById('listing-agent-role');
+  if(agent){
+    avatarEl.textContent=initialsFromName(agent.name);
+    nameEl.textContent=agent.name;
+    roleEl.textContent=agent.role||'Listing Agent';
+  }else{
+    const fallbackName=(p.agent&&p.agent.name)||'Core Collective Real Estate';
+    avatarEl.textContent=initialsFromName(fallbackName);
+    nameEl.textContent=fallbackName;
+    roleEl.textContent='Listing Agent';
+  }
+  renderListingGallery(p.photos);
+
   document.getElementById('home-page').classList.remove('active');
   document.getElementById('listing-page').classList.add('active');
   document.getElementById('site-header').classList.add('listing-header');
