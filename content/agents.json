@@ -73,7 +73,8 @@
         "Relocation",
         "Down Payment Assistance / Grants"
       ],
-      "email": "Sharon.McDuffie@exprealty.com"
+      "email": "Sharon.McDuffie@exprealty.com",
+      "vanishing_act_enabled": true
     },
     {
       "focus_tags": [],
