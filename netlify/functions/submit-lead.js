@@ -1,3 +1,19 @@
+// Maps each Core Collective agent to their Lofty memberUserId, so a lead
+// gets ASSIGNED directly to the right agent in Lofty instead of just being
+// noted as free text. Fill these in using the values from
+// /.netlify/functions/lookup-lofty-members?key=YOUR_DEBUG_KEY (match each
+// agent by their name/email in that list).
+//
+// Any agent left out of this map (or left as 0) keeps working exactly like
+// before: the lead still goes to Lofty and still says "Routed to: <name>"
+// in the notes, Lofty's own routing rules just decide who receives it
+// instead of it being a direct assignment.
+const AGENT_LOFTY_IDS = {
+  'Marsha Watson': 0,
+  'Sharon McDuffie': 0,
+  'Jennifer "Jenie" Wiggins': 0
+};
+
 exports.handler = async (event) => {
   const json = (statusCode, body) => ({
     statusCode,
@@ -56,6 +72,11 @@ exports.handler = async (event) => {
     source: source || 'Core Collective Website',
     notes
   };
+
+  const assignedUserId = assignedAgent && AGENT_LOFTY_IDS[assignedAgent];
+  if (assignedUserId) {
+    loftyBody.assignedUserId = assignedUserId;
+  }
 
   try {
     const loftyRes = await fetch('https://api.lofty.com/v1.0/leads', {
