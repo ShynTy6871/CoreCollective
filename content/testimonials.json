@@ -142,6 +142,17 @@
       "source": "RealSatisfied",
       "source_guid": "77c9kOaO",
       "agent_id": "dexter-drayton"
+    },
+    {
+      "quote": "Absolutely great realtor! The best I've ever worked with! I will refer Marsha to everyone I know who is looking for a new home!",
+      "client_name": "Kia Williams",
+      "location": "Knightdale NC",
+      "initials": "KW",
+      "stars": 5,
+      "pending_approval": false,
+      "source": "RealSatisfied",
+      "source_guid": "d227w7TU",
+      "agent_id": "marsha-watson"
     }
   ]
 }
