@@ -664,6 +664,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 .listing-desc-label::after{content:'';flex:1;height:1px;background:var(--gray-100)}
 .listing-desc-title{font-family:var(--font-display);font-size:36px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:24px}
 .listing-desc-text{font-size:15px;font-weight:300;color:var(--gray-500);line-height:1.85;margin-bottom:20px}
+.listing-courtesy{font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--gray-500);margin-top:28px;padding-top:16px;border-top:1px solid var(--gray-100)}
 .listing-features{display:grid;grid-template-columns:1fr 1fr;gap:10px 32px;margin-top:36px;padding-top:36px;border-top:1px solid var(--gray-100)}
 .listing-feature{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);padding:8px 0;border-bottom:1px solid var(--gray-100)}
 .listing-feature::before{content:'';width:4px;height:4px;background:var(--gold);flex-shrink:0}
@@ -1567,6 +1568,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <p class="listing-desc-text" id="listing-desc-p1"></p>
       <p class="listing-desc-text" id="listing-desc-p2"></p>
       <p class="listing-desc-text" id="listing-desc-p3"></p>
+      <p class="listing-courtesy" id="listing-courtesy" hidden></p>
       <div class="listing-features" id="listing-features" role="list" hidden></div>
     </div>
   </div>
@@ -2047,6 +2049,8 @@ function showListing(id,pushHistory){
   document.getElementById('listing-desc-p1').textContent=p.p1;
   document.getElementById('listing-desc-p2').textContent=p.p2;
   document.getElementById('listing-desc-p3').textContent=p.p3;
+  const courtesyEl=document.getElementById('listing-courtesy');
+  if(courtesyEl){courtesyEl.textContent=p.courtesy||'';courtesyEl.hidden=!p.courtesy;}
 
   CURRENT_LISTING_AGENT_ID=p.agentId||'';
   CURRENT_LISTING_ADDRESS=p.address||'';
@@ -2586,9 +2590,10 @@ async function loadCMSContent(){
 /* ── LISTING PAGE FOR ANY LISTING IN THE LIVE FEED ─────────
    /listing/idx-<ListingKey> links come from Property Search, which lists
    every NC listing (not just our agents' own). Those aren't in PROPERTIES,
-   so look the listing up in get-listings and show it with the data the
-   feed provides (photo, price, address, beds/baths, status). If it can't be
-   found the visitor simply stays on the homepage. */
+   so look the listing up in get-listings (single-listing mode) and show it
+   with the feed's data: full photo gallery, description (PublicRemarks),
+   price, address, beds/baths, status, and the listing office for MLS
+   attribution. If it can't be found the visitor simply stays on the homepage. */
 async function showFeedListing(idxId){
   try{
     const key=decodeURIComponent(String(idxId).replace(/^idx-/,''));
@@ -2611,9 +2616,12 @@ async function showFeedListing(idxId){
       city_state:cityState,
       beds:f.beds,
       baths:f.baths,
-      photos:f.photo?[f.photo]:[]
+      description:f.description||'',
+      photos:(Array.isArray(f.photos)&&f.photos.length)?f.photos:(f.photo?[f.photo]:[])
     }, idxId);
-    entry.photos=[]; // only one photo available: use it as the hero, no gallery
+    // MLS attribution: listing office, shown on the listing page
+    const office=[f.listOfficeName,f.listOfficePhone].filter(Boolean).join(' \u00B7 ');
+    entry.courtesy=office?'Listing courtesy of '+office:'';
     if(!f.price)entry.price='Price on request';
     if(!PROPERTIES.some(p=>p.id===idxId))PROPERTIES.push(entry);
     showListing(idxId,false);

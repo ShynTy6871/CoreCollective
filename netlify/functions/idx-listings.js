@@ -25,6 +25,8 @@
  * is rendered by the front end alongside these listings, not here.
  */
 
+const { listPhotos } = require('./lib/media');
+
 const API_BASE = 'https://api.sourceredb.com/odata';
 
 // Core Collective Real Estate team — Doorify's own internal MemberMlsId
@@ -98,48 +100,9 @@ function buildCityState(rec) {
     .join(', ');
 }
 
-function resizePhoto(mediaUrl, size) {
-  if (!mediaUrl) return '';
-  try {
-    const u = new URL(mediaUrl);
-    if (u.hostname === 'cdn.sourceredb.com') {
-      u.hostname = 'cdn-resize.sourceredb.com';
-      u.searchParams.set('class', size || 'medium');
-      return u.toString();
-    }
-  } catch (err) {
-    // fall through and return the original URL unmodified
-  }
-  return mediaUrl;
-}
-
-// Doorify's Media array isn't only photos — it also carries floor plans,
-// virtual tour links, and documents, some of which can sort ahead of the
-// real photos by Order. Anything whose MediaCategory clearly isn't a
-// photo gets excluded here so the hero image and gallery can never end
-// up pointing at a floor plan PDF or a broken non-image URL again. Media
-// entries with no MediaCategory at all are kept (some feeds omit it).
-const NON_PHOTO_MEDIA_CATEGORIES = [
-  'document',
-  'floor plan',
-  'floorplan',
-  'virtual tour',
-  'branded virtual tour',
-  'unbranded virtual tour',
-  'video',
-  'other'
-];
-
 function mapRecord(rec) {
-  const media = Array.isArray(rec.Media) ? rec.Media : [];
-  const photos = media
-    .filter((m) => {
-      if (!m || !m.MediaURL) return false;
-      const category = String(m.MediaCategory || '').trim().toLowerCase();
-      return !NON_PHOTO_MEDIA_CATEGORIES.includes(category);
-    })
-    .sort((a, b) => (Number(a.Order) || 0) - (Number(b.Order) || 0))
-    .map((m) => resizePhoto(m.MediaURL, 'medium'));
+  // Shared photo rules (lib/media.js): real photos only, preferred first, then by Order.
+  const photos = listPhotos(rec.Media, 'medium');
 
   const agentMatch = TEAM_AGENTS.find((a) => a.mlsId === String(rec.ListAgentMlsId));
 
