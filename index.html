@@ -92,7 +92,7 @@ if(window.netlifyIdentity){
   --header-h:88px;      /* resting header height (desktop) */
   --header-h-sm:68px;   /* compact header height once the page is scrolled */
   --logo-h:64px;
-  --logo-h-sm:46px;
+  --logo-h-sm:42px;
   --trans:cubic-bezier(0.4,0,0.2,1);
   --trust-gold:#d97706;
   --lift:all .3s ease;
@@ -729,7 +729,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   .listing-body{grid-template-columns:320px 1fr}
 }
 @media(max-width:900px){
-  :root{--header-h:72px;--header-h-sm:60px;--logo-h:48px;--logo-h-sm:40px}
+  :root{--header-h:72px;--header-h-sm:60px;--logo-h:48px;--logo-h-sm:36px}
   .header-logo-img{width:auto;object-fit:contain}
   #site-header{padding:0 28px;overflow:hidden}
   .main-nav,.header-cta{display:none}
@@ -2978,6 +2978,7 @@ function matcherShowResults(){
 }
 
 let BLOG_POSTS=[];
+let BLOG_LOADED=false;
 
 function formatBlogDate(dateStr){
   try{return new Date(dateStr).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'})}
@@ -3024,6 +3025,7 @@ function slugify(title){
 
 function renderBlog(items){
   BLOG_POSTS=(items||[]).filter(p=>!p.draft);
+  BLOG_LOADED=true;
   const path=window.location.pathname;
   if(path.startsWith('/blog/')){
     const slug=path.replace('/blog/','').replace(/\/$/,'');
@@ -3107,14 +3109,16 @@ function toggleFaq(btn){
 }
 
 // Opens a blog post by its URL slug (the same /blog/<slug> address it has when shared).
-// Used by in-page links; if the posts haven't loaded yet (or the slug is unknown)
-// it returns true so the browser follows the href to /blog/<slug> normally,
-// and renderBlog() opens the post on that page load.
+// Used by in-page links. If the posts haven't loaded yet it returns true so the
+// browser follows the href to /blog/<slug> and renderBlog() opens the post on
+// that page load. If they have loaded but the post isn't published (still a
+// draft), fall back to scrolling to the blog section instead of a dead end.
 function openBlogPostBySlug(slug,e){
-  const idx=(BLOG_POSTS||[]).findIndex(p=>slugify(p.title)===slug);
-  if(idx<0)return true;
   if(e)e.preventDefault();
-  openBlogModal(idx);
+  const idx=BLOG_POSTS.findIndex(p=>slugify(p.title)===slug);
+  if(idx>=0){openBlogModal(idx);return false;}
+  if(!BLOG_LOADED){window.location.href='/blog/'+slug;return false;}
+  scrollToSection('blog');
   return false;
 }
 
