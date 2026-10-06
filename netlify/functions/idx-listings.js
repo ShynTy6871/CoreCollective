@@ -26,6 +26,7 @@
  */
 
 const { listPhotos } = require('./lib/media');
+const { isRental, NOT_RENTAL_FILTERS } = require('./lib/rentals');
 
 const API_BASE = 'https://api.sourceredb.com/odata';
 
@@ -134,7 +135,7 @@ async function fetchListings(token) {
     `(${mlsIdFilter})`,
     'InternetEntireListingDisplayYN eq true',
     "(StandardStatus eq 'Active' or StandardStatus eq 'Pending' or StandardStatus eq 'Coming Soon')"
-  ].join(' and ');
+  ].concat(NOT_RENTAL_FILTERS).join(' and '); // no rentals / leases
 
   const url =
     `${API_BASE}/Property?` +
@@ -155,7 +156,7 @@ async function fetchListings(token) {
 
   const data = await res.json();
   const records = Array.isArray(data.value) ? data.value : [];
-  return records.map(mapRecord);
+  return records.filter((rec) => !isRental(rec)).map(mapRecord);
 }
 
 exports.handler = async () => {

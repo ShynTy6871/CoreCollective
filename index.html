@@ -1,4 +1,4 @@
-﻿
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -89,7 +89,10 @@ if(window.netlifyIdentity){
   --font-serif:'Cormorant Garamond',Georgia,serif;
   --font-display:'Playfair Display',Georgia,serif;
   --font-sans:'Inter',system-ui,sans-serif;
-  --header-h:120px;
+  --header-h:88px;      /* resting header height (desktop) */
+  --header-h-sm:68px;   /* compact header height once the page is scrolled */
+  --logo-h:64px;
+  --logo-h-sm:46px;
   --trans:cubic-bezier(0.4,0,0.2,1);
   --trust-gold:#d97706;
   --lift:all .3s ease;
@@ -127,14 +130,15 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
   display:grid;grid-template-columns:auto 1fr auto;
   align-items:center;gap:16px;padding:0 32px;
   background: linear-gradient(to bottom, rgba(10,25,47,.65) 0%, rgba(10,25,47,.35) 60%, transparent 100%);
-  transition:background .4s var(--trans),box-shadow .4s var(--trans);
+  transition:background .4s var(--trans),box-shadow .4s var(--trans),height .3s var(--trans);
 }
-#site-header.scrolled{background:var(--navy);box-shadow:0 2px 32px rgba(0,0,0,.35)}
+#site-header.scrolled{background:var(--navy);box-shadow:0 2px 32px rgba(0,0,0,.35);height:var(--header-h-sm)}
 #site-header.listing-header{background:var(--navy)}
 .logo{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;flex-shrink:0;min-width:0;max-width:100%;overflow:hidden}
 .logo-line1{font-family:var(--font-display);font-size:16px;font-weight:700;color:var(--white);letter-spacing:.06em;text-transform:uppercase;line-height:1;white-space:nowrap}
 .logo-line2{font-family:var(--font-sans);font-size:7px;font-weight:300;color:var(--gold);letter-spacing:.22em;text-transform:uppercase;white-space:nowrap}
-.header-logo-img{height:90px;width:auto;max-width:100%;max-height:calc(var(--header-h) - 28px);display:block;object-fit:contain;align-self:center;flex-shrink:0}
+.header-logo-img{height:var(--logo-h);width:auto;max-width:100%;display:block;object-fit:contain;align-self:center;flex-shrink:0;transition:height .3s var(--trans)}
+#site-header.scrolled .header-logo-img{height:var(--logo-h-sm)}
 .header-brokerage-line{font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.75);text-align:center;margin-top:2px;line-height:1.2;white-space:nowrap}
 
 /* NAV */
@@ -725,8 +729,8 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   .listing-body{grid-template-columns:320px 1fr}
 }
 @media(max-width:900px){
-  :root{--header-h:100px}
-  .header-logo-img{height:64px;width:auto;object-fit:contain}
+  :root{--header-h:72px;--header-h-sm:60px;--logo-h:48px;--logo-h-sm:40px}
+  .header-logo-img{width:auto;object-fit:contain}
   #site-header{padding:0 28px;overflow:hidden}
   .main-nav,.header-cta{display:none}
   .menu-toggle{display:flex}
@@ -778,6 +782,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 }
 .mobile-nav{display:none;position:fixed;top:var(--header-h);left:0;right:0;bottom:0;background:var(--navy);z-index:999;padding:32px 28px;overflow-y:auto}
 .mobile-nav.open{display:block}
+#site-header.scrolled + .mobile-nav{top:var(--header-h-sm)}
 .mobile-nav a{display:block;padding:16px 0;font-size:14px;font-weight:300;letter-spacing:.18em;text-transform:uppercase;color:var(--text-on-dark-secondary);border-bottom:1px solid rgba(255,255,255,.07);transition:color .2s}
 .mobile-nav a:hover{color:var(--gold)}
 
@@ -812,7 +817,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 <!-- HEADER -->
 <header id="site-header">
   <div class="logo" onclick="showHome()">
-    <img src="images/Logos/core-collective-logo.png" alt="Core Collective Real Estate — Brokered by eXp Realty, LLC" class="header-logo-img">
+    <img src="/images/Logos/core-collective-logo.png" alt="Core Collective Real Estate — Brokered by eXp Realty, LLC" class="header-logo-img">
     <div class="header-brokerage-line">Brokered by eXp Realty, LLC</div>
   </div>
   <nav class="main-nav" aria-label="Primary navigation">
@@ -1391,7 +1396,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <div class="investor-text" style="max-width:900px;margin:32px auto 0">
       <p>Permanent Change of Station orders often compress months of house-hunting into a single trip. Marsha Watson, our team lead, holds a Military Relocation Professional (MRP) certification and works specifically with service members navigating this exact timeline — coordinating showings around leave schedules, pre-screening listings before you arrive, and helping you move quickly without skipping the diligence that protects you.</p>
       <p>Our service area includes Goldsboro, home to Seymour Johnson Air Force Base and the 4th Fighter Wing — real, local experience with the base community, not just a general familiarity with military moves.</p>
-      <p>We help eligible buyers understand VA loan benefits specifically: no down payment requirement, no private mortgage insurance, and guidance on rolling the funding fee into your loan. <a href="#" onclick="scrollToSection('blog',event)">Read our full PCS move guide on the blog</a> for a step-by-step breakdown.</p>
+      <p>We help eligible buyers understand VA loan benefits specifically: no down payment requirement, no private mortgage insurance, and guidance on rolling the funding fee into your loan. <a href="/blog/preparing-for-a-military-relocation-a-pcs-move-home-buying-guide" onclick="return openBlogPostBySlug('preparing-for-a-military-relocation-a-pcs-move-home-buying-guide',event)">Read our full PCS move guide on the blog</a> for a step-by-step breakdown.</p>
     </div>
     <div style="text-align:center;margin-top:32px">
       <button class="form-submit" style="max-width:320px" onclick="openAgentConsultation('marsha-watson')">Schedule with Marsha</button>
@@ -1473,7 +1478,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <div>
         <div class="footer-logo-line1">Core Collective</div>
         <div class="footer-logo-line2">Real Estate</div>
-        <img src="images/Logos/eho-logo-white.png" alt="Equal Housing Opportunity" style="height:40px;width:auto;margin-bottom:16px;display:block">
+        <img src="/images/Logos/eho-logo-white.png" alt="Equal Housing Opportunity" style="height:40px;width:auto;margin-bottom:16px;display:block">
         <div class="footer-firm">Core Collective Real Estate is a team of eXp Realty, LLC.</div>
         <p class="footer-tagline">Premium representation for buyers, sellers, and investors across Eastern North Carolina.</p>
       </div>
@@ -1680,12 +1685,12 @@ const AGENT_PULL_QUOTES={
 };
 
 const AGENT_THUMBS={
-  'marsha-watson':'images/agents/marsha-thumb.jpg',
-  'sylvia-wheeler':'images/agents/sylvia-wheeler-thumb.jpg',
-  'dexter-drayton':'images/agents/dexter-thumb.jpg',
-  'sharon-mcduffie':'images/agents/sharon-thumb.jpg',
-  'jennifer-wiggins':'images/agents/jennifer-thumb.jpg',
-  'frederick-davis':'images/agents/frederick-thumb.jpg'
+  'marsha-watson':'/images/agents/marsha-thumb.jpg',
+  'sylvia-wheeler':'/images/agents/sylvia-wheeler-thumb.jpg',
+  'dexter-drayton':'/images/agents/dexter-thumb.jpg',
+  'sharon-mcduffie':'/images/agents/sharon-thumb.jpg',
+  'jennifer-wiggins':'/images/agents/jennifer-thumb.jpg',
+  'frederick-davis':'/images/agents/frederick-thumb.jpg'
 };
 
 const SPOTLIGHT_BG_IMAGES=[
@@ -2120,7 +2125,8 @@ function scrollToSection(id,e){
   if(e)e.preventDefault();
   const el=document.getElementById(id);
   if(!el)return;
-  const hh=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h'))||80;
+  // Land just under the compact (scrolled) header, since that's what will be showing.
+  const hh=parseInt(getComputedStyle(document.documentElement).getPropertyValue('--header-h-sm'))||60;
   window.scrollTo({top:el.getBoundingClientRect().top+window.scrollY-hh,behavior:'smooth'});
 }
 
@@ -3098,6 +3104,18 @@ function toggleFaq(btn){
     item.classList.add('open');
     btn.setAttribute('aria-expanded','true');
   }
+}
+
+// Opens a blog post by its URL slug (the same /blog/<slug> address it has when shared).
+// Used by in-page links; if the posts haven't loaded yet (or the slug is unknown)
+// it returns true so the browser follows the href to /blog/<slug> normally,
+// and renderBlog() opens the post on that page load.
+function openBlogPostBySlug(slug,e){
+  const idx=(BLOG_POSTS||[]).findIndex(p=>slugify(p.title)===slug);
+  if(idx<0)return true;
+  if(e)e.preventDefault();
+  openBlogModal(idx);
+  return false;
 }
 
 function openBlogModal(index, skipPushState){

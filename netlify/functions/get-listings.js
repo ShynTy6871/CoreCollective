@@ -33,6 +33,7 @@
  */
 
 const { listPhotos } = require('./lib/media');
+const { isRental, NOT_RENTAL_FILTERS } = require('./lib/rentals');
 
 const API_BASE = 'https://api.sourceredb.com/odata';
 const CACHE_MS = 10 * 60 * 1000;
@@ -42,6 +43,7 @@ const BASE_FIELDS = [
   'ListingKey',
   'ListPrice',
   'PropertyType',
+  'PropertySubType', // only used to screen out rentals; not returned
   'UnparsedAddress',
   'City',
   'StateOrProvince',
@@ -166,14 +168,14 @@ function visibilityFilter() {
     'InternetEntireListingDisplayYN eq true',
     // Buyers only need listings that are actually on the market.
     "(StandardStatus eq 'Active' or StandardStatus eq 'Pending' or StandardStatus eq 'Coming Soon')"
-  ];
+  ].concat(NOT_RENTAL_FILTERS); // no rentals / leases (also re-checked per record below)
 }
 
 // The newest 100 listings (lightweight shape).
 async function fetchListings(token) {
   const records = await queryProperty(token, visibilityFilter().join(' and '), LIST_SELECT, 100);
   return records
-    .filter((rec) => rec && rec.InternetEntireListingDisplayYN === true) // belt and suspenders
+    .filter((rec) => rec && rec.InternetEntireListingDisplayYN === true && !isRental(rec)) // belt and suspenders
     .map((rec) => mapRecord(rec, false));
 }
 
@@ -192,7 +194,7 @@ async function fetchOneListing(token, listingKey) {
     records = await queryProperty(token, filter, DETAIL_SELECT_FALLBACK, 1);
   }
   return records
-    .filter((rec) => rec && rec.InternetEntireListingDisplayYN === true)
+    .filter((rec) => rec && rec.InternetEntireListingDisplayYN === true && !isRental(rec))
     .map((rec) => mapRecord(rec, true));
 }
 
