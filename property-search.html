@@ -78,6 +78,9 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 .property-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2px}
 .prop-card{background:var(--white);overflow:hidden;position:relative;border:1px solid var(--gray-100);transition:box-shadow .3s ease,transform .3s ease}
 .prop-card:hover{box-shadow:0 20px 60px rgba(10,25,47,.18);transform:translateY(-4px);z-index:2}
+/* The listing the visitor clicked on (?listing=...) */
+.prop-card-featured{border:3px solid var(--gold);box-shadow:0 0 0 4px rgba(197,160,89,.28),0 20px 60px rgba(10,25,47,.18);background:#FFFBF2;z-index:1}
+.prop-featured-label{background:var(--gold);color:var(--navy);padding:8px 16px;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
 .prop-img-wrap{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--off-white)}
 .prop-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--trans)}
 .prop-card:hover .prop-img-wrap img{transform:scale(1.08)}
@@ -186,6 +189,10 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 
 <script>
 let ALL_LISTINGS=[];
+// ?listing=<ListingKey> — a specific home the visitor clicked on (e.g. from the
+// homepage). It is pinned to the top and highlighted, and is never filtered out.
+const FEATURED_ID=(new URLSearchParams(window.location.search).get('listing')||'').trim();
+function isFeatured(p){return !!FEATURED_ID&&String(p.id)===FEATURED_ID;}
 
 function escHtml(str){
   return String(str==null?'':str).replace(/[&<>"']/g,ch=>({
@@ -281,6 +288,7 @@ function syncUrlFromForm(){
   if(f.type)q.set('type',document.getElementById('search-type').value);
   if(f.min!==null)q.set('minPrice',String(f.min));
   if(f.max!==null)q.set('maxPrice',String(f.max));
+  if(FEATURED_ID)q.set('listing',FEATURED_ID);
   const qs=q.toString();
   history.replaceState(null,'',window.location.pathname+(qs?'?'+qs:''));
 }
@@ -303,7 +311,9 @@ function cardHtml(p){
   if(typeof p.beds==='number')metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🛏</span>${p.beds} ${p.beds===1?'Bed':'Beds'}</div>`);
   if(typeof p.baths==='number')metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🛁</span>${p.baths} ${p.baths===1?'Bath':'Baths'}</div>`);
   if(p.propertyType)metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🏠</span>${escHtml(p.propertyType)}</div>`);
-  return `<article class="prop-card" role="listitem" aria-label="${escHtml(price+' — '+address)}">
+  const featured=isFeatured(p);
+  return `<article class="prop-card${featured?' prop-card-featured':''}" role="listitem" aria-label="${escHtml((featured?'The home you clicked: ':'')+price+' — '+address)}">
+    ${featured?'<div class="prop-featured-label">★ The home you clicked</div>':''}
     <div class="prop-img-wrap">${img}<span class="status-tag ${st.cls}">${st.label}</span></div>
     <div class="prop-info">
       <div class="prop-price">${escHtml(price)}</div>
@@ -360,7 +370,13 @@ function loadMore(){
 
 function renderResults(){
   const f=getFilters();
-  const filtered=applyFilters(ALL_LISTINGS,f);
+  let filtered=applyFilters(ALL_LISTINGS,f);
+  if(FEATURED_ID){
+    // Pin the clicked listing to the very top, even if it doesn't match the
+    // other filters or would have fallen outside the first batch.
+    const pinned=ALL_LISTINGS.find(isFeatured);
+    if(pinned)filtered=[pinned].concat(filtered.filter(p=>!isFeatured(p)));
+  }
   CURRENT_RESULTS=filtered;
   VISIBLE_COUNT=0;
   const meta=document.getElementById('results-meta');
