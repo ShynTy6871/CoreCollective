@@ -3,7 +3,7 @@
     {
       "cover_alt": "Homes and community life in Eastern North Carolina",
       "excerpt": "August 2026 draft for Wendell, Zebulon, Garner, Four Oaks, Rocky Mount, and Goldsboro — market snapshot, Zebulon community spotlight, and this month's events checklist.",
-      "draft": true,
+      "draft": false,
       "body": "## Market Snapshot\n\n- **Wendell** — Median home price around $379K.\n- **Zebulon** — Median home price around $320K.\n- **Garner** — Median home price around $397K.\n- **Four Oaks** — Median home price around $253K.\n- **Rocky Mount** — Median home price around $205K.\n- **Goldsboro** — Median home price around $228K.\n\n## Community Spotlight\n\n**Zebulon** — Zebulon is home to MacLellan Bagpipes, the only business in North America that makes, sells, and teaches how to play the bagpipes.\n\n**Dexter Drayton**, Realtor. Dexter partners with investors to identify high-yield assets across the Triangle — combining sharp financial analysis with an unmatched off-market deal pipeline. Ready to talk? Reach out to [Dexter Drayton](https://corecollectivere.com/#contact-strip) today.\n\n## This Month's Events\n\n_Add this month's events below before publishing — one per town when possible:_\n\n- [ ] **Wendell:** _(event name, date, link)_\n- [ ] **Zebulon:** _(event name, date, link)_\n- [ ] **Garner:** _(event name, date, link)_\n- [ ] **Four Oaks:** _(event name, date, link)_\n- [ ] **Rocky Mount:** _(event name, date, link)_\n- [ ] **Goldsboro:** _(event name, date, link)_\n",
       "author": "Core Collective Editorial",
       "order": 0,
