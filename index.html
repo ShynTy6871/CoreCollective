@@ -277,6 +277,13 @@ section{padding:100px 80px}
 .prop-card:hover{box-shadow:0 20px 60px rgba(10,25,47,.18);transform:translateY(-4px);z-index:2}
 .prop-card:hover .prop-img-wrap img{transform:scale(1.08)}
 .status-tag{position:absolute;top:16px;left:16px;padding:5px 12px;font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;z-index:1}
+/* Featured cards from the live feed have no detail page to open */
+.prop-card-static{cursor:default}
+.prop-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--off-white);font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gray-300)}
+#properties[hidden]{display:none}
+.spinner{width:36px;height:36px;margin:0 auto 20px;border:3px solid var(--gray-100);border-top-color:var(--gold);border-radius:50%;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spinner{animation-duration:3s}}
 .status-active{background:var(--gold);color:var(--navy)}
 .status-pending{background:var(--navy);color:var(--gold);border:1px solid var(--gold)}
 .status-coming{background:rgba(10,25,47,.88);color:var(--white);backdrop-filter:blur(4px)}
@@ -827,7 +834,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <div class="nav-item">
       <a href="#" class="nav-link" onclick="scrollToSection('investors',event)" aria-haspopup="true">Investors</a>
       <div class="dropdown">
-        <a href="#" onclick="navFilter('investment');return false;">Investment Listings</a>
+        <a href="/property-search?type=investment">Investment Listings</a>
         <a href="#" onclick="scrollToSection('investors',event)">Market Analytics</a>
       </div>
     </div>
@@ -891,7 +898,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <p class="hero-sub">Core Collective Real Estate delivers white-glove representation across the Triangle's most coveted addresses — from first-time buyers to seasoned portfolio investors.</p>
       <div class="hero-actions">
         <button class="btn-primary" onclick="scrollToSection('agent-matcher')">Find Your Agent <span>→</span></button>
-        <button class="btn-outline" onclick="scrollToSection('properties')">Browse Listings</button>
+        <button class="btn-outline" onclick="window.location.href='/property-search'">Browse Listings</button>
       </div>
     </div>
     <div class="hero-stats" id="cms-hero-stats" role="complementary">
@@ -1005,17 +1012,17 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
         <div class="reveal-on-scroll">
         <div class="section-eyebrow">Featured Listings</div>
         <h2 class="section-title" id="properties-title">Curated <em>Properties</em></h2>
-        <p class="section-sub">Hand-selected listings across Raleigh, Durham, Chapel Hill, and Cary.</p>
+        <p class="section-sub">The newest homes on the market across North Carolina.</p>
         </div>
-      <div class="filter-tabs" role="tablist" aria-label="Filter properties by type">
-        <button class="filter-tab active" id="tab-all" role="tab" aria-selected="true" aria-controls="property-grid" onclick="filterProps(this,'all')">All</button>
-        <button class="filter-tab" id="tab-residential" role="tab" aria-selected="false" aria-controls="property-grid" onclick="filterProps(this,'residential')">Residential</button>
-        <button class="filter-tab" id="tab-commercial" role="tab" aria-selected="false" aria-controls="property-grid" onclick="filterProps(this,'commercial')">Commercial</button>
-        <button class="filter-tab" id="tab-investment" role="tab" aria-selected="false" aria-controls="property-grid" onclick="filterProps(this,'investment')">Investment</button>
+    </div>
+    <div class="property-grid" id="property-grid" role="list" aria-busy="true">
+      <div class="no-results" role="status">
+        <div class="spinner" aria-hidden="true"></div>
+        <div class="no-results-title">Loading listings…</div>
+        <p class="no-results-sub">Fetching the latest North Carolina homes for you.</p>
       </div>
     </div>
-    <div class="property-grid" id="property-grid" role="tabpanel" aria-labelledby="tab-all"></div>
-    <a href="#" class="view-all" onclick="navFilter('all');return false;">View All Listings <span class="view-all-arrow">→</span></a>
+    <a href="/property-search" class="view-all">View All Listings <span class="view-all-arrow">→</span></a>
     <p class="idx-disclaimer" id="idx-disclaimer" style="display:none;font-size:.75rem;opacity:.65;max-width:760px;margin:1.5rem auto 0;text-align:center;line-height:1.5;"></p>
   </section>
 
@@ -1472,8 +1479,8 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <div>
         <div class="footer-col-title">Properties</div>
         <ul class="footer-links">
-          <li><a href="#" onclick="navFilter('residential');return false;">Residential Listings</a></li>
-          <li><a href="#" onclick="navFilter('investment');return false;">Investment Properties</a></li>
+          <li><a href="/property-search?type=residential">Residential Listings</a></li>
+          <li><a href="/property-search?type=investment">Investment Properties</a></li>
         </ul>
       </div>
       <div>
@@ -1786,7 +1793,6 @@ async function loadProperties(){
   }catch(err){
     console.warn('Property listings load skipped:',err);
   }
-  let idxCount=0;
   try{
     const settingsRes=await fetch('content/site-settings.json');
     const settings=settingsRes.ok?await settingsRes.json():{};
@@ -1795,7 +1801,6 @@ async function loadProperties(){
       if(idxRes.ok){
         const idxData=await idxRes.json();
         const idxMapped=(idxData.properties||[]).map((entry,i)=>mapCMSProperty(entry, 'idx'+i));
-        idxCount=idxMapped.length;
         mapped=mapped.concat(idxMapped);
       }
     }
@@ -1803,73 +1808,71 @@ async function loadProperties(){
     console.warn('IDX listings load skipped:',err);
   }
 
+  PROPERTIES=mapped;
+}
+
+/* ── FEATURED LISTINGS (live Doorify feed, 3 newest) ───── */
+// "Curated Properties" is fed by the same function that powers the
+// Property Search page. get-listings already returns newest first, so the
+// section just takes the first 3. If the feed can't be loaded the whole
+// section is hidden so the rest of the homepage is unaffected.
+const FEATURED_COUNT=3;
+
+function joinAddressLine(address,cityState){
+  // Doorify's UnparsedAddress is usually the complete address
+  // ("1113 Spruce Street, Durham, NC 27701"), so only append the
+  // city/state/zip when it isn't already in there.
+  const a=String(address||'').trim();
+  const c=String(cityState||'').trim();
+  if(!c||a.toLowerCase().includes(c.toLowerCase()))return a;
+  return a?a+', '+c:c;
+}
+
+function renderFeaturedCard(p){
+  const sm={active:{cls:'status-active',label:'ACTIVE'},pending:{cls:'status-pending',label:'UNDER CONTRACT'},coming:{cls:'status-coming',label:'COMING SOON'}};
+  const st=sm[String(p.status||'').toLowerCase().replace('coming soon','coming')]||sm.active;
+  const price=typeof p.price==='number'&&Number.isFinite(p.price)?'$'+p.price.toLocaleString('en-US'):'Price on request';
+  const address=p.address||'Address unavailable';
+  const img=p.photo
+    ?`<img src="${escHtml(p.photo)}" alt="${escHtml(address)}" loading="lazy">`
+    :`<div class="prop-img-placeholder">Photo coming soon</div>`;
+  const metrics=[];
+  if(typeof p.beds==='number')metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🛏</span>${p.beds} ${p.beds===1?'Bed':'Beds'}</div>`);
+  if(typeof p.baths==='number')metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🛁</span>${p.baths} ${p.baths===1?'Bath':'Baths'}</div>`);
+  if(p.propertyType)metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🏠</span>${escHtml(p.propertyType)}</div>`);
+  return `<article class="prop-card prop-card-static" role="listitem" aria-label="${escHtml(price+' — '+address)}">
+      <div class="prop-img-wrap">${img}<span class="status-tag ${st.cls}">${st.label}</span></div>
+      <div class="prop-info"><div class="prop-price">${escHtml(price)}</div><div class="prop-address">${escHtml(address)}</div><div class="prop-divider"></div><div class="prop-metrics">${metrics.join('')}</div></div>
+    </article>`;
+}
+
+async function loadFeaturedListings(){
+  const section=document.getElementById('properties');
+  const grid=document.getElementById('property-grid');
   const disclaimer=document.getElementById('idx-disclaimer');
-  if(disclaimer){
-    if(idxCount>0){
+  const hideSection=()=>{if(section)section.hidden=true;};
+  try{
+    const res=await fetch('/.netlify/functions/get-listings');
+    const data=await res.json().catch(()=>null);
+    if(!res.ok||!Array.isArray(data))throw new Error((data&&data.error)||('HTTP '+res.status));
+    const newest=data.slice(0,FEATURED_COUNT);
+    if(!newest.length){hideSection();return;}
+    grid.innerHTML=newest.map(renderFeaturedCard).join('');
+    grid.setAttribute('aria-busy','false');
+    if(disclaimer){
       disclaimer.style.display='';
       disclaimer.innerHTML='© '+new Date().getFullYear()+' Doorify MLS, Inc. of North Carolina. All rights reserved. Listing information is for consumers\u2019 personal, non-commercial use and may not be used for any purpose other than to identify prospective properties consumers may be interested in purchasing. Core Collective Real Estate, eXp Realty, LLC \u2014 Licensed in North Carolina.';
-    }else{
-      disclaimer.style.display='none';
     }
+  }catch(err){
+    console.warn('Featured listings skipped:',err);
+    hideSection();
   }
-  PROPERTIES=mapped;
-  renderProperties('all');
-}
-
-/* ── RENDER GRID ─────────────────────────────────────── */
-function renderGrid(props){
-  const grid=document.getElementById('property-grid');
-  if(!props.length){
-    if(!PROPERTIES.length){
-      grid.innerHTML=`<div class="no-results">
-      <div class="no-results-icon">◎</div>
-      <div class="no-results-title">New listings coming soon.</div>
-      <p class="no-results-sub">We're preparing fresh properties for this page. Please check back shortly.</p>
-    </div>`;
-      return;
-    }
-    grid.innerHTML=`<div class="no-results">
-      <div class="no-results-icon">◎</div>
-      <div class="no-results-title">No Matching Properties Found</div>
-      <p class="no-results-sub">Try broadening your search or explore all available listings.</p>
-      <button class="no-results-reset" onclick="resetSearch()">Reset Search → View All</button>
-    </div>`;
-    return;
-  }
-  const sm={active:{cls:'status-active',label:'ACTIVE'},pending:{cls:'status-pending',label:'UNDER CONTRACT'},coming:{cls:'status-coming',label:'COMING SOON'},sold:{cls:'status-sold',label:'SOLD'}};
-  grid.innerHTML=props.map(p=>{
-    const st=sm[p.status]||sm.active;
-    const m=p.beds!==null
-      ?`<div class="prop-metric"><span class="metric-icon">🛏</span>${p.beds} Beds</div><div class="prop-metric"><span class="metric-icon">🛁</span>${p.baths} Baths</div><div class="prop-metric"><span class="metric-icon">◻</span>${p.sqft} SF</div>`
-      :`<div class="prop-metric"><span class="metric-icon">◻</span>${p.sqft} SF</div><div class="prop-metric"><span class="metric-icon">🏢</span>Commercial</div>`;
-    return`<article class="prop-card" onclick="showListing('${p.id}')" role="listitem" tabindex="0" onkeydown="if(event.key==='Enter'||event.key===' ')showListing('${p.id}')" aria-label="${p.price} — ${p.address}">
-      <div class="prop-img-wrap"><img src="${p.image}" alt="${p.address}" loading="lazy"><span class="status-tag ${st.cls}">${st.label}</span><div class="prop-save" role="button" tabindex="0" onclick="toggleSave(event,this)"></div></div>
-      <div class="prop-info"><div class="prop-price">${p.price}</div><div class="prop-address">${p.address} · ${p.city}</div><div class="prop-divider"></div><div class="prop-metrics">${m}</div></div>
-      <div class="prop-agent"><div class="agent-avatar-sm">${p.agent.initials}</div><div class="agent-name-sm">${p.agent.name}</div></div>
-    </article>`;
-  }).join('');
-}
-
-function renderProperties(filter='all'){
-  renderGrid(filter==='all'?PROPERTIES:PROPERTIES.filter(p=>p.type===filter));
-}
-
-function filterProps(btn,filter){
-  document.querySelectorAll('.filter-tab').forEach(t=>{
-    t.classList.remove('active');
-    t.setAttribute('aria-selected','false');
-  });
-  btn.classList.add('active');
-  btn.setAttribute('aria-selected','true');
-  document.getElementById('property-grid').setAttribute('aria-labelledby',btn.id);
-  renderProperties(filter);
 }
 
 /* ════════════════════════════════════════════════════════
-   UPGRADE 2a: REAL-TIME SEARCH
-   Reads all four search panel fields, filters the
-   PROPERTIES array on location, type, and price range,
-   then redraws the grid with matching results only.
+   UPGRADE 2a: SEARCH HAND-OFF
+   Reads all four search panel fields and sends the visitor
+   to the Property Search page with them as URL query params.
 ════════════════════════════════════════════════════════ */
 function runSearch(){
   // Hands the entered filters to the Property Search page as URL query
@@ -1886,28 +1889,6 @@ function runSearch(){
   if(maxP>0&&maxP<999999999)params.set('maxPrice',String(maxP));
   const qs=params.toString();
   window.location.href='/property-search'+(qs?'?'+qs:'');
-}
-
-function resetSearch(){
-  document.getElementById('search-location').value='';
-  document.getElementById('search-type').value='';
-  document.getElementById('search-min').value='0';
-  document.getElementById('search-max').value='999999999';
-  document.getElementById('tab-all').classList.add('active');
-  renderProperties('all');
-}
-
-/* ════════════════════════════════════════════════════════
-   UPGRADE 2b: DROPDOWN NAV FILTER WIRING
-   Clicking any dropdown sub-link scrolls to the listings
-   section and instantly filters cards by property type.
-════════════════════════════════════════════════════════ */
-function navFilter(type){
-  if(document.getElementById('listing-page').classList.contains('active'))showHome();
-  scrollToSection('properties');
-  const map={all:'tab-all',residential:'tab-residential',commercial:'tab-commercial',investment:'tab-investment'};
-  const tab=document.getElementById(map[type]||'tab-all');
-  if(tab)filterProps(tab,type);
 }
 
 /* ── SAVE TOGGLE ─────────────────────────────────────── */
@@ -1982,9 +1963,9 @@ function showListing(id,pushHistory){
   document.getElementById('listing-hero-bg').style.cssText=`background-image:url('${p.heroImage}');background-size:cover;background-position:center;`;
   document.getElementById('listing-status-tag').textContent=sl[p.status]||'ACTIVE';
   document.getElementById('listing-address').textContent=p.address;
-  document.getElementById('listing-city').textContent=p.city;
+  document.getElementById('listing-city').textContent=(p.city&&String(p.address||'').toLowerCase().includes(String(p.city).toLowerCase()))?'':p.city;
   document.getElementById('listing-price').textContent=p.price;
-  document.getElementById('listing-addr-sm').textContent=`${p.address}, ${p.city}`;
+  document.getElementById('listing-addr-sm').textContent=joinAddressLine(p.address,p.city);
   document.getElementById('spec-beds').textContent=p.beds||'—';
   document.getElementById('spec-baths').textContent=p.baths||'—';
   document.getElementById('spec-sqft').textContent=p.sqft||'—';
@@ -2508,6 +2489,9 @@ async function loadCMSContent(){
     console.warn('CMS content load skipped:',err);
   }
   await revealEventsNav();
+  // Not awaited: the live featured-listings fetch must never hold up (or
+  // break) the rest of the homepage.
+  loadFeaturedListings();
   await loadProperties();
 
   // Deep link: if someone lands directly on /listing/<id> (a shared link,
