@@ -42,7 +42,7 @@
       "initials": "DD",
       "agent_id": "dexter-drayton",
       "title": "Realtor Bio",
-      "headshot": "images/agents/dexter-headshot.jpg",
+      "headshot": "/images/agents/dexter-headshot.jpg",
       "specialties": [
         "First-Time Buyers",
         "Investment Properties",
@@ -94,7 +94,7 @@
       "initials": "JW",
       "agent_id": "jennifer-wiggins",
       "title": "Realtor Bio",
-      "headshot": "images/agents/jennifer-headshot.jpg",
+      "headshot": "/images/agents/jennifer-headshot.jpg",
       "specialties": [
         "First-Time Buyers",
         "Luxury / Move-Up Homes",
@@ -117,7 +117,7 @@
       "initials": "FD",
       "agent_id": "frederick-davis",
       "title": "Realtor Bio",
-      "headshot": "images/agents/frederick-headshot.jpg",
+      "headshot": "/images/agents/frederick-headshot.jpg",
       "specialties": [
         "First-Time Buyers",
         "New Construction",
