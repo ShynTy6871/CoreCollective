@@ -103,11 +103,17 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 .no-results-sub:last-child{margin-bottom:0}
 .no-results-reset{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--navy);color:var(--gold);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transition:background .2s,color .2s,transform .2s}
 .no-results-reset:hover{background:var(--gold);color:var(--navy);transform:translateY(-4px)}
+/* Load More (same look as .no-results-reset / other navy+gold buttons) */
+.load-more-wrap{text-align:center;margin-top:40px}
+.load-more-btn{display:inline-flex;align-items:center;gap:8px;padding:16px 40px;background:var(--navy);color:var(--gold);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transition:background .2s,color .2s,transform .2s}
+.load-more-btn:hover{background:var(--gold);color:var(--navy);transform:translateY(-4px)}
+.load-more-done{font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-500)}
 .spinner{width:36px;height:36px;margin:0 auto 20px;border:3px solid var(--gray-100);border-top-color:var(--gold);border-radius:50%;animation:spin .9s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.spinner{animation-duration:3s}.prop-card,.prop-img-wrap img{transition:none}}
 
 .idx-disclaimer{font-size:.75rem;opacity:.65;max-width:760px;margin:2rem auto 0;text-align:center;line-height:1.5}
+[hidden]{display:none!important}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 </style>
 </head>
@@ -168,6 +174,11 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
       <div class="no-results-title">Loading listings…</div>
       <p class="no-results-sub">Fetching the latest North Carolina homes for you.</p>
     </div>
+  </div>
+
+  <div class="load-more-wrap" id="load-more-wrap" hidden>
+    <button type="button" class="load-more-btn" id="load-more-btn">Load More</button>
+    <p class="load-more-done" id="load-more-done" tabindex="-1" aria-live="polite" hidden></p>
   </div>
 
   <p class="idx-disclaimer" id="idx-disclaimer" hidden></p>
@@ -307,11 +318,44 @@ function setGrid(html){
   const grid=document.getElementById('property-grid');
   grid.innerHTML=html;
   grid.setAttribute('aria-busy','false');
+  // Any state message (loading/empty/error) or fresh render hides Load More;
+  // renderResults() turns it back on via updateLoadMore().
+  document.getElementById('load-more-wrap').hidden=true;
+}
+
+/* ── LOAD MORE (reveals already-fetched listings; no new API call) ── */
+const PAGE_SIZE=12;
+let CURRENT_RESULTS=[];  // listings matching the current filters
+let VISIBLE_COUNT=0;     // how many of CURRENT_RESULTS are showing
+
+function updateLoadMore(){
+  const wrap=document.getElementById('load-more-wrap');
+  const btn=document.getElementById('load-more-btn');
+  const done=document.getElementById('load-more-done');
+  const total=CURRENT_RESULTS.length;
+  if(total<=PAGE_SIZE){wrap.hidden=true;return;}
+  wrap.hidden=false;
+  const allShown=VISIBLE_COUNT>=total;
+  btn.hidden=allShown;
+  done.hidden=!allShown;
+  if(allShown)done.textContent='You\u2019ve seen all '+total+' listings';
+}
+
+function loadMore(){
+  const next=CURRENT_RESULTS.slice(VISIBLE_COUNT,VISIBLE_COUNT+PAGE_SIZE);
+  if(!next.length)return;
+  document.getElementById('property-grid').insertAdjacentHTML('beforeend',next.map(cardHtml).join(''));
+  VISIBLE_COUNT+=next.length;
+  updateLoadMore();
+  const done=document.getElementById('load-more-done');
+  if(!done.hidden)done.focus(); // button just disappeared; keep keyboard focus nearby
 }
 
 function renderResults(){
   const f=getFilters();
   const filtered=applyFilters(ALL_LISTINGS,f);
+  CURRENT_RESULTS=filtered;
+  VISIBLE_COUNT=0;
   const meta=document.getElementById('results-meta');
 
   if(!ALL_LISTINGS.length){
@@ -337,7 +381,9 @@ function renderResults(){
     </div>`);
     return;
   }
-  setGrid(filtered.map(cardHtml).join(''));
+  setGrid(filtered.slice(0,PAGE_SIZE).map(cardHtml).join(''));
+  VISIBLE_COUNT=Math.min(PAGE_SIZE,filtered.length);
+  updateLoadMore();
 }
 
 function renderError(){
@@ -404,6 +450,7 @@ document.addEventListener('click',e=>{
   if(!t)return;
   if(t.id==='results-reset'||t.id==='no-results-reset')resetFilters();
   if(t.id==='retry-btn')loadListings();
+  if(t.id==='load-more-btn')loadMore();
 });
 
 loadFiltersFromUrl();
