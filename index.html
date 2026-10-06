@@ -2592,7 +2592,8 @@ async function loadCMSContent(){
 async function showFeedListing(idxId){
   try{
     const key=decodeURIComponent(String(idxId).replace(/^idx-/,''));
-    const res=await fetch('/.netlify/functions/get-listings');
+    // Single-listing lookup, so it also works for homes outside the newest-100 window.
+    const res=await fetch('/.netlify/functions/get-listings?listing='+encodeURIComponent(key));
     if(!res.ok)return;
     const data=await res.json();
     const f=(Array.isArray(data)?data:[]).find(x=>String(x.id)===key);

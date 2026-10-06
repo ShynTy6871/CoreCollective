@@ -137,13 +137,17 @@ function mapRecord(rec) {
   };
 }
 
-async function fetchListings(token) {
-  const filter = [
+// With no argument: the newest 100 listings. With a listingKey: just that
+// one listing (same visibility rules), even if it is outside the newest 100.
+async function fetchListings(token, listingKey) {
+  const clauses = [
     "StateOrProvince eq 'NC'",
     'InternetEntireListingDisplayYN eq true',
     // Buyers only need listings that are actually on the market.
     "(StandardStatus eq 'Active' or StandardStatus eq 'Pending' or StandardStatus eq 'Coming Soon')"
-  ].join(' and ');
+  ];
+  if (listingKey) clauses.push(`ListingKey eq '${listingKey}'`); // listingKey is validated by the caller
+  const filter = clauses.join(' and ');
 
   const url =
     `${API_BASE}/Property?` +
@@ -151,7 +155,7 @@ async function fetchListings(token) {
     `&$select=${encodeURIComponent(SELECT_FIELDS)}` +
     `&$expand=${encodeURIComponent('Media')}` +
     `&$orderby=${encodeURIComponent('APIModificationTimestamp desc')}` +
-    '&$top=100';
+    `&$top=${listingKey ? 1 : 100}`;
 
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' }
@@ -169,11 +173,43 @@ async function fetchListings(token) {
     .map(mapRecord);
 }
 
-exports.handler = async () => {
+// Single-listing lookups (?listing=<ListingKey>) get their own small cache so
+// repeat clicks on the same home don't re-hit the API.
+const keyCache = new Map(); // ListingKey -> { at, data }
+const KEY_CACHE_MAX = 100;
+
+async function handleSingle(token, key) {
+  // Already in the newest-100 cache? No API call needed.
+  if (cache.data) {
+    const hit = cache.data.find((l) => String(l.id) === key);
+    if (hit) return json200([hit]);
+  }
+  const cached = keyCache.get(key);
+  if (cached && Date.now() - cached.at < CACHE_MS) return json200(cached.data);
+  try {
+    const listings = await fetchListings(token, key);
+    if (keyCache.size >= KEY_CACHE_MAX) keyCache.delete(keyCache.keys().next().value);
+    keyCache.set(key, { at: Date.now(), data: listings });
+    return json200(listings); // [] when not found / not displayable
+  } catch (err) {
+    console.log('get-listings: single lookup failed:', err && err.message);
+    if (cached) return json200(cached.data);
+    return json(502, { error: 'We could not load that listing right now. Please try again in a few minutes.' });
+  }
+}
+
+exports.handler = async (event) => {
   const token = process.env.DOORIFY_BEARER_TOKEN;
   if (!token) {
     console.log('get-listings: DOORIFY_BEARER_TOKEN is not set');
     return json(500, { error: 'Listings are not configured yet. Please check back soon.' });
+  }
+
+  const key = event && event.queryStringParameters && event.queryStringParameters.listing;
+  if (key !== undefined && key !== null && key !== '') {
+    // ListingKeys are simple tokens; reject anything else (it goes into an OData filter).
+    if (!/^[A-Za-z0-9_-]{1,64}$/.test(key)) return json(400, { error: 'Invalid listing id.' });
+    return handleSingle(token, key);
   }
 
   if (cache.data && Date.now() - cache.at < CACHE_MS) {
