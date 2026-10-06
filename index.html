@@ -817,7 +817,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <div class="nav-item">
       <a href="#" class="nav-link" onclick="scrollToSection('buyers',event)" aria-haspopup="true">Buyers</a>
       <div class="dropdown">
-        <a href="#" onclick="navFilter('all');return false;">Property Search</a>
+        <a href="/property-search">Property Search</a>
         <a href="#" onclick="goToBuyerGuide(event)">Buyer's Guide</a>
         <a href="#" onclick="scrollToSection('mortgage-calculator',event);return false;">Mortgage Calculator</a>
         <a href="#" onclick="scrollToSection('military-relocation',event)">Relocation Services</a>
@@ -1029,7 +1029,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <div class="search-row">
         <div class="search-field">
           <label class="search-label" for="search-location">Location</label>
-          <input class="search-input" id="search-location" type="text" placeholder="City, ZIP, or Neighborhood">
+          <input class="search-input" id="search-location" type="text" placeholder="City, ZIP, or Neighborhood" onkeydown="if(event.key==='Enter')runSearch()">
         </div>
         <div class="search-field">
           <label class="search-label" for="search-type">Property Type</label>
@@ -1872,20 +1872,20 @@ function filterProps(btn,filter){
    then redraws the grid with matching results only.
 ════════════════════════════════════════════════════════ */
 function runSearch(){
-  const loc  = document.getElementById('search-location').value.trim().toLowerCase();
+  // Hands the entered filters to the Property Search page as URL query
+  // params (e.g. /property-search?location=Raleigh&type=residential&maxPrice=500000).
+  // That page applies them client-side to the listings it loads.
+  const loc  = document.getElementById('search-location').value.trim();
   const type = document.getElementById('search-type').value;
   const minP = parseInt(document.getElementById('search-min').value,10)||0;
-  const maxP = parseInt(document.getElementById('search-max').value,10)||999999999;
-  const results=PROPERTIES.filter(p=>{
-    const locOk  = !loc  || p.address.toLowerCase().includes(loc) || p.city.toLowerCase().includes(loc);
-    const typeOk = !type || p.type===type;
-    const priceOk= p.priceNum>=minP && p.priceNum<=maxP;
-    return locOk&&typeOk&&priceOk;
-  });
-  scrollToSection('properties');
-  document.querySelectorAll('.filter-tab').forEach(t=>t.classList.remove('active'));
-  document.getElementById('tab-all').classList.add('active');
-  renderGrid(results);
+  const maxP = parseInt(document.getElementById('search-max').value,10)||0;
+  const params=new URLSearchParams();
+  if(loc)params.set('location',loc);
+  if(type)params.set('type',type);
+  if(minP>0)params.set('minPrice',String(minP));
+  if(maxP>0&&maxP<999999999)params.set('maxPrice',String(maxP));
+  const qs=params.toString();
+  window.location.href='/property-search'+(qs?'?'+qs:'');
 }
 
 function resetSearch(){
