@@ -37,7 +37,7 @@ collections:
           - name: "properties"
             label: "Properties"
             widget: "list"
-            summary: "{{fields.pending_approval}} {{fields.address}}"
+            summary: "{{fields.pending_approval | ternary('Pending Approval','Live')}} — {{fields.address}}"
             fields:
               - { label: "Address", name: "address", widget: "string" }
               - { label: "City, State ZIP", name: "city_state", widget: "string", hint: "e.g. Raleigh, NC 27601" }
@@ -88,7 +88,7 @@ collections:
             name: testimonials
             label_singular: Testimonial
             widget: list
-            summary: "{{fields.pending_approval}} {{fields.client_name}} — {{fields.location}}"
+            summary: "{{fields.pending_approval | ternary('Pending Approval','Live')}} — {{fields.client_name}} — {{fields.location}}"
             fields:
               - { label: Quote, name: quote, widget: text, hint: "Use the client's own words. Always get their permission before posting." }
               - { label: Client Name, name: client_name, widget: string }
@@ -114,7 +114,7 @@ collections:
             name: posts
             label_singular: Post
             widget: list
-            summary: "{{fields.draft}} {{fields.title}} — {{fields.date}}"
+            summary: "{{fields.draft | ternary('Draft','Published')}} — {{fields.title}} ({{fields.date}})"
             fields:
               - { label: Title, name: title, widget: string, hint: "Also generates the post's web address automatically — keep it clear and specific." }
               - { label: Publish Date, name: date, widget: datetime }
@@ -388,7 +388,7 @@ collections:
           - name: "signs"
             label: "Signs"
             widget: "list"
-            summary: "{{fields.pending_approval}} {{fields.builder_name}} — {{fields.lot_label}}"
+            summary: "{{fields.pending_approval | ternary('Pending Approval','Live')}} — {{fields.builder_name}} — {{fields.lot_label}}"
             fields:
               - { label: "Sign ID", name: "sign_id", widget: "string", hint: "⚠️ Do not change this after a sign is created — it controls the sign's web address and QR code. Only set this once, using lowercase-with-dashes (e.g. smith-homes-lot-4)." }
               - { label: "Builder Name", name: "builder_name", widget: "string", hint: "The home builder partner's business name." }
