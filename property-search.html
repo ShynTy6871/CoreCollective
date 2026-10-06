@@ -328,6 +328,12 @@ const PAGE_SIZE=12;
 let CURRENT_RESULTS=[];  // listings matching the current filters
 let VISIBLE_COUNT=0;     // how many of CURRENT_RESULTS are showing
 
+// "Showing X of Y listings": X = cards on screen now, Y = listings matching the current filters.
+function updateShowingCount(){
+  const el=document.getElementById('showing-count');
+  if(el)el.textContent='Showing '+VISIBLE_COUNT+' of '+CURRENT_RESULTS.length+' listings';
+}
+
 function updateLoadMore(){
   const wrap=document.getElementById('load-more-wrap');
   const btn=document.getElementById('load-more-btn');
@@ -346,6 +352,7 @@ function loadMore(){
   if(!next.length)return;
   document.getElementById('property-grid').insertAdjacentHTML('beforeend',next.map(cardHtml).join(''));
   VISIBLE_COUNT+=next.length;
+  updateShowingCount();
   updateLoadMore();
   const done=document.getElementById('load-more-done');
   if(!done.hidden)done.focus(); // button just disappeared; keep keyboard focus nearby
@@ -369,8 +376,9 @@ function renderResults(){
   }
 
   meta.hidden=false;
-  meta.innerHTML=`<span>Showing ${filtered.length} of ${ALL_LISTINGS.length} listings</span>`
+  meta.innerHTML=`<span id="showing-count"></span>`
     +(hasActiveFilters(f)?`<button type="button" class="results-reset" id="results-reset">Clear filters</button>`:'');
+  updateShowingCount(); // 0 of 0 until cards are rendered below
 
   if(!filtered.length){
     setGrid(`<div class="no-results" role="status">
@@ -383,6 +391,7 @@ function renderResults(){
   }
   setGrid(filtered.slice(0,PAGE_SIZE).map(cardHtml).join(''));
   VISIBLE_COUNT=Math.min(PAGE_SIZE,filtered.length);
+  updateShowingCount();
   updateLoadMore();
 }
 
