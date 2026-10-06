@@ -1083,8 +1083,8 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
     <div class="buyer-features" role="list">
       <div class="buyer-feature" role="listitem">
         <div class="buyer-feature-icon" aria-hidden="true">◈</div>
-        <h3 class="buyer-feature-title">Exclusive Access</h3>
-        <p class="buyer-feature-text">Gain early entry to off-market properties and pocket listings before they hit the open market — a distinct advantage in competitive markets.</p>
+        <h3 class="buyer-feature-title">Local Market Expertise</h3>
+        <p class="buyer-feature-text">Our agents live and work in these neighborhoods and track pricing, inventory, and timing closely — so you get sharp, honest guidance the moment the right home comes along.</p>
       </div>
       <div class="buyer-feature" role="listitem">
         <div class="buyer-feature-icon" aria-hidden="true">◉</div>
@@ -1601,10 +1601,10 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
   <div class="exit-modal-box">
     <button class="exit-modal-close" onclick="closeExitModal()" aria-label="Close">✕</button>
     <div class="exit-modal-eyebrow">Exclusive Market Intelligence</div>
-    <h2 class="exit-modal-title" id="exit-modal-title">Triangle Luxury Market &amp;<br><em>Off-Market Report</em></h2>
-    <p class="exit-modal-desc">Get our curated quarterly briefing — median price trends, off-market opportunities, and neighborhood insights delivered to your inbox.</p>
+    <h2 class="exit-modal-title" id="exit-modal-title">Triangle Luxury Market &amp;<br><em>Quarterly Report</em></h2>
+    <p class="exit-modal-desc">Get our curated quarterly briefing — median price trends, market forecasts, and neighborhood insights delivered to your inbox.</p>
     <div class="exit-modal-perks">
-      <div class="exit-modal-perk"><span class="exit-modal-perk-icon" aria-hidden="true">◆</span> Off-market &amp; pocket listing alerts</div>
+      <div class="exit-modal-perk"><span class="exit-modal-perk-icon" aria-hidden="true">◆</span> New-listing alerts for your target areas</div>
       <div class="exit-modal-perk"><span class="exit-modal-perk-icon" aria-hidden="true">◆</span> Sub-market price trend analysis</div>
       <div class="exit-modal-perk"><span class="exit-modal-perk-icon" aria-hidden="true">◆</span> Curated by Core Collective agents</div>
     </div>
@@ -1677,7 +1677,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 <script>
 const AGENT_PULL_QUOTES={
   'sylvia-wheeler':"A trusted guide through Wake County, backed by a background in mortgage underwriting.",
-  'dexter-drayton':"Sharp financial analysis, paired with an off-market pipeline other investors don't see.",
+  'dexter-drayton':"Sharp financial analysis, paired with deep local market insight investors can count on.",
   'sharon-mcduffie':"A warm, relationship-driven approach — helping families find where their lives can flourish.",
   'marsha-watson':"Twenty years in service before real estate — now bringing that same care to every family's goals.",
   'jennifer-wiggins':"From foster care advocacy to real estate — bringing patience, clarity, and genuine care to every step.",
@@ -3343,7 +3343,7 @@ async function submitExitModal(){
   const payload={
     source:'Core Collective Website — Exit Intent Report',
     timestamp:new Date().toISOString(),
-    lead:{fullName:'',email,phone:'',interest:'Buyer',message:'Requested: Triangle Luxury Market & Off-Market Report',locationPreferences:getLocationPreferences('exit-loc-pref')}
+    lead:{fullName:'',email,phone:'',interest:'Buyer',message:'Requested: Triangle Luxury Market & Quarterly Report',locationPreferences:getLocationPreferences('exit-loc-pref')}
   };
   btn.disabled=true;
   btn.textContent='Sending…';
