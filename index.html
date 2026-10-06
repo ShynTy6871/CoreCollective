@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1787,7 +1787,7 @@ function mapCMSProperty(entry, fallbackId){
 async function loadProperties(){
   let mapped=[];
   try{
-    const res=await fetch('content/properties.json');
+    const res=await fetch('/content/properties.json');
     if(res.ok){
       const data=await res.json();
       mapped=(data.properties||[]).filter(entry=>!entry.pending_approval).map((entry,i)=>mapCMSProperty(entry, 'p'+i));
@@ -1796,7 +1796,7 @@ async function loadProperties(){
     console.warn('Property listings load skipped:',err);
   }
   try{
-    const settingsRes=await fetch('content/site-settings.json');
+    const settingsRes=await fetch('/content/site-settings.json');
     const settings=settingsRes.ok?await settingsRes.json():{};
     if(settings.idx_listings_enabled){
       const idxRes=await fetch('/.netlify/functions/idx-listings');
@@ -1866,7 +1866,7 @@ function normalizeTeamListing(e){
 
 async function fetchTeamListings(){
   try{
-    const settingsRes=await fetch('content/site-settings.json');
+    const settingsRes=await fetch('/content/site-settings.json');
     const settings=settingsRes.ok?await settingsRes.json():{};
     if(!settings.idx_listings_enabled)return [];
     const res=await fetch('/.netlify/functions/idx-listings');
@@ -2529,12 +2529,12 @@ function escHtml(str){
 async function loadCMSContent(){
   try{
     const[agentsRes,nhoodsRes,testiRes,metricsRes,blogRes,faqsRes]=await Promise.all([
-      fetch('content/agents.json'),
-      fetch('content/neighborhoods.json'),
-      fetch('content/testimonials.json'),
-      fetch('content/market-metrics.json'),
-      fetch('content/blog.json'),
-      fetch('content/faqs.json')
+      fetch('/content/agents.json'),
+      fetch('/content/neighborhoods.json'),
+      fetch('/content/testimonials.json'),
+      fetch('/content/market-metrics.json'),
+      fetch('/content/blog.json'),
+      fetch('/content/faqs.json')
     ]);
     if(agentsRes.ok){
       const data=await agentsRes.json();
@@ -2642,7 +2642,7 @@ function eventDatePassed(dateStr){
 
 async function revealEventsNav(){
   try{
-    const res=await fetch('content/events.json');
+    const res=await fetch('/content/events.json');
     if(!res.ok)return;
     const data=await res.json();
     const live=(data.events||[]).some(e=>e&&e.active===true&&!eventDatePassed(e.date));
