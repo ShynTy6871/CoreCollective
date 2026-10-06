@@ -33,6 +33,11 @@
   status = 200
 
 [[redirects]]
+  from = "/property-search"
+  to = "/property-search.html"
+  status = 200
+
+[[redirects]]
   from = "/sign/*"
   to = "/sign.html"
   status = 200

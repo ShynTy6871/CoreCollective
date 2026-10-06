@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-K2VZ5SGH5D"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-K2VZ5SGH5D');
+</script>
+<title>Property Search | Core Collective Real Estate</title>
+<meta name="description" content="Search active North Carolina homes for sale with Core Collective Real Estate, brokered by eXp Realty, LLC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --navy:#0A192F;
+  --navy-mid:#0D2244;
+  --gold:#C5A059;
+  --gold-lt:#D4AF37;
+  --white:#FFFFFF;
+  --off-white:#F7F5F0;
+  --gray-100:#ECEAE5;
+  --gray-300:#B0AEA8;
+  --gray-500:#6B6963;
+  --font-display:'Playfair Display',Georgia,serif;
+  --font-sans:'Inter',system-ui,sans-serif;
+  --trans:cubic-bezier(0.4,0,0.2,1);
+}
+html,body{min-height:100%}
+body{font-family:var(--font-sans);background:var(--off-white);color:var(--navy);line-height:1.6}
+img{display:block;max-width:100%}
+a{color:var(--gold)}
+button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
+:focus{outline:none}
+:focus-visible{outline:2px solid var(--gold-lt);outline-offset:3px}
+
+/* Page header (matches events.html) */
+.page-header{background:var(--navy);padding:40px 24px 48px;text-align:center}
+.page-header-logo{height:72px;width:auto;margin:0 auto 24px}
+.page-header .eyebrow{font-size:10px;font-weight:500;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+.page-header h1{font-family:var(--font-display);font-size:clamp(32px,5vw,52px);font-weight:400;color:var(--white);line-height:1.15;margin-bottom:18px}
+.page-header h1 em{font-style:italic}
+.page-header a.back{display:inline-block;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:rgba(255,255,255,.7);border-bottom:1px solid var(--gold);padding-bottom:4px}
+
+.page-body{padding:48px 24px 80px;max-width:1280px;margin:0 auto}
+
+/* Search panel (same look as the homepage For Buyers panel) */
+.search-panel{background:var(--white);padding:24px;margin-bottom:24px;border:1px solid var(--gray-100)}
+.search-row{display:grid;grid-template-columns:2fr 1fr 1fr 1fr auto;gap:0;border:1px solid var(--gray-100)}
+.search-field{padding:16px 20px;border-right:1px solid var(--gray-100);display:flex;flex-direction:column;gap:6px}
+.search-label{font-size:9px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+.search-input,.search-select{border:none;outline:none;font-family:var(--font-sans);font-size:14px;font-weight:300;color:var(--navy);background:transparent;width:100%}
+.search-select{appearance:none;cursor:pointer}
+.search-btn{padding:20px 36px;background:var(--gold);color:var(--navy);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transition:background .2s,transform .2s;white-space:nowrap}
+.search-btn:hover{background:var(--gold-lt);transform:translateY(-4px)}
+@media(max-width:900px){
+  .search-row{grid-template-columns:1fr 1fr}
+  .search-field{border-bottom:1px solid var(--gray-100)}
+  .search-field:first-child{grid-column:1/-1}
+  .search-btn{grid-column:1/-1}
+}
+@media(max-width:520px){
+  .search-panel{padding:16px}
+  .search-row{grid-template-columns:1fr}
+}
+
+.results-meta{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;margin-bottom:20px;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--gray-500)}
+.results-reset{font-size:11px;font-weight:500;letter-spacing:.22em;text-transform:uppercase;color:var(--navy);border-bottom:1px solid var(--navy);padding-bottom:2px;transition:color .2s,border-color .2s}
+.results-reset:hover{color:var(--gold);border-color:var(--gold)}
+
+/* Property cards (same patterns as index.html .prop-card) */
+.property-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2px}
+.prop-card{background:var(--white);overflow:hidden;position:relative;border:1px solid var(--gray-100);transition:box-shadow .3s ease,transform .3s ease}
+.prop-card:hover{box-shadow:0 20px 60px rgba(10,25,47,.18);transform:translateY(-4px);z-index:2}
+.prop-img-wrap{position:relative;aspect-ratio:16/10;overflow:hidden;background:var(--off-white)}
+.prop-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--trans)}
+.prop-card:hover .prop-img-wrap img{transform:scale(1.08)}
+.prop-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gray-300)}
+.status-tag{position:absolute;top:16px;left:16px;padding:5px 12px;font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;z-index:1}
+.status-active{background:var(--gold);color:var(--navy)}
+.status-pending{background:var(--navy);color:var(--gold);border:1px solid var(--gold)}
+.status-coming{background:rgba(10,25,47,.88);color:var(--white);backdrop-filter:blur(4px)}
+.prop-info{padding:24px}
+.prop-price{font-family:var(--font-display);font-size:26px;font-weight:700;color:var(--navy);margin-bottom:6px;letter-spacing:-.01em}
+.prop-address{font-size:12px;font-weight:400;color:var(--gray-500);letter-spacing:.06em;text-transform:uppercase;margin-bottom:18px}
+.prop-divider{height:1px;background:var(--gray-100);margin-bottom:16px}
+.prop-metrics{display:flex;gap:0}
+.prop-metric{flex:1;display:flex;align-items:center;gap:6px;font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--navy);border-right:1px solid var(--gray-100);padding-right:12px;margin-right:12px}
+.prop-metric:last-child{border-right:none;margin-right:0}
+.metric-icon{font-size:14px;color:var(--gold)}
+
+/* Loading / empty / error states */
+.no-results{grid-column:1/-1;text-align:center;padding:80px 40px;border:1px solid var(--gray-100);background:var(--white)}
+.no-results-icon{font-size:40px;margin-bottom:20px;opacity:.3}
+.no-results-title{font-family:var(--font-display);font-size:28px;font-weight:400;color:var(--navy);margin-bottom:10px}
+.no-results-sub{font-size:14px;font-weight:300;color:var(--gray-500);margin-bottom:28px}
+.no-results-sub:last-child{margin-bottom:0}
+.no-results-reset{display:inline-flex;align-items:center;gap:8px;padding:12px 28px;background:var(--navy);color:var(--gold);font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;transition:background .2s,color .2s,transform .2s}
+.no-results-reset:hover{background:var(--gold);color:var(--navy);transform:translateY(-4px)}
+.spinner{width:36px;height:36px;margin:0 auto 20px;border:3px solid var(--gray-100);border-top-color:var(--gold);border-radius:50%;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.spinner{animation-duration:3s}.prop-card,.prop-img-wrap img{transition:none}}
+
+.idx-disclaimer{font-size:.75rem;opacity:.65;max-width:760px;margin:2rem auto 0;text-align:center;line-height:1.5}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+</style>
+</head>
+<body>
+<header class="page-header">
+  <a href="/"><img class="page-header-logo" src="/images/Logos/core-collective-logo.png" alt="Core Collective Real Estate — Brokered by eXp Realty, LLC"></a>
+  <div class="eyebrow">For Buyers</div>
+  <h1>Property <em>Search</em></h1>
+  <a class="back" href="/">Back to Core Collective</a>
+</header>
+
+<main class="page-body">
+  <form class="search-panel" id="search-form" role="search" aria-label="Filter listings">
+    <div class="search-row">
+      <div class="search-field">
+        <label class="search-label" for="search-location">Location</label>
+        <input class="search-input" id="search-location" type="text" placeholder="City, ZIP, or Neighborhood" autocomplete="off">
+      </div>
+      <div class="search-field">
+        <label class="search-label" for="search-type">Property Type</label>
+        <select class="search-select" id="search-type">
+          <option value="">Any Type</option>
+          <option value="residential">Residential</option>
+          <option value="commercial">Commercial</option>
+          <option value="investment">Investment</option>
+        </select>
+      </div>
+      <div class="search-field">
+        <label class="search-label" for="search-min">Min Price</label>
+        <select class="search-select" id="search-min">
+          <option value="">No Min</option>
+          <option value="250000">$250K</option>
+          <option value="500000">$500K</option>
+          <option value="750000">$750K</option>
+          <option value="1000000">$1M</option>
+          <option value="2000000">$2M</option>
+        </select>
+      </div>
+      <div class="search-field">
+        <label class="search-label" for="search-max">Max Price</label>
+        <select class="search-select" id="search-max">
+          <option value="">No Max</option>
+          <option value="500000">$500K</option>
+          <option value="750000">$750K</option>
+          <option value="1000000">$1M</option>
+          <option value="2000000">$2M</option>
+          <option value="5000000">$5M</option>
+        </select>
+      </div>
+      <button class="search-btn" type="submit">Search</button>
+    </div>
+  </form>
+
+  <div class="results-meta" id="results-meta" aria-live="polite" hidden></div>
+  <div class="property-grid" id="property-grid" role="list" aria-busy="true">
+    <div class="no-results" role="status">
+      <div class="spinner" aria-hidden="true"></div>
+      <div class="no-results-title">Loading listings…</div>
+      <p class="no-results-sub">Fetching the latest North Carolina homes for you.</p>
+    </div>
+  </div>
+
+  <p class="idx-disclaimer" id="idx-disclaimer" hidden></p>
+</main>
+
+<script>
+let ALL_LISTINGS=[];
+
+function escHtml(str){
+  return String(str==null?'':str).replace(/[&<>"']/g,ch=>({
+    '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+  }[ch]));
+}
+
+const usd=new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0});
+function formatPrice(n){return typeof n==='number'&&Number.isFinite(n)?usd.format(n):'Price on request';}
+
+/* ── FILTERS (client-side only; reads the listings already fetched) ── */
+function parsePrice(v){
+  if(v===null||v===undefined||v==='')return null;
+  const n=parseInt(String(v).replace(/[^0-9]/g,''),10);
+  return Number.isFinite(n)&&n>0?n:null;
+}
+
+function getFilters(){
+  return {
+    location:document.getElementById('search-location').value.trim().toLowerCase(),
+    type:document.getElementById('search-type').value.trim().toLowerCase(),
+    min:parsePrice(document.getElementById('search-min').value),
+    max:parsePrice(document.getElementById('search-max').value)
+  };
+}
+
+function typeMatches(filterType,propertyType){
+  if(!filterType)return true;
+  const pt=String(propertyType||'').toLowerCase();
+  if(filterType==='investment')return /land|farm|multi|income|investment/.test(pt);
+  return pt.includes(filterType);
+}
+
+function applyFilters(listings,f){
+  return listings.filter(p=>{
+    if(f.location){
+      const hay=[p.address,p.city,p.postalCode].join(' ').toLowerCase();
+      if(!hay.includes(f.location))return false;
+    }
+    if(!typeMatches(f.type,p.propertyType))return false;
+    if(f.min!==null||f.max!==null){
+      if(typeof p.price!=='number')return false;
+      if(f.min!==null&&p.price<f.min)return false;
+      if(f.max!==null&&p.price>f.max)return false;
+    }
+    return true;
+  });
+}
+
+function hasActiveFilters(f){return !!(f.location||f.type||f.min!==null||f.max!==null);}
+
+/* ── QUERY PARAMS ↔ FORM ─────────────────────────────── */
+function ensureOption(select,value,label){
+  if(!value)return;
+  const exists=[...select.options].some(o=>o.value.toLowerCase()===String(value).toLowerCase());
+  if(!exists){
+    const opt=document.createElement('option');
+    opt.value=value;opt.textContent=label;
+    select.appendChild(opt);
+  }
+}
+
+function setSelectValue(select,value){
+  const match=[...select.options].find(o=>o.value.toLowerCase()===String(value).toLowerCase());
+  select.value=match?match.value:'';
+}
+
+function loadFiltersFromUrl(){
+  const q=new URLSearchParams(window.location.search);
+  const loc=(q.get('location')||'').trim();
+  const type=(q.get('type')||'').trim();
+  const min=parsePrice(q.get('minPrice'));
+  const max=parsePrice(q.get('maxPrice'));
+
+  document.getElementById('search-location').value=loc;
+
+  const typeSel=document.getElementById('search-type');
+  ensureOption(typeSel,type.toLowerCase(),type);
+  setSelectValue(typeSel,type);
+
+  const minSel=document.getElementById('search-min');
+  const maxSel=document.getElementById('search-max');
+  if(min!==null)ensureOption(minSel,String(min),formatPrice(min));
+  if(max!==null)ensureOption(maxSel,String(max),formatPrice(max));
+  setSelectValue(minSel,min===null?'':String(min));
+  setSelectValue(maxSel,max===null?'':String(max));
+}
+
+function syncUrlFromForm(){
+  const f=getFilters();
+  const q=new URLSearchParams();
+  if(f.location)q.set('location',document.getElementById('search-location').value.trim());
+  if(f.type)q.set('type',document.getElementById('search-type').value);
+  if(f.min!==null)q.set('minPrice',String(f.min));
+  if(f.max!==null)q.set('maxPrice',String(f.max));
+  const qs=q.toString();
+  history.replaceState(null,'',window.location.pathname+(qs?'?'+qs:''));
+}
+
+/* ── RENDER ──────────────────────────────────────────── */
+const STATUS_MAP={
+  active:{cls:'status-active',label:'Active'},
+  pending:{cls:'status-pending',label:'Under Contract'},
+  'coming soon':{cls:'status-coming',label:'Coming Soon'}
+};
+
+function cardHtml(p){
+  const st=STATUS_MAP[String(p.status||'').toLowerCase()]||STATUS_MAP.active;
+  const price=formatPrice(p.price);
+  const address=p.address||'Address unavailable';
+  const img=p.photo
+    ?`<img src="${escHtml(p.photo)}" alt="${escHtml(address)}" loading="lazy">`
+    :`<div class="prop-img-placeholder">Photo coming soon</div>`;
+  const metrics=[];
+  if(typeof p.beds==='number')metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🛏</span>${p.beds} ${p.beds===1?'Bed':'Beds'}</div>`);
+  if(typeof p.baths==='number')metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🛁</span>${p.baths} ${p.baths===1?'Bath':'Baths'}</div>`);
+  if(p.propertyType)metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🏠</span>${escHtml(p.propertyType)}</div>`);
+  return `<article class="prop-card" role="listitem" aria-label="${escHtml(price+' — '+address)}">
+    <div class="prop-img-wrap">${img}<span class="status-tag ${st.cls}">${st.label}</span></div>
+    <div class="prop-info">
+      <div class="prop-price">${escHtml(price)}</div>
+      <div class="prop-address">${escHtml(address)}</div>
+      <div class="prop-divider"></div>
+      <div class="prop-metrics">${metrics.join('')}</div>
+    </div>
+  </article>`;
+}
+
+function setGrid(html){
+  const grid=document.getElementById('property-grid');
+  grid.innerHTML=html;
+  grid.setAttribute('aria-busy','false');
+}
+
+function renderResults(){
+  const f=getFilters();
+  const filtered=applyFilters(ALL_LISTINGS,f);
+  const meta=document.getElementById('results-meta');
+
+  if(!ALL_LISTINGS.length){
+    meta.hidden=true;
+    setGrid(`<div class="no-results" role="status">
+      <div class="no-results-icon">◎</div>
+      <div class="no-results-title">No listings available right now.</div>
+      <p class="no-results-sub">New North Carolina listings are added throughout the day. Please check back shortly, or contact us and we'll help you find the right home.</p>
+    </div>`);
+    return;
+  }
+
+  meta.hidden=false;
+  meta.innerHTML=`<span>Showing ${filtered.length} of ${ALL_LISTINGS.length} listings</span>`
+    +(hasActiveFilters(f)?`<button type="button" class="results-reset" id="results-reset">Clear filters</button>`:'');
+
+  if(!filtered.length){
+    setGrid(`<div class="no-results" role="status">
+      <div class="no-results-icon">◎</div>
+      <div class="no-results-title">No Matching Properties Found</div>
+      <p class="no-results-sub">Try broadening your search or explore all available listings.</p>
+      <button type="button" class="no-results-reset" id="no-results-reset">Reset Search → View All</button>
+    </div>`);
+    return;
+  }
+  setGrid(filtered.map(cardHtml).join(''));
+}
+
+function renderError(){
+  document.getElementById('results-meta').hidden=true;
+  setGrid(`<div class="no-results" role="alert">
+    <div class="no-results-icon">◎</div>
+    <div class="no-results-title">We couldn't load listings.</div>
+    <p class="no-results-sub">Something went wrong on our end. Please try again in a moment.</p>
+    <button type="button" class="no-results-reset" id="retry-btn">Try Again</button>
+  </div>`);
+}
+
+function renderLoading(){
+  document.getElementById('results-meta').hidden=true;
+  document.getElementById('property-grid').setAttribute('aria-busy','true');
+  setGrid(`<div class="no-results" role="status">
+    <div class="spinner" aria-hidden="true"></div>
+    <div class="no-results-title">Loading listings…</div>
+    <p class="no-results-sub">Fetching the latest North Carolina homes for you.</p>
+  </div>`);
+  document.getElementById('property-grid').setAttribute('aria-busy','true');
+}
+
+function showDisclaimer(){
+  const el=document.getElementById('idx-disclaimer');
+  el.hidden=false;
+  el.innerHTML='© '+new Date().getFullYear()+' Doorify MLS, Inc. of North Carolina. All rights reserved. Listing information is for consumers\u2019 personal, non-commercial use and may not be used for any purpose other than to identify prospective properties consumers may be interested in purchasing. Core Collective Real Estate, eXp Realty, LLC \u2014 Licensed in North Carolina.';
+}
+
+/* ── LOAD ────────────────────────────────────────────── */
+async function loadListings(){
+  renderLoading();
+  try{
+    const res=await fetch('/.netlify/functions/get-listings');
+    const data=await res.json().catch(()=>null);
+    if(!res.ok||!Array.isArray(data))throw new Error((data&&data.error)||('HTTP '+res.status));
+    ALL_LISTINGS=data;
+    if(ALL_LISTINGS.length)showDisclaimer();
+    renderResults();
+  }catch(err){
+    console.warn('Listings load failed:',err);
+    ALL_LISTINGS=[];
+    renderError();
+  }
+}
+
+function resetFilters(){
+  document.getElementById('search-location').value='';
+  document.getElementById('search-type').value='';
+  document.getElementById('search-min').value='';
+  document.getElementById('search-max').value='';
+  syncUrlFromForm();
+  renderResults();
+}
+
+document.getElementById('search-form').addEventListener('submit',e=>{
+  e.preventDefault();
+  syncUrlFromForm();
+  if(ALL_LISTINGS.length)renderResults();
+});
+
+document.addEventListener('click',e=>{
+  const t=e.target.closest('button');
+  if(!t)return;
+  if(t.id==='results-reset'||t.id==='no-results-reset')resetFilters();
+  if(t.id==='retry-btn')loadListings();
+});
+
+loadFiltersFromUrl();
+loadListings();
+</script>
+</body>
+</html>
