@@ -277,8 +277,8 @@ section{padding:100px 80px}
 .prop-card:hover{box-shadow:0 20px 60px rgba(10,25,47,.18);transform:translateY(-4px);z-index:2}
 .prop-card:hover .prop-img-wrap img{transform:scale(1.08)}
 .status-tag{position:absolute;top:16px;left:16px;padding:5px 12px;font-size:9px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;z-index:1}
-/* Featured cards from the live feed have no detail page to open */
-.prop-card-static{cursor:default}
+/* Featured cards from the live feed are links to that listing on Property Search */
+a.prop-card-link{display:block;color:inherit;text-decoration:none}
 .prop-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--off-white);font-size:10px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gray-300)}
 #properties[hidden]{display:none}
 .spinner{width:36px;height:36px;margin:0 auto 20px;border:3px solid var(--gray-100);border-top-color:var(--gold);border-radius:50%;animation:spin .9s linear infinite}
@@ -1022,7 +1022,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
         <p class="no-results-sub">Fetching the latest North Carolina homes for you.</p>
       </div>
     </div>
-    <a href="/property-search" class="view-all">View All Listings <span class="view-all-arrow">→</span></a>
+    <a href="/property-search" class="view-all">See Full Listings <span class="view-all-arrow">→</span></a>
     <p class="idx-disclaimer" id="idx-disclaimer" style="display:none;font-size:.75rem;opacity:.65;max-width:760px;margin:1.5rem auto 0;text-align:center;line-height:1.5;"></p>
   </section>
 
@@ -1840,10 +1840,12 @@ function renderFeaturedCard(p){
   if(typeof p.beds==='number')metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🛏</span>${p.beds} ${p.beds===1?'Bed':'Beds'}</div>`);
   if(typeof p.baths==='number')metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🛁</span>${p.baths} ${p.baths===1?'Bath':'Baths'}</div>`);
   if(p.propertyType)metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🏠</span>${escHtml(p.propertyType)}</div>`);
-  return `<article class="prop-card prop-card-static" role="listitem" aria-label="${escHtml(price+' — '+address)}">
+  // Links to Property Search with this listing pinned/highlighted (?listing=<ListingKey>)
+  const href='/property-search'+(p.id?'?listing='+encodeURIComponent(p.id):'');
+  return `<a class="prop-card prop-card-link" href="${escHtml(href)}" role="listitem" aria-label="${escHtml(price+' — '+address)}">
       <div class="prop-img-wrap">${img}<span class="status-tag ${st.cls}">${st.label}</span></div>
       <div class="prop-info"><div class="prop-price">${escHtml(price)}</div><div class="prop-address">${escHtml(address)}</div><div class="prop-divider"></div><div class="prop-metrics">${metrics.join('')}</div></div>
-    </article>`;
+    </a>`;
 }
 
 async function loadFeaturedListings(){
