@@ -2506,7 +2506,49 @@ async function loadCMSContent(){
     const initialId=initialPath.replace('/listing/','').replace(/\/$/,'');
     if(PROPERTIES.some(function(p){return p.id===initialId;})){
       showListing(initialId,false);
+    }else if(initialId.startsWith('idx-')){
+      // Not one of our own team listings — it came from the Property Search
+      // page (any NC listing in the Doorify feed). Build the page from the feed.
+      await showFeedListing(initialId);
     }
+  }
+}
+
+/* ── LISTING PAGE FOR ANY LISTING IN THE LIVE FEED ─────────
+   /listing/idx-<ListingKey> links come from Property Search, which lists
+   every NC listing (not just our agents' own). Those aren't in PROPERTIES,
+   so look the listing up in get-listings and show it with the data the
+   feed provides (photo, price, address, beds/baths, status). If it can't be
+   found the visitor simply stays on the homepage. */
+async function showFeedListing(idxId){
+  try{
+    const key=decodeURIComponent(String(idxId).replace(/^idx-/,''));
+    const res=await fetch('/.netlify/functions/get-listings');
+    if(!res.ok)return;
+    const data=await res.json();
+    const f=(Array.isArray(data)?data:[]).find(x=>String(x.id)===key);
+    if(!f)return;
+    const addr=String(f.address||'');
+    const cityState=[f.city,[f.state,f.postalCode].filter(Boolean).join(' ')].filter(Boolean).join(', ');
+    const cut=f.city?addr.toLowerCase().indexOf((', '+f.city).toLowerCase()):-1;
+    const status={'active':'active','pending':'pending','coming soon':'coming'}[String(f.status||'').toLowerCase()]||'active';
+    const entry=mapCMSProperty({
+      id:idxId,
+      status:status,
+      type:'residential',
+      price:f.price||0,
+      address:cut>0?addr.slice(0,cut):addr,
+      city_state:cityState,
+      beds:f.beds,
+      baths:f.baths,
+      photos:f.photo?[f.photo]:[]
+    }, idxId);
+    entry.photos=[]; // only one photo available: use it as the hero, no gallery
+    if(!f.price)entry.price='Price on request';
+    if(!PROPERTIES.some(p=>p.id===idxId))PROPERTIES.push(entry);
+    showListing(idxId,false);
+  }catch(err){
+    console.warn('Feed listing page skipped:',err);
   }
 }
 
