@@ -1,9 +1,18 @@
 /**
  * get-listings.js
  *
- * Returns the first page (100) of public North Carolina listings from the
- * Doorify MLS feed (SourceRE RESO Web API) as a JSON array, for the
- * Property Search page (property-search.html).
+ * Public North Carolina listings from the Doorify MLS feed (SourceRE RESO
+ * Web API), as a JSON array. Two modes:
+ *
+ *   GET /.netlify/functions/get-listings
+ *       The newest 100 listings, for the Property Search page and the
+ *       homepage. Lightweight: one primary photo per listing, no description.
+ *
+ *   GET /.netlify/functions/get-listings?listing=<ListingKey>
+ *       Just that one listing (works for listings outside the newest 100),
+ *       with everything the listing detail page needs: the full photo list,
+ *       the description (PublicRemarks), and the listing office
+ *       (ListOfficeName / Phone / Email) for MLS attribution.
  *
  * SECURITY: the bearer token is read from DOORIFY_BEARER_TOKEN (Netlify
  * environment variable) and only ever used server-side. The browser talks
@@ -15,18 +24,21 @@
  *
  * RATE LIMITS: SourceRE allows 3 requests/second and 5,000/hour. Photos
  * are therefore requested in the SAME call as the listings ($expand=Media)
- * rather than one Media request per listing (which would be 100 extra
- * calls per refresh), and the result is cached in memory for 10 minutes.
+ * rather than one Media request per listing, and results are cached in
+ * memory for 10 minutes. (The full photo list is only returned in the
+ * single-listing mode so the 100-listing response stays small.)
  *
  * Success:  200 + JSON array of listings
  * Failure:  4xx/5xx + { "error": "<friendly message>" }
  */
 
+const { listPhotos } = require('./lib/media');
+
 const API_BASE = 'https://api.sourceredb.com/odata';
 const CACHE_MS = 10 * 60 * 1000;
 const PHOTO_SIZE = 'medium'; // SourceRE resize class: small | medium | large
 
-const SELECT_FIELDS = [
+const BASE_FIELDS = [
   'ListingKey',
   'ListPrice',
   'PropertyType',
@@ -39,23 +51,24 @@ const SELECT_FIELDS = [
   'StandardStatus',
   'APIModificationTimestamp',
   'InternetEntireListingDisplayYN'
-].join(',');
-
-// Warm-lambda, in-memory cache. A cold start clears it, which is fine.
-let cache = { at: 0, data: null };
-
-// Doorify's Media array also carries floor plans, tours, and documents.
-// Never pick one of those as the card photo.
-const NON_PHOTO_CATEGORIES = [
-  'document',
-  'floor plan',
-  'floorplan',
-  'virtual tour',
-  'branded virtual tour',
-  'unbranded virtual tour',
-  'video',
-  'other'
 ];
+const LIST_SELECT = BASE_FIELDS.join(',');
+
+// Single-listing mode asks for more. PublicRemarks is known to work (the
+// team feed uses it). The listing-office fields are standard RESO names; if
+// the feed rejects them the lookup retries without them rather than failing.
+const DETAIL_SELECT_FULL = BASE_FIELDS.concat([
+  'PublicRemarks',
+  'ListOfficeName',
+  'ListOfficePhone',
+  'ListOfficeEmail'
+]).join(',');
+const DETAIL_SELECT_FALLBACK = BASE_FIELDS.concat(['PublicRemarks']).join(',');
+
+// Warm-lambda, in-memory caches. A cold start clears them, which is fine.
+let cache = { at: 0, data: null };
+const keyCache = new Map(); // ListingKey -> { at, data }
+const KEY_CACHE_MAX = 100;
 
 function json(statusCode, body) {
   return {
@@ -65,38 +78,15 @@ function json(statusCode, body) {
   };
 }
 
-// Original photos live on cdn.sourceredb.com; the resize CDN serves the
-// small/medium/large size classes.
-function sizedPhotoUrl(mediaUrl) {
-  if (!mediaUrl) return '';
-  try {
-    const u = new URL(mediaUrl);
-    if (u.hostname === 'cdn.sourceredb.com') {
-      u.hostname = 'cdn-resize.sourceredb.com';
-      u.searchParams.set('class', PHOTO_SIZE);
-      return u.toString();
-    }
-  } catch (err) {
-    // fall through and return the original URL
-  }
-  return mediaUrl;
-}
-
-function primaryPhoto(media) {
-  const photos = (Array.isArray(media) ? media : [])
-    .filter((m) => {
-      if (!m || !m.MediaURL) return false;
-      const category = String(m.MediaCategory || '').trim().toLowerCase();
-      return !NON_PHOTO_CATEGORIES.includes(category);
-    })
-    .sort((a, b) => {
-      // PreferredPhotoYN wins if the feed provides it, then lowest Order.
-      const pa = a.PreferredPhotoYN ? 0 : 1;
-      const pb = b.PreferredPhotoYN ? 0 : 1;
-      if (pa !== pb) return pa - pb;
-      return (Number(a.Order) || 0) - (Number(b.Order) || 0);
-    });
-  return photos.length ? sizedPhotoUrl(photos[0].MediaURL) : '';
+function json200(listings) {
+  return {
+    statusCode: 200,
+    headers: {
+      'Content-Type': 'application/json',
+      'Cache-Control': 'public, max-age=300'
+    },
+    body: JSON.stringify(listings)
+  };
 }
 
 function numberOrNull(v) {
@@ -120,8 +110,9 @@ function fullAddress(rec) {
   return [street, cityStateZip].filter(Boolean).join(', ');
 }
 
-function mapRecord(rec) {
-  return {
+function mapRecord(rec, detail) {
+  const photos = listPhotos(rec.Media, PHOTO_SIZE); // shared rules, see lib/media.js
+  const out = {
     id: rec.ListingKey,
     price: numberOrNull(rec.ListPrice),
     propertyType: rec.PropertyType || '',
@@ -133,25 +124,26 @@ function mapRecord(rec) {
     baths: numberOrNull(rec.BathroomsTotalInteger),
     status: rec.StandardStatus || '',
     modified: rec.APIModificationTimestamp || null,
-    photo: primaryPhoto(rec.Media)
+    photo: photos[0] || ''
   };
+  if (detail) {
+    out.photos = photos;
+    out.description = rec.PublicRemarks || '';
+    out.listOfficeName = rec.ListOfficeName || '';
+    out.listOfficePhone = rec.ListOfficePhone || '';
+    out.listOfficeEmail = rec.ListOfficeEmail || '';
+  }
+  return out;
 }
 
-async function fetchListings(token) {
-  const filter = [
-    "StateOrProvince eq 'NC'",
-    'InternetEntireListingDisplayYN eq true',
-    // Buyers only need listings that are actually on the market.
-    "(StandardStatus eq 'Active' or StandardStatus eq 'Pending' or StandardStatus eq 'Coming Soon')"
-  ].join(' and ');
-
+async function queryProperty(token, filter, select, top) {
   const url =
     `${API_BASE}/Property?` +
     `$filter=${encodeURIComponent(filter)}` +
-    `&$select=${encodeURIComponent(SELECT_FIELDS)}` +
+    `&$select=${encodeURIComponent(select)}` +
     `&$expand=${encodeURIComponent('Media')}` +
     `&$orderby=${encodeURIComponent('APIModificationTimestamp desc')}` +
-    '&$top=100';
+    `&$top=${top}`;
 
   const res = await fetch(url, {
     headers: { Authorization: `Bearer ${token}`, Accept: 'application/json' }
@@ -159,21 +151,78 @@ async function fetchListings(token) {
 
   if (!res.ok) {
     const text = await res.text().catch(() => '');
-    throw new Error(`SourceRE API responded ${res.status}: ${text.slice(0, 300)}`);
+    const err = new Error(`SourceRE API responded ${res.status}: ${text.slice(0, 300)}`);
+    err.status = res.status;
+    throw err;
   }
 
   const data = await res.json();
-  const records = Array.isArray(data.value) ? data.value : [];
-  return records
-    .filter((rec) => rec && rec.InternetEntireListingDisplayYN === true) // belt and suspenders
-    .map(mapRecord);
+  return Array.isArray(data.value) ? data.value : [];
 }
 
-exports.handler = async () => {
+function visibilityFilter() {
+  return [
+    "StateOrProvince eq 'NC'",
+    'InternetEntireListingDisplayYN eq true',
+    // Buyers only need listings that are actually on the market.
+    "(StandardStatus eq 'Active' or StandardStatus eq 'Pending' or StandardStatus eq 'Coming Soon')"
+  ];
+}
+
+// The newest 100 listings (lightweight shape).
+async function fetchListings(token) {
+  const records = await queryProperty(token, visibilityFilter().join(' and '), LIST_SELECT, 100);
+  return records
+    .filter((rec) => rec && rec.InternetEntireListingDisplayYN === true) // belt and suspenders
+    .map((rec) => mapRecord(rec, false));
+}
+
+// One listing, with photos / description / listing office. listingKey is
+// validated by the caller before it reaches the OData filter.
+async function fetchOneListing(token, listingKey) {
+  const filter = visibilityFilter().concat([`ListingKey eq '${listingKey}'`]).join(' and ');
+  let records;
+  try {
+    records = await queryProperty(token, filter, DETAIL_SELECT_FULL, 1);
+  } catch (err) {
+    if (err.status !== 400) throw err;
+    // A field name (most likely a listing-office one) was rejected: log it and
+    // retry without the office fields so the listing still opens.
+    console.log('get-listings: detail select rejected, retrying without office fields:', err.message);
+    records = await queryProperty(token, filter, DETAIL_SELECT_FALLBACK, 1);
+  }
+  return records
+    .filter((rec) => rec && rec.InternetEntireListingDisplayYN === true)
+    .map((rec) => mapRecord(rec, true));
+}
+
+async function handleSingle(token, key) {
+  const cached = keyCache.get(key);
+  if (cached && Date.now() - cached.at < CACHE_MS) return json200(cached.data);
+  try {
+    const listings = await fetchOneListing(token, key);
+    if (keyCache.size >= KEY_CACHE_MAX) keyCache.delete(keyCache.keys().next().value);
+    keyCache.set(key, { at: Date.now(), data: listings });
+    return json200(listings); // [] when not found / not displayable
+  } catch (err) {
+    console.log('get-listings: single lookup failed:', err && err.message);
+    if (cached) return json200(cached.data);
+    return json(502, { error: 'We could not load that listing right now. Please try again in a few minutes.' });
+  }
+}
+
+exports.handler = async (event) => {
   const token = process.env.DOORIFY_BEARER_TOKEN;
   if (!token) {
     console.log('get-listings: DOORIFY_BEARER_TOKEN is not set');
     return json(500, { error: 'Listings are not configured yet. Please check back soon.' });
+  }
+
+  const key = event && event.queryStringParameters && event.queryStringParameters.listing;
+  if (key !== undefined && key !== null && key !== '') {
+    // ListingKeys are simple tokens; reject anything else (it goes into an OData filter).
+    if (!/^[A-Za-z0-9_-]{1,64}$/.test(key)) return json(400, { error: 'Invalid listing id.' });
+    return handleSingle(token, key);
   }
 
   if (cache.data && Date.now() - cache.at < CACHE_MS) {
@@ -191,14 +240,3 @@ exports.handler = async () => {
     return json(502, { error: 'We could not load listings right now. Please try again in a few minutes.' });
   }
 };
-
-function json200(listings) {
-  return {
-    statusCode: 200,
-    headers: {
-      'Content-Type': 'application/json',
-      'Cache-Control': 'public, max-age=300'
-    },
-    body: JSON.stringify(listings)
-  };
-}

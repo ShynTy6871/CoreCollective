@@ -76,7 +76,7 @@ button{font-family:var(--font-sans);cursor:pointer;border:none;background:none}
 
 /* Property cards (same patterns as index.html .prop-card) */
 .property-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:2px}
-.prop-card{background:var(--white);overflow:hidden;position:relative;border:1px solid var(--gray-100);transition:box-shadow .3s ease,transform .3s ease}
+.prop-card{display:block;color:inherit;text-decoration:none;cursor:pointer;background:var(--white);overflow:hidden;position:relative;border:1px solid var(--gray-100);transition:box-shadow .3s ease,transform .3s ease}
 .prop-card:hover{box-shadow:0 20px 60px rgba(10,25,47,.18);transform:translateY(-4px);z-index:2}
 /* The listing the visitor clicked on (?listing=...) */
 .prop-card-featured{border:3px solid var(--gold);box-shadow:0 0 0 4px rgba(197,160,89,.28),0 20px 60px rgba(10,25,47,.18);background:#FFFBF2;z-index:1}
@@ -193,6 +193,42 @@ let ALL_LISTINGS=[];
 // homepage). It is pinned to the top and highlighted, and is never filtered out.
 const FEATURED_ID=(new URLSearchParams(window.location.search).get('listing')||'').trim();
 function isFeatured(p){return !!FEATURED_ID&&String(p.id)===FEATURED_ID;}
+// Set when the requested listing isn't in the main feed's newest 100.
+let EXTRA_FEATURED=null;
+
+// Looks up just the requested listing: first the single-listing mode of
+// get-listings (covers any listing in the Doorify feed), then the team feed
+// (idx-listings) as a backup. Resolves to a card-shaped listing or null.
+async function fetchFeaturedListing(){
+  try{
+    const res=await fetch('/.netlify/functions/get-listings?listing='+encodeURIComponent(FEATURED_ID));
+    const data=await res.json().catch(()=>null);
+    if(res.ok&&Array.isArray(data)){
+      const hit=data.find(isFeatured);
+      if(hit)return hit;
+    }
+  }catch(err){console.warn('Featured listing lookup failed:',err);}
+  try{
+    const res=await fetch('/.netlify/functions/idx-listings');
+    const data=await res.json().catch(()=>null);
+    const e=((data&&data.properties)||[]).find(x=>String(x.id||'').replace(/^idx-/,'')===FEATURED_ID);
+    if(e){
+      const typeLabel={residential:'Residential',commercial:'Commercial',investment:'Investment'};
+      const addr=String(e.address||'').trim(),cs=String(e.city_state||'').trim();
+      return {
+        id:FEATURED_ID,
+        price:Number(e.price)||null,
+        propertyType:typeLabel[e.type]||'',
+        address:(!cs||addr.toLowerCase().includes(cs.toLowerCase()))?addr:(addr?addr+', '+cs:cs),
+        beds:e.beds==null?null:Number(e.beds),
+        baths:e.baths==null?null:Number(e.baths),
+        status:e.status||'active',
+        photo:(Array.isArray(e.photos)&&e.photos.find(Boolean))||''
+      };
+    }
+  }catch(err){console.warn('Team listing lookup failed:',err);}
+  return null;
+}
 
 function escHtml(str){
   return String(str==null?'':str).replace(/[&<>"']/g,ch=>({
@@ -312,7 +348,10 @@ function cardHtml(p){
   if(typeof p.baths==='number')metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🛁</span>${p.baths} ${p.baths===1?'Bath':'Baths'}</div>`);
   if(p.propertyType)metrics.push(`<div class="prop-metric"><span class="metric-icon" aria-hidden="true">🏠</span>${escHtml(p.propertyType)}</div>`);
   const featured=isFeatured(p);
-  return `<article class="prop-card${featured?' prop-card-featured':''}" role="listitem" aria-label="${escHtml((featured?'The home you clicked: ':'')+price+' — '+address)}">
+  // Whole card is a link to this listing's detail page: /listing/idx-<ListingKey>
+  // (same URL scheme the site's listing pages already use).
+  const href='/listing/idx-'+encodeURIComponent(p.id);
+  return `<a class="prop-card${featured?' prop-card-featured':''}" href="${escHtml(href)}" role="listitem" aria-label="${escHtml((featured?'The home you clicked: ':'')+price+' — '+address)}">
     ${featured?'<div class="prop-featured-label">★ The home you clicked</div>':''}
     <div class="prop-img-wrap">${img}<span class="status-tag ${st.cls}">${st.label}</span></div>
     <div class="prop-info">
@@ -321,7 +360,7 @@ function cardHtml(p){
       <div class="prop-divider"></div>
       <div class="prop-metrics">${metrics.join('')}</div>
     </div>
-  </article>`;
+  </a>`;
 }
 
 function setGrid(html){
@@ -374,7 +413,7 @@ function renderResults(){
   if(FEATURED_ID){
     // Pin the clicked listing to the very top, even if it doesn't match the
     // other filters or would have fallen outside the first batch.
-    const pinned=ALL_LISTINGS.find(isFeatured);
+    const pinned=ALL_LISTINGS.find(isFeatured)||EXTRA_FEATURED;
     if(pinned)filtered=[pinned].concat(filtered.filter(p=>!isFeatured(p)));
   }
   CURRENT_RESULTS=filtered;
@@ -446,7 +485,10 @@ async function loadListings(){
     const data=await res.json().catch(()=>null);
     if(!res.ok||!Array.isArray(data))throw new Error((data&&data.error)||('HTTP '+res.status));
     ALL_LISTINGS=data;
-    if(ALL_LISTINGS.length)showDisclaimer();
+    // The requested listing may be outside the newest-100 window: look it up on its own.
+    EXTRA_FEATURED=null;
+    if(FEATURED_ID&&!ALL_LISTINGS.some(isFeatured))EXTRA_FEATURED=await fetchFeaturedListing();
+    if(ALL_LISTINGS.length||EXTRA_FEATURED)showDisclaimer();
     renderResults();
   }catch(err){
     console.warn('Listings load failed:',err);

@@ -1,4 +1,4 @@
-
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -664,6 +664,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
 .listing-desc-label::after{content:'';flex:1;height:1px;background:var(--gray-100)}
 .listing-desc-title{font-family:var(--font-display);font-size:36px;font-weight:400;color:var(--navy);line-height:1.15;margin-bottom:24px}
 .listing-desc-text{font-size:15px;font-weight:300;color:var(--gray-500);line-height:1.85;margin-bottom:20px}
+.listing-courtesy{font-size:12px;font-weight:500;letter-spacing:.06em;color:var(--gray-500);margin-top:28px;padding-top:16px;border-top:1px solid var(--gray-100)}
 .listing-features{display:grid;grid-template-columns:1fr 1fr;gap:10px 32px;margin-top:36px;padding-top:36px;border-top:1px solid var(--gray-100)}
 .listing-feature{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:400;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);padding:8px 0;border-bottom:1px solid var(--gray-100)}
 .listing-feature::before{content:'';width:4px;height:4px;background:var(--gold);flex-shrink:0}
@@ -1567,6 +1568,7 @@ footer{background:#060f1d;color:var(--text-on-dark-secondary);padding:64px 80px 
       <p class="listing-desc-text" id="listing-desc-p1"></p>
       <p class="listing-desc-text" id="listing-desc-p2"></p>
       <p class="listing-desc-text" id="listing-desc-p3"></p>
+      <p class="listing-courtesy" id="listing-courtesy" hidden></p>
       <div class="listing-features" id="listing-features" role="list" hidden></div>
     </div>
   </div>
@@ -1785,7 +1787,7 @@ function mapCMSProperty(entry, fallbackId){
 async function loadProperties(){
   let mapped=[];
   try{
-    const res=await fetch('content/properties.json');
+    const res=await fetch('/content/properties.json');
     if(res.ok){
       const data=await res.json();
       mapped=(data.properties||[]).filter(entry=>!entry.pending_approval).map((entry,i)=>mapCMSProperty(entry, 'p'+i));
@@ -1794,7 +1796,7 @@ async function loadProperties(){
     console.warn('Property listings load skipped:',err);
   }
   try{
-    const settingsRes=await fetch('content/site-settings.json');
+    const settingsRes=await fetch('/content/site-settings.json');
     const settings=settingsRes.ok?await settingsRes.json():{};
     if(settings.idx_listings_enabled){
       const idxRes=await fetch('/.netlify/functions/idx-listings');
@@ -1864,7 +1866,7 @@ function normalizeTeamListing(e){
 
 async function fetchTeamListings(){
   try{
-    const settingsRes=await fetch('content/site-settings.json');
+    const settingsRes=await fetch('/content/site-settings.json');
     const settings=settingsRes.ok?await settingsRes.json():{};
     if(!settings.idx_listings_enabled)return [];
     const res=await fetch('/.netlify/functions/idx-listings');
@@ -2047,6 +2049,8 @@ function showListing(id,pushHistory){
   document.getElementById('listing-desc-p1').textContent=p.p1;
   document.getElementById('listing-desc-p2').textContent=p.p2;
   document.getElementById('listing-desc-p3').textContent=p.p3;
+  const courtesyEl=document.getElementById('listing-courtesy');
+  if(courtesyEl){courtesyEl.textContent=p.courtesy||'';courtesyEl.hidden=!p.courtesy;}
 
   CURRENT_LISTING_AGENT_ID=p.agentId||'';
   CURRENT_LISTING_ADDRESS=p.address||'';
@@ -2525,12 +2529,12 @@ function escHtml(str){
 async function loadCMSContent(){
   try{
     const[agentsRes,nhoodsRes,testiRes,metricsRes,blogRes,faqsRes]=await Promise.all([
-      fetch('content/agents.json'),
-      fetch('content/neighborhoods.json'),
-      fetch('content/testimonials.json'),
-      fetch('content/market-metrics.json'),
-      fetch('content/blog.json'),
-      fetch('content/faqs.json')
+      fetch('/content/agents.json'),
+      fetch('/content/neighborhoods.json'),
+      fetch('/content/testimonials.json'),
+      fetch('/content/market-metrics.json'),
+      fetch('/content/blog.json'),
+      fetch('/content/faqs.json')
     ]);
     if(agentsRes.ok){
       const data=await agentsRes.json();
@@ -2575,7 +2579,54 @@ async function loadCMSContent(){
     const initialId=initialPath.replace('/listing/','').replace(/\/$/,'');
     if(PROPERTIES.some(function(p){return p.id===initialId;})){
       showListing(initialId,false);
+    }else if(initialId.startsWith('idx-')){
+      // Not one of our own team listings — it came from the Property Search
+      // page (any NC listing in the Doorify feed). Build the page from the feed.
+      await showFeedListing(initialId);
     }
+  }
+}
+
+/* ── LISTING PAGE FOR ANY LISTING IN THE LIVE FEED ─────────
+   /listing/idx-<ListingKey> links come from Property Search, which lists
+   every NC listing (not just our agents' own). Those aren't in PROPERTIES,
+   so look the listing up in get-listings (single-listing mode) and show it
+   with the feed's data: full photo gallery, description (PublicRemarks),
+   price, address, beds/baths, status, and the listing office for MLS
+   attribution. If it can't be found the visitor simply stays on the homepage. */
+async function showFeedListing(idxId){
+  try{
+    const key=decodeURIComponent(String(idxId).replace(/^idx-/,''));
+    // Single-listing lookup, so it also works for homes outside the newest-100 window.
+    const res=await fetch('/.netlify/functions/get-listings?listing='+encodeURIComponent(key));
+    if(!res.ok)return;
+    const data=await res.json();
+    const f=(Array.isArray(data)?data:[]).find(x=>String(x.id)===key);
+    if(!f)return;
+    const addr=String(f.address||'');
+    const cityState=[f.city,[f.state,f.postalCode].filter(Boolean).join(' ')].filter(Boolean).join(', ');
+    const cut=f.city?addr.toLowerCase().indexOf((', '+f.city).toLowerCase()):-1;
+    const status={'active':'active','pending':'pending','coming soon':'coming'}[String(f.status||'').toLowerCase()]||'active';
+    const entry=mapCMSProperty({
+      id:idxId,
+      status:status,
+      type:'residential',
+      price:f.price||0,
+      address:cut>0?addr.slice(0,cut):addr,
+      city_state:cityState,
+      beds:f.beds,
+      baths:f.baths,
+      description:f.description||'',
+      photos:(Array.isArray(f.photos)&&f.photos.length)?f.photos:(f.photo?[f.photo]:[])
+    }, idxId);
+    // MLS attribution: listing office, shown on the listing page
+    const office=[f.listOfficeName,f.listOfficePhone].filter(Boolean).join(' \u00B7 ');
+    entry.courtesy=office?'Listing courtesy of '+office:'';
+    if(!f.price)entry.price='Price on request';
+    if(!PROPERTIES.some(p=>p.id===idxId))PROPERTIES.push(entry);
+    showListing(idxId,false);
+  }catch(err){
+    console.warn('Feed listing page skipped:',err);
   }
 }
 
@@ -2591,7 +2642,7 @@ function eventDatePassed(dateStr){
 
 async function revealEventsNav(){
   try{
-    const res=await fetch('content/events.json');
+    const res=await fetch('/content/events.json');
     if(!res.ok)return;
     const data=await res.json();
     const live=(data.events||[]).some(e=>e&&e.active===true&&!eventDatePassed(e.date));
