@@ -1,3 +1,12 @@
 {
-  "events": []
+  "events": [
+    {
+      "active": false,
+      "name": "Blessing Baskets!!!",
+      "event_type": "Blessing Basket Drive",
+      "time": "November 2026",
+      "location": "Various",
+      "description": "This Thanksgiving, help us fill tables across the Triangle and Eastern NC areas! Core Collective Real Estate is collecting nonperishable thanksgiving staples, like stuffing, cranberry sauce, gravy, and pie fixings, plus grocery gift cards, to build blessing baskets for local families in need. Every item makes a difference."
+    }
+  ]
 }
